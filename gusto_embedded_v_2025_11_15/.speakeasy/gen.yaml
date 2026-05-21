@@ -1,0 +1,83 @@
+---
+configVersion: 2.0.0
+generation:
+  sdkClassName: GustoEmbedded
+  maintainOpenAPIOrder: true
+  usageSnippets:
+    optionalPropertyRendering: withExample
+    sdkInitStyle: constructor
+  useClassNamesForArrayFields: true
+  fixes:
+    nameResolutionDec2023: true
+    nameResolutionFeb2025: false
+    parameterOrderingFeb2024: true
+    requestResponseComponentNamesFeb2024: true
+    securityFeb2025: true
+    sharedErrorComponentsApr2025: false
+    sharedNestedComponentsJan2026: false
+    nameOverrideFeb2026: false
+  auth:
+    oAuth2ClientCredentialsEnabled: true
+    oAuth2PasswordEnabled: true
+    hoistGlobalSecurity: true
+  schemas:
+    allOfMergeStrategy: shallowMerge
+  requestBodyFieldName: ''
+  versioningStrategy: automatic
+  persistentEdits: {}
+  tests:
+    generateTests: true
+    generateNewTests: false
+    skipResponseBodyAssertions: false
+java:
+  version: 0.0.1
+  additionalDependencies: []
+  additionalPlugins: []
+  artifactID: embedded-api-v-2025-11-15
+  asyncMode: enabled
+  baseErrorName: GustoEmbeddedException
+  clientServerStatusCodesAsErrors: true
+  companyEmail: developer@gusto.com
+  companyName: Gusto
+  companyURL: gusto.com
+  defaultErrorName: APIException
+  enableCustomCodeRegions: false
+  enableFormatting: false
+  enableSlf4jLogging: false
+  enableStreamingUploads: false
+  explicitDocImports: false
+  flattenGlobalSecurity: true
+  forwardCompatibleEnumsByDefault: false
+  forwardCompatibleUnionsByDefault: 'false'
+  generateOptionalUnionAccessors: false
+  generateSpringBootStarter: true
+  generateUnionDocs: false
+  githubURL: github.com/Gusto/gusto-java-client
+  groupID: com.gusto
+  imports:
+    option: openapi
+    paths:
+      callbacks: models/callbacks
+      errors: models/errors
+      operations: models/operations
+      shared: models/components
+      webhooks: models/webhooks
+  inferUnionDiscriminators: false
+  inputModelSuffix: input
+  languageVersion: 11
+  license:
+    name: The MIT License (MIT)
+    shortName: MIT
+    url: https://mit-license.org/
+  maxMethodParams: 4
+  multipartArrayFormat: legacy
+  nullFriendlyParameters: false
+  operationScopedParams: true
+  outputModelSuffix: output
+  prefixModeMethodNames: false
+  projectName: GustoEmbedded
+  respectTitlesForPrimitiveUnionMembers: false
+  showSetterGetterTypesInDocs: false
+  templateVersion: v2
+  unionStrategy: populated-fields
+  packageName: com.gusto.embedded_api_v_2025_11_15
