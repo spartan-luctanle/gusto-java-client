@@ -91,13 +91,13 @@ package hello.world;
 import com.gusto.embedded_api.GustoEmbedded;
 import com.gusto.embedded_api.models.components.EmployeeFederalTax;
 import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
 import com.gusto.embedded_api.models.operations.*;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
@@ -108,8 +108,8 @@ public class Application {
                 .employeeUuid("<id>")
                 .requestBody(PutV1EmployeesEmployeeIdFederalTaxesRequestBody.builder()
                     .version("<value>")
-                    .filingStatus()
                     .w4DataType()
+                    .filingStatus()
                     .build())
                 .call();
 
@@ -138,13 +138,13 @@ package hello.world;
 import com.gusto.embedded_api.GustoEmbedded;
 import com.gusto.embedded_api.models.components.EmployeeFederalTax;
 import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
 import com.gusto.embedded_api.models.operations.*;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
@@ -155,13 +155,13 @@ public class Application {
                 .employeeUuid("<id>")
                 .requestBody(PutV1EmployeesEmployeeIdFederalTaxesRequestBody.builder()
                     .version("56a489ce86ed6c1b0f0cecc4050a0b01")
-                    .filingStatus(FilingStatus.SINGLE)
                     .w4DataType(W4DataType.REV2020_W4)
-                    .extraWithholding(0.0)
+                    .filingStatus(FilingStatus.SINGLE)
                     .twoJobs(true)
                     .dependentsAmount(0.0)
                     .otherIncome(0.0)
                     .deductions(0.0)
+                    .extraWithholding(0.0)
                     .build())
                 .call();
 
@@ -190,13 +190,13 @@ package hello.world;
 import com.gusto.embedded_api.GustoEmbedded;
 import com.gusto.embedded_api.models.components.EmployeeFederalTax;
 import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
 import com.gusto.embedded_api.models.operations.*;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
@@ -207,8 +207,8 @@ public class Application {
                 .employeeUuid("<id>")
                 .requestBody(PutV1EmployeesEmployeeIdFederalTaxesRequestBody.builder()
                     .version("<value>")
-                    .filingStatus()
                     .w4DataType()
+                    .filingStatus()
                     .build())
                 .call();
 
@@ -237,13 +237,13 @@ package hello.world;
 import com.gusto.embedded_api.GustoEmbedded;
 import com.gusto.embedded_api.models.components.EmployeeFederalTax;
 import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
 import com.gusto.embedded_api.models.operations.*;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
@@ -254,8 +254,8 @@ public class Application {
                 .employeeUuid("<id>")
                 .requestBody(PutV1EmployeesEmployeeIdFederalTaxesRequestBody.builder()
                     .version("<value>")
-                    .filingStatus()
                     .w4DataType()
+                    .filingStatus()
                     .build())
                 .call();
 
@@ -290,11 +290,11 @@ public class Application {
 
 ### Errors
 
-| Error Type                                   | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| models/errors/NotFoundErrorObject            | 404                                          | application/json                             |
-| models/errors/UnprocessableEntityErrorObject | 409, 422                                     | application/json                             |
-| models/errors/APIException                   | 4XX, 5XX                                     | \*/\*                                        |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/NotFoundErrorObject      | 404                                    | application/json                       |
+| models/errors/UnprocessableEntityError | 409, 422                               | application/json                       |
+| models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
 
 ## getStateTaxes
 
@@ -302,7 +302,7 @@ Get attributes relevant for an employee's state taxes.
 
 The data required to correctly calculate an employee's state taxes varies by both home and work location. This API returns information about each question that must be answered grouped by state. Mostly commonly, an employee lives and works in the same state and will only have questions for a single state. The response contains metadata about each question, the type of answer expected, and the current answer stored in Gusto for that question.
 
-Answers are represented by an array. Today, this array can only be empty or contain exactly one element, but is designed to allow for forward compatibility with effective-dated fields. Until effective dated answers are supported, the `valid_from` and `valid_up_to` must always be `"2010-01-01"` and `null` respectively.
+Answers are represented by an array. Today, this array can only be empty or contain exactly one element, but is designed to allow for forward compatibility with effective-dated fields. The `valid_from` and `valid_up_to` fields are optional and currently ignored.
 
 ## About filing new hire reports
 Payroll Admins are responsible for filing a new hire report for each Employee. The `file_new_hire_report` question will only be listed if:
@@ -367,7 +367,7 @@ public class Application {
 
 Update attributes relevant for an employee's state taxes.
 
-As described for the GET endpoint, the answers must be supplied in the effective-dated format, but currently only a single answer will be accepted - `valid_from` and `valid_up_to` must be `"2010-01-01"` and `null` respectively.
+As described for the GET endpoint, the answers must be supplied in the effective-dated format, but currently only a single answer will be accepted. The `valid_from` and `valid_up_to` fields are optional and currently ignored.
 
 scope: `employee_state_taxes:write`
 
@@ -380,7 +380,7 @@ package hello.world;
 import com.gusto.embedded_api.GustoEmbedded;
 import com.gusto.embedded_api.models.components.EmployeeStateTaxesRequest;
 import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
 import com.gusto.embedded_api.models.operations.PutV1EmployeesEmployeeIdStateTaxesHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PutV1EmployeesEmployeeIdStateTaxesResponse;
 import java.lang.Exception;
@@ -388,7 +388,7 @@ import java.util.List;
 
 public class Application {
 
-    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
@@ -423,8 +423,8 @@ public class Application {
 
 ### Errors
 
-| Error Type                                   | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| models/errors/NotFoundErrorObject            | 404                                          | application/json                             |
-| models/errors/UnprocessableEntityErrorObject | 422                                          | application/json                             |
-| models/errors/APIException                   | 4XX, 5XX                                     | \*/\*                                        |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/NotFoundErrorObject      | 404                                    | application/json                       |
+| models/errors/UnprocessableEntityError | 422                                    | application/json                       |
+| models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |

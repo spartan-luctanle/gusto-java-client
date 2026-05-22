@@ -21,8 +21,9 @@ import java.util.Optional;
  */
 public class PayScheduleAutoPayrollEnablementBlocker {
     /**
-     * The blocker type (e.g. employees_not_on_direct_deposit, missing_funding_method,
-     * missing_state_tax_requirements, one_day_ach_speed_not_supported, company_suspended).
+     * The blocker type (e.g. employees_not_on_direct_deposit, employees_not_salaried,
+     * missing_funding_method, missing_state_tax_requirements, one_day_ach_speed_not_supported,
+     * company_suspended, earned_fast_ach_not_met).
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("key")
@@ -50,8 +51,9 @@ public class PayScheduleAutoPayrollEnablementBlocker {
     }
 
     /**
-     * The blocker type (e.g. employees_not_on_direct_deposit, missing_funding_method,
-     * missing_state_tax_requirements, one_day_ach_speed_not_supported, company_suspended).
+     * The blocker type (e.g. employees_not_on_direct_deposit, employees_not_salaried,
+     * missing_funding_method, missing_state_tax_requirements, one_day_ach_speed_not_supported,
+     * company_suspended, earned_fast_ach_not_met).
      */
     @JsonIgnore
     public Optional<String> key() {
@@ -73,8 +75,9 @@ public class PayScheduleAutoPayrollEnablementBlocker {
 
 
     /**
-     * The blocker type (e.g. employees_not_on_direct_deposit, missing_funding_method,
-     * missing_state_tax_requirements, one_day_ach_speed_not_supported, company_suspended).
+     * The blocker type (e.g. employees_not_on_direct_deposit, employees_not_salaried,
+     * missing_funding_method, missing_state_tax_requirements, one_day_ach_speed_not_supported,
+     * company_suspended, earned_fast_ach_not_met).
      */
     public PayScheduleAutoPayrollEnablementBlocker withKey(String key) {
         Utils.checkNotNull(key, "key");
@@ -84,8 +87,9 @@ public class PayScheduleAutoPayrollEnablementBlocker {
 
 
     /**
-     * The blocker type (e.g. employees_not_on_direct_deposit, missing_funding_method,
-     * missing_state_tax_requirements, one_day_ach_speed_not_supported, company_suspended).
+     * The blocker type (e.g. employees_not_on_direct_deposit, employees_not_salaried,
+     * missing_funding_method, missing_state_tax_requirements, one_day_ach_speed_not_supported,
+     * company_suspended, earned_fast_ach_not_met).
      */
     public PayScheduleAutoPayrollEnablementBlocker withKey(Optional<String> key) {
         Utils.checkNotNull(key, "key");
@@ -152,8 +156,9 @@ public class PayScheduleAutoPayrollEnablementBlocker {
 
 
         /**
-         * The blocker type (e.g. employees_not_on_direct_deposit, missing_funding_method,
-         * missing_state_tax_requirements, one_day_ach_speed_not_supported, company_suspended).
+         * The blocker type (e.g. employees_not_on_direct_deposit, employees_not_salaried,
+         * missing_funding_method, missing_state_tax_requirements, one_day_ach_speed_not_supported,
+         * company_suspended, earned_fast_ach_not_met).
          */
         public Builder key(String key) {
             Utils.checkNotNull(key, "key");
@@ -162,8 +167,9 @@ public class PayScheduleAutoPayrollEnablementBlocker {
         }
 
         /**
-         * The blocker type (e.g. employees_not_on_direct_deposit, missing_funding_method,
-         * missing_state_tax_requirements, one_day_ach_speed_not_supported, company_suspended).
+         * The blocker type (e.g. employees_not_on_direct_deposit, employees_not_salaried,
+         * missing_funding_method, missing_state_tax_requirements, one_day_ach_speed_not_supported,
+         * company_suspended, earned_fast_ach_not_met).
          */
         public Builder key(Optional<String> key) {
             Utils.checkNotNull(key, "key");

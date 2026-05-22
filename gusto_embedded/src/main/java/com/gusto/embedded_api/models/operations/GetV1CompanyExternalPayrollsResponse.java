@@ -35,24 +35,24 @@ public class GetV1CompanyExternalPayrollsResponse implements Response {
     private HttpResponse<InputStream> rawResponse;
 
     /**
-     * Example response
+     * Success
      */
-    private Optional<? extends List<ExternalPayrollBasic>> externalPayrollList;
+    private Optional<? extends List<ExternalPayrollBasic>> externalPayrollBasics;
 
     @JsonCreator
     public GetV1CompanyExternalPayrollsResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends List<ExternalPayrollBasic>> externalPayrollList) {
+            Optional<? extends List<ExternalPayrollBasic>> externalPayrollBasics) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
-        Utils.checkNotNull(externalPayrollList, "externalPayrollList");
+        Utils.checkNotNull(externalPayrollBasics, "externalPayrollBasics");
         this.contentType = contentType;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
-        this.externalPayrollList = externalPayrollList;
+        this.externalPayrollBasics = externalPayrollBasics;
     }
     
     public GetV1CompanyExternalPayrollsResponse(
@@ -88,12 +88,12 @@ public class GetV1CompanyExternalPayrollsResponse implements Response {
     }
 
     /**
-     * Example response
+     * Success
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<List<ExternalPayrollBasic>> externalPayrollList() {
-        return (Optional<List<ExternalPayrollBasic>>) externalPayrollList;
+    public Optional<List<ExternalPayrollBasic>> externalPayrollBasics() {
+        return (Optional<List<ExternalPayrollBasic>>) externalPayrollBasics;
     }
 
     public static Builder builder() {
@@ -129,21 +129,21 @@ public class GetV1CompanyExternalPayrollsResponse implements Response {
     }
 
     /**
-     * Example response
+     * Success
      */
-    public GetV1CompanyExternalPayrollsResponse withExternalPayrollList(List<ExternalPayrollBasic> externalPayrollList) {
-        Utils.checkNotNull(externalPayrollList, "externalPayrollList");
-        this.externalPayrollList = Optional.ofNullable(externalPayrollList);
+    public GetV1CompanyExternalPayrollsResponse withExternalPayrollBasics(List<ExternalPayrollBasic> externalPayrollBasics) {
+        Utils.checkNotNull(externalPayrollBasics, "externalPayrollBasics");
+        this.externalPayrollBasics = Optional.ofNullable(externalPayrollBasics);
         return this;
     }
 
 
     /**
-     * Example response
+     * Success
      */
-    public GetV1CompanyExternalPayrollsResponse withExternalPayrollList(Optional<? extends List<ExternalPayrollBasic>> externalPayrollList) {
-        Utils.checkNotNull(externalPayrollList, "externalPayrollList");
-        this.externalPayrollList = externalPayrollList;
+    public GetV1CompanyExternalPayrollsResponse withExternalPayrollBasics(Optional<? extends List<ExternalPayrollBasic>> externalPayrollBasics) {
+        Utils.checkNotNull(externalPayrollBasics, "externalPayrollBasics");
+        this.externalPayrollBasics = externalPayrollBasics;
         return this;
     }
 
@@ -160,14 +160,14 @@ public class GetV1CompanyExternalPayrollsResponse implements Response {
             Utils.enhancedDeepEquals(this.contentType, other.contentType) &&
             Utils.enhancedDeepEquals(this.statusCode, other.statusCode) &&
             Utils.enhancedDeepEquals(this.rawResponse, other.rawResponse) &&
-            Utils.enhancedDeepEquals(this.externalPayrollList, other.externalPayrollList);
+            Utils.enhancedDeepEquals(this.externalPayrollBasics, other.externalPayrollBasics);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             contentType, statusCode, rawResponse,
-            externalPayrollList);
+            externalPayrollBasics);
     }
     
     @Override
@@ -176,7 +176,7 @@ public class GetV1CompanyExternalPayrollsResponse implements Response {
                 "contentType", contentType,
                 "statusCode", statusCode,
                 "rawResponse", rawResponse,
-                "externalPayrollList", externalPayrollList);
+                "externalPayrollBasics", externalPayrollBasics);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -188,7 +188,7 @@ public class GetV1CompanyExternalPayrollsResponse implements Response {
 
         private HttpResponse<InputStream> rawResponse;
 
-        private Optional<? extends List<ExternalPayrollBasic>> externalPayrollList = Optional.empty();
+        private Optional<? extends List<ExternalPayrollBasic>> externalPayrollBasics = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -226,20 +226,20 @@ public class GetV1CompanyExternalPayrollsResponse implements Response {
 
 
         /**
-         * Example response
+         * Success
          */
-        public Builder externalPayrollList(List<ExternalPayrollBasic> externalPayrollList) {
-            Utils.checkNotNull(externalPayrollList, "externalPayrollList");
-            this.externalPayrollList = Optional.ofNullable(externalPayrollList);
+        public Builder externalPayrollBasics(List<ExternalPayrollBasic> externalPayrollBasics) {
+            Utils.checkNotNull(externalPayrollBasics, "externalPayrollBasics");
+            this.externalPayrollBasics = Optional.ofNullable(externalPayrollBasics);
             return this;
         }
 
         /**
-         * Example response
+         * Success
          */
-        public Builder externalPayrollList(Optional<? extends List<ExternalPayrollBasic>> externalPayrollList) {
-            Utils.checkNotNull(externalPayrollList, "externalPayrollList");
-            this.externalPayrollList = externalPayrollList;
+        public Builder externalPayrollBasics(Optional<? extends List<ExternalPayrollBasic>> externalPayrollBasics) {
+            Utils.checkNotNull(externalPayrollBasics, "externalPayrollBasics");
+            this.externalPayrollBasics = externalPayrollBasics;
             return this;
         }
 
@@ -247,7 +247,7 @@ public class GetV1CompanyExternalPayrollsResponse implements Response {
 
             return new GetV1CompanyExternalPayrollsResponse(
                 contentType, statusCode, rawResponse,
-                externalPayrollList);
+                externalPayrollBasics);
         }
 
     }

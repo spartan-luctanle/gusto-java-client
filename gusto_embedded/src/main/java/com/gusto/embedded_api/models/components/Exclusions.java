@@ -24,11 +24,11 @@ public class Exclusions {
     private Optional<String> externalId;
 
     /**
-     * The reason code for exclusion.
+     * The exclusion category.
      */
     @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("reason_code")
-    private Optional<String> reasonCode;
+    @JsonProperty("category")
+    private Optional<String> category;
 
     /**
      * Human-readable explanation for exclusion.
@@ -47,15 +47,15 @@ public class Exclusions {
     @JsonCreator
     public Exclusions(
             @JsonProperty("external_id") Optional<String> externalId,
-            @JsonProperty("reason_code") Optional<String> reasonCode,
+            @JsonProperty("category") Optional<String> category,
             @JsonProperty("message") Optional<String> message,
             @JsonProperty("item_count") Optional<Long> itemCount) {
         Utils.checkNotNull(externalId, "externalId");
-        Utils.checkNotNull(reasonCode, "reasonCode");
+        Utils.checkNotNull(category, "category");
         Utils.checkNotNull(message, "message");
         Utils.checkNotNull(itemCount, "itemCount");
         this.externalId = externalId;
-        this.reasonCode = reasonCode;
+        this.category = category;
         this.message = message;
         this.itemCount = itemCount;
     }
@@ -74,11 +74,11 @@ public class Exclusions {
     }
 
     /**
-     * The reason code for exclusion.
+     * The exclusion category.
      */
     @JsonIgnore
-    public Optional<String> reasonCode() {
-        return reasonCode;
+    public Optional<String> category() {
+        return category;
     }
 
     /**
@@ -122,21 +122,21 @@ public class Exclusions {
     }
 
     /**
-     * The reason code for exclusion.
+     * The exclusion category.
      */
-    public Exclusions withReasonCode(String reasonCode) {
-        Utils.checkNotNull(reasonCode, "reasonCode");
-        this.reasonCode = Optional.ofNullable(reasonCode);
+    public Exclusions withCategory(String category) {
+        Utils.checkNotNull(category, "category");
+        this.category = Optional.ofNullable(category);
         return this;
     }
 
 
     /**
-     * The reason code for exclusion.
+     * The exclusion category.
      */
-    public Exclusions withReasonCode(Optional<String> reasonCode) {
-        Utils.checkNotNull(reasonCode, "reasonCode");
-        this.reasonCode = reasonCode;
+    public Exclusions withCategory(Optional<String> category) {
+        Utils.checkNotNull(category, "category");
+        this.category = category;
         return this;
     }
 
@@ -189,7 +189,7 @@ public class Exclusions {
         Exclusions other = (Exclusions) o;
         return 
             Utils.enhancedDeepEquals(this.externalId, other.externalId) &&
-            Utils.enhancedDeepEquals(this.reasonCode, other.reasonCode) &&
+            Utils.enhancedDeepEquals(this.category, other.category) &&
             Utils.enhancedDeepEquals(this.message, other.message) &&
             Utils.enhancedDeepEquals(this.itemCount, other.itemCount);
     }
@@ -197,7 +197,7 @@ public class Exclusions {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            externalId, reasonCode, message,
+            externalId, category, message,
             itemCount);
     }
     
@@ -205,7 +205,7 @@ public class Exclusions {
     public String toString() {
         return Utils.toString(Exclusions.class,
                 "externalId", externalId,
-                "reasonCode", reasonCode,
+                "category", category,
                 "message", message,
                 "itemCount", itemCount);
     }
@@ -215,7 +215,7 @@ public class Exclusions {
 
         private Optional<String> externalId = Optional.empty();
 
-        private Optional<String> reasonCode = Optional.empty();
+        private Optional<String> category = Optional.empty();
 
         private Optional<String> message = Optional.empty();
 
@@ -246,20 +246,20 @@ public class Exclusions {
 
 
         /**
-         * The reason code for exclusion.
+         * The exclusion category.
          */
-        public Builder reasonCode(String reasonCode) {
-            Utils.checkNotNull(reasonCode, "reasonCode");
-            this.reasonCode = Optional.ofNullable(reasonCode);
+        public Builder category(String category) {
+            Utils.checkNotNull(category, "category");
+            this.category = Optional.ofNullable(category);
             return this;
         }
 
         /**
-         * The reason code for exclusion.
+         * The exclusion category.
          */
-        public Builder reasonCode(Optional<String> reasonCode) {
-            Utils.checkNotNull(reasonCode, "reasonCode");
-            this.reasonCode = reasonCode;
+        public Builder category(Optional<String> category) {
+            Utils.checkNotNull(category, "category");
+            this.category = category;
             return this;
         }
 
@@ -304,7 +304,7 @@ public class Exclusions {
         public Exclusions build() {
 
             return new Exclusions(
-                externalId, reasonCode, message,
+                externalId, category, message,
                 itemCount);
         }
 

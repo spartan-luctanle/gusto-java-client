@@ -29,7 +29,7 @@ import java.util.List;
 
 public class Application {
 
-    public static void main(String[] args) throws NotFoundErrorObject, PeopleBatchConflictError, UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, PeopleBatchConflictError, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
@@ -66,12 +66,12 @@ public class Application {
 
 ### Errors
 
-| Error Type                                   | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| models/errors/NotFoundErrorObject            | 404                                          | application/json                             |
-| models/errors/PeopleBatchConflictError       | 409                                          | application/json                             |
-| models/errors/UnprocessableEntityErrorObject | 422                                          | application/json                             |
-| models/errors/APIException                   | 4XX, 5XX                                     | \*/\*                                        |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/NotFoundErrorObject      | 404                                    | application/json                       |
+| models/errors/PeopleBatchConflictError | 409                                    | application/json                       |
+| models/errors/UnprocessableEntityError | 422                                    | application/json                       |
+| models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
 
 ## getV1PeopleBatchesPeopleBatchUuid
 

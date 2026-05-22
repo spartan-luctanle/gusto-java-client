@@ -13,7 +13,6 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.List;
-import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
 /**
@@ -45,7 +44,7 @@ public class EmployeeCustomField {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("description")
-    private Optional<String> description;
+    private JsonNullable<String> description;
 
 
     @JsonProperty("value")
@@ -64,7 +63,7 @@ public class EmployeeCustomField {
             @JsonProperty("company_custom_field_id") String companyCustomFieldId,
             @JsonProperty("name") String name,
             @JsonProperty("type") CustomFieldType type,
-            @JsonProperty("description") Optional<String> description,
+            @JsonProperty("description") JsonNullable<String> description,
             @JsonProperty("value") String value,
             @JsonProperty("selection_options") JsonNullable<? extends List<String>> selectionOptions) {
         Utils.checkNotNull(id, "id");
@@ -90,7 +89,7 @@ public class EmployeeCustomField {
             CustomFieldType type,
             String value) {
         this(id, companyCustomFieldId, name,
-            type, Optional.empty(), value,
+            type, JsonNullable.undefined(), value,
             JsonNullable.undefined());
     }
 
@@ -121,7 +120,7 @@ public class EmployeeCustomField {
     }
 
     @JsonIgnore
-    public Optional<String> description() {
+    public JsonNullable<String> description() {
         return description;
     }
 
@@ -176,12 +175,11 @@ public class EmployeeCustomField {
 
     public EmployeeCustomField withDescription(String description) {
         Utils.checkNotNull(description, "description");
-        this.description = Optional.ofNullable(description);
+        this.description = JsonNullable.of(description);
         return this;
     }
 
-
-    public EmployeeCustomField withDescription(Optional<String> description) {
+    public EmployeeCustomField withDescription(JsonNullable<String> description) {
         Utils.checkNotNull(description, "description");
         this.description = description;
         return this;
@@ -261,7 +259,7 @@ public class EmployeeCustomField {
 
         private CustomFieldType type;
 
-        private Optional<String> description = Optional.empty();
+        private JsonNullable<String> description = JsonNullable.undefined();
 
         private String value;
 
@@ -308,11 +306,11 @@ public class EmployeeCustomField {
 
         public Builder description(String description) {
             Utils.checkNotNull(description, "description");
-            this.description = Optional.ofNullable(description);
+            this.description = JsonNullable.of(description);
             return this;
         }
 
-        public Builder description(Optional<String> description) {
+        public Builder description(JsonNullable<String> description) {
             Utils.checkNotNull(description, "description");
             this.description = description;
             return this;

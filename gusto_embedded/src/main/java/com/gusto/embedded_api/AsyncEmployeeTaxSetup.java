@@ -194,9 +194,8 @@ public class AsyncEmployeeTaxSetup {
      * answer stored in Gusto for that question.
      * 
      * <p>Answers are represented by an array. Today, this array can only be empty or contain exactly one
-     * element, but is designed to allow for forward compatibility with effective-dated fields. Until
-     * effective dated answers are supported, the `valid_from` and `valid_up_to` must always be
-     * `"2010-01-01"` and `null` respectively.
+     * element, but is designed to allow for forward compatibility with effective-dated fields. The
+     * `valid_from` and `valid_up_to` fields are optional and currently ignored.
      * 
      * <p>## About filing new hire reports
      * Payroll Admins are responsible for filing a new hire report for each Employee. The
@@ -230,9 +229,8 @@ public class AsyncEmployeeTaxSetup {
      * answer stored in Gusto for that question.
      * 
      * <p>Answers are represented by an array. Today, this array can only be empty or contain exactly one
-     * element, but is designed to allow for forward compatibility with effective-dated fields. Until
-     * effective dated answers are supported, the `valid_from` and `valid_up_to` must always be
-     * `"2010-01-01"` and `null` respectively.
+     * element, but is designed to allow for forward compatibility with effective-dated fields. The
+     * `valid_from` and `valid_up_to` fields are optional and currently ignored.
      * 
      * <p>## About filing new hire reports
      * Payroll Admins are responsible for filing a new hire report for each Employee. The
@@ -267,9 +265,8 @@ public class AsyncEmployeeTaxSetup {
      * answer stored in Gusto for that question.
      * 
      * <p>Answers are represented by an array. Today, this array can only be empty or contain exactly one
-     * element, but is designed to allow for forward compatibility with effective-dated fields. Until
-     * effective dated answers are supported, the `valid_from` and `valid_up_to` must always be
-     * `"2010-01-01"` and `null` respectively.
+     * element, but is designed to allow for forward compatibility with effective-dated fields. The
+     * `valid_from` and `valid_up_to` fields are optional and currently ignored.
      * 
      * <p>## About filing new hire reports
      * Payroll Admins are responsible for filing a new hire report for each Employee. The
@@ -307,8 +304,8 @@ public class AsyncEmployeeTaxSetup {
      * <p>Update attributes relevant for an employee's state taxes.
      * 
      * <p>As described for the GET endpoint, the answers must be supplied in the effective-dated format, but
-     * currently only a single answer will be accepted - `valid_from` and `valid_up_to` must be
-     * `"2010-01-01"` and `null` respectively.
+     * currently only a single answer will be accepted. The `valid_from` and `valid_up_to` fields are
+     * optional and currently ignored.
      * 
      * <p>scope: `employee_state_taxes:write`
      * 
@@ -326,8 +323,8 @@ public class AsyncEmployeeTaxSetup {
      * <p>Update attributes relevant for an employee's state taxes.
      * 
      * <p>As described for the GET endpoint, the answers must be supplied in the effective-dated format, but
-     * currently only a single answer will be accepted - `valid_from` and `valid_up_to` must be
-     * `"2010-01-01"` and `null` respectively.
+     * currently only a single answer will be accepted. The `valid_from` and `valid_up_to` fields are
+     * optional and currently ignored.
      * 
      * <p>scope: `employee_state_taxes:write`
      * 
@@ -347,8 +344,8 @@ public class AsyncEmployeeTaxSetup {
      * <p>Update attributes relevant for an employee's state taxes.
      * 
      * <p>As described for the GET endpoint, the answers must be supplied in the effective-dated format, but
-     * currently only a single answer will be accepted - `valid_from` and `valid_up_to` must be
-     * `"2010-01-01"` and `null` respectively.
+     * currently only a single answer will be accepted. The `valid_from` and `valid_up_to` fields are
+     * optional and currently ignored.
      * 
      * <p>scope: `employee_state_taxes:write`
      * 

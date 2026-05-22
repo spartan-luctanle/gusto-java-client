@@ -6,7 +6,6 @@ package com.gusto.embedded_api.models.operations;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.gusto.embedded_api.models.components.VersionHeader;
 import com.gusto.embedded_api.utils.LazySingletonValue;
 import com.gusto.embedded_api.utils.SpeakeasyMetadata;
 import com.gusto.embedded_api.utils.Utils;
@@ -18,32 +17,43 @@ import java.util.Optional;
 
 public class RedebitRecoveryCaseRequest {
     /**
+     * Determines the date-based API version associated with your API call. If none is provided, your
+     * application's [minimum API
+     * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     */
+    @SpeakeasyMetadata("header:style=simple,explode=false,name=X-Gusto-API-Version")
+    private Optional<? extends RedebitRecoveryCaseHeaderXGustoAPIVersion> xGustoAPIVersion;
+
+    /**
      * The UUID of the recovery case
      */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=recovery_case_uuid")
     private String recoveryCaseUuid;
+
+    @JsonCreator
+    public RedebitRecoveryCaseRequest(
+            Optional<? extends RedebitRecoveryCaseHeaderXGustoAPIVersion> xGustoAPIVersion,
+            String recoveryCaseUuid) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        Utils.checkNotNull(recoveryCaseUuid, "recoveryCaseUuid");
+        this.xGustoAPIVersion = xGustoAPIVersion;
+        this.recoveryCaseUuid = recoveryCaseUuid;
+    }
+    
+    public RedebitRecoveryCaseRequest(
+            String recoveryCaseUuid) {
+        this(Optional.empty(), recoveryCaseUuid);
+    }
 
     /**
      * Determines the date-based API version associated with your API call. If none is provided, your
      * application's [minimum API
      * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      */
-    @SpeakeasyMetadata("header:style=simple,explode=false,name=X-Gusto-API-Version")
-    private Optional<? extends VersionHeader> xGustoAPIVersion;
-
-    @JsonCreator
-    public RedebitRecoveryCaseRequest(
-            String recoveryCaseUuid,
-            Optional<? extends VersionHeader> xGustoAPIVersion) {
-        Utils.checkNotNull(recoveryCaseUuid, "recoveryCaseUuid");
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.recoveryCaseUuid = recoveryCaseUuid;
-        this.xGustoAPIVersion = xGustoAPIVersion;
-    }
-    
-    public RedebitRecoveryCaseRequest(
-            String recoveryCaseUuid) {
-        this(recoveryCaseUuid, Optional.empty());
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<RedebitRecoveryCaseHeaderXGustoAPIVersion> xGustoAPIVersion() {
+        return (Optional<RedebitRecoveryCaseHeaderXGustoAPIVersion>) xGustoAPIVersion;
     }
 
     /**
@@ -54,37 +64,17 @@ public class RedebitRecoveryCaseRequest {
         return recoveryCaseUuid;
     }
 
-    /**
-     * Determines the date-based API version associated with your API call. If none is provided, your
-     * application's [minimum API
-     * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
-     */
-    @SuppressWarnings("unchecked")
-    @JsonIgnore
-    public Optional<VersionHeader> xGustoAPIVersion() {
-        return (Optional<VersionHeader>) xGustoAPIVersion;
-    }
-
     public static Builder builder() {
         return new Builder();
     }
 
 
     /**
-     * The UUID of the recovery case
-     */
-    public RedebitRecoveryCaseRequest withRecoveryCaseUuid(String recoveryCaseUuid) {
-        Utils.checkNotNull(recoveryCaseUuid, "recoveryCaseUuid");
-        this.recoveryCaseUuid = recoveryCaseUuid;
-        return this;
-    }
-
-    /**
      * Determines the date-based API version associated with your API call. If none is provided, your
      * application's [minimum API
      * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      */
-    public RedebitRecoveryCaseRequest withXGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+    public RedebitRecoveryCaseRequest withXGustoAPIVersion(RedebitRecoveryCaseHeaderXGustoAPIVersion xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
         return this;
@@ -96,9 +86,18 @@ public class RedebitRecoveryCaseRequest {
      * application's [minimum API
      * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      */
-    public RedebitRecoveryCaseRequest withXGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public RedebitRecoveryCaseRequest withXGustoAPIVersion(Optional<? extends RedebitRecoveryCaseHeaderXGustoAPIVersion> xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = xGustoAPIVersion;
+        return this;
+    }
+
+    /**
+     * The UUID of the recovery case
+     */
+    public RedebitRecoveryCaseRequest withRecoveryCaseUuid(String recoveryCaseUuid) {
+        Utils.checkNotNull(recoveryCaseUuid, "recoveryCaseUuid");
+        this.recoveryCaseUuid = recoveryCaseUuid;
         return this;
     }
 
@@ -112,32 +111,55 @@ public class RedebitRecoveryCaseRequest {
         }
         RedebitRecoveryCaseRequest other = (RedebitRecoveryCaseRequest) o;
         return 
-            Utils.enhancedDeepEquals(this.recoveryCaseUuid, other.recoveryCaseUuid) &&
-            Utils.enhancedDeepEquals(this.xGustoAPIVersion, other.xGustoAPIVersion);
+            Utils.enhancedDeepEquals(this.xGustoAPIVersion, other.xGustoAPIVersion) &&
+            Utils.enhancedDeepEquals(this.recoveryCaseUuid, other.recoveryCaseUuid);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            recoveryCaseUuid, xGustoAPIVersion);
+            xGustoAPIVersion, recoveryCaseUuid);
     }
     
     @Override
     public String toString() {
         return Utils.toString(RedebitRecoveryCaseRequest.class,
-                "recoveryCaseUuid", recoveryCaseUuid,
-                "xGustoAPIVersion", xGustoAPIVersion);
+                "xGustoAPIVersion", xGustoAPIVersion,
+                "recoveryCaseUuid", recoveryCaseUuid);
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private String recoveryCaseUuid;
+        private Optional<? extends RedebitRecoveryCaseHeaderXGustoAPIVersion> xGustoAPIVersion;
 
-        private Optional<? extends VersionHeader> xGustoAPIVersion;
+        private String recoveryCaseUuid;
 
         private Builder() {
           // force use of static builder() method
+        }
+
+
+        /**
+         * Determines the date-based API version associated with your API call. If none is provided, your
+         * application's [minimum API
+         * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+         */
+        public Builder xGustoAPIVersion(RedebitRecoveryCaseHeaderXGustoAPIVersion xGustoAPIVersion) {
+            Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+            this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
+            return this;
+        }
+
+        /**
+         * Determines the date-based API version associated with your API call. If none is provided, your
+         * application's [minimum API
+         * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+         */
+        public Builder xGustoAPIVersion(Optional<? extends RedebitRecoveryCaseHeaderXGustoAPIVersion> xGustoAPIVersion) {
+            Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+            this.xGustoAPIVersion = xGustoAPIVersion;
+            return this;
         }
 
 
@@ -150,43 +172,20 @@ public class RedebitRecoveryCaseRequest {
             return this;
         }
 
-
-        /**
-         * Determines the date-based API version associated with your API call. If none is provided, your
-         * application's [minimum API
-         * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
-         */
-        public Builder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
-            Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-            this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
-            return this;
-        }
-
-        /**
-         * Determines the date-based API version associated with your API call. If none is provided, your
-         * application's [minimum API
-         * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
-         */
-        public Builder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
-            Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-            this.xGustoAPIVersion = xGustoAPIVersion;
-            return this;
-        }
-
         public RedebitRecoveryCaseRequest build() {
             if (xGustoAPIVersion == null) {
                 xGustoAPIVersion = _SINGLETON_VALUE_XGustoAPIVersion.value();
             }
 
             return new RedebitRecoveryCaseRequest(
-                recoveryCaseUuid, xGustoAPIVersion);
+                xGustoAPIVersion, recoveryCaseUuid);
         }
 
 
-        private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+        private static final LazySingletonValue<Optional<? extends RedebitRecoveryCaseHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
                 new LazySingletonValue<>(
                         "X-Gusto-API-Version",
                         "\"2025-06-15\"",
-                        new TypeReference<Optional<? extends VersionHeader>>() {});
+                        new TypeReference<Optional<? extends RedebitRecoveryCaseHeaderXGustoAPIVersion>>() {});
     }
 }

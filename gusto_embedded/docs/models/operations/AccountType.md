@@ -1,5 +1,7 @@
 # AccountType
 
+Type of bank account
+
 ## Example Usage
 
 ```java

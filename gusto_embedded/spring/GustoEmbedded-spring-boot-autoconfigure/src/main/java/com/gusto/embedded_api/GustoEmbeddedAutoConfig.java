@@ -443,17 +443,6 @@ public class GustoEmbeddedAutoConfig {
         return gustoEmbedded.employeeTaxSetup();
     }
     /**
-     * Creates a EmployeePaymentMethod sub-SDK bean if none exists.
-     *
-     * @param gustoEmbedded the main SDK instance
-     * @return A configured EmployeePaymentMethod instance
-     */
-    @Bean
-    @ConditionalOnMissingBean
-    public EmployeePaymentMethod employeePaymentMethod(GustoEmbedded gustoEmbedded) {
-        return gustoEmbedded.employeePaymentMethod();
-    }
-    /**
      * Creates a EmployeePaymentMethods sub-SDK bean if none exists.
      *
      * @param gustoEmbedded the main SDK instance
@@ -463,6 +452,17 @@ public class GustoEmbeddedAutoConfig {
     @ConditionalOnMissingBean
     public EmployeePaymentMethods employeePaymentMethods(GustoEmbedded gustoEmbedded) {
         return gustoEmbedded.employeePaymentMethods();
+    }
+    /**
+     * Creates a EmployeePaymentMethod sub-SDK bean if none exists.
+     *
+     * @param gustoEmbedded the main SDK instance
+     * @return A configured EmployeePaymentMethod instance
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public EmployeePaymentMethod employeePaymentMethod(GustoEmbedded gustoEmbedded) {
+        return gustoEmbedded.employeePaymentMethod();
     }
     /**
      * Creates a JobsAndCompensations sub-SDK bean if none exists.
@@ -498,17 +498,6 @@ public class GustoEmbeddedAutoConfig {
         return gustoEmbedded.contractors();
     }
     /**
-     * Creates a ContractorPaymentMethods sub-SDK bean if none exists.
-     *
-     * @param gustoEmbedded the main SDK instance
-     * @return A configured ContractorPaymentMethods instance
-     */
-    @Bean
-    @ConditionalOnMissingBean
-    public ContractorPaymentMethods contractorPaymentMethods(GustoEmbedded gustoEmbedded) {
-        return gustoEmbedded.contractorPaymentMethods();
-    }
-    /**
      * Creates a ContractorPaymentMethod sub-SDK bean if none exists.
      *
      * @param gustoEmbedded the main SDK instance
@@ -518,6 +507,17 @@ public class GustoEmbeddedAutoConfig {
     @ConditionalOnMissingBean
     public ContractorPaymentMethod contractorPaymentMethod(GustoEmbedded gustoEmbedded) {
         return gustoEmbedded.contractorPaymentMethod();
+    }
+    /**
+     * Creates a ContractorPaymentMethods sub-SDK bean if none exists.
+     *
+     * @param gustoEmbedded the main SDK instance
+     * @return A configured ContractorPaymentMethods instance
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public ContractorPaymentMethods contractorPaymentMethods(GustoEmbedded gustoEmbedded) {
+        return gustoEmbedded.contractorPaymentMethods();
     }
     /**
      * Creates a Webhooks sub-SDK bean if none exists.
@@ -805,6 +805,17 @@ public class GustoEmbeddedAutoConfig {
     public PeopleBatches peopleBatches(GustoEmbedded gustoEmbedded) {
         return gustoEmbedded.peopleBatches();
     }
+    /**
+     * Creates a TimeOffRequests sub-SDK bean if none exists.
+     *
+     * @param gustoEmbedded the main SDK instance
+     * @return A configured TimeOffRequests instance
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public TimeOffRequests timeOffRequests(GustoEmbedded gustoEmbedded) {
+        return gustoEmbedded.timeOffRequests();
+    }
 
     /**
      * Creates the async SDK bean if none exists.
@@ -1039,17 +1050,6 @@ public class GustoEmbeddedAutoConfig {
         return asyncGustoEmbedded.employeeTaxSetup();
     }
     /**
-     * Creates an AsyncEmployeePaymentMethod sub-SDK bean if none exists.
-     *
-     * @param asyncGustoEmbedded the async SDK instance
-     * @return A configured AsyncEmployeePaymentMethod instance
-     */
-    @Bean
-    @ConditionalOnMissingBean
-    public AsyncEmployeePaymentMethod asyncEmployeePaymentMethod(AsyncGustoEmbedded asyncGustoEmbedded) {
-        return asyncGustoEmbedded.employeePaymentMethod();
-    }
-    /**
      * Creates an AsyncEmployeePaymentMethods sub-SDK bean if none exists.
      *
      * @param asyncGustoEmbedded the async SDK instance
@@ -1059,6 +1059,17 @@ public class GustoEmbeddedAutoConfig {
     @ConditionalOnMissingBean
     public AsyncEmployeePaymentMethods asyncEmployeePaymentMethods(AsyncGustoEmbedded asyncGustoEmbedded) {
         return asyncGustoEmbedded.employeePaymentMethods();
+    }
+    /**
+     * Creates an AsyncEmployeePaymentMethod sub-SDK bean if none exists.
+     *
+     * @param asyncGustoEmbedded the async SDK instance
+     * @return A configured AsyncEmployeePaymentMethod instance
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public AsyncEmployeePaymentMethod asyncEmployeePaymentMethod(AsyncGustoEmbedded asyncGustoEmbedded) {
+        return asyncGustoEmbedded.employeePaymentMethod();
     }
     /**
      * Creates an AsyncJobsAndCompensations sub-SDK bean if none exists.
@@ -1094,17 +1105,6 @@ public class GustoEmbeddedAutoConfig {
         return asyncGustoEmbedded.contractors();
     }
     /**
-     * Creates an AsyncContractorPaymentMethods sub-SDK bean if none exists.
-     *
-     * @param asyncGustoEmbedded the async SDK instance
-     * @return A configured AsyncContractorPaymentMethods instance
-     */
-    @Bean
-    @ConditionalOnMissingBean
-    public AsyncContractorPaymentMethods asyncContractorPaymentMethods(AsyncGustoEmbedded asyncGustoEmbedded) {
-        return asyncGustoEmbedded.contractorPaymentMethods();
-    }
-    /**
      * Creates an AsyncContractorPaymentMethod sub-SDK bean if none exists.
      *
      * @param asyncGustoEmbedded the async SDK instance
@@ -1114,6 +1114,17 @@ public class GustoEmbeddedAutoConfig {
     @ConditionalOnMissingBean
     public AsyncContractorPaymentMethod asyncContractorPaymentMethod(AsyncGustoEmbedded asyncGustoEmbedded) {
         return asyncGustoEmbedded.contractorPaymentMethod();
+    }
+    /**
+     * Creates an AsyncContractorPaymentMethods sub-SDK bean if none exists.
+     *
+     * @param asyncGustoEmbedded the async SDK instance
+     * @return A configured AsyncContractorPaymentMethods instance
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public AsyncContractorPaymentMethods asyncContractorPaymentMethods(AsyncGustoEmbedded asyncGustoEmbedded) {
+        return asyncGustoEmbedded.contractorPaymentMethods();
     }
     /**
      * Creates an AsyncWebhooks sub-SDK bean if none exists.
@@ -1400,5 +1411,16 @@ public class GustoEmbeddedAutoConfig {
     @ConditionalOnMissingBean
     public AsyncPeopleBatches asyncPeopleBatches(AsyncGustoEmbedded asyncGustoEmbedded) {
         return asyncGustoEmbedded.peopleBatches();
+    }
+    /**
+     * Creates an AsyncTimeOffRequests sub-SDK bean if none exists.
+     *
+     * @param asyncGustoEmbedded the async SDK instance
+     * @return A configured AsyncTimeOffRequests instance
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public AsyncTimeOffRequests asyncTimeOffRequests(AsyncGustoEmbedded asyncGustoEmbedded) {
+        return asyncGustoEmbedded.timeOffRequests();
     }
 }

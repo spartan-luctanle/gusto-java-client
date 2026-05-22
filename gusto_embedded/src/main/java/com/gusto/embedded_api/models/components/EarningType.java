@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.gusto.embedded_api.utils.Utils;
+import java.lang.Boolean;
 import java.lang.Override;
 import java.lang.String;
 import java.util.Optional;
@@ -16,7 +17,7 @@ import java.util.Optional;
 /**
  * EarningType
  * 
- * <p>Example response
+ * <p>The representation of an earning type in Gusto.
  */
 public class EarningType {
     /**
@@ -32,19 +33,29 @@ public class EarningType {
     @JsonProperty("uuid")
     private String uuid;
 
+    /**
+     * Whether the earning type is active.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("active")
+    private Optional<Boolean> active;
+
     @JsonCreator
     public EarningType(
             @JsonProperty("name") Optional<String> name,
-            @JsonProperty("uuid") String uuid) {
+            @JsonProperty("uuid") String uuid,
+            @JsonProperty("active") Optional<Boolean> active) {
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(uuid, "uuid");
+        Utils.checkNotNull(active, "active");
         this.name = name;
         this.uuid = uuid;
+        this.active = active;
     }
     
     public EarningType(
             String uuid) {
-        this(Optional.empty(), uuid);
+        this(Optional.empty(), uuid, Optional.empty());
     }
 
     /**
@@ -61,6 +72,14 @@ public class EarningType {
     @JsonIgnore
     public String uuid() {
         return uuid;
+    }
+
+    /**
+     * Whether the earning type is active.
+     */
+    @JsonIgnore
+    public Optional<Boolean> active() {
+        return active;
     }
 
     public static Builder builder() {
@@ -96,6 +115,25 @@ public class EarningType {
         return this;
     }
 
+    /**
+     * Whether the earning type is active.
+     */
+    public EarningType withActive(boolean active) {
+        Utils.checkNotNull(active, "active");
+        this.active = Optional.ofNullable(active);
+        return this;
+    }
+
+
+    /**
+     * Whether the earning type is active.
+     */
+    public EarningType withActive(Optional<Boolean> active) {
+        Utils.checkNotNull(active, "active");
+        this.active = active;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -107,20 +145,22 @@ public class EarningType {
         EarningType other = (EarningType) o;
         return 
             Utils.enhancedDeepEquals(this.name, other.name) &&
-            Utils.enhancedDeepEquals(this.uuid, other.uuid);
+            Utils.enhancedDeepEquals(this.uuid, other.uuid) &&
+            Utils.enhancedDeepEquals(this.active, other.active);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            name, uuid);
+            name, uuid, active);
     }
     
     @Override
     public String toString() {
         return Utils.toString(EarningType.class,
                 "name", name,
-                "uuid", uuid);
+                "uuid", uuid,
+                "active", active);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -129,6 +169,8 @@ public class EarningType {
         private Optional<String> name = Optional.empty();
 
         private String uuid;
+
+        private Optional<Boolean> active = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -163,10 +205,29 @@ public class EarningType {
             return this;
         }
 
+
+        /**
+         * Whether the earning type is active.
+         */
+        public Builder active(boolean active) {
+            Utils.checkNotNull(active, "active");
+            this.active = Optional.ofNullable(active);
+            return this;
+        }
+
+        /**
+         * Whether the earning type is active.
+         */
+        public Builder active(Optional<Boolean> active) {
+            Utils.checkNotNull(active, "active");
+            this.active = active;
+            return this;
+        }
+
         public EarningType build() {
 
             return new EarningType(
-                name, uuid);
+                name, uuid, active);
         }
 
     }

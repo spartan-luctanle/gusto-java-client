@@ -5,7 +5,7 @@ package com.gusto.embedded_api.models.operations.async;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.gusto.embedded_api.models.components.PaySchedule;
+import com.gusto.embedded_api.models.components.PayScheduleShow;
 import com.gusto.embedded_api.utils.AsyncResponse;
 import com.gusto.embedded_api.utils.Blob;
 import com.gusto.embedded_api.utils.Utils;
@@ -36,22 +36,22 @@ public class GetV1CompaniesCompanyIdPaySchedulesPayScheduleIdResponse implements
     /**
      * Successful
      */
-    private Optional<? extends PaySchedule> paySchedule;
+    private Optional<? extends PayScheduleShow> payScheduleShow;
 
     @JsonCreator
     public GetV1CompaniesCompanyIdPaySchedulesPayScheduleIdResponse(
             String contentType,
             int statusCode,
             HttpResponse<Blob> rawResponse,
-            Optional<? extends PaySchedule> paySchedule) {
+            Optional<? extends PayScheduleShow> payScheduleShow) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
-        Utils.checkNotNull(paySchedule, "paySchedule");
+        Utils.checkNotNull(payScheduleShow, "payScheduleShow");
         this.contentType = contentType;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
-        this.paySchedule = paySchedule;
+        this.payScheduleShow = payScheduleShow;
     }
     
     public GetV1CompaniesCompanyIdPaySchedulesPayScheduleIdResponse(
@@ -91,8 +91,8 @@ public class GetV1CompaniesCompanyIdPaySchedulesPayScheduleIdResponse implements
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<PaySchedule> paySchedule() {
-        return (Optional<PaySchedule>) paySchedule;
+    public Optional<PayScheduleShow> payScheduleShow() {
+        return (Optional<PayScheduleShow>) payScheduleShow;
     }
 
     public static Builder builder() {
@@ -130,9 +130,9 @@ public class GetV1CompaniesCompanyIdPaySchedulesPayScheduleIdResponse implements
     /**
      * Successful
      */
-    public GetV1CompaniesCompanyIdPaySchedulesPayScheduleIdResponse withPaySchedule(PaySchedule paySchedule) {
-        Utils.checkNotNull(paySchedule, "paySchedule");
-        this.paySchedule = Optional.ofNullable(paySchedule);
+    public GetV1CompaniesCompanyIdPaySchedulesPayScheduleIdResponse withPayScheduleShow(PayScheduleShow payScheduleShow) {
+        Utils.checkNotNull(payScheduleShow, "payScheduleShow");
+        this.payScheduleShow = Optional.ofNullable(payScheduleShow);
         return this;
     }
 
@@ -140,9 +140,9 @@ public class GetV1CompaniesCompanyIdPaySchedulesPayScheduleIdResponse implements
     /**
      * Successful
      */
-    public GetV1CompaniesCompanyIdPaySchedulesPayScheduleIdResponse withPaySchedule(Optional<? extends PaySchedule> paySchedule) {
-        Utils.checkNotNull(paySchedule, "paySchedule");
-        this.paySchedule = paySchedule;
+    public GetV1CompaniesCompanyIdPaySchedulesPayScheduleIdResponse withPayScheduleShow(Optional<? extends PayScheduleShow> payScheduleShow) {
+        Utils.checkNotNull(payScheduleShow, "payScheduleShow");
+        this.payScheduleShow = payScheduleShow;
         return this;
     }
 
@@ -159,14 +159,14 @@ public class GetV1CompaniesCompanyIdPaySchedulesPayScheduleIdResponse implements
             Utils.enhancedDeepEquals(this.contentType, other.contentType) &&
             Utils.enhancedDeepEquals(this.statusCode, other.statusCode) &&
             Utils.enhancedDeepEquals(this.rawResponse, other.rawResponse) &&
-            Utils.enhancedDeepEquals(this.paySchedule, other.paySchedule);
+            Utils.enhancedDeepEquals(this.payScheduleShow, other.payScheduleShow);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             contentType, statusCode, rawResponse,
-            paySchedule);
+            payScheduleShow);
     }
     
     @Override
@@ -175,7 +175,7 @@ public class GetV1CompaniesCompanyIdPaySchedulesPayScheduleIdResponse implements
                 "contentType", contentType,
                 "statusCode", statusCode,
                 "rawResponse", rawResponse,
-                "paySchedule", paySchedule);
+                "payScheduleShow", payScheduleShow);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -187,7 +187,7 @@ public class GetV1CompaniesCompanyIdPaySchedulesPayScheduleIdResponse implements
 
         private HttpResponse<Blob> rawResponse;
 
-        private Optional<? extends PaySchedule> paySchedule = Optional.empty();
+        private Optional<? extends PayScheduleShow> payScheduleShow = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -227,18 +227,18 @@ public class GetV1CompaniesCompanyIdPaySchedulesPayScheduleIdResponse implements
         /**
          * Successful
          */
-        public Builder paySchedule(PaySchedule paySchedule) {
-            Utils.checkNotNull(paySchedule, "paySchedule");
-            this.paySchedule = Optional.ofNullable(paySchedule);
+        public Builder payScheduleShow(PayScheduleShow payScheduleShow) {
+            Utils.checkNotNull(payScheduleShow, "payScheduleShow");
+            this.payScheduleShow = Optional.ofNullable(payScheduleShow);
             return this;
         }
 
         /**
          * Successful
          */
-        public Builder paySchedule(Optional<? extends PaySchedule> paySchedule) {
-            Utils.checkNotNull(paySchedule, "paySchedule");
-            this.paySchedule = paySchedule;
+        public Builder payScheduleShow(Optional<? extends PayScheduleShow> payScheduleShow) {
+            Utils.checkNotNull(payScheduleShow, "payScheduleShow");
+            this.payScheduleShow = payScheduleShow;
             return this;
         }
 
@@ -246,7 +246,7 @@ public class GetV1CompaniesCompanyIdPaySchedulesPayScheduleIdResponse implements
 
             return new GetV1CompaniesCompanyIdPaySchedulesPayScheduleIdResponse(
                 contentType, statusCode, rawResponse,
-                paySchedule);
+                payScheduleShow);
         }
 
     }

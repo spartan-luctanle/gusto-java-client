@@ -7,7 +7,7 @@ import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.operations.GetV1EmployeeFormsHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1EmployeeFormsRequest;
 import com.gusto.embedded_api.operations.GetV1EmployeeForms;
 import com.gusto.embedded_api.utils.Headers;
@@ -19,33 +19,33 @@ import java.util.concurrent.CompletableFuture;
 
 public class GetV1EmployeeFormsRequestBuilder {
 
-    private String employeeId;
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
+    private Optional<? extends GetV1EmployeeFormsHeaderXGustoAPIVersion> xGustoAPIVersion = Utils.readDefaultOrConstValue(
                             "xGustoAPIVersion",
                             "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
+                            new TypeReference<Optional<? extends GetV1EmployeeFormsHeaderXGustoAPIVersion>>() {});
+    private String employeeId;
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
     public GetV1EmployeeFormsRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
-
-    public GetV1EmployeeFormsRequestBuilder employeeId(String employeeId) {
-        Utils.checkNotNull(employeeId, "employeeId");
-        this.employeeId = employeeId;
-        return this;
-    }
                 
-    public GetV1EmployeeFormsRequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+    public GetV1EmployeeFormsRequestBuilder xGustoAPIVersion(GetV1EmployeeFormsHeaderXGustoAPIVersion xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
         return this;
     }
 
-    public GetV1EmployeeFormsRequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public GetV1EmployeeFormsRequestBuilder xGustoAPIVersion(Optional<? extends GetV1EmployeeFormsHeaderXGustoAPIVersion> xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = xGustoAPIVersion;
+        return this;
+    }
+
+    public GetV1EmployeeFormsRequestBuilder employeeId(String employeeId) {
+        Utils.checkNotNull(employeeId, "employeeId");
+        this.employeeId = employeeId;
         return this;
     }
 
@@ -55,8 +55,8 @@ public class GetV1EmployeeFormsRequestBuilder {
             xGustoAPIVersion = _SINGLETON_VALUE_XGustoAPIVersion.value();
         }
 
-        GetV1EmployeeFormsRequest request = new GetV1EmployeeFormsRequest(employeeId,
-            xGustoAPIVersion);
+        GetV1EmployeeFormsRequest request = new GetV1EmployeeFormsRequest(xGustoAPIVersion,
+            employeeId);
 
         return request;
     }
@@ -71,9 +71,9 @@ public class GetV1EmployeeFormsRequestBuilder {
             .thenCompose(operation::handleResponse);
     }
 
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+    private static final LazySingletonValue<Optional<? extends GetV1EmployeeFormsHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
             new LazySingletonValue<>(
                     "xGustoAPIVersion",
                     "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
+                    new TypeReference<Optional<? extends GetV1EmployeeFormsHeaderXGustoAPIVersion>>() {});
 }

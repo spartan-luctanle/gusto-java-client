@@ -5,11 +5,14 @@ package com.gusto.embedded_api;
 
 import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation;
 
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.operations.DeleteV1CompaniesCompanyIdEarningTypesEarningTypeUuidHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.DeleteV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequest;
+import com.gusto.embedded_api.models.operations.GetV1CompaniesCompanyIdEarningTypesHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1CompaniesCompanyIdEarningTypesRequest;
+import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdEarningTypesHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdEarningTypesRequest;
 import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdEarningTypesRequestBody;
+import com.gusto.embedded_api.models.operations.PutV1CompaniesCompanyIdEarningTypesEarningTypeUuidHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PutV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequest;
 import com.gusto.embedded_api.models.operations.PutV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequestBody;
 import com.gusto.embedded_api.models.operations.async.DeleteV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequestBuilder;
@@ -51,72 +54,6 @@ public class AsyncEarningTypes {
 
 
     /**
-     * Create a custom earning type
-     * 
-     * <p>Create a custom earning type.
-     * 
-     * <p>If an inactive earning type exists with the same name, this will reactivate it instead of creating a
-     * new one.
-     * 
-     * <p>scope: `payrolls:write`
-     * 
-     * @return The async call builder
-     */
-    public PostV1CompaniesCompanyIdEarningTypesRequestBuilder create() {
-        return new PostV1CompaniesCompanyIdEarningTypesRequestBuilder(sdkConfiguration);
-    }
-
-    /**
-     * Create a custom earning type
-     * 
-     * <p>Create a custom earning type.
-     * 
-     * <p>If an inactive earning type exists with the same name, this will reactivate it instead of creating a
-     * new one.
-     * 
-     * <p>scope: `payrolls:write`
-     * 
-     * @param companyId The UUID of the company
-     * @param requestBody 
-     * @return {@code CompletableFuture<PostV1CompaniesCompanyIdEarningTypesResponse>} - The async response
-     */
-    public CompletableFuture<PostV1CompaniesCompanyIdEarningTypesResponse> create(String companyId, PostV1CompaniesCompanyIdEarningTypesRequestBody requestBody) {
-        return create(companyId, Optional.empty(), requestBody);
-    }
-
-    /**
-     * Create a custom earning type
-     * 
-     * <p>Create a custom earning type.
-     * 
-     * <p>If an inactive earning type exists with the same name, this will reactivate it instead of creating a
-     * new one.
-     * 
-     * <p>scope: `payrolls:write`
-     * 
-     * @param companyId The UUID of the company
-     * @param xGustoAPIVersion 
-     * @param requestBody 
-     * @return {@code CompletableFuture<PostV1CompaniesCompanyIdEarningTypesResponse>} - The async response
-     */
-    public CompletableFuture<PostV1CompaniesCompanyIdEarningTypesResponse> create(
-            String companyId, Optional<? extends VersionHeader> xGustoAPIVersion,
-            PostV1CompaniesCompanyIdEarningTypesRequestBody requestBody) {
-        PostV1CompaniesCompanyIdEarningTypesRequest request =
-            PostV1CompaniesCompanyIdEarningTypesRequest
-                .builder()
-                .companyId(companyId)
-                .xGustoAPIVersion(xGustoAPIVersion)
-                .requestBody(requestBody)
-                .build();
-        AsyncRequestOperation<PostV1CompaniesCompanyIdEarningTypesRequest, PostV1CompaniesCompanyIdEarningTypesResponse> operation
-              = new PostV1CompaniesCompanyIdEarningTypes.Async(sdkConfiguration, _headers);
-        return operation.doRequest(request)
-            .thenCompose(operation::handleResponse);
-    }
-
-
-    /**
      * Get all earning types for a company
      * 
      * <p>A payroll item in Gusto is associated to an earning type to name the type of earning described by
@@ -130,6 +67,8 @@ public class AsyncEarningTypes {
      * Custom earning types are all the other earning types added specifically for a company.
      * 
      * <p>scope: `payrolls:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @return The async call builder
      */
@@ -152,11 +91,13 @@ public class AsyncEarningTypes {
      * 
      * <p>scope: `payrolls:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param companyId The UUID of the company
      * @return {@code CompletableFuture<GetV1CompaniesCompanyIdEarningTypesResponse>} - The async response
      */
     public CompletableFuture<GetV1CompaniesCompanyIdEarningTypesResponse> list(String companyId) {
-        return list(companyId, Optional.empty());
+        return list(Optional.empty(), companyId);
     }
 
     /**
@@ -174,19 +115,93 @@ public class AsyncEarningTypes {
      * 
      * <p>scope: `payrolls:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param companyId The UUID of the company
-     * @param xGustoAPIVersion 
      * @return {@code CompletableFuture<GetV1CompaniesCompanyIdEarningTypesResponse>} - The async response
      */
-    public CompletableFuture<GetV1CompaniesCompanyIdEarningTypesResponse> list(String companyId, Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public CompletableFuture<GetV1CompaniesCompanyIdEarningTypesResponse> list(Optional<? extends GetV1CompaniesCompanyIdEarningTypesHeaderXGustoAPIVersion> xGustoAPIVersion, String companyId) {
         GetV1CompaniesCompanyIdEarningTypesRequest request =
             GetV1CompaniesCompanyIdEarningTypesRequest
                 .builder()
-                .companyId(companyId)
                 .xGustoAPIVersion(xGustoAPIVersion)
+                .companyId(companyId)
                 .build();
         AsyncRequestOperation<GetV1CompaniesCompanyIdEarningTypesRequest, GetV1CompaniesCompanyIdEarningTypesResponse> operation
               = new GetV1CompaniesCompanyIdEarningTypes.Async(sdkConfiguration, _headers);
+        return operation.doRequest(request)
+            .thenCompose(operation::handleResponse);
+    }
+
+
+    /**
+     * Create a custom earning type
+     * 
+     * <p>Create a custom earning type.
+     * 
+     * <p>If an inactive earning type exists with the same name, this will reactivate it instead of creating a
+     * new one.
+     * 
+     * <p>scope: `payrolls:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @return The async call builder
+     */
+    public PostV1CompaniesCompanyIdEarningTypesRequestBuilder create() {
+        return new PostV1CompaniesCompanyIdEarningTypesRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Create a custom earning type
+     * 
+     * <p>Create a custom earning type.
+     * 
+     * <p>If an inactive earning type exists with the same name, this will reactivate it instead of creating a
+     * new one.
+     * 
+     * <p>scope: `payrolls:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param companyId The UUID of the company
+     * @param requestBody 
+     * @return {@code CompletableFuture<PostV1CompaniesCompanyIdEarningTypesResponse>} - The async response
+     */
+    public CompletableFuture<PostV1CompaniesCompanyIdEarningTypesResponse> create(String companyId, PostV1CompaniesCompanyIdEarningTypesRequestBody requestBody) {
+        return create(Optional.empty(), companyId, requestBody);
+    }
+
+    /**
+     * Create a custom earning type
+     * 
+     * <p>Create a custom earning type.
+     * 
+     * <p>If an inactive earning type exists with the same name, this will reactivate it instead of creating a
+     * new one.
+     * 
+     * <p>scope: `payrolls:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     * @param companyId The UUID of the company
+     * @param requestBody 
+     * @return {@code CompletableFuture<PostV1CompaniesCompanyIdEarningTypesResponse>} - The async response
+     */
+    public CompletableFuture<PostV1CompaniesCompanyIdEarningTypesResponse> create(
+            Optional<? extends PostV1CompaniesCompanyIdEarningTypesHeaderXGustoAPIVersion> xGustoAPIVersion, String companyId,
+            PostV1CompaniesCompanyIdEarningTypesRequestBody requestBody) {
+        PostV1CompaniesCompanyIdEarningTypesRequest request =
+            PostV1CompaniesCompanyIdEarningTypesRequest
+                .builder()
+                .xGustoAPIVersion(xGustoAPIVersion)
+                .companyId(companyId)
+                .requestBody(requestBody)
+                .build();
+        AsyncRequestOperation<PostV1CompaniesCompanyIdEarningTypesRequest, PostV1CompaniesCompanyIdEarningTypesResponse> operation
+              = new PostV1CompaniesCompanyIdEarningTypes.Async(sdkConfiguration, _headers);
         return operation.doRequest(request)
             .thenCompose(operation::handleResponse);
     }
@@ -198,6 +213,8 @@ public class AsyncEarningTypes {
      * <p>Update an earning type.
      * 
      * <p>scope: `payrolls:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @return The async call builder
      */
@@ -212,6 +229,8 @@ public class AsyncEarningTypes {
      * 
      * <p>scope: `payrolls:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param companyId The UUID of the company
      * @param earningTypeUuid The UUID of the earning type
      * @param requestBody 
@@ -221,7 +240,7 @@ public class AsyncEarningTypes {
             String companyId, String earningTypeUuid,
             PutV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequestBody requestBody) {
         return update(
-                companyId, earningTypeUuid, Optional.empty(),
+                Optional.empty(), companyId, earningTypeUuid,
                 requestBody);
     }
 
@@ -232,21 +251,23 @@ public class AsyncEarningTypes {
      * 
      * <p>scope: `payrolls:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param companyId The UUID of the company
      * @param earningTypeUuid The UUID of the earning type
-     * @param xGustoAPIVersion 
      * @param requestBody 
      * @return {@code CompletableFuture<PutV1CompaniesCompanyIdEarningTypesEarningTypeUuidResponse>} - The async response
      */
     public CompletableFuture<PutV1CompaniesCompanyIdEarningTypesEarningTypeUuidResponse> update(
-            String companyId, String earningTypeUuid,
-            Optional<? extends VersionHeader> xGustoAPIVersion, PutV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequestBody requestBody) {
+            Optional<? extends PutV1CompaniesCompanyIdEarningTypesEarningTypeUuidHeaderXGustoAPIVersion> xGustoAPIVersion, String companyId,
+            String earningTypeUuid, PutV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequestBody requestBody) {
         PutV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequest request =
             PutV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequest
                 .builder()
+                .xGustoAPIVersion(xGustoAPIVersion)
                 .companyId(companyId)
                 .earningTypeUuid(earningTypeUuid)
-                .xGustoAPIVersion(xGustoAPIVersion)
                 .requestBody(requestBody)
                 .build();
         AsyncRequestOperation<PutV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequest, PutV1CompaniesCompanyIdEarningTypesEarningTypeUuidResponse> operation
@@ -263,6 +284,8 @@ public class AsyncEarningTypes {
      * 
      * <p>scope: `payrolls:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @return The async call builder
      */
     public DeleteV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequestBuilder delete() {
@@ -276,12 +299,14 @@ public class AsyncEarningTypes {
      * 
      * <p>scope: `payrolls:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param companyId The UUID of the company
      * @param earningTypeUuid The UUID of the earning type
      * @return {@code CompletableFuture<DeleteV1CompaniesCompanyIdEarningTypesEarningTypeUuidResponse>} - The async response
      */
     public CompletableFuture<DeleteV1CompaniesCompanyIdEarningTypesEarningTypeUuidResponse> delete(String companyId, String earningTypeUuid) {
-        return delete(companyId, earningTypeUuid, Optional.empty());
+        return delete(Optional.empty(), companyId, earningTypeUuid);
     }
 
     /**
@@ -291,20 +316,22 @@ public class AsyncEarningTypes {
      * 
      * <p>scope: `payrolls:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param companyId The UUID of the company
      * @param earningTypeUuid The UUID of the earning type
-     * @param xGustoAPIVersion 
      * @return {@code CompletableFuture<DeleteV1CompaniesCompanyIdEarningTypesEarningTypeUuidResponse>} - The async response
      */
     public CompletableFuture<DeleteV1CompaniesCompanyIdEarningTypesEarningTypeUuidResponse> delete(
-            String companyId, String earningTypeUuid,
-            Optional<? extends VersionHeader> xGustoAPIVersion) {
+            Optional<? extends DeleteV1CompaniesCompanyIdEarningTypesEarningTypeUuidHeaderXGustoAPIVersion> xGustoAPIVersion, String companyId,
+            String earningTypeUuid) {
         DeleteV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequest request =
             DeleteV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequest
                 .builder()
+                .xGustoAPIVersion(xGustoAPIVersion)
                 .companyId(companyId)
                 .earningTypeUuid(earningTypeUuid)
-                .xGustoAPIVersion(xGustoAPIVersion)
                 .build();
         AsyncRequestOperation<DeleteV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequest, DeleteV1CompaniesCompanyIdEarningTypesEarningTypeUuidResponse> operation
               = new DeleteV1CompaniesCompanyIdEarningTypesEarningTypeUuid.Async(sdkConfiguration, _headers);

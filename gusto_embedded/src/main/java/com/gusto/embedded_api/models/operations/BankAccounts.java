@@ -26,7 +26,7 @@ public class BankAccounts {
      * Type of bank account
      */
     @JsonProperty("account_type")
-    private PostV1CompaniesCompanyIdPeopleBatchesAccountType accountType;
+    private AccountType accountType;
 
     /**
      * Bank routing number
@@ -63,7 +63,7 @@ public class BankAccounts {
     @JsonCreator
     public BankAccounts(
             @JsonProperty("name") JsonNullable<String> name,
-            @JsonProperty("account_type") PostV1CompaniesCompanyIdPeopleBatchesAccountType accountType,
+            @JsonProperty("account_type") AccountType accountType,
             @JsonProperty("routing_number") String routingNumber,
             @JsonProperty("account_number") String accountNumber,
             @JsonProperty("type") PostV1CompaniesCompanyIdPeopleBatchesType type,
@@ -86,7 +86,7 @@ public class BankAccounts {
     }
     
     public BankAccounts(
-            PostV1CompaniesCompanyIdPeopleBatchesAccountType accountType,
+            AccountType accountType,
             String routingNumber,
             String accountNumber,
             PostV1CompaniesCompanyIdPeopleBatchesType type,
@@ -108,7 +108,7 @@ public class BankAccounts {
      * Type of bank account
      */
     @JsonIgnore
-    public PostV1CompaniesCompanyIdPeopleBatchesAccountType accountType() {
+    public AccountType accountType() {
         return accountType;
     }
 
@@ -179,7 +179,7 @@ public class BankAccounts {
     /**
      * Type of bank account
      */
-    public BankAccounts withAccountType(PostV1CompaniesCompanyIdPeopleBatchesAccountType accountType) {
+    public BankAccounts withAccountType(AccountType accountType) {
         Utils.checkNotNull(accountType, "accountType");
         this.accountType = accountType;
         return this;
@@ -284,7 +284,7 @@ public class BankAccounts {
 
         private JsonNullable<String> name = JsonNullable.undefined();
 
-        private PostV1CompaniesCompanyIdPeopleBatchesAccountType accountType;
+        private AccountType accountType;
 
         private String routingNumber;
 
@@ -323,7 +323,7 @@ public class BankAccounts {
         /**
          * Type of bank account
          */
-        public Builder accountType(PostV1CompaniesCompanyIdPeopleBatchesAccountType accountType) {
+        public Builder accountType(AccountType accountType) {
             Utils.checkNotNull(accountType, "accountType");
             this.accountType = accountType;
             return this;

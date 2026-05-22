@@ -5,7 +5,7 @@ package com.gusto.embedded_api;
 
 import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation;
 
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.operations.GetV1EmployeesEmployeeIdBankAccountsHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1EmployeesEmployeeIdBankAccountsRequest;
 import com.gusto.embedded_api.models.operations.async.GetV1EmployeesEmployeeIdBankAccountsRequestBuilder;
 import com.gusto.embedded_api.models.operations.async.GetV1EmployeesEmployeeIdBankAccountsResponse;
@@ -38,11 +38,13 @@ public class AsyncEmployeePaymentMethods {
 
 
     /**
-     * Get all employee bank accounts
+     * List employee bank accounts
      * 
      * <p>Returns all employee bank accounts.
      * 
      * <p>scope: `employee_payment_methods:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @return The async call builder
      */
@@ -51,44 +53,48 @@ public class AsyncEmployeePaymentMethods {
     }
 
     /**
-     * Get all employee bank accounts
+     * List employee bank accounts
      * 
      * <p>Returns all employee bank accounts.
      * 
      * <p>scope: `employee_payment_methods:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @param employeeId The UUID of the employee
      * @return {@code CompletableFuture<GetV1EmployeesEmployeeIdBankAccountsResponse>} - The async response
      */
     public CompletableFuture<GetV1EmployeesEmployeeIdBankAccountsResponse> getBankAccounts(String employeeId) {
         return getBankAccounts(
-                employeeId, Optional.empty(), Optional.empty(),
+                Optional.empty(), employeeId, Optional.empty(),
                 Optional.empty());
     }
 
     /**
-     * Get all employee bank accounts
+     * List employee bank accounts
      * 
      * <p>Returns all employee bank accounts.
      * 
      * <p>scope: `employee_payment_methods:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param employeeId The UUID of the employee
      * @param page The page that is requested. When unspecified, will load all objects unless endpoint forces pagination.
      * @param per Number of objects per page. For majority of endpoints will default to 25
-     * @param xGustoAPIVersion 
      * @return {@code CompletableFuture<GetV1EmployeesEmployeeIdBankAccountsResponse>} - The async response
      */
     public CompletableFuture<GetV1EmployeesEmployeeIdBankAccountsResponse> getBankAccounts(
-            String employeeId, Optional<Long> page,
-            Optional<Long> per, Optional<? extends VersionHeader> xGustoAPIVersion) {
+            Optional<? extends GetV1EmployeesEmployeeIdBankAccountsHeaderXGustoAPIVersion> xGustoAPIVersion, String employeeId,
+            Optional<Long> page, Optional<Long> per) {
         GetV1EmployeesEmployeeIdBankAccountsRequest request =
             GetV1EmployeesEmployeeIdBankAccountsRequest
                 .builder()
+                .xGustoAPIVersion(xGustoAPIVersion)
                 .employeeId(employeeId)
                 .page(page)
                 .per(per)
-                .xGustoAPIVersion(xGustoAPIVersion)
                 .build();
         AsyncRequestOperation<GetV1EmployeesEmployeeIdBankAccountsRequest, GetV1EmployeesEmployeeIdBankAccountsResponse> operation
               = new GetV1EmployeesEmployeeIdBankAccounts.Async(sdkConfiguration, _headers);

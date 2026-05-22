@@ -7,7 +7,6 @@ import static com.gusto.embedded_api.operations.Operations.RequestOperation;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.DocumentType;
 import com.gusto.embedded_api.models.components.VersionHeader;
 import com.gusto.embedded_api.operations.GetV1GeneratedDocumentsDocumentTypeRequestUuid;
 import com.gusto.embedded_api.utils.Headers;

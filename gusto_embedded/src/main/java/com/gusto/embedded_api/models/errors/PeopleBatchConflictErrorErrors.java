@@ -40,14 +40,14 @@ public class PeopleBatchConflictErrorErrors {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("metadata")
-    private Optional<? extends Metadata> metadata;
+    private Optional<? extends PeopleBatchConflictErrorMetadata> metadata;
 
     @JsonCreator
     public PeopleBatchConflictErrorErrors(
             @JsonProperty("error_key") Optional<String> errorKey,
             @JsonProperty("category") Optional<String> category,
             @JsonProperty("message") Optional<String> message,
-            @JsonProperty("metadata") Optional<? extends Metadata> metadata) {
+            @JsonProperty("metadata") Optional<? extends PeopleBatchConflictErrorMetadata> metadata) {
         Utils.checkNotNull(errorKey, "errorKey");
         Utils.checkNotNull(category, "category");
         Utils.checkNotNull(message, "message");
@@ -89,8 +89,8 @@ public class PeopleBatchConflictErrorErrors {
 
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<Metadata> metadata() {
-        return (Optional<Metadata>) metadata;
+    public Optional<PeopleBatchConflictErrorMetadata> metadata() {
+        return (Optional<PeopleBatchConflictErrorMetadata>) metadata;
     }
 
     public static Builder builder() {
@@ -155,14 +155,14 @@ public class PeopleBatchConflictErrorErrors {
         return this;
     }
 
-    public PeopleBatchConflictErrorErrors withMetadata(Metadata metadata) {
+    public PeopleBatchConflictErrorErrors withMetadata(PeopleBatchConflictErrorMetadata metadata) {
         Utils.checkNotNull(metadata, "metadata");
         this.metadata = Optional.ofNullable(metadata);
         return this;
     }
 
 
-    public PeopleBatchConflictErrorErrors withMetadata(Optional<? extends Metadata> metadata) {
+    public PeopleBatchConflictErrorErrors withMetadata(Optional<? extends PeopleBatchConflictErrorMetadata> metadata) {
         Utils.checkNotNull(metadata, "metadata");
         this.metadata = metadata;
         return this;
@@ -209,7 +209,7 @@ public class PeopleBatchConflictErrorErrors {
 
         private Optional<String> message = Optional.empty();
 
-        private Optional<? extends Metadata> metadata = Optional.empty();
+        private Optional<? extends PeopleBatchConflictErrorMetadata> metadata = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -273,13 +273,13 @@ public class PeopleBatchConflictErrorErrors {
         }
 
 
-        public Builder metadata(Metadata metadata) {
+        public Builder metadata(PeopleBatchConflictErrorMetadata metadata) {
             Utils.checkNotNull(metadata, "metadata");
             this.metadata = Optional.ofNullable(metadata);
             return this;
         }
 
-        public Builder metadata(Optional<? extends Metadata> metadata) {
+        public Builder metadata(Optional<? extends PeopleBatchConflictErrorMetadata> metadata) {
             Utils.checkNotNull(metadata, "metadata");
             this.metadata = metadata;
             return this;

@@ -7,9 +7,8 @@ import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.operations.GetCompaniesCompanyUuidPaidHolidaysHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetCompaniesCompanyUuidPaidHolidaysRequest;
-import com.gusto.embedded_api.models.operations.GetCompaniesCompanyUuidPaidHolidaysRequestBody;
 import com.gusto.embedded_api.operations.GetCompaniesCompanyUuidPaidHolidays;
 import com.gusto.embedded_api.utils.Headers;
 import com.gusto.embedded_api.utils.LazySingletonValue;
@@ -20,17 +19,29 @@ import java.util.concurrent.CompletableFuture;
 
 public class GetCompaniesCompanyUuidPaidHolidaysRequestBuilder {
 
-    private String companyUuid;
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
+    private Optional<? extends GetCompaniesCompanyUuidPaidHolidaysHeaderXGustoAPIVersion> xGustoAPIVersion = Utils.readDefaultOrConstValue(
                             "xGustoAPIVersion",
                             "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
-    private GetCompaniesCompanyUuidPaidHolidaysRequestBody requestBody;
+                            new TypeReference<Optional<? extends GetCompaniesCompanyUuidPaidHolidaysHeaderXGustoAPIVersion>>() {});
+    private String companyUuid;
+    private Optional<String> year = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
     public GetCompaniesCompanyUuidPaidHolidaysRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
+    }
+                
+    public GetCompaniesCompanyUuidPaidHolidaysRequestBuilder xGustoAPIVersion(GetCompaniesCompanyUuidPaidHolidaysHeaderXGustoAPIVersion xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
+        return this;
+    }
+
+    public GetCompaniesCompanyUuidPaidHolidaysRequestBuilder xGustoAPIVersion(Optional<? extends GetCompaniesCompanyUuidPaidHolidaysHeaderXGustoAPIVersion> xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = xGustoAPIVersion;
+        return this;
     }
 
     public GetCompaniesCompanyUuidPaidHolidaysRequestBuilder companyUuid(String companyUuid) {
@@ -39,21 +50,15 @@ public class GetCompaniesCompanyUuidPaidHolidaysRequestBuilder {
         return this;
     }
                 
-    public GetCompaniesCompanyUuidPaidHolidaysRequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
+    public GetCompaniesCompanyUuidPaidHolidaysRequestBuilder year(String year) {
+        Utils.checkNotNull(year, "year");
+        this.year = Optional.of(year);
         return this;
     }
 
-    public GetCompaniesCompanyUuidPaidHolidaysRequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = xGustoAPIVersion;
-        return this;
-    }
-
-    public GetCompaniesCompanyUuidPaidHolidaysRequestBuilder requestBody(GetCompaniesCompanyUuidPaidHolidaysRequestBody requestBody) {
-        Utils.checkNotNull(requestBody, "requestBody");
-        this.requestBody = requestBody;
+    public GetCompaniesCompanyUuidPaidHolidaysRequestBuilder year(Optional<String> year) {
+        Utils.checkNotNull(year, "year");
+        this.year = year;
         return this;
     }
 
@@ -63,9 +68,9 @@ public class GetCompaniesCompanyUuidPaidHolidaysRequestBuilder {
             xGustoAPIVersion = _SINGLETON_VALUE_XGustoAPIVersion.value();
         }
 
-        GetCompaniesCompanyUuidPaidHolidaysRequest request = new GetCompaniesCompanyUuidPaidHolidaysRequest(companyUuid,
-            xGustoAPIVersion,
-            requestBody);
+        GetCompaniesCompanyUuidPaidHolidaysRequest request = new GetCompaniesCompanyUuidPaidHolidaysRequest(xGustoAPIVersion,
+            companyUuid,
+            year);
 
         return request;
     }
@@ -80,9 +85,9 @@ public class GetCompaniesCompanyUuidPaidHolidaysRequestBuilder {
             .thenCompose(operation::handleResponse);
     }
 
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+    private static final LazySingletonValue<Optional<? extends GetCompaniesCompanyUuidPaidHolidaysHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
             new LazySingletonValue<>(
                     "xGustoAPIVersion",
                     "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
+                    new TypeReference<Optional<? extends GetCompaniesCompanyUuidPaidHolidaysHeaderXGustoAPIVersion>>() {});
 }

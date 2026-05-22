@@ -5,30 +5,35 @@ package com.gusto.embedded_api;
 
 import static com.gusto.embedded_api.operations.Operations.RequestOperation;
 
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.components.DepartmentCreateRequestBody;
+import com.gusto.embedded_api.models.components.DepartmentPeopleRequestBody;
+import com.gusto.embedded_api.models.components.DepartmentUpdateRequestBody;
+import com.gusto.embedded_api.models.operations.DeleteDepartmentHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.DeleteDepartmentRequest;
 import com.gusto.embedded_api.models.operations.DeleteDepartmentRequestBuilder;
 import com.gusto.embedded_api.models.operations.DeleteDepartmentResponse;
+import com.gusto.embedded_api.models.operations.GetCompaniesDepartmentsHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetCompaniesDepartmentsRequest;
 import com.gusto.embedded_api.models.operations.GetCompaniesDepartmentsRequestBuilder;
 import com.gusto.embedded_api.models.operations.GetCompaniesDepartmentsResponse;
+import com.gusto.embedded_api.models.operations.GetDepartmentHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetDepartmentRequest;
 import com.gusto.embedded_api.models.operations.GetDepartmentRequestBuilder;
 import com.gusto.embedded_api.models.operations.GetDepartmentResponse;
+import com.gusto.embedded_api.models.operations.PostDepartmentsHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostDepartmentsRequest;
-import com.gusto.embedded_api.models.operations.PostDepartmentsRequestBody;
 import com.gusto.embedded_api.models.operations.PostDepartmentsRequestBuilder;
 import com.gusto.embedded_api.models.operations.PostDepartmentsResponse;
+import com.gusto.embedded_api.models.operations.PutAddPeopleToDepartmentHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PutAddPeopleToDepartmentRequest;
-import com.gusto.embedded_api.models.operations.PutAddPeopleToDepartmentRequestBody;
 import com.gusto.embedded_api.models.operations.PutAddPeopleToDepartmentRequestBuilder;
 import com.gusto.embedded_api.models.operations.PutAddPeopleToDepartmentResponse;
+import com.gusto.embedded_api.models.operations.PutDepartmentsHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PutDepartmentsRequest;
-import com.gusto.embedded_api.models.operations.PutDepartmentsRequestBody;
 import com.gusto.embedded_api.models.operations.PutDepartmentsRequestBuilder;
 import com.gusto.embedded_api.models.operations.PutDepartmentsResponse;
+import com.gusto.embedded_api.models.operations.PutRemovePeopleFromDepartmentHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PutRemovePeopleFromDepartmentRequest;
-import com.gusto.embedded_api.models.operations.PutRemovePeopleFromDepartmentRequestBody;
 import com.gusto.embedded_api.models.operations.PutRemovePeopleFromDepartmentRequestBuilder;
 import com.gusto.embedded_api.models.operations.PutRemovePeopleFromDepartmentResponse;
 import com.gusto.embedded_api.operations.DeleteDepartment;
@@ -63,69 +68,14 @@ public class Departments {
     }
 
     /**
-     * Create a department
-     * 
-     * <p>Create a department
-     * 
-     * <p>scope: `departments:write`
-     * 
-     * @return The call builder
-     */
-    public PostDepartmentsRequestBuilder create() {
-        return new PostDepartmentsRequestBuilder(sdkConfiguration);
-    }
-
-    /**
-     * Create a department
-     * 
-     * <p>Create a department
-     * 
-     * <p>scope: `departments:write`
-     * 
-     * @param companyUuid The UUID of the company
-     * @param requestBody 
-     * @return The response from the API call
-     * @throws RuntimeException subclass if the API call fails
-     */
-    public PostDepartmentsResponse create(String companyUuid, PostDepartmentsRequestBody requestBody) {
-        return create(companyUuid, Optional.empty(), requestBody);
-    }
-
-    /**
-     * Create a department
-     * 
-     * <p>Create a department
-     * 
-     * <p>scope: `departments:write`
-     * 
-     * @param companyUuid The UUID of the company
-     * @param xGustoAPIVersion 
-     * @param requestBody 
-     * @return The response from the API call
-     * @throws RuntimeException subclass if the API call fails
-     */
-    public PostDepartmentsResponse create(
-            String companyUuid, Optional<? extends VersionHeader> xGustoAPIVersion,
-            PostDepartmentsRequestBody requestBody) {
-        PostDepartmentsRequest request =
-            PostDepartmentsRequest
-                .builder()
-                .companyUuid(companyUuid)
-                .xGustoAPIVersion(xGustoAPIVersion)
-                .requestBody(requestBody)
-                .build();
-        RequestOperation<PostDepartmentsRequest, PostDepartmentsResponse> operation
-              = new PostDepartments.Sync(sdkConfiguration, _headers);
-        return operation.handleResponse(operation.doRequest(request));
-    }
-
-    /**
      * Get all departments of a company
      * 
      * <p>Get all of the departments for a given company with the employees and contractors assigned to that
      * department.
      * 
      * <p>scope: `departments:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @return The call builder
      */
@@ -140,6 +90,8 @@ public class Departments {
      * department.
      * 
      * <p>scope: `departments:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @param companyUuid The UUID of the company
      * @return The response from the API call
@@ -157,12 +109,14 @@ public class Departments {
      * 
      * <p>scope: `departments:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param companyUuid The UUID of the company
-     * @param xGustoAPIVersion 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
-    public GetCompaniesDepartmentsResponse getAll(String companyUuid, Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public GetCompaniesDepartmentsResponse getAll(String companyUuid, Optional<? extends GetCompaniesDepartmentsHeaderXGustoAPIVersion> xGustoAPIVersion) {
         GetCompaniesDepartmentsRequest request =
             GetCompaniesDepartmentsRequest
                 .builder()
@@ -175,11 +129,76 @@ public class Departments {
     }
 
     /**
+     * Create a department
+     * 
+     * <p>Create a department
+     * 
+     * <p>scope: `departments:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @return The call builder
+     */
+    public PostDepartmentsRequestBuilder create() {
+        return new PostDepartmentsRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Create a department
+     * 
+     * <p>Create a department
+     * 
+     * <p>scope: `departments:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param companyUuid The UUID of the company
+     * @param departmentCreateRequestBody 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public PostDepartmentsResponse create(String companyUuid, DepartmentCreateRequestBody departmentCreateRequestBody) {
+        return create(companyUuid, Optional.empty(), departmentCreateRequestBody);
+    }
+
+    /**
+     * Create a department
+     * 
+     * <p>Create a department
+     * 
+     * <p>scope: `departments:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param companyUuid The UUID of the company
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     * @param departmentCreateRequestBody 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public PostDepartmentsResponse create(
+            String companyUuid, Optional<? extends PostDepartmentsHeaderXGustoAPIVersion> xGustoAPIVersion,
+            DepartmentCreateRequestBody departmentCreateRequestBody) {
+        PostDepartmentsRequest request =
+            PostDepartmentsRequest
+                .builder()
+                .companyUuid(companyUuid)
+                .xGustoAPIVersion(xGustoAPIVersion)
+                .departmentCreateRequestBody(departmentCreateRequestBody)
+                .build();
+        RequestOperation<PostDepartmentsRequest, PostDepartmentsResponse> operation
+              = new PostDepartments.Sync(sdkConfiguration, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
      * Get a department
      * 
      * <p>Get a department given the UUID
      * 
      * <p>scope: `departments:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @return The call builder
      */
@@ -193,6 +212,8 @@ public class Departments {
      * <p>Get a department given the UUID
      * 
      * <p>scope: `departments:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @param departmentUuid The UUID of the department
      * @return The response from the API call
@@ -209,12 +230,14 @@ public class Departments {
      * 
      * <p>scope: `departments:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param departmentUuid The UUID of the department
-     * @param xGustoAPIVersion 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
-    public GetDepartmentResponse get(String departmentUuid, Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public GetDepartmentResponse get(String departmentUuid, Optional<? extends GetDepartmentHeaderXGustoAPIVersion> xGustoAPIVersion) {
         GetDepartmentRequest request =
             GetDepartmentRequest
                 .builder()
@@ -233,6 +256,8 @@ public class Departments {
      * 
      * <p>scope: `departments:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @return The call builder
      */
     public PutDepartmentsRequestBuilder update() {
@@ -246,13 +271,15 @@ public class Departments {
      * 
      * <p>scope: `departments:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param departmentUuid The UUID of the department
-     * @param requestBody 
+     * @param departmentUpdateRequestBody 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
-    public PutDepartmentsResponse update(String departmentUuid, PutDepartmentsRequestBody requestBody) {
-        return update(departmentUuid, Optional.empty(), requestBody);
+    public PutDepartmentsResponse update(String departmentUuid, DepartmentUpdateRequestBody departmentUpdateRequestBody) {
+        return update(departmentUuid, Optional.empty(), departmentUpdateRequestBody);
     }
 
     /**
@@ -262,21 +289,23 @@ public class Departments {
      * 
      * <p>scope: `departments:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param departmentUuid The UUID of the department
-     * @param xGustoAPIVersion 
-     * @param requestBody 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     * @param departmentUpdateRequestBody 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
     public PutDepartmentsResponse update(
-            String departmentUuid, Optional<? extends VersionHeader> xGustoAPIVersion,
-            PutDepartmentsRequestBody requestBody) {
+            String departmentUuid, Optional<? extends PutDepartmentsHeaderXGustoAPIVersion> xGustoAPIVersion,
+            DepartmentUpdateRequestBody departmentUpdateRequestBody) {
         PutDepartmentsRequest request =
             PutDepartmentsRequest
                 .builder()
                 .departmentUuid(departmentUuid)
                 .xGustoAPIVersion(xGustoAPIVersion)
-                .requestBody(requestBody)
+                .departmentUpdateRequestBody(departmentUpdateRequestBody)
                 .build();
         RequestOperation<PutDepartmentsRequest, PutDepartmentsResponse> operation
               = new PutDepartments.Sync(sdkConfiguration, _headers);
@@ -291,6 +320,8 @@ public class Departments {
      * 
      * <p>scope: `departments:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @return The call builder
      */
     public DeleteDepartmentRequestBuilder delete() {
@@ -304,6 +335,8 @@ public class Departments {
      * removed.
      * 
      * <p>scope: `departments:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @param departmentUuid The UUID of the department
      * @return The response from the API call
@@ -321,12 +354,14 @@ public class Departments {
      * 
      * <p>scope: `departments:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param departmentUuid The UUID of the department
-     * @param xGustoAPIVersion 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
-    public DeleteDepartmentResponse delete(String departmentUuid, Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public DeleteDepartmentResponse delete(String departmentUuid, Optional<? extends DeleteDepartmentHeaderXGustoAPIVersion> xGustoAPIVersion) {
         DeleteDepartmentRequest request =
             DeleteDepartmentRequest
                 .builder()
@@ -345,6 +380,8 @@ public class Departments {
      * 
      * <p>scope: `departments:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @return The call builder
      */
     public PutAddPeopleToDepartmentRequestBuilder addPeople() {
@@ -358,13 +395,15 @@ public class Departments {
      * 
      * <p>scope: `departments:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param departmentUuid The UUID of the department
-     * @param requestBody 
+     * @param departmentPeopleRequestBody 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
-    public PutAddPeopleToDepartmentResponse addPeople(String departmentUuid, PutAddPeopleToDepartmentRequestBody requestBody) {
-        return addPeople(departmentUuid, Optional.empty(), requestBody);
+    public PutAddPeopleToDepartmentResponse addPeople(String departmentUuid, DepartmentPeopleRequestBody departmentPeopleRequestBody) {
+        return addPeople(departmentUuid, Optional.empty(), departmentPeopleRequestBody);
     }
 
     /**
@@ -374,21 +413,23 @@ public class Departments {
      * 
      * <p>scope: `departments:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param departmentUuid The UUID of the department
-     * @param xGustoAPIVersion 
-     * @param requestBody 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     * @param departmentPeopleRequestBody 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
     public PutAddPeopleToDepartmentResponse addPeople(
-            String departmentUuid, Optional<? extends VersionHeader> xGustoAPIVersion,
-            PutAddPeopleToDepartmentRequestBody requestBody) {
+            String departmentUuid, Optional<? extends PutAddPeopleToDepartmentHeaderXGustoAPIVersion> xGustoAPIVersion,
+            DepartmentPeopleRequestBody departmentPeopleRequestBody) {
         PutAddPeopleToDepartmentRequest request =
             PutAddPeopleToDepartmentRequest
                 .builder()
                 .departmentUuid(departmentUuid)
                 .xGustoAPIVersion(xGustoAPIVersion)
-                .requestBody(requestBody)
+                .departmentPeopleRequestBody(departmentPeopleRequestBody)
                 .build();
         RequestOperation<PutAddPeopleToDepartmentRequest, PutAddPeopleToDepartmentResponse> operation
               = new PutAddPeopleToDepartment.Sync(sdkConfiguration, _headers);
@@ -401,6 +442,8 @@ public class Departments {
      * <p>Remove employees and contractors from a department
      * 
      * <p>scope: `departments:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @return The call builder
      */
@@ -415,13 +458,15 @@ public class Departments {
      * 
      * <p>scope: `departments:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param departmentUuid The UUID of the department
-     * @param requestBody 
+     * @param departmentPeopleRequestBody 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
-    public PutRemovePeopleFromDepartmentResponse removePeople(String departmentUuid, PutRemovePeopleFromDepartmentRequestBody requestBody) {
-        return removePeople(departmentUuid, Optional.empty(), requestBody);
+    public PutRemovePeopleFromDepartmentResponse removePeople(String departmentUuid, DepartmentPeopleRequestBody departmentPeopleRequestBody) {
+        return removePeople(departmentUuid, Optional.empty(), departmentPeopleRequestBody);
     }
 
     /**
@@ -431,21 +476,23 @@ public class Departments {
      * 
      * <p>scope: `departments:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param departmentUuid The UUID of the department
-     * @param xGustoAPIVersion 
-     * @param requestBody 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     * @param departmentPeopleRequestBody 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
     public PutRemovePeopleFromDepartmentResponse removePeople(
-            String departmentUuid, Optional<? extends VersionHeader> xGustoAPIVersion,
-            PutRemovePeopleFromDepartmentRequestBody requestBody) {
+            String departmentUuid, Optional<? extends PutRemovePeopleFromDepartmentHeaderXGustoAPIVersion> xGustoAPIVersion,
+            DepartmentPeopleRequestBody departmentPeopleRequestBody) {
         PutRemovePeopleFromDepartmentRequest request =
             PutRemovePeopleFromDepartmentRequest
                 .builder()
                 .departmentUuid(departmentUuid)
                 .xGustoAPIVersion(xGustoAPIVersion)
-                .requestBody(requestBody)
+                .departmentPeopleRequestBody(departmentPeopleRequestBody)
                 .build();
         RequestOperation<PutRemovePeopleFromDepartmentRequest, PutRemovePeopleFromDepartmentResponse> operation
               = new PutRemovePeopleFromDepartment.Sync(sdkConfiguration, _headers);

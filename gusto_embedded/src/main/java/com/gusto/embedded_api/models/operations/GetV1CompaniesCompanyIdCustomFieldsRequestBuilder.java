@@ -7,7 +7,6 @@ import static com.gusto.embedded_api.operations.Operations.RequestOperation;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.VersionHeader;
 import com.gusto.embedded_api.operations.GetV1CompaniesCompanyIdCustomFields;
 import com.gusto.embedded_api.utils.Headers;
 import com.gusto.embedded_api.utils.LazySingletonValue;
@@ -18,18 +17,30 @@ import java.util.Optional;
 
 public class GetV1CompaniesCompanyIdCustomFieldsRequestBuilder {
 
+    private Optional<? extends GetV1CompaniesCompanyIdCustomFieldsHeaderXGustoAPIVersion> xGustoAPIVersion = Utils.readDefaultOrConstValue(
+                            "xGustoAPIVersion",
+                            "\"2025-06-15\"",
+                            new TypeReference<Optional<? extends GetV1CompaniesCompanyIdCustomFieldsHeaderXGustoAPIVersion>>() {});
     private String companyId;
     private Optional<Long> page = Optional.empty();
     private Optional<Long> per = Optional.empty();
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
-                            "xGustoAPIVersion",
-                            "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
     public GetV1CompaniesCompanyIdCustomFieldsRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
+    }
+                
+    public GetV1CompaniesCompanyIdCustomFieldsRequestBuilder xGustoAPIVersion(GetV1CompaniesCompanyIdCustomFieldsHeaderXGustoAPIVersion xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
+        return this;
+    }
+
+    public GetV1CompaniesCompanyIdCustomFieldsRequestBuilder xGustoAPIVersion(Optional<? extends GetV1CompaniesCompanyIdCustomFieldsHeaderXGustoAPIVersion> xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = xGustoAPIVersion;
+        return this;
     }
 
     public GetV1CompaniesCompanyIdCustomFieldsRequestBuilder companyId(String companyId) {
@@ -61,18 +72,6 @@ public class GetV1CompaniesCompanyIdCustomFieldsRequestBuilder {
         this.per = per;
         return this;
     }
-                
-    public GetV1CompaniesCompanyIdCustomFieldsRequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
-        return this;
-    }
-
-    public GetV1CompaniesCompanyIdCustomFieldsRequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = xGustoAPIVersion;
-        return this;
-    }
 
 
     private GetV1CompaniesCompanyIdCustomFieldsRequest buildRequest() {
@@ -80,10 +79,10 @@ public class GetV1CompaniesCompanyIdCustomFieldsRequestBuilder {
             xGustoAPIVersion = _SINGLETON_VALUE_XGustoAPIVersion.value();
         }
 
-        GetV1CompaniesCompanyIdCustomFieldsRequest request = new GetV1CompaniesCompanyIdCustomFieldsRequest(companyId,
+        GetV1CompaniesCompanyIdCustomFieldsRequest request = new GetV1CompaniesCompanyIdCustomFieldsRequest(xGustoAPIVersion,
+            companyId,
             page,
-            per,
-            xGustoAPIVersion);
+            per);
 
         return request;
     }
@@ -97,9 +96,9 @@ public class GetV1CompaniesCompanyIdCustomFieldsRequestBuilder {
         return operation.handleResponse(operation.doRequest(request));
     }
 
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+    private static final LazySingletonValue<Optional<? extends GetV1CompaniesCompanyIdCustomFieldsHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
             new LazySingletonValue<>(
                     "xGustoAPIVersion",
                     "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
+                    new TypeReference<Optional<? extends GetV1CompaniesCompanyIdCustomFieldsHeaderXGustoAPIVersion>>() {});
 }

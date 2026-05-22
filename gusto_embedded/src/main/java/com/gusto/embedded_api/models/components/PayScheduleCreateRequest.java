@@ -29,53 +29,46 @@ import org.openapitools.jackson.nullable.JsonNullable;
  * anchor_pay_date.
  */
 public class PayScheduleCreateRequest {
-    /**
-     * Pay frequency when creating or updating a schedule. Only weekly, bi-weekly, twice per month, and
-     * monthly are supported via the API.
-     * 
-     * <p>- `Every week`: Weekly pay.
-     * - `Every other week`: Biweekly pay.
-     * - `Twice per month`: Two pay dates per month; require day_1 and day_2 (use 31 for last day of
-     * month).
-     * - `Monthly`: One pay date per month; require day_1 (1-31).
-     */
-    @JsonProperty("frequency")
-    private PayScheduleFrequencyCreateUpdate frequency;
 
-    /**
-     * ISO 8601 date (YYYY-MM-DD). Required for anchor and period dates in create, update, and preview
-     * requests.
-     */
+    @JsonProperty("frequency")
+    private Frequency frequency;
+
+
     @JsonProperty("anchor_pay_date")
     private LocalDate anchorPayDate;
 
-    /**
-     * ISO 8601 date (YYYY-MM-DD). Required for anchor and period dates in create, update, and preview
-     * requests.
-     */
+
     @JsonProperty("anchor_end_of_pay_period")
     private LocalDate anchorEndOfPayPeriod;
 
     /**
-     * First pay day of the month (1-31).
-     * - **Twice per month, Monthly:** required.
-     * - **Every week, Every other week:** omit or null.
+     * An integer between 1 and 31 indicating the first day of the month that employees are paid. This
+     * field is only relevant for pay schedules with the "Twice per month" and "Monthly" frequencies. It
+     * will be null for pay schedules with other frequencies.
+     * 
+     * <p>On create: required for Twice per month and Monthly; omit or null for Every week and Every other
+     * week.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("day_1")
     private JsonNullable<Long> day1;
 
     /**
-     * Second pay day of the month (1-31); only for **Twice per month**.
-     * - Use 31 for last day of month (shorter months use the actual last day).
-     * - **Other frequencies:** omit or null.
+     * An integer between 1 and 31 indicating the second day of the month that employees are paid. This
+     * field is the second pay date for pay schedules with the "Twice per month" frequency. For
+     * semi-monthly pay schedules, set this field to 31.
+     * 
+     * <p>For months shorter than 31 days, the second pay date is set to the last day of the month. It will be
+     * null for pay schedules with other frequencies.
+     * 
+     * <p>On create: only for Twice per month; omit or null for other frequencies.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("day_2")
     private JsonNullable<Long> day2;
 
     /**
-     * Optional display name for the pay schedule.
+     * A custom pay schedule name; defaults to the pay frequency description when null or omitted.
      * 
      * <p>When null or omitted, the system generates a description from the pay frequency and pay days (e.g.
      * "every 1st and 15th of the month" for twice-monthly, "every 11th of the month" for monthly, "every
@@ -90,7 +83,7 @@ public class PayScheduleCreateRequest {
 
     @JsonCreator
     public PayScheduleCreateRequest(
-            @JsonProperty("frequency") PayScheduleFrequencyCreateUpdate frequency,
+            @JsonProperty("frequency") Frequency frequency,
             @JsonProperty("anchor_pay_date") LocalDate anchorPayDate,
             @JsonProperty("anchor_end_of_pay_period") LocalDate anchorEndOfPayPeriod,
             @JsonProperty("day_1") JsonNullable<Long> day1,
@@ -111,50 +104,35 @@ public class PayScheduleCreateRequest {
     }
     
     public PayScheduleCreateRequest(
-            PayScheduleFrequencyCreateUpdate frequency,
+            Frequency frequency,
             LocalDate anchorPayDate,
             LocalDate anchorEndOfPayPeriod) {
         this(frequency, anchorPayDate, anchorEndOfPayPeriod,
             JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined());
     }
 
-    /**
-     * Pay frequency when creating or updating a schedule. Only weekly, bi-weekly, twice per month, and
-     * monthly are supported via the API.
-     * 
-     * <p>- `Every week`: Weekly pay.
-     * - `Every other week`: Biweekly pay.
-     * - `Twice per month`: Two pay dates per month; require day_1 and day_2 (use 31 for last day of
-     * month).
-     * - `Monthly`: One pay date per month; require day_1 (1-31).
-     */
     @JsonIgnore
-    public PayScheduleFrequencyCreateUpdate frequency() {
+    public Frequency frequency() {
         return frequency;
     }
 
-    /**
-     * ISO 8601 date (YYYY-MM-DD). Required for anchor and period dates in create, update, and preview
-     * requests.
-     */
     @JsonIgnore
     public LocalDate anchorPayDate() {
         return anchorPayDate;
     }
 
-    /**
-     * ISO 8601 date (YYYY-MM-DD). Required for anchor and period dates in create, update, and preview
-     * requests.
-     */
     @JsonIgnore
     public LocalDate anchorEndOfPayPeriod() {
         return anchorEndOfPayPeriod;
     }
 
     /**
-     * First pay day of the month (1-31).
-     * - **Twice per month, Monthly:** required.
-     * - **Every week, Every other week:** omit or null.
+     * An integer between 1 and 31 indicating the first day of the month that employees are paid. This
+     * field is only relevant for pay schedules with the "Twice per month" and "Monthly" frequencies. It
+     * will be null for pay schedules with other frequencies.
+     * 
+     * <p>On create: required for Twice per month and Monthly; omit or null for Every week and Every other
+     * week.
      */
     @JsonIgnore
     public JsonNullable<Long> day1() {
@@ -162,9 +140,14 @@ public class PayScheduleCreateRequest {
     }
 
     /**
-     * Second pay day of the month (1-31); only for **Twice per month**.
-     * - Use 31 for last day of month (shorter months use the actual last day).
-     * - **Other frequencies:** omit or null.
+     * An integer between 1 and 31 indicating the second day of the month that employees are paid. This
+     * field is the second pay date for pay schedules with the "Twice per month" frequency. For
+     * semi-monthly pay schedules, set this field to 31.
+     * 
+     * <p>For months shorter than 31 days, the second pay date is set to the last day of the month. It will be
+     * null for pay schedules with other frequencies.
+     * 
+     * <p>On create: only for Twice per month; omit or null for other frequencies.
      */
     @JsonIgnore
     public JsonNullable<Long> day2() {
@@ -172,7 +155,7 @@ public class PayScheduleCreateRequest {
     }
 
     /**
-     * Optional display name for the pay schedule.
+     * A custom pay schedule name; defaults to the pay frequency description when null or omitted.
      * 
      * <p>When null or omitted, the system generates a description from the pay frequency and pay days (e.g.
      * "every 1st and 15th of the month" for twice-monthly, "every 11th of the month" for monthly, "every
@@ -191,36 +174,18 @@ public class PayScheduleCreateRequest {
     }
 
 
-    /**
-     * Pay frequency when creating or updating a schedule. Only weekly, bi-weekly, twice per month, and
-     * monthly are supported via the API.
-     * 
-     * <p>- `Every week`: Weekly pay.
-     * - `Every other week`: Biweekly pay.
-     * - `Twice per month`: Two pay dates per month; require day_1 and day_2 (use 31 for last day of
-     * month).
-     * - `Monthly`: One pay date per month; require day_1 (1-31).
-     */
-    public PayScheduleCreateRequest withFrequency(PayScheduleFrequencyCreateUpdate frequency) {
+    public PayScheduleCreateRequest withFrequency(Frequency frequency) {
         Utils.checkNotNull(frequency, "frequency");
         this.frequency = frequency;
         return this;
     }
 
-    /**
-     * ISO 8601 date (YYYY-MM-DD). Required for anchor and period dates in create, update, and preview
-     * requests.
-     */
     public PayScheduleCreateRequest withAnchorPayDate(LocalDate anchorPayDate) {
         Utils.checkNotNull(anchorPayDate, "anchorPayDate");
         this.anchorPayDate = anchorPayDate;
         return this;
     }
 
-    /**
-     * ISO 8601 date (YYYY-MM-DD). Required for anchor and period dates in create, update, and preview
-     * requests.
-     */
     public PayScheduleCreateRequest withAnchorEndOfPayPeriod(LocalDate anchorEndOfPayPeriod) {
         Utils.checkNotNull(anchorEndOfPayPeriod, "anchorEndOfPayPeriod");
         this.anchorEndOfPayPeriod = anchorEndOfPayPeriod;
@@ -228,9 +193,12 @@ public class PayScheduleCreateRequest {
     }
 
     /**
-     * First pay day of the month (1-31).
-     * - **Twice per month, Monthly:** required.
-     * - **Every week, Every other week:** omit or null.
+     * An integer between 1 and 31 indicating the first day of the month that employees are paid. This
+     * field is only relevant for pay schedules with the "Twice per month" and "Monthly" frequencies. It
+     * will be null for pay schedules with other frequencies.
+     * 
+     * <p>On create: required for Twice per month and Monthly; omit or null for Every week and Every other
+     * week.
      */
     public PayScheduleCreateRequest withDay1(long day1) {
         Utils.checkNotNull(day1, "day1");
@@ -239,9 +207,12 @@ public class PayScheduleCreateRequest {
     }
 
     /**
-     * First pay day of the month (1-31).
-     * - **Twice per month, Monthly:** required.
-     * - **Every week, Every other week:** omit or null.
+     * An integer between 1 and 31 indicating the first day of the month that employees are paid. This
+     * field is only relevant for pay schedules with the "Twice per month" and "Monthly" frequencies. It
+     * will be null for pay schedules with other frequencies.
+     * 
+     * <p>On create: required for Twice per month and Monthly; omit or null for Every week and Every other
+     * week.
      */
     public PayScheduleCreateRequest withDay1(JsonNullable<Long> day1) {
         Utils.checkNotNull(day1, "day1");
@@ -250,9 +221,14 @@ public class PayScheduleCreateRequest {
     }
 
     /**
-     * Second pay day of the month (1-31); only for **Twice per month**.
-     * - Use 31 for last day of month (shorter months use the actual last day).
-     * - **Other frequencies:** omit or null.
+     * An integer between 1 and 31 indicating the second day of the month that employees are paid. This
+     * field is the second pay date for pay schedules with the "Twice per month" frequency. For
+     * semi-monthly pay schedules, set this field to 31.
+     * 
+     * <p>For months shorter than 31 days, the second pay date is set to the last day of the month. It will be
+     * null for pay schedules with other frequencies.
+     * 
+     * <p>On create: only for Twice per month; omit or null for other frequencies.
      */
     public PayScheduleCreateRequest withDay2(long day2) {
         Utils.checkNotNull(day2, "day2");
@@ -261,9 +237,14 @@ public class PayScheduleCreateRequest {
     }
 
     /**
-     * Second pay day of the month (1-31); only for **Twice per month**.
-     * - Use 31 for last day of month (shorter months use the actual last day).
-     * - **Other frequencies:** omit or null.
+     * An integer between 1 and 31 indicating the second day of the month that employees are paid. This
+     * field is the second pay date for pay schedules with the "Twice per month" frequency. For
+     * semi-monthly pay schedules, set this field to 31.
+     * 
+     * <p>For months shorter than 31 days, the second pay date is set to the last day of the month. It will be
+     * null for pay schedules with other frequencies.
+     * 
+     * <p>On create: only for Twice per month; omit or null for other frequencies.
      */
     public PayScheduleCreateRequest withDay2(JsonNullable<Long> day2) {
         Utils.checkNotNull(day2, "day2");
@@ -272,7 +253,7 @@ public class PayScheduleCreateRequest {
     }
 
     /**
-     * Optional display name for the pay schedule.
+     * A custom pay schedule name; defaults to the pay frequency description when null or omitted.
      * 
      * <p>When null or omitted, the system generates a description from the pay frequency and pay days (e.g.
      * "every 1st and 15th of the month" for twice-monthly, "every 11th of the month" for monthly, "every
@@ -288,7 +269,7 @@ public class PayScheduleCreateRequest {
     }
 
     /**
-     * Optional display name for the pay schedule.
+     * A custom pay schedule name; defaults to the pay frequency description when null or omitted.
      * 
      * <p>When null or omitted, the system generates a description from the pay frequency and pay days (e.g.
      * "every 1st and 15th of the month" for twice-monthly, "every 11th of the month" for monthly, "every
@@ -342,7 +323,7 @@ public class PayScheduleCreateRequest {
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private PayScheduleFrequencyCreateUpdate frequency;
+        private Frequency frequency;
 
         private LocalDate anchorPayDate;
 
@@ -359,27 +340,13 @@ public class PayScheduleCreateRequest {
         }
 
 
-        /**
-         * Pay frequency when creating or updating a schedule. Only weekly, bi-weekly, twice per month, and
-         * monthly are supported via the API.
-         * 
-         * <p>- `Every week`: Weekly pay.
-         * - `Every other week`: Biweekly pay.
-         * - `Twice per month`: Two pay dates per month; require day_1 and day_2 (use 31 for last day of
-         * month).
-         * - `Monthly`: One pay date per month; require day_1 (1-31).
-         */
-        public Builder frequency(PayScheduleFrequencyCreateUpdate frequency) {
+        public Builder frequency(Frequency frequency) {
             Utils.checkNotNull(frequency, "frequency");
             this.frequency = frequency;
             return this;
         }
 
 
-        /**
-         * ISO 8601 date (YYYY-MM-DD). Required for anchor and period dates in create, update, and preview
-         * requests.
-         */
         public Builder anchorPayDate(LocalDate anchorPayDate) {
             Utils.checkNotNull(anchorPayDate, "anchorPayDate");
             this.anchorPayDate = anchorPayDate;
@@ -387,10 +354,6 @@ public class PayScheduleCreateRequest {
         }
 
 
-        /**
-         * ISO 8601 date (YYYY-MM-DD). Required for anchor and period dates in create, update, and preview
-         * requests.
-         */
         public Builder anchorEndOfPayPeriod(LocalDate anchorEndOfPayPeriod) {
             Utils.checkNotNull(anchorEndOfPayPeriod, "anchorEndOfPayPeriod");
             this.anchorEndOfPayPeriod = anchorEndOfPayPeriod;
@@ -399,9 +362,12 @@ public class PayScheduleCreateRequest {
 
 
         /**
-         * First pay day of the month (1-31).
-         * - **Twice per month, Monthly:** required.
-         * - **Every week, Every other week:** omit or null.
+         * An integer between 1 and 31 indicating the first day of the month that employees are paid. This
+         * field is only relevant for pay schedules with the "Twice per month" and "Monthly" frequencies. It
+         * will be null for pay schedules with other frequencies.
+         * 
+         * <p>On create: required for Twice per month and Monthly; omit or null for Every week and Every other
+         * week.
          */
         public Builder day1(long day1) {
             Utils.checkNotNull(day1, "day1");
@@ -410,9 +376,12 @@ public class PayScheduleCreateRequest {
         }
 
         /**
-         * First pay day of the month (1-31).
-         * - **Twice per month, Monthly:** required.
-         * - **Every week, Every other week:** omit or null.
+         * An integer between 1 and 31 indicating the first day of the month that employees are paid. This
+         * field is only relevant for pay schedules with the "Twice per month" and "Monthly" frequencies. It
+         * will be null for pay schedules with other frequencies.
+         * 
+         * <p>On create: required for Twice per month and Monthly; omit or null for Every week and Every other
+         * week.
          */
         public Builder day1(JsonNullable<Long> day1) {
             Utils.checkNotNull(day1, "day1");
@@ -422,9 +391,14 @@ public class PayScheduleCreateRequest {
 
 
         /**
-         * Second pay day of the month (1-31); only for **Twice per month**.
-         * - Use 31 for last day of month (shorter months use the actual last day).
-         * - **Other frequencies:** omit or null.
+         * An integer between 1 and 31 indicating the second day of the month that employees are paid. This
+         * field is the second pay date for pay schedules with the "Twice per month" frequency. For
+         * semi-monthly pay schedules, set this field to 31.
+         * 
+         * <p>For months shorter than 31 days, the second pay date is set to the last day of the month. It will be
+         * null for pay schedules with other frequencies.
+         * 
+         * <p>On create: only for Twice per month; omit or null for other frequencies.
          */
         public Builder day2(long day2) {
             Utils.checkNotNull(day2, "day2");
@@ -433,9 +407,14 @@ public class PayScheduleCreateRequest {
         }
 
         /**
-         * Second pay day of the month (1-31); only for **Twice per month**.
-         * - Use 31 for last day of month (shorter months use the actual last day).
-         * - **Other frequencies:** omit or null.
+         * An integer between 1 and 31 indicating the second day of the month that employees are paid. This
+         * field is the second pay date for pay schedules with the "Twice per month" frequency. For
+         * semi-monthly pay schedules, set this field to 31.
+         * 
+         * <p>For months shorter than 31 days, the second pay date is set to the last day of the month. It will be
+         * null for pay schedules with other frequencies.
+         * 
+         * <p>On create: only for Twice per month; omit or null for other frequencies.
          */
         public Builder day2(JsonNullable<Long> day2) {
             Utils.checkNotNull(day2, "day2");
@@ -445,7 +424,7 @@ public class PayScheduleCreateRequest {
 
 
         /**
-         * Optional display name for the pay schedule.
+         * A custom pay schedule name; defaults to the pay frequency description when null or omitted.
          * 
          * <p>When null or omitted, the system generates a description from the pay frequency and pay days (e.g.
          * "every 1st and 15th of the month" for twice-monthly, "every 11th of the month" for monthly, "every
@@ -461,7 +440,7 @@ public class PayScheduleCreateRequest {
         }
 
         /**
-         * Optional display name for the pay schedule.
+         * A custom pay schedule name; defaults to the pay frequency description when null or omitted.
          * 
          * <p>When null or omitted, the system generates a description from the pay frequency and pay days (e.g.
          * "every 1st and 15th of the month" for twice-monthly, "every 11th of the month" for monthly, "every

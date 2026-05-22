@@ -34,7 +34,7 @@ public class GetV1ContractorPaymentsContractorPaymentUuidReceiptResponse impleme
     private HttpResponse<InputStream> rawResponse;
 
     /**
-     * Example response
+     * OK
      */
     private Optional<? extends ContractorPaymentReceipt> contractorPaymentReceipt;
 
@@ -87,7 +87,7 @@ public class GetV1ContractorPaymentsContractorPaymentUuidReceiptResponse impleme
     }
 
     /**
-     * Example response
+     * OK
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -128,7 +128,7 @@ public class GetV1ContractorPaymentsContractorPaymentUuidReceiptResponse impleme
     }
 
     /**
-     * Example response
+     * OK
      */
     public GetV1ContractorPaymentsContractorPaymentUuidReceiptResponse withContractorPaymentReceipt(ContractorPaymentReceipt contractorPaymentReceipt) {
         Utils.checkNotNull(contractorPaymentReceipt, "contractorPaymentReceipt");
@@ -138,7 +138,7 @@ public class GetV1ContractorPaymentsContractorPaymentUuidReceiptResponse impleme
 
 
     /**
-     * Example response
+     * OK
      */
     public GetV1ContractorPaymentsContractorPaymentUuidReceiptResponse withContractorPaymentReceipt(Optional<? extends ContractorPaymentReceipt> contractorPaymentReceipt) {
         Utils.checkNotNull(contractorPaymentReceipt, "contractorPaymentReceipt");
@@ -225,7 +225,7 @@ public class GetV1ContractorPaymentsContractorPaymentUuidReceiptResponse impleme
 
 
         /**
-         * Example response
+         * OK
          */
         public Builder contractorPaymentReceipt(ContractorPaymentReceipt contractorPaymentReceipt) {
             Utils.checkNotNull(contractorPaymentReceipt, "contractorPaymentReceipt");
@@ -234,7 +234,7 @@ public class GetV1ContractorPaymentsContractorPaymentUuidReceiptResponse impleme
         }
 
         /**
-         * Example response
+         * OK
          */
         public Builder contractorPaymentReceipt(Optional<? extends ContractorPaymentReceipt> contractorPaymentReceipt) {
             Utils.checkNotNull(contractorPaymentReceipt, "contractorPaymentReceipt");

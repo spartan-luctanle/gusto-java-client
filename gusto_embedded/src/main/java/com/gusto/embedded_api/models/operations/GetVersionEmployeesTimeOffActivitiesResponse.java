@@ -14,6 +14,7 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -34,24 +35,24 @@ public class GetVersionEmployeesTimeOffActivitiesResponse implements Response {
     private HttpResponse<InputStream> rawResponse;
 
     /**
-     * Example response
+     * Success
      */
-    private Optional<? extends TimeOffActivity> timeOffActivity;
+    private Optional<? extends List<TimeOffActivity>> timeOffActivityList;
 
     @JsonCreator
     public GetVersionEmployeesTimeOffActivitiesResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends TimeOffActivity> timeOffActivity) {
+            Optional<? extends List<TimeOffActivity>> timeOffActivityList) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
-        Utils.checkNotNull(timeOffActivity, "timeOffActivity");
+        Utils.checkNotNull(timeOffActivityList, "timeOffActivityList");
         this.contentType = contentType;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
-        this.timeOffActivity = timeOffActivity;
+        this.timeOffActivityList = timeOffActivityList;
     }
     
     public GetVersionEmployeesTimeOffActivitiesResponse(
@@ -87,12 +88,12 @@ public class GetVersionEmployeesTimeOffActivitiesResponse implements Response {
     }
 
     /**
-     * Example response
+     * Success
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<TimeOffActivity> timeOffActivity() {
-        return (Optional<TimeOffActivity>) timeOffActivity;
+    public Optional<List<TimeOffActivity>> timeOffActivityList() {
+        return (Optional<List<TimeOffActivity>>) timeOffActivityList;
     }
 
     public static Builder builder() {
@@ -128,21 +129,21 @@ public class GetVersionEmployeesTimeOffActivitiesResponse implements Response {
     }
 
     /**
-     * Example response
+     * Success
      */
-    public GetVersionEmployeesTimeOffActivitiesResponse withTimeOffActivity(TimeOffActivity timeOffActivity) {
-        Utils.checkNotNull(timeOffActivity, "timeOffActivity");
-        this.timeOffActivity = Optional.ofNullable(timeOffActivity);
+    public GetVersionEmployeesTimeOffActivitiesResponse withTimeOffActivityList(List<TimeOffActivity> timeOffActivityList) {
+        Utils.checkNotNull(timeOffActivityList, "timeOffActivityList");
+        this.timeOffActivityList = Optional.ofNullable(timeOffActivityList);
         return this;
     }
 
 
     /**
-     * Example response
+     * Success
      */
-    public GetVersionEmployeesTimeOffActivitiesResponse withTimeOffActivity(Optional<? extends TimeOffActivity> timeOffActivity) {
-        Utils.checkNotNull(timeOffActivity, "timeOffActivity");
-        this.timeOffActivity = timeOffActivity;
+    public GetVersionEmployeesTimeOffActivitiesResponse withTimeOffActivityList(Optional<? extends List<TimeOffActivity>> timeOffActivityList) {
+        Utils.checkNotNull(timeOffActivityList, "timeOffActivityList");
+        this.timeOffActivityList = timeOffActivityList;
         return this;
     }
 
@@ -159,14 +160,14 @@ public class GetVersionEmployeesTimeOffActivitiesResponse implements Response {
             Utils.enhancedDeepEquals(this.contentType, other.contentType) &&
             Utils.enhancedDeepEquals(this.statusCode, other.statusCode) &&
             Utils.enhancedDeepEquals(this.rawResponse, other.rawResponse) &&
-            Utils.enhancedDeepEquals(this.timeOffActivity, other.timeOffActivity);
+            Utils.enhancedDeepEquals(this.timeOffActivityList, other.timeOffActivityList);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             contentType, statusCode, rawResponse,
-            timeOffActivity);
+            timeOffActivityList);
     }
     
     @Override
@@ -175,7 +176,7 @@ public class GetVersionEmployeesTimeOffActivitiesResponse implements Response {
                 "contentType", contentType,
                 "statusCode", statusCode,
                 "rawResponse", rawResponse,
-                "timeOffActivity", timeOffActivity);
+                "timeOffActivityList", timeOffActivityList);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -187,7 +188,7 @@ public class GetVersionEmployeesTimeOffActivitiesResponse implements Response {
 
         private HttpResponse<InputStream> rawResponse;
 
-        private Optional<? extends TimeOffActivity> timeOffActivity = Optional.empty();
+        private Optional<? extends List<TimeOffActivity>> timeOffActivityList = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -225,20 +226,20 @@ public class GetVersionEmployeesTimeOffActivitiesResponse implements Response {
 
 
         /**
-         * Example response
+         * Success
          */
-        public Builder timeOffActivity(TimeOffActivity timeOffActivity) {
-            Utils.checkNotNull(timeOffActivity, "timeOffActivity");
-            this.timeOffActivity = Optional.ofNullable(timeOffActivity);
+        public Builder timeOffActivityList(List<TimeOffActivity> timeOffActivityList) {
+            Utils.checkNotNull(timeOffActivityList, "timeOffActivityList");
+            this.timeOffActivityList = Optional.ofNullable(timeOffActivityList);
             return this;
         }
 
         /**
-         * Example response
+         * Success
          */
-        public Builder timeOffActivity(Optional<? extends TimeOffActivity> timeOffActivity) {
-            Utils.checkNotNull(timeOffActivity, "timeOffActivity");
-            this.timeOffActivity = timeOffActivity;
+        public Builder timeOffActivityList(Optional<? extends List<TimeOffActivity>> timeOffActivityList) {
+            Utils.checkNotNull(timeOffActivityList, "timeOffActivityList");
+            this.timeOffActivityList = timeOffActivityList;
             return this;
         }
 
@@ -246,7 +247,7 @@ public class GetVersionEmployeesTimeOffActivitiesResponse implements Response {
 
             return new GetVersionEmployeesTimeOffActivitiesResponse(
                 contentType, statusCode, rawResponse,
-                timeOffActivity);
+                timeOffActivityList);
         }
 
     }

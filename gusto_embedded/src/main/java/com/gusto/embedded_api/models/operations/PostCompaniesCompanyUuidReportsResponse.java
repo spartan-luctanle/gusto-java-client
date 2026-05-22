@@ -34,7 +34,7 @@ public class PostCompaniesCompanyUuidReportsResponse implements Response {
     private HttpResponse<InputStream> rawResponse;
 
     /**
-     * Example response
+     * Created
      */
     private Optional<? extends CreateReport> createReport;
 
@@ -87,7 +87,7 @@ public class PostCompaniesCompanyUuidReportsResponse implements Response {
     }
 
     /**
-     * Example response
+     * Created
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -128,7 +128,7 @@ public class PostCompaniesCompanyUuidReportsResponse implements Response {
     }
 
     /**
-     * Example response
+     * Created
      */
     public PostCompaniesCompanyUuidReportsResponse withCreateReport(CreateReport createReport) {
         Utils.checkNotNull(createReport, "createReport");
@@ -138,7 +138,7 @@ public class PostCompaniesCompanyUuidReportsResponse implements Response {
 
 
     /**
-     * Example response
+     * Created
      */
     public PostCompaniesCompanyUuidReportsResponse withCreateReport(Optional<? extends CreateReport> createReport) {
         Utils.checkNotNull(createReport, "createReport");
@@ -225,7 +225,7 @@ public class PostCompaniesCompanyUuidReportsResponse implements Response {
 
 
         /**
-         * Example response
+         * Created
          */
         public Builder createReport(CreateReport createReport) {
             Utils.checkNotNull(createReport, "createReport");
@@ -234,7 +234,7 @@ public class PostCompaniesCompanyUuidReportsResponse implements Response {
         }
 
         /**
-         * Example response
+         * Created
          */
         public Builder createReport(Optional<? extends CreateReport> createReport) {
             Utils.checkNotNull(createReport, "createReport");

@@ -11,7 +11,7 @@ import java.util.Optional;
 /**
  * Aggregation
  * 
- * <p>The breakdown level used for the report
+ * <p>The breakdown of the report. Use 'default' for no split.
  */
 public enum Aggregation {
     DEFAULT("default"),

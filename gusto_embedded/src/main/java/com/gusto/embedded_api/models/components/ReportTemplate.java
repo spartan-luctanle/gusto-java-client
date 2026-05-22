@@ -15,11 +15,7 @@ import java.lang.SuppressWarnings;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * ReportTemplate
- * 
- * <p>Example response
- */
+
 public class ReportTemplate {
     /**
      * List of columns recommended

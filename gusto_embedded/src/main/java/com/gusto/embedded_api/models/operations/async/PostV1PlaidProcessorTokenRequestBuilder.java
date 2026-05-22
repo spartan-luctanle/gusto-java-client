@@ -7,9 +7,9 @@ import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.components.PlaidProcessorTokenRequest;
+import com.gusto.embedded_api.models.operations.PostV1PlaidProcessorTokenHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostV1PlaidProcessorTokenRequest;
-import com.gusto.embedded_api.models.operations.PostV1PlaidProcessorTokenRequestBody;
 import com.gusto.embedded_api.operations.PostV1PlaidProcessorToken;
 import com.gusto.embedded_api.utils.Headers;
 import com.gusto.embedded_api.utils.LazySingletonValue;
@@ -19,11 +19,11 @@ import java.util.concurrent.CompletableFuture;
 
 public class PostV1PlaidProcessorTokenRequestBuilder {
 
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
+    private Optional<? extends PostV1PlaidProcessorTokenHeaderXGustoAPIVersion> xGustoAPIVersion = Utils.readDefaultOrConstValue(
                             "xGustoAPIVersion",
                             "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
-    private PostV1PlaidProcessorTokenRequestBody requestBody;
+                            new TypeReference<Optional<? extends PostV1PlaidProcessorTokenHeaderXGustoAPIVersion>>() {});
+    private PlaidProcessorTokenRequest plaidProcessorTokenRequest;
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
@@ -31,21 +31,21 @@ public class PostV1PlaidProcessorTokenRequestBuilder {
         this.sdkConfiguration = sdkConfiguration;
     }
                 
-    public PostV1PlaidProcessorTokenRequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+    public PostV1PlaidProcessorTokenRequestBuilder xGustoAPIVersion(PostV1PlaidProcessorTokenHeaderXGustoAPIVersion xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
         return this;
     }
 
-    public PostV1PlaidProcessorTokenRequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public PostV1PlaidProcessorTokenRequestBuilder xGustoAPIVersion(Optional<? extends PostV1PlaidProcessorTokenHeaderXGustoAPIVersion> xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = xGustoAPIVersion;
         return this;
     }
 
-    public PostV1PlaidProcessorTokenRequestBuilder requestBody(PostV1PlaidProcessorTokenRequestBody requestBody) {
-        Utils.checkNotNull(requestBody, "requestBody");
-        this.requestBody = requestBody;
+    public PostV1PlaidProcessorTokenRequestBuilder plaidProcessorTokenRequest(PlaidProcessorTokenRequest plaidProcessorTokenRequest) {
+        Utils.checkNotNull(plaidProcessorTokenRequest, "plaidProcessorTokenRequest");
+        this.plaidProcessorTokenRequest = plaidProcessorTokenRequest;
         return this;
     }
 
@@ -56,7 +56,7 @@ public class PostV1PlaidProcessorTokenRequestBuilder {
         }
 
         PostV1PlaidProcessorTokenRequest request = new PostV1PlaidProcessorTokenRequest(xGustoAPIVersion,
-            requestBody);
+            plaidProcessorTokenRequest);
 
         return request;
     }
@@ -71,9 +71,9 @@ public class PostV1PlaidProcessorTokenRequestBuilder {
             .thenCompose(operation::handleResponse);
     }
 
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+    private static final LazySingletonValue<Optional<? extends PostV1PlaidProcessorTokenHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
             new LazySingletonValue<>(
                     "xGustoAPIVersion",
                     "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
+                    new TypeReference<Optional<? extends PostV1PlaidProcessorTokenHeaderXGustoAPIVersion>>() {});
 }

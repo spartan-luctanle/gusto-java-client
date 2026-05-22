@@ -5,7 +5,8 @@ package com.gusto.embedded_api;
 
 import static com.gusto.embedded_api.operations.Operations.RequestOperation;
 
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.components.EmployeeBankAccountRequest;
+import com.gusto.embedded_api.models.operations.DeleteV1EmployeesEmployeeIdBankAccountsBankAccountIdHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.DeleteV1EmployeesEmployeeIdBankAccountsBankAccountIdRequest;
 import com.gusto.embedded_api.models.operations.DeleteV1EmployeesEmployeeIdBankAccountsBankAccountIdRequestBuilder;
 import com.gusto.embedded_api.models.operations.DeleteV1EmployeesEmployeeIdBankAccountsBankAccountIdResponse;
@@ -13,12 +14,12 @@ import com.gusto.embedded_api.models.operations.GetV1EmployeesEmployeeIdPaymentM
 import com.gusto.embedded_api.models.operations.GetV1EmployeesEmployeeIdPaymentMethodRequest;
 import com.gusto.embedded_api.models.operations.GetV1EmployeesEmployeeIdPaymentMethodRequestBuilder;
 import com.gusto.embedded_api.models.operations.GetV1EmployeesEmployeeIdPaymentMethodResponse;
+import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeIdBankAccountsHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeIdBankAccountsRequest;
-import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeIdBankAccountsRequestBody;
 import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeIdBankAccountsRequestBuilder;
 import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeIdBankAccountsResponse;
+import com.gusto.embedded_api.models.operations.PutV1EmployeesEmployeeIdBankAccountsHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PutV1EmployeesEmployeeIdBankAccountsRequest;
-import com.gusto.embedded_api.models.operations.PutV1EmployeesEmployeeIdBankAccountsRequestBody;
 import com.gusto.embedded_api.models.operations.PutV1EmployeesEmployeeIdBankAccountsRequestBuilder;
 import com.gusto.embedded_api.models.operations.PutV1EmployeesEmployeeIdBankAccountsResponse;
 import com.gusto.embedded_api.models.operations.PutV1EmployeesEmployeeIdPaymentMethodHeaderXGustoAPIVersion;
@@ -58,11 +59,12 @@ public class EmployeePaymentMethod {
     /**
      * Create an employee bank account
      * 
-     * <p>Creates an employee bank account. An employee can have multiple
-     * bank accounts. Note that creating an employee bank account will also update
-     * the employee's payment method.
+     * <p>Creates an employee bank account. An employee can have multiple bank accounts. Note that creating an
+     * employee bank account will also update the employee's payment method.
      * 
      * <p>scope: `employee_payment_methods:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @return The call builder
      */
@@ -73,108 +75,50 @@ public class EmployeePaymentMethod {
     /**
      * Create an employee bank account
      * 
-     * <p>Creates an employee bank account. An employee can have multiple
-     * bank accounts. Note that creating an employee bank account will also update
-     * the employee's payment method.
+     * <p>Creates an employee bank account. An employee can have multiple bank accounts. Note that creating an
+     * employee bank account will also update the employee's payment method.
      * 
      * <p>scope: `employee_payment_methods:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param employeeId The UUID of the employee
-     * @param requestBody 
+     * @param employeeBankAccountRequest Request body for creating or updating an employee bank account. Send these fields as top-level JSON keys (the API wraps them server-side).
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
-    public PostV1EmployeesEmployeeIdBankAccountsResponse create(String employeeId, PostV1EmployeesEmployeeIdBankAccountsRequestBody requestBody) {
-        return create(employeeId, Optional.empty(), requestBody);
+    public PostV1EmployeesEmployeeIdBankAccountsResponse create(String employeeId, EmployeeBankAccountRequest employeeBankAccountRequest) {
+        return create(Optional.empty(), employeeId, employeeBankAccountRequest);
     }
 
     /**
      * Create an employee bank account
      * 
-     * <p>Creates an employee bank account. An employee can have multiple
-     * bank accounts. Note that creating an employee bank account will also update
-     * the employee's payment method.
+     * <p>Creates an employee bank account. An employee can have multiple bank accounts. Note that creating an
+     * employee bank account will also update the employee's payment method.
      * 
      * <p>scope: `employee_payment_methods:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param employeeId The UUID of the employee
-     * @param xGustoAPIVersion 
-     * @param requestBody 
+     * @param employeeBankAccountRequest Request body for creating or updating an employee bank account. Send these fields as top-level JSON keys (the API wraps them server-side).
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
     public PostV1EmployeesEmployeeIdBankAccountsResponse create(
-            String employeeId, Optional<? extends VersionHeader> xGustoAPIVersion,
-            PostV1EmployeesEmployeeIdBankAccountsRequestBody requestBody) {
+            Optional<? extends PostV1EmployeesEmployeeIdBankAccountsHeaderXGustoAPIVersion> xGustoAPIVersion, String employeeId,
+            EmployeeBankAccountRequest employeeBankAccountRequest) {
         PostV1EmployeesEmployeeIdBankAccountsRequest request =
             PostV1EmployeesEmployeeIdBankAccountsRequest
                 .builder()
-                .employeeId(employeeId)
                 .xGustoAPIVersion(xGustoAPIVersion)
-                .requestBody(requestBody)
+                .employeeId(employeeId)
+                .employeeBankAccountRequest(employeeBankAccountRequest)
                 .build();
         RequestOperation<PostV1EmployeesEmployeeIdBankAccountsRequest, PostV1EmployeesEmployeeIdBankAccountsResponse> operation
               = new PostV1EmployeesEmployeeIdBankAccounts.Sync(sdkConfiguration, _headers);
-        return operation.handleResponse(operation.doRequest(request));
-    }
-
-    /**
-     * Delete an employee bank account
-     * 
-     * <p>Deletes an employee bank account. To update an employee's bank
-     * account details, delete the bank account first and create a new one.
-     * 
-     * <p>scope: `employee_payment_methods:write`
-     * 
-     * @return The call builder
-     */
-    public DeleteV1EmployeesEmployeeIdBankAccountsBankAccountIdRequestBuilder deleteBankAccount() {
-        return new DeleteV1EmployeesEmployeeIdBankAccountsBankAccountIdRequestBuilder(sdkConfiguration);
-    }
-
-    /**
-     * Delete an employee bank account
-     * 
-     * <p>Deletes an employee bank account. To update an employee's bank
-     * account details, delete the bank account first and create a new one.
-     * 
-     * <p>scope: `employee_payment_methods:write`
-     * 
-     * @param employeeId The UUID of the employee
-     * @param bankAccountUuid The UUID of the bank account
-     * @return The response from the API call
-     * @throws RuntimeException subclass if the API call fails
-     */
-    public DeleteV1EmployeesEmployeeIdBankAccountsBankAccountIdResponse deleteBankAccount(String employeeId, String bankAccountUuid) {
-        return deleteBankAccount(employeeId, bankAccountUuid, Optional.empty());
-    }
-
-    /**
-     * Delete an employee bank account
-     * 
-     * <p>Deletes an employee bank account. To update an employee's bank
-     * account details, delete the bank account first and create a new one.
-     * 
-     * <p>scope: `employee_payment_methods:write`
-     * 
-     * @param employeeId The UUID of the employee
-     * @param bankAccountUuid The UUID of the bank account
-     * @param xGustoAPIVersion 
-     * @return The response from the API call
-     * @throws RuntimeException subclass if the API call fails
-     */
-    public DeleteV1EmployeesEmployeeIdBankAccountsBankAccountIdResponse deleteBankAccount(
-            String employeeId, String bankAccountUuid,
-            Optional<? extends VersionHeader> xGustoAPIVersion) {
-        DeleteV1EmployeesEmployeeIdBankAccountsBankAccountIdRequest request =
-            DeleteV1EmployeesEmployeeIdBankAccountsBankAccountIdRequest
-                .builder()
-                .employeeId(employeeId)
-                .bankAccountUuid(bankAccountUuid)
-                .xGustoAPIVersion(xGustoAPIVersion)
-                .build();
-        RequestOperation<DeleteV1EmployeesEmployeeIdBankAccountsBankAccountIdRequest, DeleteV1EmployeesEmployeeIdBankAccountsBankAccountIdResponse> operation
-              = new DeleteV1EmployeesEmployeeIdBankAccountsBankAccountId.Sync(sdkConfiguration, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -184,6 +128,8 @@ public class EmployeePaymentMethod {
      * <p>Updates an employee bank account.
      * 
      * <p>scope: `employee_payment_methods:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @return The call builder
      */
@@ -198,17 +144,19 @@ public class EmployeePaymentMethod {
      * 
      * <p>scope: `employee_payment_methods:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param employeeId The UUID of the employee
      * @param bankAccountUuid The UUID of the bank account
-     * @param requestBody 
+     * @param employeeBankAccountRequest Request body for creating or updating an employee bank account. Send these fields as top-level JSON keys (the API wraps them server-side).
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
     public PutV1EmployeesEmployeeIdBankAccountsResponse updateBankAccount(
             String employeeId, String bankAccountUuid,
-            PutV1EmployeesEmployeeIdBankAccountsRequestBody requestBody) {
-        return updateBankAccount(employeeId, bankAccountUuid, Optional.empty(),
-            requestBody);
+            EmployeeBankAccountRequest employeeBankAccountRequest) {
+        return updateBankAccount(Optional.empty(), employeeId, bankAccountUuid,
+            employeeBankAccountRequest);
     }
 
     /**
@@ -218,26 +166,94 @@ public class EmployeePaymentMethod {
      * 
      * <p>scope: `employee_payment_methods:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param employeeId The UUID of the employee
      * @param bankAccountUuid The UUID of the bank account
-     * @param xGustoAPIVersion 
-     * @param requestBody 
+     * @param employeeBankAccountRequest Request body for creating or updating an employee bank account. Send these fields as top-level JSON keys (the API wraps them server-side).
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
     public PutV1EmployeesEmployeeIdBankAccountsResponse updateBankAccount(
-            String employeeId, String bankAccountUuid,
-            Optional<? extends VersionHeader> xGustoAPIVersion, PutV1EmployeesEmployeeIdBankAccountsRequestBody requestBody) {
+            Optional<? extends PutV1EmployeesEmployeeIdBankAccountsHeaderXGustoAPIVersion> xGustoAPIVersion, String employeeId,
+            String bankAccountUuid, EmployeeBankAccountRequest employeeBankAccountRequest) {
         PutV1EmployeesEmployeeIdBankAccountsRequest request =
             PutV1EmployeesEmployeeIdBankAccountsRequest
                 .builder()
+                .xGustoAPIVersion(xGustoAPIVersion)
                 .employeeId(employeeId)
                 .bankAccountUuid(bankAccountUuid)
-                .xGustoAPIVersion(xGustoAPIVersion)
-                .requestBody(requestBody)
+                .employeeBankAccountRequest(employeeBankAccountRequest)
                 .build();
         RequestOperation<PutV1EmployeesEmployeeIdBankAccountsRequest, PutV1EmployeesEmployeeIdBankAccountsResponse> operation
               = new PutV1EmployeesEmployeeIdBankAccounts.Sync(sdkConfiguration, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Delete an employee bank account
+     * 
+     * <p>Deletes an employee bank account. To update an employee's bank account details, delete the bank
+     * account first and create a new one.
+     * 
+     * <p>scope: `employee_payment_methods:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @return The call builder
+     */
+    public DeleteV1EmployeesEmployeeIdBankAccountsBankAccountIdRequestBuilder deleteBankAccount() {
+        return new DeleteV1EmployeesEmployeeIdBankAccountsBankAccountIdRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Delete an employee bank account
+     * 
+     * <p>Deletes an employee bank account. To update an employee's bank account details, delete the bank
+     * account first and create a new one.
+     * 
+     * <p>scope: `employee_payment_methods:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param employeeId The UUID of the employee
+     * @param bankAccountUuid The UUID of the bank account
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public DeleteV1EmployeesEmployeeIdBankAccountsBankAccountIdResponse deleteBankAccount(String employeeId, String bankAccountUuid) {
+        return deleteBankAccount(Optional.empty(), employeeId, bankAccountUuid);
+    }
+
+    /**
+     * Delete an employee bank account
+     * 
+     * <p>Deletes an employee bank account. To update an employee's bank account details, delete the bank
+     * account first and create a new one.
+     * 
+     * <p>scope: `employee_payment_methods:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     * @param employeeId The UUID of the employee
+     * @param bankAccountUuid The UUID of the bank account
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public DeleteV1EmployeesEmployeeIdBankAccountsBankAccountIdResponse deleteBankAccount(
+            Optional<? extends DeleteV1EmployeesEmployeeIdBankAccountsBankAccountIdHeaderXGustoAPIVersion> xGustoAPIVersion, String employeeId,
+            String bankAccountUuid) {
+        DeleteV1EmployeesEmployeeIdBankAccountsBankAccountIdRequest request =
+            DeleteV1EmployeesEmployeeIdBankAccountsBankAccountIdRequest
+                .builder()
+                .xGustoAPIVersion(xGustoAPIVersion)
+                .employeeId(employeeId)
+                .bankAccountUuid(bankAccountUuid)
+                .build();
+        RequestOperation<DeleteV1EmployeesEmployeeIdBankAccountsBankAccountIdRequest, DeleteV1EmployeesEmployeeIdBankAccountsBankAccountIdResponse> operation
+              = new DeleteV1EmployeesEmployeeIdBankAccountsBankAccountId.Sync(sdkConfiguration, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

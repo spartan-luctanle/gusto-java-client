@@ -6,10 +6,10 @@ package com.gusto.embedded_api.models.operations;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.gusto.embedded_api.models.components.VersionHeader;
 import com.gusto.embedded_api.utils.LazySingletonValue;
 import com.gusto.embedded_api.utils.SpeakeasyMetadata;
 import com.gusto.embedded_api.utils.Utils;
+import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
@@ -29,21 +29,41 @@ public class GetCompaniesCompanyUuidWireInRequestUuidRequest {
      * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      */
     @SpeakeasyMetadata("header:style=simple,explode=false,name=X-Gusto-API-Version")
-    private Optional<? extends VersionHeader> xGustoAPIVersion;
+    private Optional<? extends GetCompaniesCompanyUuidWireInRequestUuidHeaderXGustoAPIVersion> xGustoAPIVersion;
+
+    /**
+     * The page that is requested. When unspecified, will load all objects unless endpoint forces
+     * pagination.
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=page")
+    private Optional<Long> page;
+
+    /**
+     * Number of objects per page. For majority of endpoints will default to 25
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=per")
+    private Optional<Long> per;
 
     @JsonCreator
     public GetCompaniesCompanyUuidWireInRequestUuidRequest(
             String companyUuid,
-            Optional<? extends VersionHeader> xGustoAPIVersion) {
+            Optional<? extends GetCompaniesCompanyUuidWireInRequestUuidHeaderXGustoAPIVersion> xGustoAPIVersion,
+            Optional<Long> page,
+            Optional<Long> per) {
         Utils.checkNotNull(companyUuid, "companyUuid");
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        Utils.checkNotNull(page, "page");
+        Utils.checkNotNull(per, "per");
         this.companyUuid = companyUuid;
         this.xGustoAPIVersion = xGustoAPIVersion;
+        this.page = page;
+        this.per = per;
     }
     
     public GetCompaniesCompanyUuidWireInRequestUuidRequest(
             String companyUuid) {
-        this(companyUuid, Optional.empty());
+        this(companyUuid, Optional.empty(), Optional.empty(),
+            Optional.empty());
     }
 
     /**
@@ -61,8 +81,25 @@ public class GetCompaniesCompanyUuidWireInRequestUuidRequest {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<VersionHeader> xGustoAPIVersion() {
-        return (Optional<VersionHeader>) xGustoAPIVersion;
+    public Optional<GetCompaniesCompanyUuidWireInRequestUuidHeaderXGustoAPIVersion> xGustoAPIVersion() {
+        return (Optional<GetCompaniesCompanyUuidWireInRequestUuidHeaderXGustoAPIVersion>) xGustoAPIVersion;
+    }
+
+    /**
+     * The page that is requested. When unspecified, will load all objects unless endpoint forces
+     * pagination.
+     */
+    @JsonIgnore
+    public Optional<Long> page() {
+        return page;
+    }
+
+    /**
+     * Number of objects per page. For majority of endpoints will default to 25
+     */
+    @JsonIgnore
+    public Optional<Long> per() {
+        return per;
     }
 
     public static Builder builder() {
@@ -84,7 +121,7 @@ public class GetCompaniesCompanyUuidWireInRequestUuidRequest {
      * application's [minimum API
      * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      */
-    public GetCompaniesCompanyUuidWireInRequestUuidRequest withXGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+    public GetCompaniesCompanyUuidWireInRequestUuidRequest withXGustoAPIVersion(GetCompaniesCompanyUuidWireInRequestUuidHeaderXGustoAPIVersion xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
         return this;
@@ -96,9 +133,49 @@ public class GetCompaniesCompanyUuidWireInRequestUuidRequest {
      * application's [minimum API
      * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      */
-    public GetCompaniesCompanyUuidWireInRequestUuidRequest withXGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public GetCompaniesCompanyUuidWireInRequestUuidRequest withXGustoAPIVersion(Optional<? extends GetCompaniesCompanyUuidWireInRequestUuidHeaderXGustoAPIVersion> xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = xGustoAPIVersion;
+        return this;
+    }
+
+    /**
+     * The page that is requested. When unspecified, will load all objects unless endpoint forces
+     * pagination.
+     */
+    public GetCompaniesCompanyUuidWireInRequestUuidRequest withPage(long page) {
+        Utils.checkNotNull(page, "page");
+        this.page = Optional.ofNullable(page);
+        return this;
+    }
+
+
+    /**
+     * The page that is requested. When unspecified, will load all objects unless endpoint forces
+     * pagination.
+     */
+    public GetCompaniesCompanyUuidWireInRequestUuidRequest withPage(Optional<Long> page) {
+        Utils.checkNotNull(page, "page");
+        this.page = page;
+        return this;
+    }
+
+    /**
+     * Number of objects per page. For majority of endpoints will default to 25
+     */
+    public GetCompaniesCompanyUuidWireInRequestUuidRequest withPer(long per) {
+        Utils.checkNotNull(per, "per");
+        this.per = Optional.ofNullable(per);
+        return this;
+    }
+
+
+    /**
+     * Number of objects per page. For majority of endpoints will default to 25
+     */
+    public GetCompaniesCompanyUuidWireInRequestUuidRequest withPer(Optional<Long> per) {
+        Utils.checkNotNull(per, "per");
+        this.per = per;
         return this;
     }
 
@@ -113,20 +190,25 @@ public class GetCompaniesCompanyUuidWireInRequestUuidRequest {
         GetCompaniesCompanyUuidWireInRequestUuidRequest other = (GetCompaniesCompanyUuidWireInRequestUuidRequest) o;
         return 
             Utils.enhancedDeepEquals(this.companyUuid, other.companyUuid) &&
-            Utils.enhancedDeepEquals(this.xGustoAPIVersion, other.xGustoAPIVersion);
+            Utils.enhancedDeepEquals(this.xGustoAPIVersion, other.xGustoAPIVersion) &&
+            Utils.enhancedDeepEquals(this.page, other.page) &&
+            Utils.enhancedDeepEquals(this.per, other.per);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            companyUuid, xGustoAPIVersion);
+            companyUuid, xGustoAPIVersion, page,
+            per);
     }
     
     @Override
     public String toString() {
         return Utils.toString(GetCompaniesCompanyUuidWireInRequestUuidRequest.class,
                 "companyUuid", companyUuid,
-                "xGustoAPIVersion", xGustoAPIVersion);
+                "xGustoAPIVersion", xGustoAPIVersion,
+                "page", page,
+                "per", per);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -134,7 +216,11 @@ public class GetCompaniesCompanyUuidWireInRequestUuidRequest {
 
         private String companyUuid;
 
-        private Optional<? extends VersionHeader> xGustoAPIVersion;
+        private Optional<? extends GetCompaniesCompanyUuidWireInRequestUuidHeaderXGustoAPIVersion> xGustoAPIVersion;
+
+        private Optional<Long> page = Optional.empty();
+
+        private Optional<Long> per = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -156,7 +242,7 @@ public class GetCompaniesCompanyUuidWireInRequestUuidRequest {
          * application's [minimum API
          * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
          */
-        public Builder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+        public Builder xGustoAPIVersion(GetCompaniesCompanyUuidWireInRequestUuidHeaderXGustoAPIVersion xGustoAPIVersion) {
             Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
             this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
             return this;
@@ -167,9 +253,49 @@ public class GetCompaniesCompanyUuidWireInRequestUuidRequest {
          * application's [minimum API
          * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
          */
-        public Builder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+        public Builder xGustoAPIVersion(Optional<? extends GetCompaniesCompanyUuidWireInRequestUuidHeaderXGustoAPIVersion> xGustoAPIVersion) {
             Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
             this.xGustoAPIVersion = xGustoAPIVersion;
+            return this;
+        }
+
+
+        /**
+         * The page that is requested. When unspecified, will load all objects unless endpoint forces
+         * pagination.
+         */
+        public Builder page(long page) {
+            Utils.checkNotNull(page, "page");
+            this.page = Optional.ofNullable(page);
+            return this;
+        }
+
+        /**
+         * The page that is requested. When unspecified, will load all objects unless endpoint forces
+         * pagination.
+         */
+        public Builder page(Optional<Long> page) {
+            Utils.checkNotNull(page, "page");
+            this.page = page;
+            return this;
+        }
+
+
+        /**
+         * Number of objects per page. For majority of endpoints will default to 25
+         */
+        public Builder per(long per) {
+            Utils.checkNotNull(per, "per");
+            this.per = Optional.ofNullable(per);
+            return this;
+        }
+
+        /**
+         * Number of objects per page. For majority of endpoints will default to 25
+         */
+        public Builder per(Optional<Long> per) {
+            Utils.checkNotNull(per, "per");
+            this.per = per;
             return this;
         }
 
@@ -179,14 +305,15 @@ public class GetCompaniesCompanyUuidWireInRequestUuidRequest {
             }
 
             return new GetCompaniesCompanyUuidWireInRequestUuidRequest(
-                companyUuid, xGustoAPIVersion);
+                companyUuid, xGustoAPIVersion, page,
+                per);
         }
 
 
-        private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+        private static final LazySingletonValue<Optional<? extends GetCompaniesCompanyUuidWireInRequestUuidHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
                 new LazySingletonValue<>(
                         "X-Gusto-API-Version",
                         "\"2025-06-15\"",
-                        new TypeReference<Optional<? extends VersionHeader>>() {});
+                        new TypeReference<Optional<? extends GetCompaniesCompanyUuidWireInRequestUuidHeaderXGustoAPIVersion>>() {});
     }
 }

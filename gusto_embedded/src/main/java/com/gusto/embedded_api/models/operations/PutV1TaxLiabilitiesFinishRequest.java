@@ -6,7 +6,6 @@ package com.gusto.embedded_api.models.operations;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.gusto.embedded_api.models.components.VersionHeader;
 import com.gusto.embedded_api.utils.LazySingletonValue;
 import com.gusto.embedded_api.utils.SpeakeasyMetadata;
 import com.gusto.embedded_api.utils.Utils;
@@ -18,32 +17,43 @@ import java.util.Optional;
 
 public class PutV1TaxLiabilitiesFinishRequest {
     /**
+     * Determines the date-based API version associated with your API call. If none is provided, your
+     * application's [minimum API
+     * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     */
+    @SpeakeasyMetadata("header:style=simple,explode=false,name=X-Gusto-API-Version")
+    private Optional<? extends PutV1TaxLiabilitiesFinishHeaderXGustoAPIVersion> xGustoAPIVersion;
+
+    /**
      * The UUID of the company
      */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=company_uuid")
     private String companyUuid;
+
+    @JsonCreator
+    public PutV1TaxLiabilitiesFinishRequest(
+            Optional<? extends PutV1TaxLiabilitiesFinishHeaderXGustoAPIVersion> xGustoAPIVersion,
+            String companyUuid) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        Utils.checkNotNull(companyUuid, "companyUuid");
+        this.xGustoAPIVersion = xGustoAPIVersion;
+        this.companyUuid = companyUuid;
+    }
+    
+    public PutV1TaxLiabilitiesFinishRequest(
+            String companyUuid) {
+        this(Optional.empty(), companyUuid);
+    }
 
     /**
      * Determines the date-based API version associated with your API call. If none is provided, your
      * application's [minimum API
      * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      */
-    @SpeakeasyMetadata("header:style=simple,explode=false,name=X-Gusto-API-Version")
-    private Optional<? extends VersionHeader> xGustoAPIVersion;
-
-    @JsonCreator
-    public PutV1TaxLiabilitiesFinishRequest(
-            String companyUuid,
-            Optional<? extends VersionHeader> xGustoAPIVersion) {
-        Utils.checkNotNull(companyUuid, "companyUuid");
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.companyUuid = companyUuid;
-        this.xGustoAPIVersion = xGustoAPIVersion;
-    }
-    
-    public PutV1TaxLiabilitiesFinishRequest(
-            String companyUuid) {
-        this(companyUuid, Optional.empty());
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<PutV1TaxLiabilitiesFinishHeaderXGustoAPIVersion> xGustoAPIVersion() {
+        return (Optional<PutV1TaxLiabilitiesFinishHeaderXGustoAPIVersion>) xGustoAPIVersion;
     }
 
     /**
@@ -54,37 +64,17 @@ public class PutV1TaxLiabilitiesFinishRequest {
         return companyUuid;
     }
 
-    /**
-     * Determines the date-based API version associated with your API call. If none is provided, your
-     * application's [minimum API
-     * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
-     */
-    @SuppressWarnings("unchecked")
-    @JsonIgnore
-    public Optional<VersionHeader> xGustoAPIVersion() {
-        return (Optional<VersionHeader>) xGustoAPIVersion;
-    }
-
     public static Builder builder() {
         return new Builder();
     }
 
 
     /**
-     * The UUID of the company
-     */
-    public PutV1TaxLiabilitiesFinishRequest withCompanyUuid(String companyUuid) {
-        Utils.checkNotNull(companyUuid, "companyUuid");
-        this.companyUuid = companyUuid;
-        return this;
-    }
-
-    /**
      * Determines the date-based API version associated with your API call. If none is provided, your
      * application's [minimum API
      * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      */
-    public PutV1TaxLiabilitiesFinishRequest withXGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+    public PutV1TaxLiabilitiesFinishRequest withXGustoAPIVersion(PutV1TaxLiabilitiesFinishHeaderXGustoAPIVersion xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
         return this;
@@ -96,9 +86,18 @@ public class PutV1TaxLiabilitiesFinishRequest {
      * application's [minimum API
      * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      */
-    public PutV1TaxLiabilitiesFinishRequest withXGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public PutV1TaxLiabilitiesFinishRequest withXGustoAPIVersion(Optional<? extends PutV1TaxLiabilitiesFinishHeaderXGustoAPIVersion> xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = xGustoAPIVersion;
+        return this;
+    }
+
+    /**
+     * The UUID of the company
+     */
+    public PutV1TaxLiabilitiesFinishRequest withCompanyUuid(String companyUuid) {
+        Utils.checkNotNull(companyUuid, "companyUuid");
+        this.companyUuid = companyUuid;
         return this;
     }
 
@@ -112,32 +111,55 @@ public class PutV1TaxLiabilitiesFinishRequest {
         }
         PutV1TaxLiabilitiesFinishRequest other = (PutV1TaxLiabilitiesFinishRequest) o;
         return 
-            Utils.enhancedDeepEquals(this.companyUuid, other.companyUuid) &&
-            Utils.enhancedDeepEquals(this.xGustoAPIVersion, other.xGustoAPIVersion);
+            Utils.enhancedDeepEquals(this.xGustoAPIVersion, other.xGustoAPIVersion) &&
+            Utils.enhancedDeepEquals(this.companyUuid, other.companyUuid);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            companyUuid, xGustoAPIVersion);
+            xGustoAPIVersion, companyUuid);
     }
     
     @Override
     public String toString() {
         return Utils.toString(PutV1TaxLiabilitiesFinishRequest.class,
-                "companyUuid", companyUuid,
-                "xGustoAPIVersion", xGustoAPIVersion);
+                "xGustoAPIVersion", xGustoAPIVersion,
+                "companyUuid", companyUuid);
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private String companyUuid;
+        private Optional<? extends PutV1TaxLiabilitiesFinishHeaderXGustoAPIVersion> xGustoAPIVersion;
 
-        private Optional<? extends VersionHeader> xGustoAPIVersion;
+        private String companyUuid;
 
         private Builder() {
           // force use of static builder() method
+        }
+
+
+        /**
+         * Determines the date-based API version associated with your API call. If none is provided, your
+         * application's [minimum API
+         * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+         */
+        public Builder xGustoAPIVersion(PutV1TaxLiabilitiesFinishHeaderXGustoAPIVersion xGustoAPIVersion) {
+            Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+            this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
+            return this;
+        }
+
+        /**
+         * Determines the date-based API version associated with your API call. If none is provided, your
+         * application's [minimum API
+         * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+         */
+        public Builder xGustoAPIVersion(Optional<? extends PutV1TaxLiabilitiesFinishHeaderXGustoAPIVersion> xGustoAPIVersion) {
+            Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+            this.xGustoAPIVersion = xGustoAPIVersion;
+            return this;
         }
 
 
@@ -150,43 +172,20 @@ public class PutV1TaxLiabilitiesFinishRequest {
             return this;
         }
 
-
-        /**
-         * Determines the date-based API version associated with your API call. If none is provided, your
-         * application's [minimum API
-         * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
-         */
-        public Builder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
-            Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-            this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
-            return this;
-        }
-
-        /**
-         * Determines the date-based API version associated with your API call. If none is provided, your
-         * application's [minimum API
-         * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
-         */
-        public Builder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
-            Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-            this.xGustoAPIVersion = xGustoAPIVersion;
-            return this;
-        }
-
         public PutV1TaxLiabilitiesFinishRequest build() {
             if (xGustoAPIVersion == null) {
                 xGustoAPIVersion = _SINGLETON_VALUE_XGustoAPIVersion.value();
             }
 
             return new PutV1TaxLiabilitiesFinishRequest(
-                companyUuid, xGustoAPIVersion);
+                xGustoAPIVersion, companyUuid);
         }
 
 
-        private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+        private static final LazySingletonValue<Optional<? extends PutV1TaxLiabilitiesFinishHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
                 new LazySingletonValue<>(
                         "X-Gusto-API-Version",
                         "\"2025-06-15\"",
-                        new TypeReference<Optional<? extends VersionHeader>>() {});
+                        new TypeReference<Optional<? extends PutV1TaxLiabilitiesFinishHeaderXGustoAPIVersion>>() {});
     }
 }

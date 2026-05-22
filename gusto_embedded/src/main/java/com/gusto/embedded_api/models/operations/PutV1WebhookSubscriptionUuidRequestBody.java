@@ -13,7 +13,9 @@ import java.util.List;
 
 
 public class PutV1WebhookSubscriptionUuidRequestBody {
-
+    /**
+     * The types of events to subscribe to.
+     */
     @JsonProperty("subscription_types")
     private List<PutV1WebhookSubscriptionUuidSubscriptionTypes> subscriptionTypes;
 
@@ -24,6 +26,9 @@ public class PutV1WebhookSubscriptionUuidRequestBody {
         this.subscriptionTypes = subscriptionTypes;
     }
 
+    /**
+     * The types of events to subscribe to.
+     */
     @JsonIgnore
     public List<PutV1WebhookSubscriptionUuidSubscriptionTypes> subscriptionTypes() {
         return subscriptionTypes;
@@ -34,6 +39,9 @@ public class PutV1WebhookSubscriptionUuidRequestBody {
     }
 
 
+    /**
+     * The types of events to subscribe to.
+     */
     public PutV1WebhookSubscriptionUuidRequestBody withSubscriptionTypes(List<PutV1WebhookSubscriptionUuidSubscriptionTypes> subscriptionTypes) {
         Utils.checkNotNull(subscriptionTypes, "subscriptionTypes");
         this.subscriptionTypes = subscriptionTypes;
@@ -75,6 +83,9 @@ public class PutV1WebhookSubscriptionUuidRequestBody {
         }
 
 
+        /**
+         * The types of events to subscribe to.
+         */
         public Builder subscriptionTypes(List<PutV1WebhookSubscriptionUuidSubscriptionTypes> subscriptionTypes) {
             Utils.checkNotNull(subscriptionTypes, "subscriptionTypes");
             this.subscriptionTypes = subscriptionTypes;

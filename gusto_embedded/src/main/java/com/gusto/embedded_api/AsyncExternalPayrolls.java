@@ -5,19 +5,27 @@ package com.gusto.embedded_api;
 
 import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation;
 
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.components.ExternalPayrollCreateRequest;
+import com.gusto.embedded_api.models.components.ExternalPayrollUpdateRequest;
+import com.gusto.embedded_api.models.components.TaxLiabilitySelectionsRequest;
+import com.gusto.embedded_api.models.operations.DeleteV1ExternalPayrollHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.DeleteV1ExternalPayrollRequest;
+import com.gusto.embedded_api.models.operations.GetV1CompanyExternalPayrollsHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1CompanyExternalPayrollsRequest;
+import com.gusto.embedded_api.models.operations.GetV1ExternalPayrollCalculateTaxesHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1ExternalPayrollCalculateTaxesRequest;
+import com.gusto.embedded_api.models.operations.GetV1ExternalPayrollHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1ExternalPayrollRequest;
+import com.gusto.embedded_api.models.operations.GetV1TaxLiabilitiesHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1TaxLiabilitiesRequest;
+import com.gusto.embedded_api.models.operations.PostV1ExternalPayrollHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostV1ExternalPayrollRequest;
-import com.gusto.embedded_api.models.operations.PostV1ExternalPayrollRequestBody;
+import com.gusto.embedded_api.models.operations.PutV1ExternalPayrollHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PutV1ExternalPayrollRequest;
-import com.gusto.embedded_api.models.operations.PutV1ExternalPayrollRequestBody;
+import com.gusto.embedded_api.models.operations.PutV1TaxLiabilitiesFinishHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PutV1TaxLiabilitiesFinishRequest;
+import com.gusto.embedded_api.models.operations.PutV1TaxLiabilitiesHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PutV1TaxLiabilitiesRequest;
-import com.gusto.embedded_api.models.operations.PutV1TaxLiabilitiesRequestBody;
 import com.gusto.embedded_api.models.operations.async.DeleteV1ExternalPayrollRequestBuilder;
 import com.gusto.embedded_api.models.operations.async.DeleteV1ExternalPayrollResponse;
 import com.gusto.embedded_api.models.operations.async.GetV1CompanyExternalPayrollsRequestBuilder;
@@ -46,6 +54,7 @@ import com.gusto.embedded_api.operations.PutV1ExternalPayroll;
 import com.gusto.embedded_api.operations.PutV1TaxLiabilities;
 import com.gusto.embedded_api.operations.PutV1TaxLiabilitiesFinish;
 import com.gusto.embedded_api.utils.Headers;
+import java.lang.Long;
 import java.lang.String;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -72,68 +81,13 @@ public class AsyncExternalPayrolls {
 
 
     /**
-     * Create a new external payroll for a company
-     * 
-     * <p>Creates a new external payroll for the company.
-     * 
-     * <p>scope: `external_payrolls:write`
-     * 
-     * @return The async call builder
-     */
-    public PostV1ExternalPayrollRequestBuilder create() {
-        return new PostV1ExternalPayrollRequestBuilder(sdkConfiguration);
-    }
-
-    /**
-     * Create a new external payroll for a company
-     * 
-     * <p>Creates a new external payroll for the company.
-     * 
-     * <p>scope: `external_payrolls:write`
-     * 
-     * @param companyUuid The UUID of the company
-     * @param requestBody 
-     * @return {@code CompletableFuture<PostV1ExternalPayrollResponse>} - The async response
-     */
-    public CompletableFuture<PostV1ExternalPayrollResponse> create(String companyUuid, PostV1ExternalPayrollRequestBody requestBody) {
-        return create(companyUuid, Optional.empty(), requestBody);
-    }
-
-    /**
-     * Create a new external payroll for a company
-     * 
-     * <p>Creates a new external payroll for the company.
-     * 
-     * <p>scope: `external_payrolls:write`
-     * 
-     * @param companyUuid The UUID of the company
-     * @param xGustoAPIVersion 
-     * @param requestBody 
-     * @return {@code CompletableFuture<PostV1ExternalPayrollResponse>} - The async response
-     */
-    public CompletableFuture<PostV1ExternalPayrollResponse> create(
-            String companyUuid, Optional<? extends VersionHeader> xGustoAPIVersion,
-            PostV1ExternalPayrollRequestBody requestBody) {
-        PostV1ExternalPayrollRequest request =
-            PostV1ExternalPayrollRequest
-                .builder()
-                .companyUuid(companyUuid)
-                .xGustoAPIVersion(xGustoAPIVersion)
-                .requestBody(requestBody)
-                .build();
-        AsyncRequestOperation<PostV1ExternalPayrollRequest, PostV1ExternalPayrollResponse> operation
-              = new PostV1ExternalPayroll.Async(sdkConfiguration, _headers);
-        return operation.doRequest(request)
-            .thenCompose(operation::handleResponse);
-    }
-
-
-    /**
      * Get external payrolls for a company
      * 
-     * <p>Get an external payroll for a given company.
+     * <p>Get external payrolls for a company.
      * 
      * <p>scope: `external_payrolls:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @return The async call builder
      */
@@ -144,37 +98,112 @@ public class AsyncExternalPayrolls {
     /**
      * Get external payrolls for a company
      * 
-     * <p>Get an external payroll for a given company.
+     * <p>Get external payrolls for a company.
      * 
      * <p>scope: `external_payrolls:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @param companyUuid The UUID of the company
      * @return {@code CompletableFuture<GetV1CompanyExternalPayrollsResponse>} - The async response
      */
     public CompletableFuture<GetV1CompanyExternalPayrollsResponse> get(String companyUuid) {
-        return get(companyUuid, Optional.empty());
+        return get(
+                Optional.empty(), companyUuid, Optional.empty(),
+                Optional.empty());
     }
 
     /**
      * Get external payrolls for a company
      * 
-     * <p>Get an external payroll for a given company.
+     * <p>Get external payrolls for a company.
      * 
      * <p>scope: `external_payrolls:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param companyUuid The UUID of the company
-     * @param xGustoAPIVersion 
+     * @param page The page that is requested. When unspecified, will load all objects unless endpoint forces pagination.
+     * @param per Number of objects per page. For majority of endpoints will default to 25
      * @return {@code CompletableFuture<GetV1CompanyExternalPayrollsResponse>} - The async response
      */
-    public CompletableFuture<GetV1CompanyExternalPayrollsResponse> get(String companyUuid, Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public CompletableFuture<GetV1CompanyExternalPayrollsResponse> get(
+            Optional<? extends GetV1CompanyExternalPayrollsHeaderXGustoAPIVersion> xGustoAPIVersion, String companyUuid,
+            Optional<Long> page, Optional<Long> per) {
         GetV1CompanyExternalPayrollsRequest request =
             GetV1CompanyExternalPayrollsRequest
                 .builder()
-                .companyUuid(companyUuid)
                 .xGustoAPIVersion(xGustoAPIVersion)
+                .companyUuid(companyUuid)
+                .page(page)
+                .per(per)
                 .build();
         AsyncRequestOperation<GetV1CompanyExternalPayrollsRequest, GetV1CompanyExternalPayrollsResponse> operation
               = new GetV1CompanyExternalPayrolls.Async(sdkConfiguration, _headers);
+        return operation.doRequest(request)
+            .thenCompose(operation::handleResponse);
+    }
+
+
+    /**
+     * Create an external payroll for a company
+     * 
+     * <p>Creates a new external payroll for a company.
+     * 
+     * <p>scope: `external_payrolls:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @return The async call builder
+     */
+    public PostV1ExternalPayrollRequestBuilder create() {
+        return new PostV1ExternalPayrollRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Create an external payroll for a company
+     * 
+     * <p>Creates a new external payroll for a company.
+     * 
+     * <p>scope: `external_payrolls:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param companyUuid The UUID of the company
+     * @param externalPayrollCreateRequest The request body for creating an external payroll.
+     * @return {@code CompletableFuture<PostV1ExternalPayrollResponse>} - The async response
+     */
+    public CompletableFuture<PostV1ExternalPayrollResponse> create(String companyUuid, ExternalPayrollCreateRequest externalPayrollCreateRequest) {
+        return create(Optional.empty(), companyUuid, externalPayrollCreateRequest);
+    }
+
+    /**
+     * Create an external payroll for a company
+     * 
+     * <p>Creates a new external payroll for a company.
+     * 
+     * <p>scope: `external_payrolls:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     * @param companyUuid The UUID of the company
+     * @param externalPayrollCreateRequest The request body for creating an external payroll.
+     * @return {@code CompletableFuture<PostV1ExternalPayrollResponse>} - The async response
+     */
+    public CompletableFuture<PostV1ExternalPayrollResponse> create(
+            Optional<? extends PostV1ExternalPayrollHeaderXGustoAPIVersion> xGustoAPIVersion, String companyUuid,
+            ExternalPayrollCreateRequest externalPayrollCreateRequest) {
+        PostV1ExternalPayrollRequest request =
+            PostV1ExternalPayrollRequest
+                .builder()
+                .xGustoAPIVersion(xGustoAPIVersion)
+                .companyUuid(companyUuid)
+                .externalPayrollCreateRequest(externalPayrollCreateRequest)
+                .build();
+        AsyncRequestOperation<PostV1ExternalPayrollRequest, PostV1ExternalPayrollResponse> operation
+              = new PostV1ExternalPayroll.Async(sdkConfiguration, _headers);
         return operation.doRequest(request)
             .thenCompose(operation::handleResponse);
     }
@@ -186,6 +215,8 @@ public class AsyncExternalPayrolls {
      * <p>Get an external payroll for a given company.
      * 
      * <p>scope: `external_payrolls:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @return The async call builder
      */
@@ -200,12 +231,14 @@ public class AsyncExternalPayrolls {
      * 
      * <p>scope: `external_payrolls:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param companyUuid The UUID of the company
      * @param externalPayrollId The UUID of the external payroll
      * @return {@code CompletableFuture<GetV1ExternalPayrollResponse>} - The async response
      */
     public CompletableFuture<GetV1ExternalPayrollResponse> retrieve(String companyUuid, String externalPayrollId) {
-        return retrieve(companyUuid, externalPayrollId, Optional.empty());
+        return retrieve(Optional.empty(), companyUuid, externalPayrollId);
     }
 
     /**
@@ -215,23 +248,95 @@ public class AsyncExternalPayrolls {
      * 
      * <p>scope: `external_payrolls:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param companyUuid The UUID of the company
      * @param externalPayrollId The UUID of the external payroll
-     * @param xGustoAPIVersion 
      * @return {@code CompletableFuture<GetV1ExternalPayrollResponse>} - The async response
      */
     public CompletableFuture<GetV1ExternalPayrollResponse> retrieve(
-            String companyUuid, String externalPayrollId,
-            Optional<? extends VersionHeader> xGustoAPIVersion) {
+            Optional<? extends GetV1ExternalPayrollHeaderXGustoAPIVersion> xGustoAPIVersion, String companyUuid,
+            String externalPayrollId) {
         GetV1ExternalPayrollRequest request =
             GetV1ExternalPayrollRequest
                 .builder()
+                .xGustoAPIVersion(xGustoAPIVersion)
                 .companyUuid(companyUuid)
                 .externalPayrollId(externalPayrollId)
-                .xGustoAPIVersion(xGustoAPIVersion)
                 .build();
         AsyncRequestOperation<GetV1ExternalPayrollRequest, GetV1ExternalPayrollResponse> operation
               = new GetV1ExternalPayroll.Async(sdkConfiguration, _headers);
+        return operation.doRequest(request)
+            .thenCompose(operation::handleResponse);
+    }
+
+
+    /**
+     * Update an external payroll
+     * 
+     * <p>Update an external payroll with a list of external payroll items.
+     * 
+     * <p>scope: `external_payrolls:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @return The async call builder
+     */
+    public PutV1ExternalPayrollRequestBuilder update() {
+        return new PutV1ExternalPayrollRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Update an external payroll
+     * 
+     * <p>Update an external payroll with a list of external payroll items.
+     * 
+     * <p>scope: `external_payrolls:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param companyUuid The UUID of the company
+     * @param externalPayrollId The UUID of the external payroll
+     * @param externalPayrollUpdateRequest The request body for updating an external payroll with employee payroll items.
+     * @return {@code CompletableFuture<PutV1ExternalPayrollResponse>} - The async response
+     */
+    public CompletableFuture<PutV1ExternalPayrollResponse> update(
+            String companyUuid, String externalPayrollId,
+            ExternalPayrollUpdateRequest externalPayrollUpdateRequest) {
+        return update(
+                Optional.empty(), companyUuid, externalPayrollId,
+                externalPayrollUpdateRequest);
+    }
+
+    /**
+     * Update an external payroll
+     * 
+     * <p>Update an external payroll with a list of external payroll items.
+     * 
+     * <p>scope: `external_payrolls:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     * @param companyUuid The UUID of the company
+     * @param externalPayrollId The UUID of the external payroll
+     * @param externalPayrollUpdateRequest The request body for updating an external payroll with employee payroll items.
+     * @return {@code CompletableFuture<PutV1ExternalPayrollResponse>} - The async response
+     */
+    public CompletableFuture<PutV1ExternalPayrollResponse> update(
+            Optional<? extends PutV1ExternalPayrollHeaderXGustoAPIVersion> xGustoAPIVersion, String companyUuid,
+            String externalPayrollId, ExternalPayrollUpdateRequest externalPayrollUpdateRequest) {
+        PutV1ExternalPayrollRequest request =
+            PutV1ExternalPayrollRequest
+                .builder()
+                .xGustoAPIVersion(xGustoAPIVersion)
+                .companyUuid(companyUuid)
+                .externalPayrollId(externalPayrollId)
+                .externalPayrollUpdateRequest(externalPayrollUpdateRequest)
+                .build();
+        AsyncRequestOperation<PutV1ExternalPayrollRequest, PutV1ExternalPayrollResponse> operation
+              = new PutV1ExternalPayroll.Async(sdkConfiguration, _headers);
         return operation.doRequest(request)
             .thenCompose(operation::handleResponse);
     }
@@ -243,6 +348,8 @@ public class AsyncExternalPayrolls {
      * <p>Delete an external payroll.
      * 
      * <p>scope: `external_payrolls:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @return The async call builder
      */
@@ -257,12 +364,14 @@ public class AsyncExternalPayrolls {
      * 
      * <p>scope: `external_payrolls:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param companyUuid The UUID of the company
      * @param externalPayrollId The UUID of the external payroll
      * @return {@code CompletableFuture<DeleteV1ExternalPayrollResponse>} - The async response
      */
     public CompletableFuture<DeleteV1ExternalPayrollResponse> delete(String companyUuid, String externalPayrollId) {
-        return delete(companyUuid, externalPayrollId, Optional.empty());
+        return delete(Optional.empty(), companyUuid, externalPayrollId);
     }
 
     /**
@@ -272,20 +381,22 @@ public class AsyncExternalPayrolls {
      * 
      * <p>scope: `external_payrolls:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param companyUuid The UUID of the company
      * @param externalPayrollId The UUID of the external payroll
-     * @param xGustoAPIVersion 
      * @return {@code CompletableFuture<DeleteV1ExternalPayrollResponse>} - The async response
      */
     public CompletableFuture<DeleteV1ExternalPayrollResponse> delete(
-            String companyUuid, String externalPayrollId,
-            Optional<? extends VersionHeader> xGustoAPIVersion) {
+            Optional<? extends DeleteV1ExternalPayrollHeaderXGustoAPIVersion> xGustoAPIVersion, String companyUuid,
+            String externalPayrollId) {
         DeleteV1ExternalPayrollRequest request =
             DeleteV1ExternalPayrollRequest
                 .builder()
+                .xGustoAPIVersion(xGustoAPIVersion)
                 .companyUuid(companyUuid)
                 .externalPayrollId(externalPayrollId)
-                .xGustoAPIVersion(xGustoAPIVersion)
                 .build();
         AsyncRequestOperation<DeleteV1ExternalPayrollRequest, DeleteV1ExternalPayrollResponse> operation
               = new DeleteV1ExternalPayroll.Async(sdkConfiguration, _headers);
@@ -295,77 +406,14 @@ public class AsyncExternalPayrolls {
 
 
     /**
-     * Update an external payroll
-     * 
-     * <p>Update an external payroll with a list of external payroll items
-     * 
-     * <p>scope: `external_payrolls:write`
-     * 
-     * @return The async call builder
-     */
-    public PutV1ExternalPayrollRequestBuilder update() {
-        return new PutV1ExternalPayrollRequestBuilder(sdkConfiguration);
-    }
-
-    /**
-     * Update an external payroll
-     * 
-     * <p>Update an external payroll with a list of external payroll items
-     * 
-     * <p>scope: `external_payrolls:write`
-     * 
-     * @param companyUuid The UUID of the company
-     * @param externalPayrollId The UUID of the external payroll
-     * @param requestBody 
-     * @return {@code CompletableFuture<PutV1ExternalPayrollResponse>} - The async response
-     */
-    public CompletableFuture<PutV1ExternalPayrollResponse> update(
-            String companyUuid, String externalPayrollId,
-            PutV1ExternalPayrollRequestBody requestBody) {
-        return update(
-                companyUuid, externalPayrollId, Optional.empty(),
-                requestBody);
-    }
-
-    /**
-     * Update an external payroll
-     * 
-     * <p>Update an external payroll with a list of external payroll items
-     * 
-     * <p>scope: `external_payrolls:write`
-     * 
-     * @param companyUuid The UUID of the company
-     * @param externalPayrollId The UUID of the external payroll
-     * @param xGustoAPIVersion 
-     * @param requestBody 
-     * @return {@code CompletableFuture<PutV1ExternalPayrollResponse>} - The async response
-     */
-    public CompletableFuture<PutV1ExternalPayrollResponse> update(
-            String companyUuid, String externalPayrollId,
-            Optional<? extends VersionHeader> xGustoAPIVersion, PutV1ExternalPayrollRequestBody requestBody) {
-        PutV1ExternalPayrollRequest request =
-            PutV1ExternalPayrollRequest
-                .builder()
-                .companyUuid(companyUuid)
-                .externalPayrollId(externalPayrollId)
-                .xGustoAPIVersion(xGustoAPIVersion)
-                .requestBody(requestBody)
-                .build();
-        AsyncRequestOperation<PutV1ExternalPayrollRequest, PutV1ExternalPayrollResponse> operation
-              = new PutV1ExternalPayroll.Async(sdkConfiguration, _headers);
-        return operation.doRequest(request)
-            .thenCompose(operation::handleResponse);
-    }
-
-
-    /**
      * Get tax suggestions for an external payroll
      * 
-     * <p>Get tax suggestions for an external payroll. Earnings and/or benefits
-     * data must be saved prior to the calculation in order to retrieve accurate
-     * tax calculation.
+     * <p>Get tax suggestions for an external payroll. Earnings and/or benefits data must be saved prior to
+     * the calculation in order to retrieve accurate tax calculation.
      * 
      * <p>scope: `external_payrolls:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @return The async call builder
      */
@@ -376,43 +424,45 @@ public class AsyncExternalPayrolls {
     /**
      * Get tax suggestions for an external payroll
      * 
-     * <p>Get tax suggestions for an external payroll. Earnings and/or benefits
-     * data must be saved prior to the calculation in order to retrieve accurate
-     * tax calculation.
+     * <p>Get tax suggestions for an external payroll. Earnings and/or benefits data must be saved prior to
+     * the calculation in order to retrieve accurate tax calculation.
      * 
      * <p>scope: `external_payrolls:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @param companyUuid The UUID of the company
      * @param externalPayrollId The UUID of the external payroll
      * @return {@code CompletableFuture<GetV1ExternalPayrollCalculateTaxesResponse>} - The async response
      */
     public CompletableFuture<GetV1ExternalPayrollCalculateTaxesResponse> calculateTaxes(String companyUuid, String externalPayrollId) {
-        return calculateTaxes(companyUuid, externalPayrollId, Optional.empty());
+        return calculateTaxes(Optional.empty(), companyUuid, externalPayrollId);
     }
 
     /**
      * Get tax suggestions for an external payroll
      * 
-     * <p>Get tax suggestions for an external payroll. Earnings and/or benefits
-     * data must be saved prior to the calculation in order to retrieve accurate
-     * tax calculation.
+     * <p>Get tax suggestions for an external payroll. Earnings and/or benefits data must be saved prior to
+     * the calculation in order to retrieve accurate tax calculation.
      * 
      * <p>scope: `external_payrolls:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param companyUuid The UUID of the company
      * @param externalPayrollId The UUID of the external payroll
-     * @param xGustoAPIVersion 
      * @return {@code CompletableFuture<GetV1ExternalPayrollCalculateTaxesResponse>} - The async response
      */
     public CompletableFuture<GetV1ExternalPayrollCalculateTaxesResponse> calculateTaxes(
-            String companyUuid, String externalPayrollId,
-            Optional<? extends VersionHeader> xGustoAPIVersion) {
+            Optional<? extends GetV1ExternalPayrollCalculateTaxesHeaderXGustoAPIVersion> xGustoAPIVersion, String companyUuid,
+            String externalPayrollId) {
         GetV1ExternalPayrollCalculateTaxesRequest request =
             GetV1ExternalPayrollCalculateTaxesRequest
                 .builder()
+                .xGustoAPIVersion(xGustoAPIVersion)
                 .companyUuid(companyUuid)
                 .externalPayrollId(externalPayrollId)
-                .xGustoAPIVersion(xGustoAPIVersion)
                 .build();
         AsyncRequestOperation<GetV1ExternalPayrollCalculateTaxesRequest, GetV1ExternalPayrollCalculateTaxesResponse> operation
               = new GetV1ExternalPayrollCalculateTaxes.Async(sdkConfiguration, _headers);
@@ -428,6 +478,8 @@ public class AsyncExternalPayrolls {
      * 
      * <p>scope: `external_payrolls:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @return The async call builder
      */
     public GetV1TaxLiabilitiesRequestBuilder listTaxLiabilities() {
@@ -441,11 +493,13 @@ public class AsyncExternalPayrolls {
      * 
      * <p>scope: `external_payrolls:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param companyUuid The UUID of the company
      * @return {@code CompletableFuture<GetV1TaxLiabilitiesResponse>} - The async response
      */
     public CompletableFuture<GetV1TaxLiabilitiesResponse> listTaxLiabilities(String companyUuid) {
-        return listTaxLiabilities(companyUuid, Optional.empty());
+        return listTaxLiabilities(Optional.empty(), companyUuid);
     }
 
     /**
@@ -455,16 +509,18 @@ public class AsyncExternalPayrolls {
      * 
      * <p>scope: `external_payrolls:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param companyUuid The UUID of the company
-     * @param xGustoAPIVersion 
      * @return {@code CompletableFuture<GetV1TaxLiabilitiesResponse>} - The async response
      */
-    public CompletableFuture<GetV1TaxLiabilitiesResponse> listTaxLiabilities(String companyUuid, Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public CompletableFuture<GetV1TaxLiabilitiesResponse> listTaxLiabilities(Optional<? extends GetV1TaxLiabilitiesHeaderXGustoAPIVersion> xGustoAPIVersion, String companyUuid) {
         GetV1TaxLiabilitiesRequest request =
             GetV1TaxLiabilitiesRequest
                 .builder()
-                .companyUuid(companyUuid)
                 .xGustoAPIVersion(xGustoAPIVersion)
+                .companyUuid(companyUuid)
                 .build();
         AsyncRequestOperation<GetV1TaxLiabilitiesRequest, GetV1TaxLiabilitiesResponse> operation
               = new GetV1TaxLiabilities.Async(sdkConfiguration, _headers);
@@ -480,6 +536,8 @@ public class AsyncExternalPayrolls {
      * 
      * <p>scope: `external_payrolls:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @return The async call builder
      */
     public PutV1TaxLiabilitiesRequestBuilder updateTaxLiabilities() {
@@ -493,12 +551,14 @@ public class AsyncExternalPayrolls {
      * 
      * <p>scope: `external_payrolls:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param companyUuid The UUID of the company
-     * @param requestBody 
+     * @param taxLiabilitySelectionsRequest The request body for updating tax liability selections.
      * @return {@code CompletableFuture<PutV1TaxLiabilitiesResponse>} - The async response
      */
-    public CompletableFuture<PutV1TaxLiabilitiesResponse> updateTaxLiabilities(String companyUuid, PutV1TaxLiabilitiesRequestBody requestBody) {
-        return updateTaxLiabilities(companyUuid, Optional.empty(), requestBody);
+    public CompletableFuture<PutV1TaxLiabilitiesResponse> updateTaxLiabilities(String companyUuid, TaxLiabilitySelectionsRequest taxLiabilitySelectionsRequest) {
+        return updateTaxLiabilities(Optional.empty(), companyUuid, taxLiabilitySelectionsRequest);
     }
 
     /**
@@ -508,20 +568,22 @@ public class AsyncExternalPayrolls {
      * 
      * <p>scope: `external_payrolls:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param companyUuid The UUID of the company
-     * @param xGustoAPIVersion 
-     * @param requestBody 
+     * @param taxLiabilitySelectionsRequest The request body for updating tax liability selections.
      * @return {@code CompletableFuture<PutV1TaxLiabilitiesResponse>} - The async response
      */
     public CompletableFuture<PutV1TaxLiabilitiesResponse> updateTaxLiabilities(
-            String companyUuid, Optional<? extends VersionHeader> xGustoAPIVersion,
-            PutV1TaxLiabilitiesRequestBody requestBody) {
+            Optional<? extends PutV1TaxLiabilitiesHeaderXGustoAPIVersion> xGustoAPIVersion, String companyUuid,
+            TaxLiabilitySelectionsRequest taxLiabilitySelectionsRequest) {
         PutV1TaxLiabilitiesRequest request =
             PutV1TaxLiabilitiesRequest
                 .builder()
-                .companyUuid(companyUuid)
                 .xGustoAPIVersion(xGustoAPIVersion)
-                .requestBody(requestBody)
+                .companyUuid(companyUuid)
+                .taxLiabilitySelectionsRequest(taxLiabilitySelectionsRequest)
                 .build();
         AsyncRequestOperation<PutV1TaxLiabilitiesRequest, PutV1TaxLiabilitiesResponse> operation
               = new PutV1TaxLiabilities.Async(sdkConfiguration, _headers);
@@ -535,7 +597,13 @@ public class AsyncExternalPayrolls {
      * 
      * <p>Finalizes tax liabilities for a company. All external payrolls edit action will be disabled.
      * 
+     * <p>### Asynchronous processing
+     * This endpoint triggers an asynchronous operation. The external payrolls will be processed in the
+     * background after finalization.
+     * 
      * <p>scope: `external_payrolls:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @return The async call builder
      */
@@ -548,13 +616,19 @@ public class AsyncExternalPayrolls {
      * 
      * <p>Finalizes tax liabilities for a company. All external payrolls edit action will be disabled.
      * 
+     * <p>### Asynchronous processing
+     * This endpoint triggers an asynchronous operation. The external payrolls will be processed in the
+     * background after finalization.
+     * 
      * <p>scope: `external_payrolls:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @param companyUuid The UUID of the company
      * @return {@code CompletableFuture<PutV1TaxLiabilitiesFinishResponse>} - The async response
      */
     public CompletableFuture<PutV1TaxLiabilitiesFinishResponse> finalizeTaxLiabilities(String companyUuid) {
-        return finalizeTaxLiabilities(companyUuid, Optional.empty());
+        return finalizeTaxLiabilities(Optional.empty(), companyUuid);
     }
 
     /**
@@ -562,18 +636,24 @@ public class AsyncExternalPayrolls {
      * 
      * <p>Finalizes tax liabilities for a company. All external payrolls edit action will be disabled.
      * 
+     * <p>### Asynchronous processing
+     * This endpoint triggers an asynchronous operation. The external payrolls will be processed in the
+     * background after finalization.
+     * 
      * <p>scope: `external_payrolls:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param companyUuid The UUID of the company
-     * @param xGustoAPIVersion 
      * @return {@code CompletableFuture<PutV1TaxLiabilitiesFinishResponse>} - The async response
      */
-    public CompletableFuture<PutV1TaxLiabilitiesFinishResponse> finalizeTaxLiabilities(String companyUuid, Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public CompletableFuture<PutV1TaxLiabilitiesFinishResponse> finalizeTaxLiabilities(Optional<? extends PutV1TaxLiabilitiesFinishHeaderXGustoAPIVersion> xGustoAPIVersion, String companyUuid) {
         PutV1TaxLiabilitiesFinishRequest request =
             PutV1TaxLiabilitiesFinishRequest
                 .builder()
-                .companyUuid(companyUuid)
                 .xGustoAPIVersion(xGustoAPIVersion)
+                .companyUuid(companyUuid)
                 .build();
         AsyncRequestOperation<PutV1TaxLiabilitiesFinishRequest, PutV1TaxLiabilitiesFinishResponse> operation
               = new PutV1TaxLiabilitiesFinish.Async(sdkConfiguration, _headers);

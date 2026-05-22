@@ -5,8 +5,8 @@ package com.gusto.embedded_api;
 
 import static com.gusto.embedded_api.operations.Operations.RequestOperation;
 
-import com.gusto.embedded_api.models.components.DocumentType;
 import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.operations.DocumentType;
 import com.gusto.embedded_api.models.operations.GetV1GeneratedDocumentsDocumentTypeRequestUuidRequest;
 import com.gusto.embedded_api.models.operations.GetV1GeneratedDocumentsDocumentTypeRequestUuidRequestBuilder;
 import com.gusto.embedded_api.models.operations.GetV1GeneratedDocumentsDocumentTypeRequestUuidResponse;
@@ -43,6 +43,8 @@ public class GeneratedDocuments {
      * 
      * <p>scope: `generated_documents:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @return The call builder
      */
     public GetV1GeneratedDocumentsDocumentTypeRequestUuidRequestBuilder get() {
@@ -57,7 +59,9 @@ public class GeneratedDocuments {
      * 
      * <p>scope: `generated_documents:read`
      * 
-     * @param documentType 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param documentType The type of document being generated
      * @param requestUuid The UUID of the request to generate a document. Generate document endpoints return request_uuids to be used with the GET generated document endpoint.
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -74,7 +78,9 @@ public class GeneratedDocuments {
      * 
      * <p>scope: `generated_documents:read`
      * 
-     * @param documentType 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param documentType The type of document being generated
      * @param requestUuid The UUID of the request to generate a document. Generate document endpoints return request_uuids to be used with the GET generated document endpoint.
      * @param xGustoAPIVersion 
      * @return The response from the API call

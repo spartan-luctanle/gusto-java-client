@@ -7,7 +7,7 @@ import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.operations.GetV1TaxLiabilitiesHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1TaxLiabilitiesRequest;
 import com.gusto.embedded_api.operations.GetV1TaxLiabilities;
 import com.gusto.embedded_api.utils.Headers;
@@ -19,33 +19,33 @@ import java.util.concurrent.CompletableFuture;
 
 public class GetV1TaxLiabilitiesRequestBuilder {
 
-    private String companyUuid;
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
+    private Optional<? extends GetV1TaxLiabilitiesHeaderXGustoAPIVersion> xGustoAPIVersion = Utils.readDefaultOrConstValue(
                             "xGustoAPIVersion",
                             "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
+                            new TypeReference<Optional<? extends GetV1TaxLiabilitiesHeaderXGustoAPIVersion>>() {});
+    private String companyUuid;
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
     public GetV1TaxLiabilitiesRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
-
-    public GetV1TaxLiabilitiesRequestBuilder companyUuid(String companyUuid) {
-        Utils.checkNotNull(companyUuid, "companyUuid");
-        this.companyUuid = companyUuid;
-        return this;
-    }
                 
-    public GetV1TaxLiabilitiesRequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+    public GetV1TaxLiabilitiesRequestBuilder xGustoAPIVersion(GetV1TaxLiabilitiesHeaderXGustoAPIVersion xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
         return this;
     }
 
-    public GetV1TaxLiabilitiesRequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public GetV1TaxLiabilitiesRequestBuilder xGustoAPIVersion(Optional<? extends GetV1TaxLiabilitiesHeaderXGustoAPIVersion> xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = xGustoAPIVersion;
+        return this;
+    }
+
+    public GetV1TaxLiabilitiesRequestBuilder companyUuid(String companyUuid) {
+        Utils.checkNotNull(companyUuid, "companyUuid");
+        this.companyUuid = companyUuid;
         return this;
     }
 
@@ -55,8 +55,8 @@ public class GetV1TaxLiabilitiesRequestBuilder {
             xGustoAPIVersion = _SINGLETON_VALUE_XGustoAPIVersion.value();
         }
 
-        GetV1TaxLiabilitiesRequest request = new GetV1TaxLiabilitiesRequest(companyUuid,
-            xGustoAPIVersion);
+        GetV1TaxLiabilitiesRequest request = new GetV1TaxLiabilitiesRequest(xGustoAPIVersion,
+            companyUuid);
 
         return request;
     }
@@ -71,9 +71,9 @@ public class GetV1TaxLiabilitiesRequestBuilder {
             .thenCompose(operation::handleResponse);
     }
 
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+    private static final LazySingletonValue<Optional<? extends GetV1TaxLiabilitiesHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
             new LazySingletonValue<>(
                     "xGustoAPIVersion",
                     "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
+                    new TypeReference<Optional<? extends GetV1TaxLiabilitiesHeaderXGustoAPIVersion>>() {});
 }

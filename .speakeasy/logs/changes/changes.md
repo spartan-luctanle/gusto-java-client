@@ -1,1210 +1,572 @@
 ## Java SDK Changes:
-* `gustoembedded.contractorPaymentMethod.get()`:  `response.type.enum(null)` **Removed** (Breaking ⚠️)
-* `gustoembedded.companyBenefits.getSupported()`: 
+* `gustoembedded.departments.update()`: 
+  * `request` **Changed** (Breaking ⚠️)
+    - `departmentUpdateRequestBody` **Added** (Breaking ⚠️)
+    - `requestBody` **Removed** (Breaking ⚠️)
+    - `xGustoApiVersion` **Changed**
+  * `error` **Changed**
+    - `` **Added**
+    - `status[409]` **Added**
+* `gustoembedded.peopleBatches.getV1PeopleBatchesPeopleBatchUuid()`: `response.exclusions[]` **Changed** (Breaking ⚠️)
+    - `category` **Added**
+    - `reasonCode` **Removed** (Breaking ⚠️)
+* `gustoembedded.wireInRequests.submit()`: 
+  * `request` **Changed** (Breaking ⚠️)
+    - `requestBody` **Removed** (Breaking ⚠️)
+    - `wireInRequestUpdateRequestBody` **Added** (Breaking ⚠️)
+    - `xGustoApiVersion` **Changed**
+  *  `error.status[404]` **Added**
+* `gustoembedded.achTransactions.getAll()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  *  `response.[].errorCode` **Changed** (Breaking ⚠️)
+  *  `error.status[404]` **Added**
+* `gustoembedded.recoveryCases.get()`: 
+  * `request` **Changed**
+    - `page` **Added**
+    - `per` **Added**
+    - `xGustoApiVersion` **Changed**
+  *  `response.[].payrollUuid` **Changed** (Breaking ⚠️)
+  *  `error.status[404]` **Added**
+* `gustoembedded.holidayPayPolicies.previewPaidHolidays()`: 
+  * `request` **Changed** (Breaking ⚠️)
+    - `requestBody` **Removed** (Breaking ⚠️)
+    - `xGustoApiVersion` **Changed**
+    - `year` **Added**
+  *  `response` **Changed** (Breaking ⚠️)
+  *  `error.status[404]` **Added**
+* `gustoembedded.garnishments.getChildSupportData()`: 
   *  `request.xGustoApiVersion` **Changed**
   *  `error.status[404]` **Removed** (Breaking ⚠️)
-* `gustoembedded.companies.listAdmins()`: 
+* `gustoembedded.garnishments.update()`: 
+  * `request` **Changed** (Breaking ⚠️)
+    - `requestBody` **Removed** (Breaking ⚠️)
+    - `updateGarnishmentRequest` **Added** (Breaking ⚠️)
+    - `xGustoApiVersion` **Changed**
+  *  `error.status[404]` **Added**
+* `gustoembedded.garnishments.create()`: 
+  * `request` **Changed** (Breaking ⚠️)
+    - `garnishmentRequest` **Added** (Breaking ⚠️)
+    - `requestBody` **Removed** (Breaking ⚠️)
+    - `xGustoApiVersion` **Changed**
+  *  `error.status[404]` **Added**
+* `gustoembedded.employeeBenefits.createYtdBenefitAmountsFromDifferentCompany()`: 
+  * `request` **Changed** (Breaking ⚠️)
+    - `postEmployeeYtdBenefitAmountsFromDifferentCompany` **Removed** (Breaking ⚠️)
+    - `xGustoApiVersion` **Changed**
+    - `ytdBenefitAmountsFromDifferentCompanyBody` **Added** (Breaking ⚠️)
+  *  `error.status[404]` **Added**
+* `gustoembedded.employeeBenefits.delete()`: 
   *  `request.xGustoApiVersion` **Changed**
-  *  `response.[].phone` **Changed** (Breaking ⚠️)
-  *  `error.status[404]` **Added**
-* `gustoembedded.companies.suspensions.get()`: `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.companyAttachments.create()`: 
+  *  `error.status[422]` **Removed** (Breaking ⚠️)
+* `gustoembedded.employeeBenefits.update()`: 
   * `request` **Changed** (Breaking ⚠️)
-    - `companyAttachmentCreateRequestBody` **Added** (Breaking ⚠️)
-    - `requestBody` **Removed** (Breaking ⚠️)
-    - `xGustoApiVersion` **Changed**
-  * `response` **Changed**
-    - `category` **Changed**
-    - `name` **Changed**
-    - `uploadTime` **Changed**
-    - `uuid` **Changed**
-  *  `error.status[404]` **Added**
-* `gustoembedded.peopleBatches.getV1PeopleBatchesPeopleBatchUuid()`: 
-  * `request.xGustoApiVersion` **Changed** (Breaking ⚠️)
-    - `enum(20250615)` **Added**
-    - `enum(20251115)` **Removed** (Breaking ⚠️)
-  * `response` **Changed**
-    - `idempotencyKey` **Changed**
-    - `status` **Changed**
-    - `uuid` **Changed**
-  * `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.peopleBatches.postV1CompaniesCompanyIdPeopleBatches()`: 
-  * `request` **Changed** (Breaking ⚠️)
-    - `requestBody.batch[].compensation.effectiveDate` **Removed** (Breaking ⚠️)
-    - `xGustoApiVersion.enum(20250615)` **Added**
-    - `xGustoApiVersion.enum(20251115)` **Removed** (Breaking ⚠️)
-  * `response` **Changed** (Breaking ⚠️)
-    - `batchAction` **Changed**
-    - `idempotencyKey` **Changed**
-    - `status.enum(partialSuccess)` **Added** (Breaking ⚠️)
-    - `uuid` **Changed**
-  * `error` **Changed** (Breaking ⚠️)
-    - `errors[].errors` **Removed** (Breaking ⚠️)
-    - `errors[].metadata` **Removed** (Breaking ⚠️)
-    - `rawResponse` **Removed** (Breaking ⚠️)
-* `gustoembedded.reimbursements.deleteV1RecurringReimbursements()`: 
-  * `request.xGustoApiVersion` **Changed** (Breaking ⚠️)
-    - `enum(20240401)` **Removed** (Breaking ⚠️)
-    - `enum(20250615)` **Added**
-  * `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.reimbursements.putV1RecurringReimbursements()`: 
-  * `request.xGustoApiVersion` **Changed** (Breaking ⚠️)
-    - `enum(20240401)` **Removed** (Breaking ⚠️)
-    - `enum(20250615)` **Added**
-  * `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.reimbursements.getV1RecurringReimbursements()`: 
-  * `request.xGustoApiVersion` **Changed** (Breaking ⚠️)
-    - `enum(20240401)` **Removed** (Breaking ⚠️)
-    - `enum(20250615)` **Added**
-  * `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.reimbursements.postV1EmployeesEmployeeIdRecurringReimbursements()`: 
-  * `request.xGustoApiVersion` **Changed** (Breaking ⚠️)
-    - `enum(20240401)` **Removed** (Breaking ⚠️)
-    - `enum(20250615)` **Added**
-  * `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.reimbursements.getV1EmployeesEmployeeIdRecurringReimbursements()`: 
-  * `request.xGustoApiVersion` **Changed** (Breaking ⚠️)
-    - `enum(20240401)` **Removed** (Breaking ⚠️)
-    - `enum(20250615)` **Added**
-  * `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.salaryEstimates.getV1SalaryEstimatesOccupations()`: `request.xGustoApiVersion` **Changed** (Breaking ⚠️)
-    - `enum(20240401)` **Removed** (Breaking ⚠️)
-    - `enum(20250615)` **Added**
-* `gustoembedded.salaryEstimates.postV1SalaryEstimatesUuidAccept()`: 
-  * `request.xGustoApiVersion` **Changed** (Breaking ⚠️)
-    - `enum(20240401)` **Removed** (Breaking ⚠️)
-    - `enum(20250615)` **Added**
-  * `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.salaryEstimates.putV1SalaryEstimatesId()`: 
-  * `request.xGustoApiVersion` **Changed** (Breaking ⚠️)
-    - `enum(20240401)` **Removed** (Breaking ⚠️)
-    - `enum(20250615)` **Added**
-  * `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.salaryEstimates.getV1SalaryEstimatesId()`: 
-  * `request.xGustoApiVersion` **Changed** (Breaking ⚠️)
-    - `enum(20240401)` **Removed** (Breaking ⚠️)
-    - `enum(20250615)` **Added**
-  * `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.salaryEstimates.postV1EmployeesEmployeeIdSalaryEstimates()`: 
-  * `request.xGustoApiVersion` **Changed** (Breaking ⚠️)
-    - `enum(20240401)` **Removed** (Breaking ⚠️)
-    - `enum(20250615)` **Added**
-  * `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.wireInRequests.list()`:  `response.[].paymentType.enum(contractorPaymentGroup)` **Added** (Breaking ⚠️)
-* `gustoembedded.federalTaxDetails.get()`: 
-  *  `request.xGustoApiVersion` **Changed**
-  * `response` **Changed** (Breaking ⚠️)
-    - `filingForm` **Changed** (Breaking ⚠️)
-    - `taxPayerType` **Changed** (Breaking ⚠️)
-  *  `error.status[404]` **Added**
-* `gustoembedded.federalTaxDetails.update()`: 
-  * `request` **Changed** (Breaking ⚠️)
-    - `federalTaxDetailsUpdate` **Added** (Breaking ⚠️)
-    - `requestBody` **Removed** (Breaking ⚠️)
-    - `xGustoApiVersion` **Changed**
-  * `response` **Changed** (Breaking ⚠️)
-    - `filingForm` **Changed** (Breaking ⚠️)
-    - `taxPayerType` **Changed** (Breaking ⚠️)
-  * `error` **Changed**
-    - `` **Added**
-    - `status[409]` **Added**
-* `gustoembedded.wireInRequests.submit()`:  `response.paymentType.enum(contractorPaymentGroup)` **Added** (Breaking ⚠️)
-* `gustoembedded.industrySelection.update()`: 
-  * `request` **Changed** (Breaking ⚠️)
-    - `companyIndustrySelectionRequiredBody` **Added** (Breaking ⚠️)
+    - `employeeBenefitUpdateRequest` **Added** (Breaking ⚠️)
     - `requestBody` **Removed** (Breaking ⚠️)
     - `xGustoApiVersion` **Changed**
   *  `error.status[404]` **Added**
-* `gustoembedded.signatories.create()`: 
+* `gustoembedded.employeeBenefits.create()`: 
   * `request` **Changed** (Breaking ⚠️)
-    - `requestBody` **Removed** (Breaking ⚠️)
-    - `signatoryCreateRequest` **Added** (Breaking ⚠️)
-    - `xGustoApiVersion` **Changed**
-  *  `error.status[404]` **Added**
-* `gustoembedded.wireInRequests.get()`:  `response.paymentType.enum(contractorPaymentGroup)` **Added** (Breaking ⚠️)
-* `gustoembedded.signatories.invite()`: 
-  * `request` **Changed** (Breaking ⚠️)
-    - `requestBody` **Removed** (Breaking ⚠️)
-    - `signatoryInviteRequest` **Added** (Breaking ⚠️)
-    - `xGustoApiVersion` **Changed**
-  *  `error.status[404]` **Added**
-* `gustoembedded.signatories.update()`: 
-  * `request` **Changed** (Breaking ⚠️)
-    - `requestBody` **Removed** (Breaking ⚠️)
-    - `signatoryUpdateRequest` **Added** (Breaking ⚠️)
-    - `xGustoApiVersion` **Changed**
-  * `error` **Changed**
-    - `` **Added**
-    - `status[409]` **Added**
-* `gustoembedded.recoveryCases.get()`: `response.[]` **Changed** (Breaking ⚠️)
-    - `latestErrorCode` **Changed** (Breaking ⚠️)
-    - `originalDebitDate` **Changed** (Breaking ⚠️)
-* `gustoembedded.flows.create()`: 
-  * `request` **Changed** (Breaking ⚠️)
-    - `createFlowRequest` **Added** (Breaking ⚠️)
+    - `employeeBenefitCreateRequest` **Added** (Breaking ⚠️)
     - `requestBody` **Removed** (Breaking ⚠️)
     - `xGustoApiVersion` **Changed**
   *  `error.status[404]` **Added**
-* `gustoembedded.locations.create()`: 
+* `gustoembedded.reports.postPayrollsPayrollUuidReportsGeneralLedger()`: 
   * `request` **Changed** (Breaking ⚠️)
-    - `companyLocationRequest` **Added** (Breaking ⚠️)
+    - `generalLedgerReportBody` **Added** (Breaking ⚠️)
     - `requestBody` **Removed** (Breaking ⚠️)
     - `xGustoApiVersion` **Changed**
+  *  `response.integrationType` **Changed** (Breaking ⚠️)
   *  `error.status[404]` **Added**
-* `gustoembedded.informationRequests.submit()`:  `response.requiredQuestions[].responseType.enum(radioButton)` **Added** (Breaking ⚠️)
-* `gustoembedded.locations.retrieve()`: `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.locations.update()`: `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.locations.getMinimumWages()`: `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.bankAccounts.get()`: `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.bankAccounts.create()`: 
-  *  `response.status[200]` **Added** (Breaking ⚠️)
-  * `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.bankAccounts.verify()`: 
+* `gustoembedded.reports.createCustom()`: 
   * `request` **Changed** (Breaking ⚠️)
-    - `companyBankAccountVerifyRequest` **Added** (Breaking ⚠️)
-    - `requestBody` **Removed** (Breaking ⚠️)
-    - `xGustoApiVersion` **Changed**
-  *  `error.status[404]` **Added**
-* `gustoembedded.bankAccounts.deleteV1CompaniesCompanyIdBankAccountsBankAccountId()`: `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.informationRequests.getInformationRequests()`:  `response.[].requiredQuestions[].responseType.enum(radioButton)` **Added** (Breaking ⚠️)
-* `gustoembedded.holidayPayPolicies.removeEmployees()`: 
-  * `request.xGustoApiVersion` **Changed** (Breaking ⚠️)
-    - `enum(20240401)` **Removed** (Breaking ⚠️)
-    - `enum(20250615)` **Added**
-  * `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.externalPayrolls.listTaxLiabilities()`:  `response.[]` **Changed** (Breaking ⚠️)
-* `gustoembedded.externalPayrolls.updateTaxLiabilities()`:  `response.[]` **Changed** (Breaking ⚠️)
-* `gustoembedded.paymentConfigs.get()`: 
-  *  `request.xGustoApiVersion` **Changed**
-  *  `response.paymentSpeed` **Changed** (Breaking ⚠️)
-  *  `error.status[404]` **Added**
-* `gustoembedded.paymentConfigs.update()`: 
-  * `request` **Changed** (Breaking ⚠️)
-    - `paymentConfigsUpdateRequest` **Added** (Breaking ⚠️)
-    - `requestBody` **Removed** (Breaking ⚠️)
-    - `xGustoApiVersion` **Changed**
-  *  `response.paymentSpeed` **Changed** (Breaking ⚠️)
-  *  `error.status[404]` **Added**
-* `gustoembedded.paySchedules.create()`: 
-  * `request` **Changed** (Breaking ⚠️)
-    - `payScheduleCreateRequest` **Added** (Breaking ⚠️)
-    - `requestBody` **Removed** (Breaking ⚠️)
-    - `xGustoApiVersion` **Changed**
-  * `response` **Changed** (Breaking ⚠️)
-    - `anchorEndOfPayPeriod` **Changed** (Breaking ⚠️)
-    - `anchorPayDate` **Changed** (Breaking ⚠️)
-    - `autoPayrollEnablementBlockers` **Added**
-    - `autoPayroll` **Added**
-    - `frequency.enum(annually)` **Added** (Breaking ⚠️)
-    - `frequency.enum(quarterly)` **Added** (Breaking ⚠️)
-    - `version` **Added**
-  *  `error.status[404]` **Added**
-* `gustoembedded.paySchedules.getAll()`: 
-  *  `request.xGustoApiVersion` **Changed**
-  * `response.[]` **Changed** (Breaking ⚠️)
-    - `anchorEndOfPayPeriod` **Changed** (Breaking ⚠️)
-    - `anchorPayDate` **Changed** (Breaking ⚠️)
-    - `autoPayrollEnablementBlockers` **Added**
-    - `autoPayroll` **Added**
-    - `version` **Changed**
-  *  `error.status[404]` **Added**
-* `gustoembedded.paySchedules.getPreview()`: 
-  * `request` **Changed** (Breaking ⚠️)
-    - `anchorEndOfPayPeriod` **Changed** (Breaking ⚠️)
-    - `anchorPayDate` **Changed** (Breaking ⚠️)
-    - `endDate` **Added**
-    - `xGustoApiVersion` **Changed**
-  * `response` **Changed** (Breaking ⚠️)
-    - `holidays[]` **Changed** (Breaking ⚠️)
-    - `payPeriods[].checkDate` **Changed** (Breaking ⚠️)
-    - `payPeriods[].endDate` **Changed** (Breaking ⚠️)
-    - `payPeriods[].runPayrollBy` **Changed** (Breaking ⚠️)
-    - `payPeriods[].startDate` **Changed** (Breaking ⚠️)
-  * `error` **Changed**
-    - `status[404]` **Added**
-    - `status[422]` **Added**
-* `gustoembedded.paySchedules.get()`: 
-  *  `request.xGustoApiVersion` **Changed**
-  * `response` **Changed** (Breaking ⚠️)
-    - `anchorEndOfPayPeriod` **Changed** (Breaking ⚠️)
-    - `anchorPayDate` **Changed** (Breaking ⚠️)
-    - `autoPayrollEnablementBlockers` **Added**
-    - `autoPayroll` **Added**
-    - `version` **Changed**
-  *  `error.status[404]` **Added**
-* `gustoembedded.paySchedules.update()`: 
-  * `request` **Changed** (Breaking ⚠️)
-    - `payScheduleUpdateRequest` **Added** (Breaking ⚠️)
-    - `requestBody` **Removed** (Breaking ⚠️)
-    - `xGustoApiVersion` **Changed**
-  * `response` **Changed** (Breaking ⚠️)
-    - `anchorEndOfPayPeriod` **Changed** (Breaking ⚠️)
-    - `anchorPayDate` **Changed** (Breaking ⚠️)
-    - `autoPayrollEnablementBlockers` **Added**
-    - `autoPayroll` **Added**
-    - `frequency.enum(annually)` **Added** (Breaking ⚠️)
-    - `frequency.enum(quarterly)` **Added** (Breaking ⚠️)
-    - `version` **Added**
-  * `error` **Changed**
-    - `` **Added**
-    - `status[409]` **Added**
-* `gustoembedded.paySchedules.getPayPeriods()`: 
-  * `request` **Changed** (Breaking ⚠️)
-    - `endDate` **Changed** (Breaking ⚠️)
-    - `payrollTypes` **Changed** (Breaking ⚠️)
-    - `startDate` **Changed** (Breaking ⚠️)
-    - `xGustoApiVersion` **Changed**
-  * `error` **Changed**
-    - `` **Added**
-    - `status[422]` **Added**
-* `gustoembedded.employees.list()`: 
-  *  `response.[].jobs[].compensations[].title` **Added**
-  * `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.employees.create()`: 
-  *  `requestBody.email` **Changed**
-  *  `response.jobs[].compensations[].title` **Added**
-  * `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.holidayPayPolicies.addEmployees()`: 
-  * `request.xGustoApiVersion` **Changed** (Breaking ⚠️)
-    - `enum(20240401)` **Removed** (Breaking ⚠️)
-    - `enum(20250615)` **Added**
-  * `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.employees.get()`: 
-  *  `response.jobs[].compensations[].title` **Added**
-  * `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.employees.update()`: 
-  *  `response.jobs[].compensations[].title` **Added**
-  * `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.employees.delete()`: `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.employees.updateOnboardingDocumentsConfig()`: 
-  * `request` **Changed** (Breaking ⚠️)
-    - `employeeOnboardingDocumentsConfigRequest` **Added**
-    - `requestBody` **Removed** (Breaking ⚠️)
-    - `xGustoApiVersion` **Changed**
-  * `response` **Changed** (Breaking ⚠️)
-    - `i9Document` **Changed** (Breaking ⚠️)
-    - `uuid` **Added**
-  *  `error.status[404]` **Added**
-* `gustoembedded.employees.getOnboardingStatus()`: `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.employees.updateOnboardingStatus()`: `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.employees.getTimeOffActivities()`: `response` **Changed** (Breaking ⚠️)
-    - `balanceChange` **Changed** (Breaking ⚠️)
-    - `balance` **Changed** (Breaking ⚠️)
-    - `effectiveTime` **Changed** (Breaking ⚠️)
-    - `eventDescription` **Changed** (Breaking ⚠️)
-    - `policyName` **Changed** (Breaking ⚠️)
-    - `policyUuid` **Changed** (Breaking ⚠️)
-* `gustoembedded.holidayPayPolicies.delete()`: 
-  * `request.xGustoApiVersion` **Changed** (Breaking ⚠️)
-    - `enum(20240401)` **Removed** (Breaking ⚠️)
-    - `enum(20250615)` **Added**
-  * `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.holidayPayPolicies.update()`: 
-  * `request.xGustoApiVersion` **Changed** (Breaking ⚠️)
-    - `enum(20240401)` **Removed** (Breaking ⚠️)
-    - `enum(20250615)` **Added**
-  * `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.holidayPayPolicies.create()`: 
-  * `request.xGustoApiVersion` **Changed** (Breaking ⚠️)
-    - `enum(20240401)` **Removed** (Breaking ⚠️)
-    - `enum(20250615)` **Added**
-  * `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.employeeEmployments.rehire()`: 
-  * `request` **Changed** (Breaking ⚠️)
-    - `rehireUpdateRequestBody` **Added** (Breaking ⚠️)
-    - `requestBody` **Removed** (Breaking ⚠️)
-    - `xGustoApiVersion` **Changed**
-  * `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.employeeEmployments.getRehire()`: 
-  *  `request.xGustoApiVersion` **Changed**
-  * `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.employeeEmployments.deleteRehire()`: 
-  *  `request.xGustoApiVersion` **Changed**
-  * `error` **Changed** (Breaking ⚠️)
-    - `errors[].errors` **Removed** (Breaking ⚠️)
-    - `errors[].metadata` **Removed** (Breaking ⚠️)
-    - `status[422]` **Added**
-* `gustoembedded.employeeEmployments.getHistory()`: `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.employeeAddresses.get()`: `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.employeeAddresses.create()`: `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.employeeAddresses.retrieveHomeAddress()`: `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.employeeAddresses.update()`: `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.employeeAddresses.delete()`: `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.employeeAddresses.getWorkAddresses()`: `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.employeeAddresses.createWorkAddress()`: `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.employeeAddresses.retrieveWorkAddress()`: `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.employeeAddresses.updateWorkAddress()`: `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.employeeAddresses.deleteWorkAddress()`: `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.holidayPayPolicies.get()`: 
-  * `request.xGustoApiVersion` **Changed** (Breaking ⚠️)
-    - `enum(20240401)` **Removed** (Breaking ⚠️)
-    - `enum(20250615)` **Added**
-  * `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.employeeTaxSetup.updateFederalTaxes()`: 
-  * `request` **Changed** (Breaking ⚠️)
-    - `requestBody.additionalWithholding` **Changed** (Breaking ⚠️)
-    - `requestBody.deductions` **Changed** (Breaking ⚠️)
-    - `requestBody.dependentsAmount` **Changed** (Breaking ⚠️)
-    - `requestBody.extraWithholding` **Changed** (Breaking ⚠️)
-    - `requestBody.filingStatus` **Changed** (Breaking ⚠️)
-    - `requestBody.otherIncome` **Changed** (Breaking ⚠️)
-    - `requestBody.w4DataType` **Changed** (Breaking ⚠️)
-    - `xGustoApiVersion` **Changed**
-  * `response` **Changed**
-    - `union(pre_2020_w4).companyId` **Added**
-    - `union(pre_2020_w4).employeeId` **Added**
-    - `union(rev_2020_w4).companyId` **Added**
-    - `union(rev_2020_w4).employeeId` **Added**
-  * `error` **Changed**
-    - `` **Added**
-    - `status[409]` **Added**
-* `gustoembedded.employeeTaxSetup.getStateTaxes()`: `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.employeeTaxSetup.updateStateTaxes()`: `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.taxRequirements.updateState()`: 
-  * `request` **Changed** (Breaking ⚠️)
-    - `requestBody.requirementSets[].key` **Changed** (Breaking ⚠️)
-    - `requestBody.requirementSets[].requirements[].key` **Changed** (Breaking ⚠️)
-    - `requestBody.requirementSets[].requirements[].value` **Changed** (Breaking ⚠️)
-    - `requestBody.requirementSets[].state` **Changed** (Breaking ⚠️)
-    - `xGustoApiVersion` **Changed**
-  *  `error.status[404]` **Added**
-* `gustoembedded.contractorPaymentMethod.update()`:  `response.type.enum(null)` **Removed** (Breaking ⚠️)
-* `gustoembedded.employeePaymentMethod.update()`: 
-  * `request` **Changed** (Breaking ⚠️)
-    - `requestBody.splitBy` **Changed**
-    - `requestBody.splits[].splitAmount` **Changed** (Breaking ⚠️)
-    - `xGustoApiVersion` **Changed**
-  * `error` **Changed**
-    - `` **Added**
-    - `status[409]` **Added**
-* `gustoembedded.jobsAndCompensations.createJob()`: 
-  * `request` **Changed** (Breaking ⚠️)
-    - `jobsCreateRequestBody` **Added** (Breaking ⚠️)
-    - `requestBody` **Removed** (Breaking ⚠️)
-    - `xGustoApiVersion` **Changed**
-  *  `response.compensations[].title` **Added**
-  *  `error.status[404]` **Added**
-* `gustoembedded.i9Verification.employerSign()`: 
-  * `request` **Changed** (Breaking ⚠️)
-    - `i9AuthorizationEmployerSignRequestBody` **Added** (Breaking ⚠️)
-    - `requestBody` **Removed** (Breaking ⚠️)
-    - `xGustoApiVersion` **Changed**
-  * `response` **Changed** (Breaking ⚠️)
-    - `additionalInfo` **Changed** (Breaking ⚠️)
-    - `altProcedure` **Changed** (Breaking ⚠️)
-    - `country` **Changed** (Breaking ⚠️)
-    - `documentType` **Changed** (Breaking ⚠️)
-    - `expirationDate` **Changed** (Breaking ⚠️)
-    - `formUuid` **Changed** (Breaking ⚠️)
-    - `hasDocumentNumber` **Changed** (Breaking ⚠️)
-  *  `error.status[404]` **Added**
-* `gustoembedded.i9Verification.createDocuments()`: 
-  * `request` **Changed** (Breaking ⚠️)
-    - `i9AuthorizationDocumentsRequestBody` **Added** (Breaking ⚠️)
+    - `createReportBody` **Added** (Breaking ⚠️)
     - `requestBody` **Removed** (Breaking ⚠️)
     - `xGustoApiVersion` **Changed**
   * `response` **Changed** (Breaking ⚠️)
     - `status[200]` **Removed** (Breaking ⚠️)
     - `status[201]` **Added** (Breaking ⚠️)
   *  `error.status[404]` **Added**
-* `gustoembedded.jobsAndCompensations.update()`: 
+* `gustoembedded.companyForms.getAll()`: 
   * `request` **Changed** (Breaking ⚠️)
-    - `jobsUpdateRequestBody` **Added** (Breaking ⚠️)
+    - `companyId` **Removed** (Breaking ⚠️)
+    - `request` **Added** (Breaking ⚠️)
+    - `sortBy` **Removed** (Breaking ⚠️)
+    - `xGustoApiVersion` **Removed** (Breaking ⚠️)
+  *  `response.[].employeeUuid` **Added**
+  *  `error.status[404]` **Added**
+* `gustoembedded.contractorPayments.preview()`: 
+  * `request` **Changed** (Breaking ⚠️)
+    - `contractorPaymentsPreviewBody` **Added** (Breaking ⚠️)
     - `requestBody` **Removed** (Breaking ⚠️)
     - `xGustoApiVersion` **Changed**
-  *  `response.compensations[].title` **Added**
-  *  `error.status[404]` **Added**
-* `gustoembedded.i9Verification.getDocuments()`: 
-  *  `request.xGustoApiVersion` **Changed**
-  *  `response.[].expirationDate` **Changed** (Breaking ⚠️)
-  *  `error.status[404]` **Added**
-* `gustoembedded.webhooks.createSubscription()`:  `response.subscriptionTypes[].enum(payrollSync)` **Added** (Breaking ⚠️)
-* `gustoembedded.jobsAndCompensations.createCompensation()`: 
-  * `request` **Changed** (Breaking ⚠️)
-    - `compensationsRequestBody` **Added** (Breaking ⚠️)
-    - `requestBody` **Removed** (Breaking ⚠️)
-    - `xGustoApiVersion` **Changed**
-  *  `response.title` **Added**
-  *  `error.status[404]` **Added**
-* `gustoembedded.i9Verification.update()`: 
-  * `request` **Changed** (Breaking ⚠️)
-    - `i9AuthorizationRequestBody` **Added** (Breaking ⚠️)
-    - `requestBody` **Removed** (Breaking ⚠️)
-    - `xGustoApiVersion` **Changed**
-  * `response` **Changed** (Breaking ⚠️)
-    - `additionalInfo` **Changed** (Breaking ⚠️)
-    - `altProcedure` **Changed** (Breaking ⚠️)
-    - `country` **Changed** (Breaking ⚠️)
-    - `documentType` **Changed** (Breaking ⚠️)
-    - `expirationDate` **Changed** (Breaking ⚠️)
-    - `formUuid` **Changed** (Breaking ⚠️)
-    - `hasDocumentNumber` **Changed** (Breaking ⚠️)
-  *  `error.status[404]` **Added**
-* `gustoembedded.jobsAndCompensations.updateCompensation()`: 
-  * `request` **Changed** (Breaking ⚠️)
-    - `compensationsUpdateRequestBody` **Added** (Breaking ⚠️)
-    - `requestBody` **Removed** (Breaking ⚠️)
-    - `xGustoApiVersion` **Changed**
-  *  `response.title` **Added**
-  *  `error.status[404]` **Added**
-* `gustoembedded.i9Verification.getAuthorization()`: 
-  *  `request.xGustoApiVersion` **Changed**
-  * `response` **Changed** (Breaking ⚠️)
-    - `additionalInfo` **Changed** (Breaking ⚠️)
-    - `altProcedure` **Changed** (Breaking ⚠️)
-    - `country` **Changed** (Breaking ⚠️)
-    - `documentType` **Changed** (Breaking ⚠️)
-    - `expirationDate` **Changed** (Breaking ⚠️)
-    - `formUuid` **Changed** (Breaking ⚠️)
-    - `hasDocumentNumber` **Changed** (Breaking ⚠️)
-  *  `error.status[404]` **Added**
-* `gustoembedded.contractors.create()`: 
-  * `request` **Changed** (Breaking ⚠️)
-    - `contractorCreateRequestBody` **Added** (Breaking ⚠️)
-    - `requestBody` **Removed** (Breaking ⚠️)
-    - `xGustoApiVersion` **Changed**
-  * `response` **Changed** (Breaking ⚠️)
-    - `departmentTitle` **Added**
-    - `dismissalCancellationEligible` **Added**
-    - `memberPortalInvitationStatus` **Added**
-    - `partnerPortalInvitationSent` **Added**
-    - `paymentMethod.enum(null)` **Removed** (Breaking ⚠️)
-    - `rehireCancellationEligible` **Added**
-    - `upcomingEmployment` **Added**
-  *  `error.status[404]` **Added**
-* `gustoembedded.contractors.list()`: 
-  * `request` **Changed** (Breaking ⚠️)
-    - `include` **Added**
-    - `onboardedActive` **Added**
-    - `onboarded` **Added**
-    - `sortBy` **Changed** (Breaking ⚠️)
-    - `terminatedToday` **Added**
-    - `terminated` **Added**
-    - `xGustoApiVersion` **Changed**
-  * `response.[]` **Changed** (Breaking ⚠️)
-    - `departmentTitle` **Added**
-    - `dismissalCancellationEligible` **Added**
-    - `memberPortalInvitationStatus` **Added**
-    - `partnerPortalInvitationSent` **Added**
-    - `paymentMethod.enum(null)` **Removed** (Breaking ⚠️)
-    - `rehireCancellationEligible` **Added**
-    - `upcomingEmployment` **Added**
-  *  `error.status[404]` **Added**
-* `gustoembedded.contractors.get()`: 
-  * `request` **Changed**
-    - `include` **Added**
-    - `xGustoApiVersion` **Changed**
-  * `response` **Changed** (Breaking ⚠️)
-    - `departmentTitle` **Added**
-    - `dismissalCancellationEligible` **Added**
-    - `memberPortalInvitationStatus` **Added**
-    - `partnerPortalInvitationSent` **Added**
-    - `paymentMethod.enum(null)` **Removed** (Breaking ⚠️)
-    - `rehireCancellationEligible` **Added**
-    - `upcomingEmployment` **Added**
-  *  `error.status[404]` **Added**
-* `gustoembedded.contractors.update()`: 
-  * `request` **Changed** (Breaking ⚠️)
-    - `contractorUpdateRequestBody` **Added** (Breaking ⚠️)
-    - `requestBody` **Removed** (Breaking ⚠️)
-    - `xGustoApiVersion` **Changed**
-  * `response` **Changed** (Breaking ⚠️)
-    - `departmentTitle` **Added**
-    - `dismissalCancellationEligible` **Added**
-    - `memberPortalInvitationStatus` **Added**
-    - `partnerPortalInvitationSent` **Added**
-    - `paymentMethod.enum(null)` **Removed** (Breaking ⚠️)
-    - `rehireCancellationEligible` **Added**
-    - `upcomingEmployment` **Added**
-  *  `error.status[404]` **Added**
-* `gustoembedded.employeeBenefits.patchV1EmployeesEmployeeUuidSection603HighEarnerStatusesEffectiveYear()`: 
-  * `request.xGustoApiVersion` **Changed** (Breaking ⚠️)
-    - `enum(20240401)` **Removed** (Breaking ⚠️)
-    - `enum(20250615)` **Added**
-  * `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.employeeBenefits.getV1EmployeesEmployeeUuidSection603HighEarnerStatusesEffectiveYear()`: 
-  * `request.xGustoApiVersion` **Changed** (Breaking ⚠️)
-    - `enum(20240401)` **Removed** (Breaking ⚠️)
-    - `enum(20250615)` **Added**
-  * `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.contractors.getV1CompaniesCompanyIdContractorsPaymentDetails()`: `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.contractorPaymentGroups.get()`: 
-  * `response` **Changed** (Breaking ⚠️)
-    - `creditBlockers[]` **Changed** (Breaking ⚠️)
-    - `submissionBlockers[]` **Changed** (Breaking ⚠️)
-  * `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.employeeBenefits.postV1EmployeesEmployeeUuidSection603HighEarnerStatuses()`: 
-  * `request.xGustoApiVersion` **Changed** (Breaking ⚠️)
-    - `enum(20240401)` **Removed** (Breaking ⚠️)
-    - `enum(20250615)` **Added**
-  * `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.employeeBenefits.getV1EmployeesEmployeeUuidSection603HighEarnerStatuses()`: 
-  * `request.xGustoApiVersion` **Changed** (Breaking ⚠️)
-    - `enum(20240401)` **Removed** (Breaking ⚠️)
-    - `enum(20250615)` **Added**
-  * `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.webhooks.listSubscriptions()`:  `response.[].subscriptionTypes[].enum(payrollSync)` **Added** (Breaking ⚠️)
-* `gustoembedded.webhooks.updateSubscription()`:  `response.subscriptionTypes[].enum(payrollSync)` **Added** (Breaking ⚠️)
-* `gustoembedded.webhooks.getSubscription()`:  `response.subscriptionTypes[].enum(payrollSync)` **Added** (Breaking ⚠️)
-* `gustoembedded.webhooks.verify()`:  `response.subscriptionTypes[].enum(payrollSync)` **Added** (Breaking ⚠️)
-* `gustoembedded.payrolls.list()`: 
-  * `response.[]` **Changed** (Breaking ⚠️)
-    - `creditBlockers[].unblockOptions[].union(submit_bank_screenshot).metadata.bankAccountLastFourDigits` **Added**
-    - `creditBlockers[].unblockOptions[].union(wait_for_reverse_wire).metadata.bankAccountLastFourDigits` **Added**
-    - `withholdingPayPeriod` **Changed** (Breaking ⚠️)
-  * `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.payrolls.createOffCycle()`: 
-  *  `requestBody.employeeUuids` **Changed**
-  * `response` **Changed** (Breaking ⚠️)
-    - `employeeCompensations[].deductions` **Removed** (Breaking ⚠️)
-    - `employeeCompensations[].paidTimeOff[].finalPayoutUnusedHoursInput` **Changed** (Breaking ⚠️)
-    - `employeeCompensations[].version` **Changed** (Breaking ⚠️)
-    - `withholdingPayPeriod` **Changed** (Breaking ⚠️)
-  * `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.payrolls.get()`: 
-  * `response` **Changed** (Breaking ⚠️)
-    - `creditBlockers[].unblockOptions[].union(submit_bank_screenshot).metadata.bankAccountLastFourDigits` **Added**
-    - `creditBlockers[].unblockOptions[].union(wait_for_reverse_wire).metadata.bankAccountLastFourDigits` **Added**
-    - `employeeCompensations[].additionalProperties` **Added**
-    - `employeeCompensations[].paidTimeOff[].finalPayoutUnusedHoursInput` **Changed** (Breaking ⚠️)
-    - `employeeCompensations[].version` **Changed** (Breaking ⚠️)
-    - `withholdingPayPeriod` **Changed** (Breaking ⚠️)
-  * `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.payrolls.update()`: 
-  *  `request.payrollUpdate.employeeCompensations[].paidTimeOff[].finalPayoutUnusedHoursInput` **Changed**
-  * `response` **Changed** (Breaking ⚠️)
-    - `employeeCompensations[].paidTimeOff[].finalPayoutUnusedHoursInput` **Changed** (Breaking ⚠️)
-    - `employeeCompensations[].version` **Changed** (Breaking ⚠️)
-    - `withholdingPayPeriod` **Changed** (Breaking ⚠️)
-  * `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.payrolls.delete()`: `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.payrolls.prepare()`: 
-  * `request` **Changed**
-    - `requestBody.employeeUuids` **Changed**
-    - `sortBy` **Changed**
-    - `xGustoApiVersion` **Changed**
-  * `response` **Changed** (Breaking ⚠️)
-    - `employeeCompensations[].paidTimeOff[].finalPayoutUnusedHoursInput` **Changed** (Breaking ⚠️)
-    - `employeeCompensations[].version` **Changed** (Breaking ⚠️)
-    - `withholdingPayPeriod` **Changed** (Breaking ⚠️)
-  * `error` **Changed**
+  *  `response.expectedDebitDate` **Changed** (Breaking ⚠️)
+  * `error` **Changed** (Breaking ⚠️)
     - `` **Added**
-    - `status[422]` **Added**
-* `gustoembedded.payrolls.getReceipt()`: `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.payrolls.getBlockers()`: 
-  *  `request.xGustoApiVersion` **Changed**
-  * `response.[]` **Changed** (Breaking ⚠️)
-    - `key` **Changed** (Breaking ⚠️)
-    - `message` **Changed**
-  *  `error.status[404]` **Added**
-* `gustoembedded.payrolls.cancel()`: 
-  *  `request.xGustoApiVersion` **Changed**
-  * `response` **Changed** (Breaking ⚠️)
-    - `companyTaxes` **Removed** (Breaking ⚠️)
-    - `creditBlockers` **Removed** (Breaking ⚠️)
-    - `finalTerminationPayroll` **Removed** (Breaking ⚠️)
-    - `fixedWithholdingRate` **Removed** (Breaking ⚠️)
-    - `paymentSpeedChanged` **Removed** (Breaking ⚠️)
-    - `payrollStatusMeta` **Removed** (Breaking ⚠️)
-    - `payrollTaxes` **Removed** (Breaking ⚠️)
-    - `processingRequest` **Removed** (Breaking ⚠️)
-    - `skipRegularDeductions` **Removed** (Breaking ⚠️)
-    - `submissionBlockers` **Removed** (Breaking ⚠️)
-    - `totals` **Removed** (Breaking ⚠️)
-    - `withholdingPayPeriod` **Removed** (Breaking ⚠️)
-  *  `error.status[404]` **Added**
-* `gustoembedded.payrolls.getPayStub()`: `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.payrolls.getPayStubs()`: `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.payrolls.generatePrintableChecks()`:  `response.startingCheckNumber` **Changed** (Breaking ⚠️)
-* `gustoembedded.payrolls.getV1CompaniesCompanyIdPayrollsIdPartnerDisbursements()`: `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.payrolls.patchV1CompaniesCompanyIdPayrollsIdPartnerDisbursements()`: `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.timeOffPolicies.calculateAccruingTimeOffHours()`: 
+    - `errors` **Changed** (Breaking ⚠️)
+    - `rawResponse` **Removed** (Breaking ⚠️)
+* `gustoembedded.companies.createPartnerManaged()`: 
   * `request` **Changed** (Breaking ⚠️)
-    - `payrollCalculateAccruingTimeOffHoursRequest` **Added**
+    - `partnerManagedCompanyCreateRequest` **Added** (Breaking ⚠️)
+    - `requestBody` **Removed** (Breaking ⚠️)
+    - `xGustoApiVersion` **Changed**
+  *  `error.status[401]` **Removed** (Breaking ⚠️)
+* `gustoembedded.payrolls.generatePrintableChecks()`: 
+  * `request` **Changed** (Breaking ⚠️)
+    - `printablePayrollChecksBody` **Added** (Breaking ⚠️)
     - `requestBody` **Removed** (Breaking ⚠️)
     - `xGustoApiVersion` **Changed**
   *  `error.status[404]` **Added**
-* `gustoembedded.timeOffPolicies.get()`: 
-  * `request.xGustoApiVersion` **Changed** (Breaking ⚠️)
-    - `enum(20240401)` **Removed** (Breaking ⚠️)
-    - `enum(20250615)` **Added**
-  * `response.policyType` **Changed** (Breaking ⚠️)
-    - `enum(bereavement)` **Added** (Breaking ⚠️)
-    - `enum(custom)` **Added** (Breaking ⚠️)
-    - `enum(floatingHoliday)` **Added** (Breaking ⚠️)
-    - `enum(juryDuty)` **Added** (Breaking ⚠️)
-    - `enum(learningAndDevelopment)` **Added** (Breaking ⚠️)
-    - `enum(parentalLeave)` **Added** (Breaking ⚠️)
-    - `enum(personalDay)` **Added** (Breaking ⚠️)
-    - `enum(volunteer)` **Added** (Breaking ⚠️)
-    - `enum(weather)` **Added** (Breaking ⚠️)
-  * `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.timeOffPolicies.update()`: 
-  * `request.xGustoApiVersion` **Changed** (Breaking ⚠️)
-    - `enum(20240401)` **Removed** (Breaking ⚠️)
-    - `enum(20250615)` **Added**
-  * `response.policyType` **Changed** (Breaking ⚠️)
-    - `enum(bereavement)` **Added** (Breaking ⚠️)
-    - `enum(custom)` **Added** (Breaking ⚠️)
-    - `enum(floatingHoliday)` **Added** (Breaking ⚠️)
-    - `enum(juryDuty)` **Added** (Breaking ⚠️)
-    - `enum(learningAndDevelopment)` **Added** (Breaking ⚠️)
-    - `enum(parentalLeave)` **Added** (Breaking ⚠️)
-    - `enum(personalDay)` **Added** (Breaking ⚠️)
-    - `enum(volunteer)` **Added** (Breaking ⚠️)
-    - `enum(weather)` **Added** (Breaking ⚠️)
-  * `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.timeOffPolicies.getAll()`: 
-  * `request.xGustoApiVersion` **Changed** (Breaking ⚠️)
-    - `enum(20240401)` **Removed** (Breaking ⚠️)
-    - `enum(20250615)` **Added**
-  * `response.[].policyType` **Changed** (Breaking ⚠️)
-    - `enum(bereavement)` **Added** (Breaking ⚠️)
-    - `enum(custom)` **Added** (Breaking ⚠️)
-    - `enum(floatingHoliday)` **Added** (Breaking ⚠️)
-    - `enum(juryDuty)` **Added** (Breaking ⚠️)
-    - `enum(learningAndDevelopment)` **Added** (Breaking ⚠️)
-    - `enum(parentalLeave)` **Added** (Breaking ⚠️)
-    - `enum(personalDay)` **Added** (Breaking ⚠️)
-    - `enum(volunteer)` **Added** (Breaking ⚠️)
-    - `enum(weather)` **Added** (Breaking ⚠️)
-  * `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.timeOffPolicies.create()`: 
-  * `request.xGustoApiVersion` **Changed** (Breaking ⚠️)
-    - `enum(20240401)` **Removed** (Breaking ⚠️)
-    - `enum(20250615)` **Added**
-  * `response.policyType` **Changed** (Breaking ⚠️)
-    - `enum(bereavement)` **Added** (Breaking ⚠️)
-    - `enum(custom)` **Added** (Breaking ⚠️)
-    - `enum(floatingHoliday)` **Added** (Breaking ⚠️)
-    - `enum(juryDuty)` **Added** (Breaking ⚠️)
-    - `enum(learningAndDevelopment)` **Added** (Breaking ⚠️)
-    - `enum(parentalLeave)` **Added** (Breaking ⚠️)
-    - `enum(personalDay)` **Added** (Breaking ⚠️)
-    - `enum(volunteer)` **Added** (Breaking ⚠️)
-    - `enum(weather)` **Added** (Breaking ⚠️)
-  * `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.timeOffPolicies.addEmployees()`: 
-  * `request.xGustoApiVersion` **Changed** (Breaking ⚠️)
-    - `enum(20240401)` **Removed** (Breaking ⚠️)
-    - `enum(20250615)` **Added**
-  * `response.policyType` **Changed** (Breaking ⚠️)
-    - `enum(bereavement)` **Added** (Breaking ⚠️)
-    - `enum(custom)` **Added** (Breaking ⚠️)
-    - `enum(floatingHoliday)` **Added** (Breaking ⚠️)
-    - `enum(juryDuty)` **Added** (Breaking ⚠️)
-    - `enum(learningAndDevelopment)` **Added** (Breaking ⚠️)
-    - `enum(parentalLeave)` **Added** (Breaking ⚠️)
-    - `enum(personalDay)` **Added** (Breaking ⚠️)
-    - `enum(volunteer)` **Added** (Breaking ⚠️)
-    - `enum(weather)` **Added** (Breaking ⚠️)
-  * `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.timeOffPolicies.removeEmployees()`: 
-  * `request.xGustoApiVersion` **Changed** (Breaking ⚠️)
-    - `enum(20240401)` **Removed** (Breaking ⚠️)
-    - `enum(20250615)` **Added**
-  * `response.policyType` **Changed** (Breaking ⚠️)
-    - `enum(bereavement)` **Added** (Breaking ⚠️)
-    - `enum(custom)` **Added** (Breaking ⚠️)
-    - `enum(floatingHoliday)` **Added** (Breaking ⚠️)
-    - `enum(juryDuty)` **Added** (Breaking ⚠️)
-    - `enum(learningAndDevelopment)` **Added** (Breaking ⚠️)
-    - `enum(parentalLeave)` **Added** (Breaking ⚠️)
-    - `enum(personalDay)` **Added** (Breaking ⚠️)
-    - `enum(volunteer)` **Added** (Breaking ⚠️)
-    - `enum(weather)` **Added** (Breaking ⚠️)
-  * `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.timeOffPolicies.updateBalance()`: 
-  * `request.xGustoApiVersion` **Changed** (Breaking ⚠️)
-    - `enum(20240401)` **Removed** (Breaking ⚠️)
-    - `enum(20250615)` **Added**
-  * `response.policyType` **Changed** (Breaking ⚠️)
-    - `enum(bereavement)` **Added** (Breaking ⚠️)
-    - `enum(custom)` **Added** (Breaking ⚠️)
-    - `enum(floatingHoliday)` **Added** (Breaking ⚠️)
-    - `enum(juryDuty)` **Added** (Breaking ⚠️)
-    - `enum(learningAndDevelopment)` **Added** (Breaking ⚠️)
-    - `enum(parentalLeave)` **Added** (Breaking ⚠️)
-    - `enum(personalDay)` **Added** (Breaking ⚠️)
-    - `enum(volunteer)` **Added** (Breaking ⚠️)
-    - `enum(weather)` **Added** (Breaking ⚠️)
-  * `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.timeOffPolicies.deactivate()`: 
-  * `request.xGustoApiVersion` **Changed** (Breaking ⚠️)
-    - `enum(20240401)` **Removed** (Breaking ⚠️)
-    - `enum(20250615)` **Added**
-  * `response.policyType` **Changed** (Breaking ⚠️)
-    - `enum(bereavement)` **Added** (Breaking ⚠️)
-    - `enum(custom)` **Added** (Breaking ⚠️)
-    - `enum(floatingHoliday)` **Added** (Breaking ⚠️)
-    - `enum(juryDuty)` **Added** (Breaking ⚠️)
-    - `enum(learningAndDevelopment)` **Added** (Breaking ⚠️)
-    - `enum(parentalLeave)` **Added** (Breaking ⚠️)
-    - `enum(personalDay)` **Added** (Breaking ⚠️)
-    - `enum(volunteer)` **Added** (Breaking ⚠️)
-    - `enum(weather)` **Added** (Breaking ⚠️)
-  * `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.contractorPayments.create()`: 
+* `gustoembedded.companies.acceptTermsOfService()`: 
   * `request` **Changed** (Breaking ⚠️)
-    - `contractorPaymentBody` **Added** (Breaking ⚠️)
+    - `partnerManagedCompanyAcceptTermsOfServiceRequest` **Added** (Breaking ⚠️)
     - `requestBody` **Removed** (Breaking ⚠️)
     - `xGustoApiVersion` **Changed**
   *  `error.status[404]` **Added**
-* `gustoembedded.employeeBenefits.update()`: `response` **Changed** (Breaking ⚠️)
-    - `additionalProperties` **Added**
-    - `retirementLoanIdentifier` **Changed** (Breaking ⚠️)
-* `gustoembedded.employeeBenefits.retrieve()`: `response` **Changed** (Breaking ⚠️)
-    - `additionalProperties` **Added**
-    - `retirementLoanIdentifier` **Changed** (Breaking ⚠️)
-* `gustoembedded.employeeBenefits.get()`: `response.[]` **Changed** (Breaking ⚠️)
-    - `additionalProperties` **Added**
-    - `retirementLoanIdentifier` **Changed** (Breaking ⚠️)
-* `gustoembedded.contractorPaymentGroups.getList()`: 
-  * `response.[]` **Changed** (Breaking ⚠️)
-    - `creditBlockers[]` **Changed** (Breaking ⚠️)
-    - `submissionBlockers[]` **Changed** (Breaking ⚠️)
-  * `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.contractorPaymentGroups.create()`: 
-  * `requestBody` **Changed** (Breaking ⚠️)
-    - `contractorPayments[].bonus` **Changed** (Breaking ⚠️)
-    - `contractorPayments[].hours` **Changed** (Breaking ⚠️)
-    - `contractorPayments[].reimbursement` **Changed** (Breaking ⚠️)
-    - `contractorPayments[].wage` **Changed** (Breaking ⚠️)
-    - `submissionBlockers` **Added**
-  * `response` **Changed** (Breaking ⚠️)
-    - `creditBlockers[]` **Changed** (Breaking ⚠️)
-    - `submissionBlockers[]` **Changed** (Breaking ⚠️)
-  * `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.contractorPaymentGroups.preview()`: 
-  * `requestBody.contractorPayments[]` **Changed** (Breaking ⚠️)
-    - `bonus` **Changed** (Breaking ⚠️)
-    - `hours` **Changed** (Breaking ⚠️)
-    - `reimbursement` **Changed** (Breaking ⚠️)
-    - `wage` **Changed** (Breaking ⚠️)
-  * `response` **Changed** (Breaking ⚠️)
-    - `creditBlockers[]` **Changed** (Breaking ⚠️)
-    - `submissionBlockers[]` **Changed** (Breaking ⚠️)
-  * `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.introspection.oauthAccessToken()`: `request` **Changed** (Breaking ⚠️)
-    - `requestBody.union(1)` **Removed** (Breaking ⚠️)
-    - `requestBody.union(2)` **Removed** (Breaking ⚠️)
-    - `requestBody.union(Refresh Token Request)` **Added**
-    - `requestBody.union(System Access Token Request)` **Added**
-    - `xGustoApiVersion.enum(20240401)` **Removed** (Breaking ⚠️)
-    - `xGustoApiVersion.enum(20250615)` **Added**
-* `gustoembedded.contractorPaymentGroups.delete()`: `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.contractorPaymentGroups.fund()`: 
-  * `response` **Changed** (Breaking ⚠️)
-    - `creditBlockers[]` **Changed** (Breaking ⚠️)
-    - `submissionBlockers[]` **Changed** (Breaking ⚠️)
-  * `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.contractorPaymentGroups.getV1ContractorPaymentGroupsIdPartnerDisbursements()`: `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.contractorPaymentGroups.patchV1ContractorPaymentGroupsIdPartnerDisbursements()`: `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.companyForms.getAll()`:  `request.sortBy` **Changed** (Breaking ⚠️)
-* `gustoembedded.employeeBenefits.create()`: `response` **Changed** (Breaking ⚠️)
-    - `additionalProperties` **Added**
-    - `retirementLoanIdentifier` **Changed** (Breaking ⚠️)
-* `gustoembedded.reports.postV1CompaniesCompanyIdReportsEmployeesAnnualFicaWage()`: 
-  * `request.xGustoApiVersion` **Changed** (Breaking ⚠️)
-    - `enum(20240401)` **Removed** (Breaking ⚠️)
-    - `enum(20250615)` **Added**
-  * `errors[]` **Changed** (Breaking ⚠️)
-    - `errors` **Removed** (Breaking ⚠️)
-    - `metadata` **Removed** (Breaking ⚠️)
-* `gustoembedded.companyBenefits.create()`: 
+* `gustoembedded.companies.retrieveTermsOfService()`: 
   * `request` **Changed** (Breaking ⚠️)
-    - `companyBenefitCreateRequest` **Added** (Breaking ⚠️)
+    - `partnerManagedCompanyRetrieveTermsOfServiceRequest` **Added** (Breaking ⚠️)
     - `requestBody` **Removed** (Breaking ⚠️)
     - `xGustoApiVersion` **Changed**
   *  `error.status[404]` **Added**
-* `gustoembedded.companyBenefits.putV1CompanyBenefitsCompanyBenefitIdContributionExclusions()`: 
-  * `request` **Changed** (Breaking ⚠️)
-    - `contributionExclusionUpdateRequest` **Added** (Breaking ⚠️)
-    - `requestBody` **Removed** (Breaking ⚠️)
-    - `xGustoApiVersion` **Changed**
+* `gustoembedded.payrolls.getApprovedReversals()`: 
+  *  `response` **Changed** (Breaking ⚠️)
   *  `error.status[404]` **Added**
-* `gustoembedded.companyBenefits.get()`: 
-  *  `request.xGustoApiVersion` **Changed**
-  * `response.employeeBenefits[]` **Changed** (Breaking ⚠️)
-    - `action` **Removed** (Breaking ⚠️)
-    - `uuid` **Removed** (Breaking ⚠️)
-  *  `error.status[404]` **Added**
-* `gustoembedded.companyBenefits.update()`: 
-  * `request` **Changed** (Breaking ⚠️)
-    - `companyBenefitUpdateRequest` **Added** (Breaking ⚠️)
-    - `requestBody` **Removed** (Breaking ⚠️)
-    - `xGustoApiVersion` **Changed**
-  *  `error.status[404]` **Added**
-* `gustoembedded.companyBenefits.delete()`: 
-  *  `request.xGustoApiVersion` **Changed**
-  *  `error.status[422]` **Removed** (Breaking ⚠️)
-* `gustoembedded.companyBenefits.getAll()`: 
+* `gustoembedded.invoices.get()`: 
   *  `request.xGustoApiVersion` **Changed**
   *  `error.status[404]` **Removed** (Breaking ⚠️)
-* `gustoembedded.companies.createAdmin()`: 
-  * `request` **Changed** (Breaking ⚠️)
-    - `adminCreateRequest` **Added** (Breaking ⚠️)
-    - `requestBody` **Removed** (Breaking ⚠️)
-    - `xGustoApiVersion` **Changed**
-  *  `response.phone` **Changed** (Breaking ⚠️)
-  *  `error.status[404]` **Added**
-* `gustoembedded.companyBenefits.getSummary()`: 
-  *  `request.xGustoApiVersion` **Changed**
-  *  `response.employees` **Changed** (Breaking ⚠️)
-  *  `error.status[404]` **Added**
-* `gustoembedded.companyBenefits.getEmployeeBenefits()`: 
-  *  `request.xGustoApiVersion` **Changed**
-  * `response.[]` **Changed** (Breaking ⚠️)
-    - `additionalProperties` **Added**
-    - `retirementLoanIdentifier` **Changed** (Breaking ⚠️)
-  *  `error.status[404]` **Added**
-* `gustoembedded.companyBenefits.updateEmployeeBenefits()`: 
-  * `request` **Changed** (Breaking ⚠️)
-    - `employeeBenefitBulkUpdateRequest` **Added** (Breaking ⚠️)
-    - `requestBody` **Removed** (Breaking ⚠️)
-    - `xGustoApiVersion` **Changed**
-  * `response.[]` **Changed** (Breaking ⚠️)
-    - `additionalProperties` **Added**
-    - `retirementLoanIdentifier` **Changed** (Breaking ⚠️)
-  *  `error.status[404]` **Added**
-* `gustoembedded.companyBenefits.getRequirements()`: 
+* `gustoembedded.employeeForms.generateW2()`: 
   *  `request.xGustoApiVersion` **Changed**
   * `response` **Changed** (Breaking ⚠️)
-    - `catchUp.choices` **Changed** (Breaking ⚠️)
-    - `catchUp.defaultValue` **Changed** (Breaking ⚠️)
-    - `companyContributionAnnualMaximum.choices` **Changed** (Breaking ⚠️)
-    - `companyContributionAnnualMaximum.defaultValue` **Changed** (Breaking ⚠️)
-    - `contribution.choices` **Changed** (Breaking ⚠️)
-    - `contribution.defaultValue` **Changed** (Breaking ⚠️)
-    - `coverageAmount.choices` **Changed** (Breaking ⚠️)
-    - `coverageAmount.defaultValue` **Changed** (Breaking ⚠️)
-    - `coverageSalaryMultiplier.choices` **Changed** (Breaking ⚠️)
-    - `coverageSalaryMultiplier.defaultValue` **Changed** (Breaking ⚠️)
-    - `deductAsPercentage.choices` **Changed** (Breaking ⚠️)
-    - `deductAsPercentage.defaultValue` **Changed** (Breaking ⚠️)
-    - `employeeDeduction.choices` **Changed** (Breaking ⚠️)
-    - `employeeDeduction.defaultValue` **Changed** (Breaking ⚠️)
-    - `limitOption.choices` **Changed** (Breaking ⚠️)
-    - `limitOption.defaultValue` **Changed** (Breaking ⚠️)
+    - `status[200]` **Removed** (Breaking ⚠️)
+    - `status[201]` **Added** (Breaking ⚠️)
   *  `error.status[404]` **Added**
-* `gustoembedded.jobsAndCompensations.deleteCompensation()`: 
+* `gustoembedded.contractorDocuments.get()`: 
   *  `request.xGustoApiVersion` **Changed**
+  * `response.fields[]` **Changed** (Breaking ⚠️)
+    - `height` **Changed** (Breaking ⚠️)
+    - `key` **Changed** (Breaking ⚠️)
+    - `pageNumber` **Changed** (Breaking ⚠️)
+    - `width` **Changed** (Breaking ⚠️)
+    - `x` **Changed** (Breaking ⚠️)
+    - `y` **Changed** (Breaking ⚠️)
   * `error` **Changed**
     - `` **Added**
     - `status[422]` **Added**
-* `gustoembedded.jobsAndCompensations.getJob()`: 
+* `gustoembedded.contractorDocuments.getAll()`: 
   *  `request.xGustoApiVersion` **Changed**
-  *  `response.compensations[].title` **Added**
+  * `response.[].fields[]` **Changed** (Breaking ⚠️)
+    - `height` **Changed** (Breaking ⚠️)
+    - `key` **Changed** (Breaking ⚠️)
+    - `pageNumber` **Changed** (Breaking ⚠️)
+    - `width` **Changed** (Breaking ⚠️)
+    - `x` **Changed** (Breaking ⚠️)
+    - `y` **Changed** (Breaking ⚠️)
   *  `error.status[404]` **Added**
-* `gustoembedded.reports.createCustom()`: 
-  *  `requestBody.employeeUuids` **Changed**
-* `gustoembedded.contractorPayments.delete()`: 
-  *  `request.xGustoApiVersion` **Changed**
+* `gustoembedded.bankAccounts.createFromPlaidToken()`: 
+  * `request` **Changed** (Breaking ⚠️)
+    - `plaidProcessorTokenRequest` **Added** (Breaking ⚠️)
+    - `requestBody` **Removed** (Breaking ⚠️)
+    - `xGustoApiVersion` **Changed**
+  *  `response` **Changed** (Breaking ⚠️)
   *  `error.status[404]` **Added**
-* `gustoembedded.contractorPayments.get()`: 
-  *  `request.xGustoApiVersion` **Changed**
+* `gustoembedded.externalPayrolls.create()`: 
+  * `request` **Changed** (Breaking ⚠️)
+    - `externalPayrollCreateRequest` **Added** (Breaking ⚠️)
+    - `requestBody` **Removed** (Breaking ⚠️)
+    - `xGustoApiVersion` **Changed**
   *  `error.status[404]` **Added**
-* `gustoembedded.contractorPayments.list()`: 
+* `gustoembedded.contractorForms.generate1099()`: 
   *  `request.xGustoApiVersion` **Changed**
+  * `response` **Changed** (Breaking ⚠️)
+    - `status[200]` **Removed** (Breaking ⚠️)
+    - `status[201]` **Added** (Breaking ⚠️)
   *  `error.status[404]` **Added**
-* `gustoembedded.employeeBenefits.delete()`:  `error.status[422]` **Added**
-* `gustoembedded.i9Verification.getDocumentOptions()`: 
+* `gustoembedded.webhooks.listSubscriptions()`: 
   *  `request.xGustoApiVersion` **Changed**
+  *  `error.status[404]` **Removed** (Breaking ⚠️)
+* `gustoembedded.externalPayrolls.delete()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  *  `error.status[422]` **Removed** (Breaking ⚠️)
+* `gustoembedded.externalPayrolls.update()`: 
+  * `request` **Changed** (Breaking ⚠️)
+    - `externalPayrollUpdateRequest` **Added** (Breaking ⚠️)
+    - `requestBody` **Removed** (Breaking ⚠️)
+    - `xGustoApiVersion` **Changed**
   *  `error.status[404]` **Added**
-* `gustoembedded.taxRequirements.get()`: 
+* `gustoembedded.webhooks.createSubscription()`: 
+  * `request` **Changed**
+    - `requestBody.subscriptionTypes[].enum(payrollSync)` **Added**
+    - `requestBody.subscriptionTypes[].enum(peopleBatch)` **Added**
+    - `xGustoApiVersion` **Changed**
+  *  `error.status[404]` **Removed** (Breaking ⚠️)
+* `gustoembedded.contractorPaymentMethods.createBankAccount()`: 
+  * `request` **Changed** (Breaking ⚠️)
+    - `contractorBankAccountCreateRequestBody` **Added** (Breaking ⚠️)
+    - `requestBody` **Removed** (Breaking ⚠️)
+    - `xGustoApiVersion` **Changed**
+  * `response` **Changed**
+    - `accountType` **Changed**
+    - `contractorUuid` **Changed**
+    - `hiddenAccountNumber` **Changed**
+    - `name` **Changed**
+    - `routingNumber` **Changed**
+  *  `error.status[404]` **Added**
+* `gustoembedded.externalPayrolls.updateTaxLiabilities()`: 
+  * `request` **Changed** (Breaking ⚠️)
+    - `requestBody` **Removed** (Breaking ⚠️)
+    - `taxLiabilitySelectionsRequest` **Added** (Breaking ⚠️)
+    - `xGustoApiVersion` **Changed**
+  *  `response.[].description` **Added**
+  * `error` **Changed** (Breaking ⚠️)
+    - `` **Added**
+    - `` **Removed** (Breaking ⚠️)
+* `gustoembedded.externalPayrolls.finalizeTaxLiabilities()`: 
   *  `request.xGustoApiVersion` **Changed**
-  *  `response.requirementSets[].requirements[].editable` **Added**
+  *  `error.status[422]` **Removed** (Breaking ⚠️)
+* `gustoembedded.contractors.updateAddress()`: 
+  * `request` **Changed** (Breaking ⚠️)
+    - `contractorAddressUpdateBody` **Added** (Breaking ⚠️)
+    - `requestBody` **Removed** (Breaking ⚠️)
+    - `xGustoApiVersion` **Changed**
   *  `error.status[404]` **Added**
 * `gustoembedded.contractors.updateOnboardingStatus()`: 
-  * `requestBody.onboardingStatus` **Changed**
-    - `enum(adminOnboardingIncomplete)` **Added**
-    - `enum(adminOnboardingReview)` **Added**
-    - `enum(selfOnboardingInvited)` **Added**
-    - `enum(selfOnboardingNotInvited)` **Added**
-    - `enum(selfOnboardingReview)` **Added**
-    - `enum(selfOnboardingStarted)` **Added**
-* `gustoembedded.contractors.delete()`: 
-  *  `request.xGustoApiVersion` **Changed**
-  * `error` **Changed**
-    - `` **Added**
-    - `status[422]` **Added**
-* `gustoembedded.employeeEmployments.createRehire()`: 
-  *  `request.xGustoApiVersion` **Changed**
-  *  `error.status[404]` **Added**
-* `gustoembedded.jobsAndCompensations.getCompensation()`: 
-  *  `request.xGustoApiVersion` **Changed**
-  *  `response.title` **Added**
-  *  `error.status[404]` **Added**
-* `gustoembedded.jobsAndCompensations.getCompensations()`: 
-  *  `request.xGustoApiVersion` **Changed**
-  *  `response.[].title` **Added**
-  *  `error.status[404]` **Added**
-* `gustoembedded.jobsAndCompensations.delete()`: 
-  *  `request.xGustoApiVersion` **Changed**
-  * `error` **Changed**
-    - `` **Added**
-    - `status[422]` **Added**
-* `gustoembedded.signatories.delete()`: 
-  *  `request.xGustoApiVersion` **Changed**
-  *  `error.status[404]` **Added**
-* `gustoembedded.i9Verification.deleteDocument()`: 
-  *  `request.xGustoApiVersion` **Changed**
-  * `error` **Changed**
-    - `` **Added**
-    - `status[422]` **Added**
-* `gustoembedded.jobsAndCompensations.getJobs()`: 
-  *  `request.xGustoApiVersion` **Changed**
-  *  `response.[].compensations[].title` **Added**
-  *  `error.status[404]` **Added**
-* `gustoembedded.employeePaymentMethod.get()`: 
-  *  `request.xGustoApiVersion` **Changed**
-  *  `error.status[404]` **Added**
-* `gustoembedded.employeePaymentMethod.deleteBankAccount()`:  `error.status[422]` **Added**
-* `gustoembedded.taxRequirements.getAll()`: 
-  *  `request.xGustoApiVersion` **Changed**
-  * `response.[]` **Changed**
-    - `defaultRatesApplied` **Added**
-    - `readyToRunPayroll` **Added**
-    - `setupComplete` **Changed**
-    - `setupStatus` **Added**
-    - `state` **Changed**
-  *  `error.status[404]` **Added**
-* `gustoembedded.companyBenefits.getV1CompanyBenefitsCompanyBenefitIdContributionExclusions()`: 
-  *  `request.xGustoApiVersion` **Changed**
-  *  `error.status[404]` **Added**
-* `gustoembedded.companyBenefits.list()`: 
-  *  `request.xGustoApiVersion` **Changed**
-  *  `error.status[404]` **Added**
-* `gustoembedded.employeeTaxSetup.getFederalTaxes()`: 
-  *  `request.xGustoApiVersion` **Changed**
-  * `response` **Changed**
-    - `union(pre_2020_w4).companyId` **Added**
-    - `union(pre_2020_w4).employeeId` **Added**
-    - `union(rev_2020_w4).companyId` **Added**
-    - `union(rev_2020_w4).employeeId` **Added**
-  *  `error.status[404]` **Added**
-* `gustoembedded.companies.update()`: 
-  *  `request.xGustoApiVersion` **Changed**
-  * `response` **Changed**
-    - `compensations.fixed[].uuid` **Added**
-    - `compensations.hourly[].uuid` **Added**
-    - `compensations.paidTimeOff[].uuid` **Added**
-    - `locations[].active` **Added**
-  *  `error.status[404]` **Added**
-* `gustoembedded.employees.createHistorical()`:  `response.jobs[].compensations[].title` **Added**
-* `gustoembedded.externalPayrolls.calculateTaxes()`:  `error.status[422]` **Added**
-* `gustoembedded.events.get()`: 
-  * `request` **Changed**
-    - `sortOrder` **Changed**
+  * `request` **Changed** (Breaking ⚠️)
+    - `contractorOnboardingStatusUpdateRequestBody` **Added** (Breaking ⚠️)
+    - `requestBody` **Removed** (Breaking ⚠️)
     - `xGustoApiVersion` **Changed**
-  *  `error.status[422]` **Added**
-* `gustoembedded.externalPayrolls.delete()`:  `error.status[422]` **Added**
-* `gustoembedded.locations.get()`: 
+  *  `error.status[404]` **Added**
+* `gustoembedded.employeePaymentMethod.updateBankAccount()`: 
+  * `request` **Changed** (Breaking ⚠️)
+    - `employeeBankAccountRequest` **Added** (Breaking ⚠️)
+    - `requestBody` **Removed** (Breaking ⚠️)
+    - `xGustoApiVersion` **Changed**
+  *  `error.status[404]` **Added**
+* `gustoembedded.employeePaymentMethod.deleteBankAccount()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  *  `error.status[422]` **Removed** (Breaking ⚠️)
+* `gustoembedded.employeePaymentMethod.create()`: 
+  * `request` **Changed** (Breaking ⚠️)
+    - `employeeBankAccountRequest` **Added** (Breaking ⚠️)
+    - `requestBody` **Removed** (Breaking ⚠️)
+    - `xGustoApiVersion` **Changed**
+  *  `error.status[404]` **Added**
+* `gustoembedded.employeeEmployments.updateTermination()`: 
+  * `request` **Changed**
+    - `requestBody.runTerminationPayroll` **Changed**
+    - `xGustoApiVersion` **Changed**
+  * `errors[]` **Changed** (Breaking ⚠️)
+    - `errors` **Removed** (Breaking ⚠️)
+    - `metadata` **Removed** (Breaking ⚠️)
+* `gustoembedded.employeeEmployments.deleteTermination()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  * `errors[]` **Changed** (Breaking ⚠️)
+    - `errors` **Removed** (Breaking ⚠️)
+    - `metadata` **Removed** (Breaking ⚠️)
+* `gustoembedded.departments.removePeople()`: 
+  * `request` **Changed** (Breaking ⚠️)
+    - `departmentPeopleRequestBody` **Added** (Breaking ⚠️)
+    - `requestBody` **Removed** (Breaking ⚠️)
+    - `xGustoApiVersion` **Changed**
+  * `error` **Changed**
+    - `` **Added**
+    - `status[422]` **Added**
+* `gustoembedded.employees.list()`:  `response.[].customFields[].description` **Changed** (Breaking ⚠️)
+* `gustoembedded.employees.create()`:  `response.customFields[].description` **Changed** (Breaking ⚠️)
+* `gustoembedded.employees.getV1CompaniesCompanyIdEmployeesPaymentDetails()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  * `response.[]` **Changed** (Breaking ⚠️)
+    - `firstName` **Added**
+    - `lastName` **Added**
+    - `splits[].accountType` **Added**
+    - `splits[].routingNumber` **Added**
+    - `splits[].splitAmount` **Changed** (Breaking ⚠️)
+  * `error` **Changed**
+    - `` **Added**
+    - `status[422]` **Added**
+* `gustoembedded.employees.createHistorical()`: 
+  * `request` **Changed** (Breaking ⚠️)
+    - `historicalEmployeeBody.dateOfBirth` **Changed** (Breaking ⚠️)
+    - `historicalEmployeeBody.job.hireDate` **Changed** (Breaking ⚠️)
+    - `historicalEmployeeBody.termination.effectiveDate` **Changed** (Breaking ⚠️)
+    - `historicalEmployeeBody.workAddress.locationUuid` **Changed** (Breaking ⚠️)
+    - `xGustoApiVersion` **Changed**
+  *  `response.customFields[].description` **Changed** (Breaking ⚠️)
+  *  `error.status[404]` **Added**
+* `gustoembedded.employees.get()`:  `response.customFields[].description` **Changed** (Breaking ⚠️)
+* `gustoembedded.employees.update()`:  `response.customFields[].description` **Changed** (Breaking ⚠️)
+* `gustoembedded.employees.getCustomFields()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  *  `response.customFields[].description` **Changed** (Breaking ⚠️)
+  *  `error.status[404]` **Added**
+* `gustoembedded.employees.getTimeOffActivities()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  *  `response` **Changed** (Breaking ⚠️)
+  * `error` **Changed**
+    - `` **Added**
+    - `status[422]` **Added**
+* `gustoembedded.historicalEmployees.update()`: 
+  * `request` **Changed** (Breaking ⚠️)
+    - `requestBody.dateOfBirth` **Changed** (Breaking ⚠️)
+    - `requestBody.job.hireDate` **Changed** (Breaking ⚠️)
+    - `requestBody.termination.effectiveDate` **Changed** (Breaking ⚠️)
+    - `requestBody.workAddress.locationUuid` **Changed** (Breaking ⚠️)
+    - `xGustoApiVersion` **Changed**
+  *  `response.customFields[].description` **Changed** (Breaking ⚠️)
+  * `error` **Changed**
+    - `` **Added**
+    - `status[422]` **Added**
+* `gustoembedded.departments.create()`: 
+  * `request` **Changed** (Breaking ⚠️)
+    - `departmentCreateRequestBody` **Added** (Breaking ⚠️)
+    - `requestBody` **Removed** (Breaking ⚠️)
+    - `xGustoApiVersion` **Changed**
+  *  `error.status[404]` **Added**
+* `gustoembedded.departments.addPeople()`: 
+  * `request` **Changed** (Breaking ⚠️)
+    - `departmentPeopleRequestBody` **Added** (Breaking ⚠️)
+    - `requestBody` **Removed** (Breaking ⚠️)
+    - `xGustoApiVersion` **Changed**
+  * `error` **Changed**
+    - `` **Added**
+    - `status[422]` **Added**
+* `gustoembedded.earningTypes.update()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  *  `response.active` **Added**
+  *  `error.status[404]` **Added**
+* `gustoembedded.employeeForms.get()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  *  `response.employeeUuid` **Added**
+  *  `error.status[404]` **Added**
+* `gustoembedded.departments.delete()`: 
   *  `request.xGustoApiVersion` **Changed**
   *  `error.status[404]` **Added**
-* `gustoembedded.employeeEmployments.deleteTermination()`:  `error.status[422]` **Added**
-* `gustoembedded.signatories.list()`: 
+* `gustoembedded.departments.getAll()`: 
   *  `request.xGustoApiVersion` **Changed**
   *  `error.status[404]` **Added**
-* `gustoembedded.industrySelection.get()`: 
+* `gustoembedded.paySchedules.assign()`: 
   *  `request.xGustoApiVersion` **Changed**
   *  `error.status[404]` **Added**
-* `gustoembedded.companyAttachment.getDownloadUrl()`: 
+* `gustoembedded.employeeEmployments.createTermination()`: 
+  * `request` **Changed**
+    - `requestBody.runTerminationPayroll` **Changed**
+    - `xGustoApiVersion` **Changed**
+  *  `error.status[404]` **Added**
+* `gustoembedded.employeeEmployments.getTerminations()`: 
   *  `request.xGustoApiVersion` **Changed**
   *  `error.status[404]` **Added**
-* `gustoembedded.companyAttachments.getList()`: 
+* `gustoembedded.paySchedules.previewAssignment()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  *  `error.status[404]` **Added**
+* `gustoembedded.paySchedules.getAssignments()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  *  `error.status[404]` **Added**
+* `gustoembedded.paySchedules.getUnprocessedTerminationPeriods()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  *  `error.status[404]` **Added**
+* `gustoembedded.paySchedules.update()`:  `response.version` **Changed**
+* `gustoembedded.paySchedules.get()`:  `response.version` **Changed**
+* `gustoembedded.employeePaymentMethods.getBankAccounts()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  *  `error.status[404]` **Added**
+* `gustoembedded.earningTypes.create()`: 
+  * `request` **Changed**
+    - `requestBody.name` **Changed**
+    - `xGustoApiVersion` **Changed**
+  *  `response.active` **Added**
+  *  `error.status[404]` **Added**
+* `gustoembedded.earningTypes.list()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  *  `response.default[].active` **Added**
+  *  `error.status[404]` **Added**
+* `gustoembedded.companies.migrate()`: **Added**
+* `gustoembedded.earningTypes.delete()`:  `request.xGustoApiVersion` **Changed**
+* `gustoembedded.contractors.update()`:  `error.status[409]` **Added**
+* `gustoembedded.contractors.getOnboardingStatus()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  *  `error.status[404]` **Added**
+* `gustoembedded.paySchedules.getAll()`:  `response.[].version` **Changed**
+* `gustoembedded.contractors.getAddress()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  *  `error.status[404]` **Added**
+* `gustoembedded.paySchedules.create()`:  `response.version` **Changed**
+* `gustoembedded.externalPayrolls.listTaxLiabilities()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  *  `response.[].description` **Added**
+  *  `error.status[404]` **Added**
+* `gustoembedded.contractorPaymentMethod.getBankAccounts()`: 
   *  `request.xGustoApiVersion` **Changed**
   * `response.[]` **Changed**
-    - `category` **Changed**
+    - `accountType` **Changed**
+    - `contractorUuid` **Changed**
+    - `hiddenAccountNumber` **Changed**
     - `name` **Changed**
-    - `uploadTime` **Changed**
-    - `uuid` **Changed**
+    - `routingNumber` **Changed**
   *  `error.status[404]` **Added**
-* `gustoembedded.companyAttachments.getDetails()`: 
+* `gustoembedded.contractorPaymentMethod.get()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  *  `error.status[404]` **Added**
+* `gustoembedded.contractorPaymentMethod.update()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  * `error` **Changed**
+    - `` **Added**
+    - `status[409]` **Added**
+* `gustoembedded.externalPayrolls.calculateTaxes()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  *  `error.status[404]` **Added**
+* `gustoembedded.externalPayrolls.retrieve()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  *  `error.status[404]` **Added**
+* `gustoembedded.webhooks.updateSubscription()`: 
+  * `request` **Changed**
+    - `requestBody.subscriptionTypes[].enum(payrollSync)` **Added**
+    - `requestBody.subscriptionTypes[].enum(peopleBatch)` **Added**
+    - `xGustoApiVersion` **Changed**
+  *  `error.status[404]` **Added**
+* `gustoembedded.webhooks.getSubscription()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  *  `error.status[404]` **Added**
+* `gustoembedded.webhooks.deleteSubscription()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  *  `error.status[404]` **Added**
+* `gustoembedded.webhooks.verify()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  *  `error.status[404]` **Added**
+* `gustoembedded.webhooks.requestVerificationToken()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  *  `response.status[200]` **Added**
+  *  `error.status[404]` **Added**
+* `gustoembedded.contractorForms.list()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  *  `error.status[404]` **Added**
+* `gustoembedded.contractorForms.get()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  *  `error.status[404]` **Added**
+* `gustoembedded.contractorForms.getPdf()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  *  `error.status[404]` **Added**
+* `gustoembedded.externalPayrolls.get()`: 
+  * `request` **Changed**
+    - `page` **Added**
+    - `per` **Added**
+    - `xGustoApiVersion` **Changed**
+  *  `error.status[404]` **Added**
+* `gustoembedded.bankAccounts.verify()`:  `response.reverseWireEnabled` **Added**
+* `gustoembedded.bankAccounts.create()`:  `response.reverseWireEnabled` **Added**
+* `gustoembedded.contractorDocuments.getPdf()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  * `error` **Changed**
+    - `` **Added**
+    - `status[422]` **Added**
+* `gustoembedded.contractorDocuments.sign()`: 
   *  `request.xGustoApiVersion` **Changed**
   * `response` **Changed**
-    - `category` **Changed**
-    - `name` **Changed**
-    - `uploadTime` **Changed**
-    - `uuid` **Changed**
+    - `fields` **Added**
+    - `pages` **Added**
   *  `error.status[404]` **Added**
-* `gustoembedded.companies.finishOnboarding()`: 
+* `gustoembedded.bankAccounts.get()`:  `response.[].reverseWireEnabled` **Added**
+* `gustoembedded.employeeForms.list()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  *  `response.[].employeeUuid` **Added**
+  *  `error.status[404]` **Added**
+* `gustoembedded.departments.get()`: 
   *  `request.xGustoApiVersion` **Changed**
   *  `error.status[404]` **Added**
-* `gustoembedded.companies.getOnboardingStatus()`: 
+* `gustoembedded.employeeForms.getPdf()`: 
   *  `request.xGustoApiVersion` **Changed**
   *  `error.status[404]` **Added**
-* `gustoembedded.historicalEmployees.update()`:  `response.jobs[].compensations[].title` **Added**
-* `gustoembedded.companies.get()`: 
+* `gustoembedded.employeeForms.sign()`: 
   *  `request.xGustoApiVersion` **Changed**
-  * `response` **Changed**
-    - `compensations.fixed[].uuid` **Added**
-    - `compensations.hourly[].uuid` **Added**
-    - `compensations.paidTimeOff[].uuid` **Added**
-    - `locations[].active` **Added**
+  *  `response.employeeUuid` **Added**
   *  `error.status[404]` **Added**
-* `gustoembedded.introspection.getInfo()`: 
+* `gustoembedded.companies.getCustomFields()`: 
   *  `request.xGustoApiVersion` **Changed**
-  * `response` **Changed**
-    - `resource.type` **Changed**
-    - `resource.uuid` **Changed**
-    - `resourceOwner.type` **Changed**
-    - `resourceOwner.uuid` **Changed**
-    - `scope` **Changed**
-* `gustoembedded.companies.migrate()`: **Removed** (Breaking ⚠️)
-* `gustoembedded.payrolls.submit()`: **Added**
-* `gustoembedded.payrolls.calculate()`: **Added**
-* `gustoembedded.payrolls.calculateGrossUp()`: **Added**
-* `gustoembedded.companies.getV1PartnerManagedCompaniesCompanyUuidMigrationReadiness()`: **Added**
+  *  `error.status[404]` **Added**
+* `gustoembedded.payrolls.get()`:  `response.employeeCompensations[].deductions[].updatableViaPayroll` **Added**
+* `gustoembedded.payrolls.update()`:  `response.employeeCompensations[].deductions[].updatableViaPayroll` **Added**
+* `gustoembedded.payrolls.prepare()`:  `response.employeeCompensations[].deductions[].updatableViaPayroll` **Added**
+* `gustoembedded.companies.getV1PartnerManagedCompaniesCompanyUuidMigrationReadiness()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  *  `error.status[404]` **Added**
+* `gustoembedded.contractorPayments.getReceipt()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  *  `error.status[404]` **Added**
+* `gustoembedded.contractorPayments.fund()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  *  `error.status[404]` **Added**
+* `gustoembedded.timeOffRequests.putV1TimeOffRequestsTimeOffRequestUuidDecline()`: **Added**
+* `gustoembedded.timeOffRequests.putV1TimeOffRequestsTimeOffRequestUuidApprove()`: **Added**
+* `gustoembedded.companyForms.get()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  *  `response.employeeUuid` **Added**
+  *  `error.status[404]` **Added**
+* `gustoembedded.companyForms.getPdf()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  *  `error.status[404]` **Added**
+* `gustoembedded.companyForms.sign()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  *  `response.employeeUuid` **Added**
+  *  `error.status[404]` **Added**
+* `gustoembedded.generatedDocuments.get()`: 
+  *  `request.documentType` **Changed**
+  *  `error.status[404]` **Added**
+* `gustoembedded.timeOffRequests.deleteV1TimeOffRequestsTimeOffRequestUuid()`: **Added**
+* `gustoembedded.timeOffRequests.getV1TimeOffRequestsTimeOffRequestUuid()`: **Added**
+* `gustoembedded.reports.getReportsRequestUuid()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  *  `error.status[404]` **Added**
+* `gustoembedded.reports.getTemplate()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  * `error` **Changed**
+    - `` **Added**
+    - `status[422]` **Added**
+* `gustoembedded.timeOffRequests.postV1CompaniesCompanyUuidTimeOffRequestsPreview()`: **Added**
+* `gustoembedded.employeeBenefits.get()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  *  `error.status[404]` **Added**
+* `gustoembedded.employeeBenefits.retrieve()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  *  `error.status[404]` **Added**
+* `gustoembedded.timeOffRequests.postV1CompaniesCompanyUuidTimeOffRequests()`: **Added**
+* `gustoembedded.timeOffRequests.getV1CompaniesCompanyUuidTimeOffRequests()`: **Added**
+* `gustoembedded.employeeBenefits.getYtdBenefitAmountsFromDifferentCompany()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  *  `error.status[404]` **Added**
+* `gustoembedded.timeOffRequests.getV1CompaniesCompanyUuidTimeOffBalances()`: **Added**
+* `gustoembedded.timeOffRequests.postV1CompaniesCompanyUuidTimeOffAdminApprovedRequests()`: **Added**
+* `gustoembedded.garnishments.list()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  *  `error.status[404]` **Added**
+* `gustoembedded.garnishments.get()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  *  `error.status[404]` **Added**
+* `gustoembedded.contractorPayments.getV1ContractorPaymentsContractorPaymentIdPdf()`: **Added**
+* `gustoembedded.payrolls.skip()`: **Added**
+* `gustoembedded.contractors.deleteV1ContractorsContractorUuidTermination()`: **Added**
+* `gustoembedded.notifications.getDetails()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  *  `error.status[404]` **Added**
+* `gustoembedded.informationRequests.getInformationRequests()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  * `response.[].requiredQuestions[]` **Changed**
+    - `questionText` **Changed**
+    - `questionUuid` **Changed**
+    - `responseType` **Changed**
+  *  `error.status[404]` **Added**
+* `gustoembedded.informationRequests.submit()`: `response.requiredQuestions[]` **Changed**
+    - `questionText` **Changed**
+    - `questionUuid` **Changed**
+    - `responseType` **Changed**
+* `gustoembedded.contractors.postV1ContractorsContractorUuidTermination()`: **Added**
+* `gustoembedded.recoveryCases.redebit()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  *  `error.status[404]` **Added**
+* `gustoembedded.contractors.deleteV1ContractorsContractorUuidRehire()`: **Added**
+* `gustoembedded.wireInRequests.get()`: 
+  *  `request.xGustoApiVersion` **Changed**
+  *  `error.status[404]` **Added**
+* `gustoembedded.contractors.postV1ContractorsContractorUuidRehire()`: **Added**
+* `gustoembedded.wireInRequests.list()`: `request` **Changed**
+    - `page` **Added**
+    - `per` **Added**
+    - `xGustoApiVersion` **Changed**
+* `gustoembedded.employeeEmployments.getV1TerminationsEmployeeId()`: **Added**

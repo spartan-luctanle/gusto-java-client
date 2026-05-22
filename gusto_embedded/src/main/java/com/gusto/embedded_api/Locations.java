@@ -58,6 +58,86 @@ public class Locations {
     }
 
     /**
+     * Get all company locations
+     * 
+     * <p>Retrieves all company locations (addresses) associated with a company: mailing addresses, filing
+     * addresses, or work locations. A single address may serve multiple, or all, purposes.
+     * 
+     * <p>Since all company locations are subsets of locations, use the Locations endpoints to
+     * [get](ref:get-v1-locations-location_id) or [update](ref:put-v1-locations-location_id) an individual
+     * record.
+     * 
+     * <p>scope: `companies:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @return The call builder
+     */
+    public GetV1CompaniesCompanyIdLocationsRequestBuilder get() {
+        return new GetV1CompaniesCompanyIdLocationsRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Get all company locations
+     * 
+     * <p>Retrieves all company locations (addresses) associated with a company: mailing addresses, filing
+     * addresses, or work locations. A single address may serve multiple, or all, purposes.
+     * 
+     * <p>Since all company locations are subsets of locations, use the Locations endpoints to
+     * [get](ref:get-v1-locations-location_id) or [update](ref:put-v1-locations-location_id) an individual
+     * record.
+     * 
+     * <p>scope: `companies:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param companyId The UUID of the company
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public GetV1CompaniesCompanyIdLocationsResponse get(String companyId) {
+        return get(Optional.empty(), companyId, Optional.empty(),
+            Optional.empty());
+    }
+
+    /**
+     * Get all company locations
+     * 
+     * <p>Retrieves all company locations (addresses) associated with a company: mailing addresses, filing
+     * addresses, or work locations. A single address may serve multiple, or all, purposes.
+     * 
+     * <p>Since all company locations are subsets of locations, use the Locations endpoints to
+     * [get](ref:get-v1-locations-location_id) or [update](ref:put-v1-locations-location_id) an individual
+     * record.
+     * 
+     * <p>scope: `companies:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     * @param companyId The UUID of the company
+     * @param page The page that is requested. When unspecified, will load all objects unless endpoint forces pagination.
+     * @param per Number of objects per page. For majority of endpoints will default to 25
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public GetV1CompaniesCompanyIdLocationsResponse get(
+            Optional<? extends GetV1CompaniesCompanyIdLocationsHeaderXGustoAPIVersion> xGustoAPIVersion, String companyId,
+            Optional<Long> page, Optional<Long> per) {
+        GetV1CompaniesCompanyIdLocationsRequest request =
+            GetV1CompaniesCompanyIdLocationsRequest
+                .builder()
+                .xGustoAPIVersion(xGustoAPIVersion)
+                .companyId(companyId)
+                .page(page)
+                .per(per)
+                .build();
+        RequestOperation<GetV1CompaniesCompanyIdLocationsRequest, GetV1CompaniesCompanyIdLocationsResponse> operation
+              = new GetV1CompaniesCompanyIdLocations.Sync(sdkConfiguration, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
      * Create a company location
      * 
      * <p>Create a company location, which represents any address associated with a company: mailing
@@ -135,86 +215,6 @@ public class Locations {
                 .build();
         RequestOperation<PostV1CompaniesCompanyIdLocationsRequest, PostV1CompaniesCompanyIdLocationsResponse> operation
               = new PostV1CompaniesCompanyIdLocations.Sync(sdkConfiguration, _headers);
-        return operation.handleResponse(operation.doRequest(request));
-    }
-
-    /**
-     * Get all company locations
-     * 
-     * <p>Retrieves all company locations (addresses) associated with a company: mailing addresses, filing
-     * addresses, or work locations. A single address may serve multiple, or all, purposes.
-     * 
-     * <p>Since all company locations are subsets of locations, use the Locations endpoints to
-     * [get](ref:get-v1-locations-location_id) or [update](ref:put-v1-locations-location_id) an individual
-     * record.
-     * 
-     * <p>scope: `companies:read`
-     * 
-     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
-     * 
-     * @return The call builder
-     */
-    public GetV1CompaniesCompanyIdLocationsRequestBuilder get() {
-        return new GetV1CompaniesCompanyIdLocationsRequestBuilder(sdkConfiguration);
-    }
-
-    /**
-     * Get all company locations
-     * 
-     * <p>Retrieves all company locations (addresses) associated with a company: mailing addresses, filing
-     * addresses, or work locations. A single address may serve multiple, or all, purposes.
-     * 
-     * <p>Since all company locations are subsets of locations, use the Locations endpoints to
-     * [get](ref:get-v1-locations-location_id) or [update](ref:put-v1-locations-location_id) an individual
-     * record.
-     * 
-     * <p>scope: `companies:read`
-     * 
-     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
-     * 
-     * @param companyId The UUID of the company
-     * @return The response from the API call
-     * @throws RuntimeException subclass if the API call fails
-     */
-    public GetV1CompaniesCompanyIdLocationsResponse get(String companyId) {
-        return get(Optional.empty(), companyId, Optional.empty(),
-            Optional.empty());
-    }
-
-    /**
-     * Get all company locations
-     * 
-     * <p>Retrieves all company locations (addresses) associated with a company: mailing addresses, filing
-     * addresses, or work locations. A single address may serve multiple, or all, purposes.
-     * 
-     * <p>Since all company locations are subsets of locations, use the Locations endpoints to
-     * [get](ref:get-v1-locations-location_id) or [update](ref:put-v1-locations-location_id) an individual
-     * record.
-     * 
-     * <p>scope: `companies:read`
-     * 
-     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
-     * 
-     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
-     * @param companyId The UUID of the company
-     * @param page The page that is requested. When unspecified, will load all objects unless endpoint forces pagination.
-     * @param per Number of objects per page. For majority of endpoints will default to 25
-     * @return The response from the API call
-     * @throws RuntimeException subclass if the API call fails
-     */
-    public GetV1CompaniesCompanyIdLocationsResponse get(
-            Optional<? extends GetV1CompaniesCompanyIdLocationsHeaderXGustoAPIVersion> xGustoAPIVersion, String companyId,
-            Optional<Long> page, Optional<Long> per) {
-        GetV1CompaniesCompanyIdLocationsRequest request =
-            GetV1CompaniesCompanyIdLocationsRequest
-                .builder()
-                .xGustoAPIVersion(xGustoAPIVersion)
-                .companyId(companyId)
-                .page(page)
-                .per(per)
-                .build();
-        RequestOperation<GetV1CompaniesCompanyIdLocationsRequest, GetV1CompaniesCompanyIdLocationsResponse> operation
-              = new GetV1CompaniesCompanyIdLocations.Sync(sdkConfiguration, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

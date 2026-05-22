@@ -1,0 +1,9 @@
+# PostV1EmployeesEmployeeIdWorkAddressesRequestBody
+
+
+## Fields
+
+| Field                                                                           | Type                                                                            | Required                                                                        | Description                                                                     | Example                                                                         |
+| ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| `locationUuid`                                                                  | *Optional\<String>*                                                             | :heavy_minus_sign:                                                              | Reference to a company location                                                 | 6a119be7-b4b0-4e27-aaa0-89d5f2524635                                            |
+| `effectiveDate`                                                                 | [LocalDate](https://docs.oracle.com/javase/8/docs/api/java/time/LocalDate.html) | :heavy_minus_sign:                                                              | Date the employee began working at the company location                         | 2023-05-15                                                                      |

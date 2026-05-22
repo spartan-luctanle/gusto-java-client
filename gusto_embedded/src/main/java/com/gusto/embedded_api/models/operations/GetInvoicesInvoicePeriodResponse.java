@@ -34,7 +34,7 @@ public class GetInvoicesInvoicePeriodResponse implements Response {
     private HttpResponse<InputStream> rawResponse;
 
     /**
-     * Example response
+     * OK
      */
     private Optional<? extends InvoiceData> invoiceData;
 
@@ -87,7 +87,7 @@ public class GetInvoicesInvoicePeriodResponse implements Response {
     }
 
     /**
-     * Example response
+     * OK
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -128,7 +128,7 @@ public class GetInvoicesInvoicePeriodResponse implements Response {
     }
 
     /**
-     * Example response
+     * OK
      */
     public GetInvoicesInvoicePeriodResponse withInvoiceData(InvoiceData invoiceData) {
         Utils.checkNotNull(invoiceData, "invoiceData");
@@ -138,7 +138,7 @@ public class GetInvoicesInvoicePeriodResponse implements Response {
 
 
     /**
-     * Example response
+     * OK
      */
     public GetInvoicesInvoicePeriodResponse withInvoiceData(Optional<? extends InvoiceData> invoiceData) {
         Utils.checkNotNull(invoiceData, "invoiceData");
@@ -225,7 +225,7 @@ public class GetInvoicesInvoicePeriodResponse implements Response {
 
 
         /**
-         * Example response
+         * OK
          */
         public Builder invoiceData(InvoiceData invoiceData) {
             Utils.checkNotNull(invoiceData, "invoiceData");
@@ -234,7 +234,7 @@ public class GetInvoicesInvoicePeriodResponse implements Response {
         }
 
         /**
-         * Example response
+         * OK
          */
         public Builder invoiceData(Optional<? extends InvoiceData> invoiceData) {
             Utils.checkNotNull(invoiceData, "invoiceData");

@@ -7,11 +7,11 @@ import static com.gusto.embedded_api.operations.Operations.RequestOperation;
 
 import com.gusto.embedded_api.models.components.RehireBody;
 import com.gusto.embedded_api.models.components.RehireUpdateRequestBody;
-import com.gusto.embedded_api.models.components.VersionHeader;
 import com.gusto.embedded_api.models.operations.DeleteV1EmployeesEmployeeIdRehireHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.DeleteV1EmployeesEmployeeIdRehireRequest;
 import com.gusto.embedded_api.models.operations.DeleteV1EmployeesEmployeeIdRehireRequestBuilder;
 import com.gusto.embedded_api.models.operations.DeleteV1EmployeesEmployeeIdRehireResponse;
+import com.gusto.embedded_api.models.operations.DeleteV1EmployeesEmployeeIdTerminationsHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.DeleteV1EmployeesEmployeeIdTerminationsRequest;
 import com.gusto.embedded_api.models.operations.DeleteV1EmployeesEmployeeIdTerminationsRequestBuilder;
 import com.gusto.embedded_api.models.operations.DeleteV1EmployeesEmployeeIdTerminationsResponse;
@@ -23,13 +23,19 @@ import com.gusto.embedded_api.models.operations.GetV1EmployeesEmployeeIdRehireHe
 import com.gusto.embedded_api.models.operations.GetV1EmployeesEmployeeIdRehireRequest;
 import com.gusto.embedded_api.models.operations.GetV1EmployeesEmployeeIdRehireRequestBuilder;
 import com.gusto.embedded_api.models.operations.GetV1EmployeesEmployeeIdRehireResponse;
+import com.gusto.embedded_api.models.operations.GetV1EmployeesEmployeeIdTerminationsHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1EmployeesEmployeeIdTerminationsRequest;
 import com.gusto.embedded_api.models.operations.GetV1EmployeesEmployeeIdTerminationsRequestBuilder;
 import com.gusto.embedded_api.models.operations.GetV1EmployeesEmployeeIdTerminationsResponse;
+import com.gusto.embedded_api.models.operations.GetV1TerminationsEmployeeIdHeaderXGustoAPIVersion;
+import com.gusto.embedded_api.models.operations.GetV1TerminationsEmployeeIdRequest;
+import com.gusto.embedded_api.models.operations.GetV1TerminationsEmployeeIdRequestBuilder;
+import com.gusto.embedded_api.models.operations.GetV1TerminationsEmployeeIdResponse;
 import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeIdRehireHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeIdRehireRequest;
 import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeIdRehireRequestBuilder;
 import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeIdRehireResponse;
+import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeIdTerminationsHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeIdTerminationsRequest;
 import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeIdTerminationsRequestBody;
 import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeIdTerminationsRequestBuilder;
@@ -38,6 +44,7 @@ import com.gusto.embedded_api.models.operations.PutV1EmployeesEmployeeIdRehireHe
 import com.gusto.embedded_api.models.operations.PutV1EmployeesEmployeeIdRehireRequest;
 import com.gusto.embedded_api.models.operations.PutV1EmployeesEmployeeIdRehireRequestBuilder;
 import com.gusto.embedded_api.models.operations.PutV1EmployeesEmployeeIdRehireResponse;
+import com.gusto.embedded_api.models.operations.PutV1TerminationsEmployeeIdHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PutV1TerminationsEmployeeIdRequest;
 import com.gusto.embedded_api.models.operations.PutV1TerminationsEmployeeIdRequestBody;
 import com.gusto.embedded_api.models.operations.PutV1TerminationsEmployeeIdRequestBuilder;
@@ -47,6 +54,7 @@ import com.gusto.embedded_api.operations.DeleteV1EmployeesEmployeeIdTerminations
 import com.gusto.embedded_api.operations.GetV1EmployeesEmployeeIdEmploymentHistory;
 import com.gusto.embedded_api.operations.GetV1EmployeesEmployeeIdRehire;
 import com.gusto.embedded_api.operations.GetV1EmployeesEmployeeIdTerminations;
+import com.gusto.embedded_api.operations.GetV1TerminationsEmployeeId;
 import com.gusto.embedded_api.operations.PostV1EmployeesEmployeeIdRehire;
 import com.gusto.embedded_api.operations.PostV1EmployeesEmployeeIdTerminations;
 import com.gusto.embedded_api.operations.PutV1EmployeesEmployeeIdRehire;
@@ -76,78 +84,6 @@ public class EmployeeEmployments {
     }
 
     /**
-     * Create an employee termination
-     * 
-     * <p>Terminations are created whenever an employee is scheduled to leave the company. The only things
-     * required are an effective date (their last day of work) and whether they should receive their wages
-     * in a one-off termination payroll or with the rest of the company.
-     * 
-     * <p>Note that some states require employees to receive their final wages within 24 hours (unless they
-     * consent otherwise,) in which case running a one-off payroll may be the only option.
-     * 
-     * <p>scope: `employments:write`
-     * 
-     * @return The call builder
-     */
-    public PostV1EmployeesEmployeeIdTerminationsRequestBuilder createTermination() {
-        return new PostV1EmployeesEmployeeIdTerminationsRequestBuilder(sdkConfiguration);
-    }
-
-    /**
-     * Create an employee termination
-     * 
-     * <p>Terminations are created whenever an employee is scheduled to leave the company. The only things
-     * required are an effective date (their last day of work) and whether they should receive their wages
-     * in a one-off termination payroll or with the rest of the company.
-     * 
-     * <p>Note that some states require employees to receive their final wages within 24 hours (unless they
-     * consent otherwise,) in which case running a one-off payroll may be the only option.
-     * 
-     * <p>scope: `employments:write`
-     * 
-     * @param employeeId The UUID of the employee
-     * @param requestBody 
-     * @return The response from the API call
-     * @throws RuntimeException subclass if the API call fails
-     */
-    public PostV1EmployeesEmployeeIdTerminationsResponse createTermination(String employeeId, PostV1EmployeesEmployeeIdTerminationsRequestBody requestBody) {
-        return createTermination(employeeId, Optional.empty(), requestBody);
-    }
-
-    /**
-     * Create an employee termination
-     * 
-     * <p>Terminations are created whenever an employee is scheduled to leave the company. The only things
-     * required are an effective date (their last day of work) and whether they should receive their wages
-     * in a one-off termination payroll or with the rest of the company.
-     * 
-     * <p>Note that some states require employees to receive their final wages within 24 hours (unless they
-     * consent otherwise,) in which case running a one-off payroll may be the only option.
-     * 
-     * <p>scope: `employments:write`
-     * 
-     * @param employeeId The UUID of the employee
-     * @param xGustoAPIVersion 
-     * @param requestBody 
-     * @return The response from the API call
-     * @throws RuntimeException subclass if the API call fails
-     */
-    public PostV1EmployeesEmployeeIdTerminationsResponse createTermination(
-            String employeeId, Optional<? extends VersionHeader> xGustoAPIVersion,
-            PostV1EmployeesEmployeeIdTerminationsRequestBody requestBody) {
-        PostV1EmployeesEmployeeIdTerminationsRequest request =
-            PostV1EmployeesEmployeeIdTerminationsRequest
-                .builder()
-                .employeeId(employeeId)
-                .xGustoAPIVersion(xGustoAPIVersion)
-                .requestBody(requestBody)
-                .build();
-        RequestOperation<PostV1EmployeesEmployeeIdTerminationsRequest, PostV1EmployeesEmployeeIdTerminationsResponse> operation
-              = new PostV1EmployeesEmployeeIdTerminations.Sync(sdkConfiguration, _headers);
-        return operation.handleResponse(operation.doRequest(request));
-    }
-
-    /**
      * Get terminations for an employee
      * 
      * <p>Terminations are created whenever an employee is scheduled to leave the company. The only things
@@ -158,6 +94,8 @@ public class EmployeeEmployments {
      * consent otherwise,) in which case running a one-off payroll may be the only option.
      * 
      * <p>scope: `employments:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @return The call builder
      */
@@ -177,12 +115,14 @@ public class EmployeeEmployments {
      * 
      * <p>scope: `employments:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param employeeId The UUID of the employee
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
     public GetV1EmployeesEmployeeIdTerminationsResponse getTerminations(String employeeId) {
-        return getTerminations(employeeId, Optional.empty());
+        return getTerminations(Optional.empty(), employeeId);
     }
 
     /**
@@ -197,20 +137,100 @@ public class EmployeeEmployments {
      * 
      * <p>scope: `employments:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param employeeId The UUID of the employee
-     * @param xGustoAPIVersion 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
-    public GetV1EmployeesEmployeeIdTerminationsResponse getTerminations(String employeeId, Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public GetV1EmployeesEmployeeIdTerminationsResponse getTerminations(Optional<? extends GetV1EmployeesEmployeeIdTerminationsHeaderXGustoAPIVersion> xGustoAPIVersion, String employeeId) {
         GetV1EmployeesEmployeeIdTerminationsRequest request =
             GetV1EmployeesEmployeeIdTerminationsRequest
                 .builder()
-                .employeeId(employeeId)
                 .xGustoAPIVersion(xGustoAPIVersion)
+                .employeeId(employeeId)
                 .build();
         RequestOperation<GetV1EmployeesEmployeeIdTerminationsRequest, GetV1EmployeesEmployeeIdTerminationsResponse> operation
               = new GetV1EmployeesEmployeeIdTerminations.Sync(sdkConfiguration, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Create an employee termination
+     * 
+     * <p>Create a termination for an employee. The only things required are an effective date (their last day
+     * of work) and whether they should receive their wages in a one-off termination payroll or with the
+     * rest of the company.
+     * 
+     * <p>Note that some states require employees to receive their final wages within 24 hours (unless they
+     * consent otherwise,) in which case running a one-off payroll may be the only option.
+     * 
+     * <p>scope: `employments:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @return The call builder
+     */
+    public PostV1EmployeesEmployeeIdTerminationsRequestBuilder createTermination() {
+        return new PostV1EmployeesEmployeeIdTerminationsRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Create an employee termination
+     * 
+     * <p>Create a termination for an employee. The only things required are an effective date (their last day
+     * of work) and whether they should receive their wages in a one-off termination payroll or with the
+     * rest of the company.
+     * 
+     * <p>Note that some states require employees to receive their final wages within 24 hours (unless they
+     * consent otherwise,) in which case running a one-off payroll may be the only option.
+     * 
+     * <p>scope: `employments:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param employeeId The UUID of the employee
+     * @param requestBody 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public PostV1EmployeesEmployeeIdTerminationsResponse createTermination(String employeeId, PostV1EmployeesEmployeeIdTerminationsRequestBody requestBody) {
+        return createTermination(Optional.empty(), employeeId, requestBody);
+    }
+
+    /**
+     * Create an employee termination
+     * 
+     * <p>Create a termination for an employee. The only things required are an effective date (their last day
+     * of work) and whether they should receive their wages in a one-off termination payroll or with the
+     * rest of the company.
+     * 
+     * <p>Note that some states require employees to receive their final wages within 24 hours (unless they
+     * consent otherwise,) in which case running a one-off payroll may be the only option.
+     * 
+     * <p>scope: `employments:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     * @param employeeId The UUID of the employee
+     * @param requestBody 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public PostV1EmployeesEmployeeIdTerminationsResponse createTermination(
+            Optional<? extends PostV1EmployeesEmployeeIdTerminationsHeaderXGustoAPIVersion> xGustoAPIVersion, String employeeId,
+            PostV1EmployeesEmployeeIdTerminationsRequestBody requestBody) {
+        PostV1EmployeesEmployeeIdTerminationsRequest request =
+            PostV1EmployeesEmployeeIdTerminationsRequest
+                .builder()
+                .xGustoAPIVersion(xGustoAPIVersion)
+                .employeeId(employeeId)
+                .requestBody(requestBody)
+                .build();
+        RequestOperation<PostV1EmployeesEmployeeIdTerminationsRequest, PostV1EmployeesEmployeeIdTerminationsResponse> operation
+              = new PostV1EmployeesEmployeeIdTerminations.Sync(sdkConfiguration, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -220,6 +240,8 @@ public class EmployeeEmployments {
      * <p>Delete an employee termination.
      * 
      * <p>scope: `employments:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @return The call builder
      */
@@ -234,12 +256,14 @@ public class EmployeeEmployments {
      * 
      * <p>scope: `employments:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param employeeId The UUID of the employee
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
     public DeleteV1EmployeesEmployeeIdTerminationsResponse deleteTermination(String employeeId) {
-        return deleteTermination(employeeId, Optional.empty());
+        return deleteTermination(Optional.empty(), employeeId);
     }
 
     /**
@@ -249,17 +273,19 @@ public class EmployeeEmployments {
      * 
      * <p>scope: `employments:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param employeeId The UUID of the employee
-     * @param xGustoAPIVersion 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
-    public DeleteV1EmployeesEmployeeIdTerminationsResponse deleteTermination(String employeeId, Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public DeleteV1EmployeesEmployeeIdTerminationsResponse deleteTermination(Optional<? extends DeleteV1EmployeesEmployeeIdTerminationsHeaderXGustoAPIVersion> xGustoAPIVersion, String employeeId) {
         DeleteV1EmployeesEmployeeIdTerminationsRequest request =
             DeleteV1EmployeesEmployeeIdTerminationsRequest
                 .builder()
-                .employeeId(employeeId)
                 .xGustoAPIVersion(xGustoAPIVersion)
+                .employeeId(employeeId)
                 .build();
         RequestOperation<DeleteV1EmployeesEmployeeIdTerminationsRequest, DeleteV1EmployeesEmployeeIdTerminationsResponse> operation
               = new DeleteV1EmployeesEmployeeIdTerminations.Sync(sdkConfiguration, _headers);
@@ -277,6 +303,8 @@ public class EmployeeEmployments {
      * consent otherwise,) in which case running a one-off payroll may be the only option.
      * 
      * <p>scope: `employments:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @return The call builder
      */
@@ -296,13 +324,15 @@ public class EmployeeEmployments {
      * 
      * <p>scope: `employments:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param employeeId The UUID of the employee
      * @param requestBody 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
     public PutV1TerminationsEmployeeIdResponse updateTermination(String employeeId, PutV1TerminationsEmployeeIdRequestBody requestBody) {
-        return updateTermination(employeeId, Optional.empty(), requestBody);
+        return updateTermination(Optional.empty(), employeeId, requestBody);
     }
 
     /**
@@ -317,24 +347,84 @@ public class EmployeeEmployments {
      * 
      * <p>scope: `employments:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param employeeId The UUID of the employee
-     * @param xGustoAPIVersion 
      * @param requestBody 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
     public PutV1TerminationsEmployeeIdResponse updateTermination(
-            String employeeId, Optional<? extends VersionHeader> xGustoAPIVersion,
+            Optional<? extends PutV1TerminationsEmployeeIdHeaderXGustoAPIVersion> xGustoAPIVersion, String employeeId,
             PutV1TerminationsEmployeeIdRequestBody requestBody) {
         PutV1TerminationsEmployeeIdRequest request =
             PutV1TerminationsEmployeeIdRequest
                 .builder()
-                .employeeId(employeeId)
                 .xGustoAPIVersion(xGustoAPIVersion)
+                .employeeId(employeeId)
                 .requestBody(requestBody)
                 .build();
         RequestOperation<PutV1TerminationsEmployeeIdRequest, PutV1TerminationsEmployeeIdResponse> operation
               = new PutV1TerminationsEmployeeId.Sync(sdkConfiguration, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Get an employee rehire
+     * 
+     * <p>Retrieve an employee's rehire, which contains information on when the employee returns to work.
+     * 
+     * <p>scope: `employments:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @return The call builder
+     */
+    public GetV1EmployeesEmployeeIdRehireRequestBuilder getRehire() {
+        return new GetV1EmployeesEmployeeIdRehireRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Get an employee rehire
+     * 
+     * <p>Retrieve an employee's rehire, which contains information on when the employee returns to work.
+     * 
+     * <p>scope: `employments:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param employeeId The UUID of the employee
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public GetV1EmployeesEmployeeIdRehireResponse getRehire(String employeeId) {
+        return getRehire(Optional.empty(), employeeId);
+    }
+
+    /**
+     * Get an employee rehire
+     * 
+     * <p>Retrieve an employee's rehire, which contains information on when the employee returns to work.
+     * 
+     * <p>scope: `employments:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     * @param employeeId The UUID of the employee
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public GetV1EmployeesEmployeeIdRehireResponse getRehire(Optional<? extends GetV1EmployeesEmployeeIdRehireHeaderXGustoAPIVersion> xGustoAPIVersion, String employeeId) {
+        GetV1EmployeesEmployeeIdRehireRequest request =
+            GetV1EmployeesEmployeeIdRehireRequest
+                .builder()
+                .xGustoAPIVersion(xGustoAPIVersion)
+                .employeeId(employeeId)
+                .build();
+        RequestOperation<GetV1EmployeesEmployeeIdRehireRequest, GetV1EmployeesEmployeeIdRehireResponse> operation
+              = new GetV1EmployeesEmployeeIdRehire.Sync(sdkConfiguration, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -465,64 +555,6 @@ public class EmployeeEmployments {
     }
 
     /**
-     * Get an employee rehire
-     * 
-     * <p>Retrieve an employee's rehire, which contains information on when the employee returns to work.
-     * 
-     * <p>scope: `employments:read`
-     * 
-     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
-     * 
-     * @return The call builder
-     */
-    public GetV1EmployeesEmployeeIdRehireRequestBuilder getRehire() {
-        return new GetV1EmployeesEmployeeIdRehireRequestBuilder(sdkConfiguration);
-    }
-
-    /**
-     * Get an employee rehire
-     * 
-     * <p>Retrieve an employee's rehire, which contains information on when the employee returns to work.
-     * 
-     * <p>scope: `employments:read`
-     * 
-     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
-     * 
-     * @param employeeId The UUID of the employee
-     * @return The response from the API call
-     * @throws RuntimeException subclass if the API call fails
-     */
-    public GetV1EmployeesEmployeeIdRehireResponse getRehire(String employeeId) {
-        return getRehire(Optional.empty(), employeeId);
-    }
-
-    /**
-     * Get an employee rehire
-     * 
-     * <p>Retrieve an employee's rehire, which contains information on when the employee returns to work.
-     * 
-     * <p>scope: `employments:read`
-     * 
-     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
-     * 
-     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
-     * @param employeeId The UUID of the employee
-     * @return The response from the API call
-     * @throws RuntimeException subclass if the API call fails
-     */
-    public GetV1EmployeesEmployeeIdRehireResponse getRehire(Optional<? extends GetV1EmployeesEmployeeIdRehireHeaderXGustoAPIVersion> xGustoAPIVersion, String employeeId) {
-        GetV1EmployeesEmployeeIdRehireRequest request =
-            GetV1EmployeesEmployeeIdRehireRequest
-                .builder()
-                .xGustoAPIVersion(xGustoAPIVersion)
-                .employeeId(employeeId)
-                .build();
-        RequestOperation<GetV1EmployeesEmployeeIdRehireRequest, GetV1EmployeesEmployeeIdRehireResponse> operation
-              = new GetV1EmployeesEmployeeIdRehire.Sync(sdkConfiguration, _headers);
-        return operation.handleResponse(operation.doRequest(request));
-    }
-
-    /**
      * Delete an employee rehire
      * 
      * <p>Delete an employee rehire. An employee rehire cannot be deleted if it's active (past effective
@@ -638,6 +670,79 @@ public class EmployeeEmployments {
                 .build();
         RequestOperation<GetV1EmployeesEmployeeIdEmploymentHistoryRequest, GetV1EmployeesEmployeeIdEmploymentHistoryResponse> operation
               = new GetV1EmployeesEmployeeIdEmploymentHistory.Sync(sdkConfiguration, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Get an employee termination
+     * 
+     * <p>Terminations are created whenever an employee is scheduled to leave the company. The only things
+     * required are an effective date (their last day of work) and whether they should receive their wages
+     * in a one-off termination payroll or with the rest of the company.
+     * 
+     * <p>Note that some states require employees to receive their final wages within 24 hours (unless they
+     * consent otherwise,) in which case running a one-off payroll may be the only option.
+     * 
+     * <p>scope: `employments:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @return The call builder
+     */
+    public GetV1TerminationsEmployeeIdRequestBuilder getV1TerminationsEmployeeId() {
+        return new GetV1TerminationsEmployeeIdRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Get an employee termination
+     * 
+     * <p>Terminations are created whenever an employee is scheduled to leave the company. The only things
+     * required are an effective date (their last day of work) and whether they should receive their wages
+     * in a one-off termination payroll or with the rest of the company.
+     * 
+     * <p>Note that some states require employees to receive their final wages within 24 hours (unless they
+     * consent otherwise,) in which case running a one-off payroll may be the only option.
+     * 
+     * <p>scope: `employments:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param employeeId The UUID of the employee
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public GetV1TerminationsEmployeeIdResponse getV1TerminationsEmployeeId(String employeeId) {
+        return getV1TerminationsEmployeeId(Optional.empty(), employeeId);
+    }
+
+    /**
+     * Get an employee termination
+     * 
+     * <p>Terminations are created whenever an employee is scheduled to leave the company. The only things
+     * required are an effective date (their last day of work) and whether they should receive their wages
+     * in a one-off termination payroll or with the rest of the company.
+     * 
+     * <p>Note that some states require employees to receive their final wages within 24 hours (unless they
+     * consent otherwise,) in which case running a one-off payroll may be the only option.
+     * 
+     * <p>scope: `employments:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     * @param employeeId The UUID of the employee
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public GetV1TerminationsEmployeeIdResponse getV1TerminationsEmployeeId(Optional<? extends GetV1TerminationsEmployeeIdHeaderXGustoAPIVersion> xGustoAPIVersion, String employeeId) {
+        GetV1TerminationsEmployeeIdRequest request =
+            GetV1TerminationsEmployeeIdRequest
+                .builder()
+                .xGustoAPIVersion(xGustoAPIVersion)
+                .employeeId(employeeId)
+                .build();
+        RequestOperation<GetV1TerminationsEmployeeIdRequest, GetV1TerminationsEmployeeIdResponse> operation
+              = new GetV1TerminationsEmployeeId.Sync(sdkConfiguration, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

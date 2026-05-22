@@ -10,7 +10,7 @@ import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
 import com.gusto.embedded_api.SecuritySource;
-import com.gusto.embedded_api.models.components.PaySchedule;
+import com.gusto.embedded_api.models.components.PayScheduleShow;
 import com.gusto.embedded_api.models.errors.APIException;
 import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
 import com.gusto.embedded_api.models.operations.GetV1CompaniesCompanyIdPaySchedulesRequest;
@@ -132,7 +132,7 @@ public class GetV1CompaniesCompanyIdPaySchedules {
             HttpResponse<InputStream> httpRes;
             try {
                 httpRes = client.send(r);
-                if (Utils.statusCodeMatches(httpRes.statusCode(), "404", "4XX", "5XX")) {
+                if (Utils.statusCodeMatches(httpRes.statusCode(), "4XX", "5XX")) {
                     httpRes = onError(httpRes, null);
                 } else {
                     httpRes = onSuccess(httpRes);
@@ -162,7 +162,7 @@ public class GetV1CompaniesCompanyIdPaySchedules {
             
             if (Utils.statusCodeMatches(response.statusCode(), "200")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
-                    return res.withPaySchedules(Utils.unmarshal(response, new TypeReference<List<PaySchedule>>() {}));
+                    return res.withPayScheduleShowResponse(Utils.unmarshal(response, new TypeReference<List<PayScheduleShow>>() {}));
                 } else {
                     throw APIException.from("Unexpected content-type received: " + contentType, response);
                 }
@@ -212,7 +212,7 @@ public class GetV1CompaniesCompanyIdPaySchedules {
                         if (err != null) {
                             return onError(null, err);
                         }
-                        if (Utils.statusCodeMatches(resp.statusCode(), "404", "4XX", "5XX")) {
+                        if (Utils.statusCodeMatches(resp.statusCode(), "4XX", "5XX")) {
                             return onError(resp, null);
                         }
                         return CompletableFuture.completedFuture(resp);
@@ -239,8 +239,8 @@ public class GetV1CompaniesCompanyIdPaySchedules {
             
             if (Utils.statusCodeMatches(response.statusCode(), "200")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
-                    return Utils.unmarshalAsync(response, new TypeReference<List<PaySchedule>>() {})
-                            .thenApply(res::withPaySchedules);
+                    return Utils.unmarshalAsync(response, new TypeReference<List<PayScheduleShow>>() {})
+                            .thenApply(res::withPayScheduleShowResponse);
                 } else {
                     return Utils.createAsyncApiError(response, "Unexpected content-type received: " + contentType);
                 }

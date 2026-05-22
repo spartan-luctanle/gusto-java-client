@@ -7,7 +7,6 @@ import static com.gusto.embedded_api.operations.Operations.RequestOperation;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.VersionHeader;
 import com.gusto.embedded_api.operations.GetVersionEmployeesTimeOffActivities;
 import com.gusto.embedded_api.utils.Headers;
 import com.gusto.embedded_api.utils.LazySingletonValue;
@@ -17,17 +16,29 @@ import java.util.Optional;
 
 public class GetVersionEmployeesTimeOffActivitiesRequestBuilder {
 
-    private String employeeUuid;
-    private String timeOffType;
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
+    private Optional<? extends GetVersionEmployeesTimeOffActivitiesHeaderXGustoAPIVersion> xGustoAPIVersion = Utils.readDefaultOrConstValue(
                             "xGustoAPIVersion",
                             "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
+                            new TypeReference<Optional<? extends GetVersionEmployeesTimeOffActivitiesHeaderXGustoAPIVersion>>() {});
+    private String employeeUuid;
+    private String timeOffType;
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
     public GetVersionEmployeesTimeOffActivitiesRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
+    }
+                
+    public GetVersionEmployeesTimeOffActivitiesRequestBuilder xGustoAPIVersion(GetVersionEmployeesTimeOffActivitiesHeaderXGustoAPIVersion xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
+        return this;
+    }
+
+    public GetVersionEmployeesTimeOffActivitiesRequestBuilder xGustoAPIVersion(Optional<? extends GetVersionEmployeesTimeOffActivitiesHeaderXGustoAPIVersion> xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = xGustoAPIVersion;
+        return this;
     }
 
     public GetVersionEmployeesTimeOffActivitiesRequestBuilder employeeUuid(String employeeUuid) {
@@ -41,18 +52,6 @@ public class GetVersionEmployeesTimeOffActivitiesRequestBuilder {
         this.timeOffType = timeOffType;
         return this;
     }
-                
-    public GetVersionEmployeesTimeOffActivitiesRequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
-        return this;
-    }
-
-    public GetVersionEmployeesTimeOffActivitiesRequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = xGustoAPIVersion;
-        return this;
-    }
 
 
     private GetVersionEmployeesTimeOffActivitiesRequest buildRequest() {
@@ -60,9 +59,9 @@ public class GetVersionEmployeesTimeOffActivitiesRequestBuilder {
             xGustoAPIVersion = _SINGLETON_VALUE_XGustoAPIVersion.value();
         }
 
-        GetVersionEmployeesTimeOffActivitiesRequest request = new GetVersionEmployeesTimeOffActivitiesRequest(employeeUuid,
-            timeOffType,
-            xGustoAPIVersion);
+        GetVersionEmployeesTimeOffActivitiesRequest request = new GetVersionEmployeesTimeOffActivitiesRequest(xGustoAPIVersion,
+            employeeUuid,
+            timeOffType);
 
         return request;
     }
@@ -76,9 +75,9 @@ public class GetVersionEmployeesTimeOffActivitiesRequestBuilder {
         return operation.handleResponse(operation.doRequest(request));
     }
 
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+    private static final LazySingletonValue<Optional<? extends GetVersionEmployeesTimeOffActivitiesHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
             new LazySingletonValue<>(
                     "xGustoAPIVersion",
                     "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
+                    new TypeReference<Optional<? extends GetVersionEmployeesTimeOffActivitiesHeaderXGustoAPIVersion>>() {});
 }

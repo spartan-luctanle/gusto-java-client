@@ -35,24 +35,24 @@ public class PutV1TaxLiabilitiesResponse implements Response {
     private HttpResponse<InputStream> rawResponse;
 
     /**
-     * Example response
+     * Success
      */
-    private Optional<? extends List<TaxLiabilitiesSelections>> taxLiabilitiesList;
+    private Optional<? extends List<TaxLiabilitiesSelections>> taxLiabilitiesSelections;
 
     @JsonCreator
     public PutV1TaxLiabilitiesResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends List<TaxLiabilitiesSelections>> taxLiabilitiesList) {
+            Optional<? extends List<TaxLiabilitiesSelections>> taxLiabilitiesSelections) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
-        Utils.checkNotNull(taxLiabilitiesList, "taxLiabilitiesList");
+        Utils.checkNotNull(taxLiabilitiesSelections, "taxLiabilitiesSelections");
         this.contentType = contentType;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
-        this.taxLiabilitiesList = taxLiabilitiesList;
+        this.taxLiabilitiesSelections = taxLiabilitiesSelections;
     }
     
     public PutV1TaxLiabilitiesResponse(
@@ -88,12 +88,12 @@ public class PutV1TaxLiabilitiesResponse implements Response {
     }
 
     /**
-     * Example response
+     * Success
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<List<TaxLiabilitiesSelections>> taxLiabilitiesList() {
-        return (Optional<List<TaxLiabilitiesSelections>>) taxLiabilitiesList;
+    public Optional<List<TaxLiabilitiesSelections>> taxLiabilitiesSelections() {
+        return (Optional<List<TaxLiabilitiesSelections>>) taxLiabilitiesSelections;
     }
 
     public static Builder builder() {
@@ -129,21 +129,21 @@ public class PutV1TaxLiabilitiesResponse implements Response {
     }
 
     /**
-     * Example response
+     * Success
      */
-    public PutV1TaxLiabilitiesResponse withTaxLiabilitiesList(List<TaxLiabilitiesSelections> taxLiabilitiesList) {
-        Utils.checkNotNull(taxLiabilitiesList, "taxLiabilitiesList");
-        this.taxLiabilitiesList = Optional.ofNullable(taxLiabilitiesList);
+    public PutV1TaxLiabilitiesResponse withTaxLiabilitiesSelections(List<TaxLiabilitiesSelections> taxLiabilitiesSelections) {
+        Utils.checkNotNull(taxLiabilitiesSelections, "taxLiabilitiesSelections");
+        this.taxLiabilitiesSelections = Optional.ofNullable(taxLiabilitiesSelections);
         return this;
     }
 
 
     /**
-     * Example response
+     * Success
      */
-    public PutV1TaxLiabilitiesResponse withTaxLiabilitiesList(Optional<? extends List<TaxLiabilitiesSelections>> taxLiabilitiesList) {
-        Utils.checkNotNull(taxLiabilitiesList, "taxLiabilitiesList");
-        this.taxLiabilitiesList = taxLiabilitiesList;
+    public PutV1TaxLiabilitiesResponse withTaxLiabilitiesSelections(Optional<? extends List<TaxLiabilitiesSelections>> taxLiabilitiesSelections) {
+        Utils.checkNotNull(taxLiabilitiesSelections, "taxLiabilitiesSelections");
+        this.taxLiabilitiesSelections = taxLiabilitiesSelections;
         return this;
     }
 
@@ -160,14 +160,14 @@ public class PutV1TaxLiabilitiesResponse implements Response {
             Utils.enhancedDeepEquals(this.contentType, other.contentType) &&
             Utils.enhancedDeepEquals(this.statusCode, other.statusCode) &&
             Utils.enhancedDeepEquals(this.rawResponse, other.rawResponse) &&
-            Utils.enhancedDeepEquals(this.taxLiabilitiesList, other.taxLiabilitiesList);
+            Utils.enhancedDeepEquals(this.taxLiabilitiesSelections, other.taxLiabilitiesSelections);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             contentType, statusCode, rawResponse,
-            taxLiabilitiesList);
+            taxLiabilitiesSelections);
     }
     
     @Override
@@ -176,7 +176,7 @@ public class PutV1TaxLiabilitiesResponse implements Response {
                 "contentType", contentType,
                 "statusCode", statusCode,
                 "rawResponse", rawResponse,
-                "taxLiabilitiesList", taxLiabilitiesList);
+                "taxLiabilitiesSelections", taxLiabilitiesSelections);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -188,7 +188,7 @@ public class PutV1TaxLiabilitiesResponse implements Response {
 
         private HttpResponse<InputStream> rawResponse;
 
-        private Optional<? extends List<TaxLiabilitiesSelections>> taxLiabilitiesList = Optional.empty();
+        private Optional<? extends List<TaxLiabilitiesSelections>> taxLiabilitiesSelections = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -226,20 +226,20 @@ public class PutV1TaxLiabilitiesResponse implements Response {
 
 
         /**
-         * Example response
+         * Success
          */
-        public Builder taxLiabilitiesList(List<TaxLiabilitiesSelections> taxLiabilitiesList) {
-            Utils.checkNotNull(taxLiabilitiesList, "taxLiabilitiesList");
-            this.taxLiabilitiesList = Optional.ofNullable(taxLiabilitiesList);
+        public Builder taxLiabilitiesSelections(List<TaxLiabilitiesSelections> taxLiabilitiesSelections) {
+            Utils.checkNotNull(taxLiabilitiesSelections, "taxLiabilitiesSelections");
+            this.taxLiabilitiesSelections = Optional.ofNullable(taxLiabilitiesSelections);
             return this;
         }
 
         /**
-         * Example response
+         * Success
          */
-        public Builder taxLiabilitiesList(Optional<? extends List<TaxLiabilitiesSelections>> taxLiabilitiesList) {
-            Utils.checkNotNull(taxLiabilitiesList, "taxLiabilitiesList");
-            this.taxLiabilitiesList = taxLiabilitiesList;
+        public Builder taxLiabilitiesSelections(Optional<? extends List<TaxLiabilitiesSelections>> taxLiabilitiesSelections) {
+            Utils.checkNotNull(taxLiabilitiesSelections, "taxLiabilitiesSelections");
+            this.taxLiabilitiesSelections = taxLiabilitiesSelections;
             return this;
         }
 
@@ -247,7 +247,7 @@ public class PutV1TaxLiabilitiesResponse implements Response {
 
             return new PutV1TaxLiabilitiesResponse(
                 contentType, statusCode, rawResponse,
-                taxLiabilitiesList);
+                taxLiabilitiesSelections);
         }
 
     }

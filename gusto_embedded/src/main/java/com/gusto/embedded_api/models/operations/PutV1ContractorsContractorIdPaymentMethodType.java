@@ -12,8 +12,7 @@ import java.util.Optional;
  * PutV1ContractorsContractorIdPaymentMethodType
  * 
  * <p>The payment method type. If type is Direct Deposit, the contractor is required to have a bank
- * account.
- * see [Bank account endpoint](./post-v1-contractors-contractor_uuid-bank_accounts)
+ * account. See [Bank account endpoint](./post-v1-contractors-contractor_uuid-bank_accounts).
  */
 public enum PutV1ContractorsContractorIdPaymentMethodType {
     DIRECT_DEPOSIT("Direct Deposit"),

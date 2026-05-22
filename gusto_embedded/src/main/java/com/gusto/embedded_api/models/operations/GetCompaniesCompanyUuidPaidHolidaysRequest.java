@@ -6,7 +6,6 @@ package com.gusto.embedded_api.models.operations;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.gusto.embedded_api.models.components.VersionHeader;
 import com.gusto.embedded_api.utils.LazySingletonValue;
 import com.gusto.embedded_api.utils.SpeakeasyMetadata;
 import com.gusto.embedded_api.utils.Utils;
@@ -18,40 +17,53 @@ import java.util.Optional;
 
 public class GetCompaniesCompanyUuidPaidHolidaysRequest {
     /**
+     * Determines the date-based API version associated with your API call. If none is provided, your
+     * application's [minimum API
+     * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     */
+    @SpeakeasyMetadata("header:style=simple,explode=false,name=X-Gusto-API-Version")
+    private Optional<? extends GetCompaniesCompanyUuidPaidHolidaysHeaderXGustoAPIVersion> xGustoAPIVersion;
+
+    /**
      * The UUID of the company
      */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=company_uuid")
     private String companyUuid;
 
     /**
+     * If a year is passed, paid holidays for that year will be returned. Otherwise, paid holidays for the
+     * next three years will be returned.
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=year")
+    private Optional<String> year;
+
+    @JsonCreator
+    public GetCompaniesCompanyUuidPaidHolidaysRequest(
+            Optional<? extends GetCompaniesCompanyUuidPaidHolidaysHeaderXGustoAPIVersion> xGustoAPIVersion,
+            String companyUuid,
+            Optional<String> year) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        Utils.checkNotNull(companyUuid, "companyUuid");
+        Utils.checkNotNull(year, "year");
+        this.xGustoAPIVersion = xGustoAPIVersion;
+        this.companyUuid = companyUuid;
+        this.year = year;
+    }
+    
+    public GetCompaniesCompanyUuidPaidHolidaysRequest(
+            String companyUuid) {
+        this(Optional.empty(), companyUuid, Optional.empty());
+    }
+
+    /**
      * Determines the date-based API version associated with your API call. If none is provided, your
      * application's [minimum API
      * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      */
-    @SpeakeasyMetadata("header:style=simple,explode=false,name=X-Gusto-API-Version")
-    private Optional<? extends VersionHeader> xGustoAPIVersion;
-
-
-    @SpeakeasyMetadata("request:mediaType=application/json")
-    private GetCompaniesCompanyUuidPaidHolidaysRequestBody requestBody;
-
-    @JsonCreator
-    public GetCompaniesCompanyUuidPaidHolidaysRequest(
-            String companyUuid,
-            Optional<? extends VersionHeader> xGustoAPIVersion,
-            GetCompaniesCompanyUuidPaidHolidaysRequestBody requestBody) {
-        Utils.checkNotNull(companyUuid, "companyUuid");
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        Utils.checkNotNull(requestBody, "requestBody");
-        this.companyUuid = companyUuid;
-        this.xGustoAPIVersion = xGustoAPIVersion;
-        this.requestBody = requestBody;
-    }
-    
-    public GetCompaniesCompanyUuidPaidHolidaysRequest(
-            String companyUuid,
-            GetCompaniesCompanyUuidPaidHolidaysRequestBody requestBody) {
-        this(companyUuid, Optional.empty(), requestBody);
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<GetCompaniesCompanyUuidPaidHolidaysHeaderXGustoAPIVersion> xGustoAPIVersion() {
+        return (Optional<GetCompaniesCompanyUuidPaidHolidaysHeaderXGustoAPIVersion>) xGustoAPIVersion;
     }
 
     /**
@@ -63,19 +75,12 @@ public class GetCompaniesCompanyUuidPaidHolidaysRequest {
     }
 
     /**
-     * Determines the date-based API version associated with your API call. If none is provided, your
-     * application's [minimum API
-     * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     * If a year is passed, paid holidays for that year will be returned. Otherwise, paid holidays for the
+     * next three years will be returned.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<VersionHeader> xGustoAPIVersion() {
-        return (Optional<VersionHeader>) xGustoAPIVersion;
-    }
-
-    @JsonIgnore
-    public GetCompaniesCompanyUuidPaidHolidaysRequestBody requestBody() {
-        return requestBody;
+    public Optional<String> year() {
+        return year;
     }
 
     public static Builder builder() {
@@ -84,20 +89,11 @@ public class GetCompaniesCompanyUuidPaidHolidaysRequest {
 
 
     /**
-     * The UUID of the company
-     */
-    public GetCompaniesCompanyUuidPaidHolidaysRequest withCompanyUuid(String companyUuid) {
-        Utils.checkNotNull(companyUuid, "companyUuid");
-        this.companyUuid = companyUuid;
-        return this;
-    }
-
-    /**
      * Determines the date-based API version associated with your API call. If none is provided, your
      * application's [minimum API
      * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      */
-    public GetCompaniesCompanyUuidPaidHolidaysRequest withXGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+    public GetCompaniesCompanyUuidPaidHolidaysRequest withXGustoAPIVersion(GetCompaniesCompanyUuidPaidHolidaysHeaderXGustoAPIVersion xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
         return this;
@@ -109,15 +105,39 @@ public class GetCompaniesCompanyUuidPaidHolidaysRequest {
      * application's [minimum API
      * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      */
-    public GetCompaniesCompanyUuidPaidHolidaysRequest withXGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public GetCompaniesCompanyUuidPaidHolidaysRequest withXGustoAPIVersion(Optional<? extends GetCompaniesCompanyUuidPaidHolidaysHeaderXGustoAPIVersion> xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = xGustoAPIVersion;
         return this;
     }
 
-    public GetCompaniesCompanyUuidPaidHolidaysRequest withRequestBody(GetCompaniesCompanyUuidPaidHolidaysRequestBody requestBody) {
-        Utils.checkNotNull(requestBody, "requestBody");
-        this.requestBody = requestBody;
+    /**
+     * The UUID of the company
+     */
+    public GetCompaniesCompanyUuidPaidHolidaysRequest withCompanyUuid(String companyUuid) {
+        Utils.checkNotNull(companyUuid, "companyUuid");
+        this.companyUuid = companyUuid;
+        return this;
+    }
+
+    /**
+     * If a year is passed, paid holidays for that year will be returned. Otherwise, paid holidays for the
+     * next three years will be returned.
+     */
+    public GetCompaniesCompanyUuidPaidHolidaysRequest withYear(String year) {
+        Utils.checkNotNull(year, "year");
+        this.year = Optional.ofNullable(year);
+        return this;
+    }
+
+
+    /**
+     * If a year is passed, paid holidays for that year will be returned. Otherwise, paid holidays for the
+     * next three years will be returned.
+     */
+    public GetCompaniesCompanyUuidPaidHolidaysRequest withYear(Optional<String> year) {
+        Utils.checkNotNull(year, "year");
+        this.year = year;
         return this;
     }
 
@@ -131,36 +151,59 @@ public class GetCompaniesCompanyUuidPaidHolidaysRequest {
         }
         GetCompaniesCompanyUuidPaidHolidaysRequest other = (GetCompaniesCompanyUuidPaidHolidaysRequest) o;
         return 
-            Utils.enhancedDeepEquals(this.companyUuid, other.companyUuid) &&
             Utils.enhancedDeepEquals(this.xGustoAPIVersion, other.xGustoAPIVersion) &&
-            Utils.enhancedDeepEquals(this.requestBody, other.requestBody);
+            Utils.enhancedDeepEquals(this.companyUuid, other.companyUuid) &&
+            Utils.enhancedDeepEquals(this.year, other.year);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            companyUuid, xGustoAPIVersion, requestBody);
+            xGustoAPIVersion, companyUuid, year);
     }
     
     @Override
     public String toString() {
         return Utils.toString(GetCompaniesCompanyUuidPaidHolidaysRequest.class,
-                "companyUuid", companyUuid,
                 "xGustoAPIVersion", xGustoAPIVersion,
-                "requestBody", requestBody);
+                "companyUuid", companyUuid,
+                "year", year);
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
+        private Optional<? extends GetCompaniesCompanyUuidPaidHolidaysHeaderXGustoAPIVersion> xGustoAPIVersion;
+
         private String companyUuid;
 
-        private Optional<? extends VersionHeader> xGustoAPIVersion;
-
-        private GetCompaniesCompanyUuidPaidHolidaysRequestBody requestBody;
+        private Optional<String> year = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
+        }
+
+
+        /**
+         * Determines the date-based API version associated with your API call. If none is provided, your
+         * application's [minimum API
+         * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+         */
+        public Builder xGustoAPIVersion(GetCompaniesCompanyUuidPaidHolidaysHeaderXGustoAPIVersion xGustoAPIVersion) {
+            Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+            this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
+            return this;
+        }
+
+        /**
+         * Determines the date-based API version associated with your API call. If none is provided, your
+         * application's [minimum API
+         * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+         */
+        public Builder xGustoAPIVersion(Optional<? extends GetCompaniesCompanyUuidPaidHolidaysHeaderXGustoAPIVersion> xGustoAPIVersion) {
+            Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+            this.xGustoAPIVersion = xGustoAPIVersion;
+            return this;
         }
 
 
@@ -175,31 +218,22 @@ public class GetCompaniesCompanyUuidPaidHolidaysRequest {
 
 
         /**
-         * Determines the date-based API version associated with your API call. If none is provided, your
-         * application's [minimum API
-         * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+         * If a year is passed, paid holidays for that year will be returned. Otherwise, paid holidays for the
+         * next three years will be returned.
          */
-        public Builder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
-            Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-            this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
+        public Builder year(String year) {
+            Utils.checkNotNull(year, "year");
+            this.year = Optional.ofNullable(year);
             return this;
         }
 
         /**
-         * Determines the date-based API version associated with your API call. If none is provided, your
-         * application's [minimum API
-         * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+         * If a year is passed, paid holidays for that year will be returned. Otherwise, paid holidays for the
+         * next three years will be returned.
          */
-        public Builder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
-            Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-            this.xGustoAPIVersion = xGustoAPIVersion;
-            return this;
-        }
-
-
-        public Builder requestBody(GetCompaniesCompanyUuidPaidHolidaysRequestBody requestBody) {
-            Utils.checkNotNull(requestBody, "requestBody");
-            this.requestBody = requestBody;
+        public Builder year(Optional<String> year) {
+            Utils.checkNotNull(year, "year");
+            this.year = year;
             return this;
         }
 
@@ -209,14 +243,14 @@ public class GetCompaniesCompanyUuidPaidHolidaysRequest {
             }
 
             return new GetCompaniesCompanyUuidPaidHolidaysRequest(
-                companyUuid, xGustoAPIVersion, requestBody);
+                xGustoAPIVersion, companyUuid, year);
         }
 
 
-        private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+        private static final LazySingletonValue<Optional<? extends GetCompaniesCompanyUuidPaidHolidaysHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
                 new LazySingletonValue<>(
                         "X-Gusto-API-Version",
                         "\"2025-06-15\"",
-                        new TypeReference<Optional<? extends VersionHeader>>() {});
+                        new TypeReference<Optional<? extends GetCompaniesCompanyUuidPaidHolidaysHeaderXGustoAPIVersion>>() {});
     }
 }

@@ -1,0 +1,9 @@
+# PartnerManagedCompanyCreateRequest
+
+
+## Fields
+
+| Field                                                                                                             | Type                                                                                                              | Required                                                                                                          | Description                                                                                                       |
+| ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `user`                                                                                                            | [User](../../models/components/User.md)                                                                           | :heavy_check_mark:                                                                                                | Information for the user who will be the primary payroll administrator for the new company.                       |
+| `company`                                                                                                         | [PartnerManagedCompanyCreateRequestCompany](../../models/components/PartnerManagedCompanyCreateRequestCompany.md) | :heavy_check_mark:                                                                                                | N/A                                                                                                               |

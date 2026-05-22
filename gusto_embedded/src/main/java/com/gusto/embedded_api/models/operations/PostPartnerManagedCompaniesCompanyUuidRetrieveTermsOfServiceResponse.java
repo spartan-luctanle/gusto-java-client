@@ -5,6 +5,7 @@ package com.gusto.embedded_api.models.operations;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.gusto.embedded_api.models.components.PartnerManagedCompanyTermsOfServiceResponse;
 import com.gusto.embedded_api.utils.Response;
 import com.gusto.embedded_api.utils.Utils;
 import java.io.InputStream;
@@ -35,22 +36,22 @@ public class PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceRespons
     /**
      * Example response
      */
-    private Optional<? extends PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceResponseBody> object;
+    private Optional<? extends PartnerManagedCompanyTermsOfServiceResponse> partnerManagedCompanyTermsOfServiceResponse;
 
     @JsonCreator
     public PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceResponseBody> object) {
+            Optional<? extends PartnerManagedCompanyTermsOfServiceResponse> partnerManagedCompanyTermsOfServiceResponse) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
-        Utils.checkNotNull(object, "object");
+        Utils.checkNotNull(partnerManagedCompanyTermsOfServiceResponse, "partnerManagedCompanyTermsOfServiceResponse");
         this.contentType = contentType;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
-        this.object = object;
+        this.partnerManagedCompanyTermsOfServiceResponse = partnerManagedCompanyTermsOfServiceResponse;
     }
     
     public PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceResponse(
@@ -90,8 +91,8 @@ public class PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceRespons
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceResponseBody> object() {
-        return (Optional<PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceResponseBody>) object;
+    public Optional<PartnerManagedCompanyTermsOfServiceResponse> partnerManagedCompanyTermsOfServiceResponse() {
+        return (Optional<PartnerManagedCompanyTermsOfServiceResponse>) partnerManagedCompanyTermsOfServiceResponse;
     }
 
     public static Builder builder() {
@@ -129,9 +130,9 @@ public class PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceRespons
     /**
      * Example response
      */
-    public PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceResponse withObject(PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceResponseBody object) {
-        Utils.checkNotNull(object, "object");
-        this.object = Optional.ofNullable(object);
+    public PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceResponse withPartnerManagedCompanyTermsOfServiceResponse(PartnerManagedCompanyTermsOfServiceResponse partnerManagedCompanyTermsOfServiceResponse) {
+        Utils.checkNotNull(partnerManagedCompanyTermsOfServiceResponse, "partnerManagedCompanyTermsOfServiceResponse");
+        this.partnerManagedCompanyTermsOfServiceResponse = Optional.ofNullable(partnerManagedCompanyTermsOfServiceResponse);
         return this;
     }
 
@@ -139,9 +140,9 @@ public class PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceRespons
     /**
      * Example response
      */
-    public PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceResponse withObject(Optional<? extends PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceResponseBody> object) {
-        Utils.checkNotNull(object, "object");
-        this.object = object;
+    public PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceResponse withPartnerManagedCompanyTermsOfServiceResponse(Optional<? extends PartnerManagedCompanyTermsOfServiceResponse> partnerManagedCompanyTermsOfServiceResponse) {
+        Utils.checkNotNull(partnerManagedCompanyTermsOfServiceResponse, "partnerManagedCompanyTermsOfServiceResponse");
+        this.partnerManagedCompanyTermsOfServiceResponse = partnerManagedCompanyTermsOfServiceResponse;
         return this;
     }
 
@@ -158,14 +159,14 @@ public class PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceRespons
             Utils.enhancedDeepEquals(this.contentType, other.contentType) &&
             Utils.enhancedDeepEquals(this.statusCode, other.statusCode) &&
             Utils.enhancedDeepEquals(this.rawResponse, other.rawResponse) &&
-            Utils.enhancedDeepEquals(this.object, other.object);
+            Utils.enhancedDeepEquals(this.partnerManagedCompanyTermsOfServiceResponse, other.partnerManagedCompanyTermsOfServiceResponse);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             contentType, statusCode, rawResponse,
-            object);
+            partnerManagedCompanyTermsOfServiceResponse);
     }
     
     @Override
@@ -174,7 +175,7 @@ public class PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceRespons
                 "contentType", contentType,
                 "statusCode", statusCode,
                 "rawResponse", rawResponse,
-                "object", object);
+                "partnerManagedCompanyTermsOfServiceResponse", partnerManagedCompanyTermsOfServiceResponse);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -186,7 +187,7 @@ public class PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceRespons
 
         private HttpResponse<InputStream> rawResponse;
 
-        private Optional<? extends PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceResponseBody> object = Optional.empty();
+        private Optional<? extends PartnerManagedCompanyTermsOfServiceResponse> partnerManagedCompanyTermsOfServiceResponse = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -226,18 +227,18 @@ public class PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceRespons
         /**
          * Example response
          */
-        public Builder object(PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceResponseBody object) {
-            Utils.checkNotNull(object, "object");
-            this.object = Optional.ofNullable(object);
+        public Builder partnerManagedCompanyTermsOfServiceResponse(PartnerManagedCompanyTermsOfServiceResponse partnerManagedCompanyTermsOfServiceResponse) {
+            Utils.checkNotNull(partnerManagedCompanyTermsOfServiceResponse, "partnerManagedCompanyTermsOfServiceResponse");
+            this.partnerManagedCompanyTermsOfServiceResponse = Optional.ofNullable(partnerManagedCompanyTermsOfServiceResponse);
             return this;
         }
 
         /**
          * Example response
          */
-        public Builder object(Optional<? extends PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceResponseBody> object) {
-            Utils.checkNotNull(object, "object");
-            this.object = object;
+        public Builder partnerManagedCompanyTermsOfServiceResponse(Optional<? extends PartnerManagedCompanyTermsOfServiceResponse> partnerManagedCompanyTermsOfServiceResponse) {
+            Utils.checkNotNull(partnerManagedCompanyTermsOfServiceResponse, "partnerManagedCompanyTermsOfServiceResponse");
+            this.partnerManagedCompanyTermsOfServiceResponse = partnerManagedCompanyTermsOfServiceResponse;
             return this;
         }
 
@@ -245,7 +246,7 @@ public class PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceRespons
 
             return new PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceResponse(
                 contentType, statusCode, rawResponse,
-                object);
+                partnerManagedCompanyTermsOfServiceResponse);
         }
 
     }

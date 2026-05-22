@@ -5,8 +5,8 @@ package com.gusto.embedded_api;
 
 import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation;
 
-import com.gusto.embedded_api.models.components.VersionHeader;
 import com.gusto.embedded_api.models.operations.GetCompanyNotificationsRequest;
+import com.gusto.embedded_api.models.operations.GetNotificationsNotificationUuidHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetNotificationsNotificationUuidRequest;
 import com.gusto.embedded_api.models.operations.async.GetCompanyNotificationsRequestBuilder;
 import com.gusto.embedded_api.models.operations.async.GetCompanyNotificationsResponse;
@@ -56,6 +56,8 @@ public class AsyncNotifications {
      * 
      * <p>scope: `notifications:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @return The async call builder
      */
     public GetNotificationsNotificationUuidRequestBuilder getDetails() {
@@ -77,6 +79,8 @@ public class AsyncNotifications {
      * supporting data is no longer valid, the response will be 422 Unprocessable Entity.
      * 
      * <p>scope: `notifications:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @param notificationUuid The notification entity_uuid
      * @return {@code CompletableFuture<GetNotificationsNotificationUuidResponse>} - The async response
@@ -101,11 +105,13 @@ public class AsyncNotifications {
      * 
      * <p>scope: `notifications:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param notificationUuid The notification entity_uuid
-     * @param xGustoAPIVersion 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @return {@code CompletableFuture<GetNotificationsNotificationUuidResponse>} - The async response
      */
-    public CompletableFuture<GetNotificationsNotificationUuidResponse> getDetails(String notificationUuid, Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public CompletableFuture<GetNotificationsNotificationUuidResponse> getDetails(String notificationUuid, Optional<? extends GetNotificationsNotificationUuidHeaderXGustoAPIVersion> xGustoAPIVersion) {
         GetNotificationsNotificationUuidRequest request =
             GetNotificationsNotificationUuidRequest
                 .builder()

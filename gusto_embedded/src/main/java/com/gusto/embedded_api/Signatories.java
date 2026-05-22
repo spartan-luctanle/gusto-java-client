@@ -58,6 +58,73 @@ public class Signatories {
     }
 
     /**
+     * Get the signatories for a company
+     * 
+     * <p>Returns the signatories for a company. A company has at most one signatory.
+     * 
+     * <p>## Related guides
+     * - [Signatory Events](doc:signatory-events)
+     * 
+     * <p>scope: `signatories:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @return The call builder
+     */
+    public GetV1CompaniesCompanyUuidSignatoriesRequestBuilder list() {
+        return new GetV1CompaniesCompanyUuidSignatoriesRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Get the signatories for a company
+     * 
+     * <p>Returns the signatories for a company. A company has at most one signatory.
+     * 
+     * <p>## Related guides
+     * - [Signatory Events](doc:signatory-events)
+     * 
+     * <p>scope: `signatories:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param companyUuid The UUID of the company
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public GetV1CompaniesCompanyUuidSignatoriesResponse list(String companyUuid) {
+        return list(companyUuid, Optional.empty());
+    }
+
+    /**
+     * Get the signatories for a company
+     * 
+     * <p>Returns the signatories for a company. A company has at most one signatory.
+     * 
+     * <p>## Related guides
+     * - [Signatory Events](doc:signatory-events)
+     * 
+     * <p>scope: `signatories:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param companyUuid The UUID of the company
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public GetV1CompaniesCompanyUuidSignatoriesResponse list(String companyUuid, Optional<? extends GetV1CompaniesCompanyUuidSignatoriesHeaderXGustoAPIVersion> xGustoAPIVersion) {
+        GetV1CompaniesCompanyUuidSignatoriesRequest request =
+            GetV1CompaniesCompanyUuidSignatoriesRequest
+                .builder()
+                .companyUuid(companyUuid)
+                .xGustoAPIVersion(xGustoAPIVersion)
+                .build();
+        RequestOperation<GetV1CompaniesCompanyUuidSignatoriesRequest, GetV1CompaniesCompanyUuidSignatoriesResponse> operation
+              = new GetV1CompaniesCompanyUuidSignatories.Sync(sdkConfiguration, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
      * Create a signatory
      * 
      * <p>Creates a company signatory with complete information. The company must not already have a
@@ -159,73 +226,6 @@ public class Signatories {
                 .build();
         RequestOperation<PostV1CompanySignatoriesRequest, PostV1CompanySignatoriesResponse> operation
               = new PostV1CompanySignatories.Sync(sdkConfiguration, _headers);
-        return operation.handleResponse(operation.doRequest(request));
-    }
-
-    /**
-     * Get the signatories for a company
-     * 
-     * <p>Returns the signatories for a company. A company has at most one signatory.
-     * 
-     * <p>## Related guides
-     * - [Signatory Events](doc:signatory-events)
-     * 
-     * <p>scope: `signatories:read`
-     * 
-     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
-     * 
-     * @return The call builder
-     */
-    public GetV1CompaniesCompanyUuidSignatoriesRequestBuilder list() {
-        return new GetV1CompaniesCompanyUuidSignatoriesRequestBuilder(sdkConfiguration);
-    }
-
-    /**
-     * Get the signatories for a company
-     * 
-     * <p>Returns the signatories for a company. A company has at most one signatory.
-     * 
-     * <p>## Related guides
-     * - [Signatory Events](doc:signatory-events)
-     * 
-     * <p>scope: `signatories:read`
-     * 
-     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
-     * 
-     * @param companyUuid The UUID of the company
-     * @return The response from the API call
-     * @throws RuntimeException subclass if the API call fails
-     */
-    public GetV1CompaniesCompanyUuidSignatoriesResponse list(String companyUuid) {
-        return list(companyUuid, Optional.empty());
-    }
-
-    /**
-     * Get the signatories for a company
-     * 
-     * <p>Returns the signatories for a company. A company has at most one signatory.
-     * 
-     * <p>## Related guides
-     * - [Signatory Events](doc:signatory-events)
-     * 
-     * <p>scope: `signatories:read`
-     * 
-     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
-     * 
-     * @param companyUuid The UUID of the company
-     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
-     * @return The response from the API call
-     * @throws RuntimeException subclass if the API call fails
-     */
-    public GetV1CompaniesCompanyUuidSignatoriesResponse list(String companyUuid, Optional<? extends GetV1CompaniesCompanyUuidSignatoriesHeaderXGustoAPIVersion> xGustoAPIVersion) {
-        GetV1CompaniesCompanyUuidSignatoriesRequest request =
-            GetV1CompaniesCompanyUuidSignatoriesRequest
-                .builder()
-                .companyUuid(companyUuid)
-                .xGustoAPIVersion(xGustoAPIVersion)
-                .build();
-        RequestOperation<GetV1CompaniesCompanyUuidSignatoriesRequest, GetV1CompaniesCompanyUuidSignatoriesResponse> operation
-              = new GetV1CompaniesCompanyUuidSignatories.Sync(sdkConfiguration, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

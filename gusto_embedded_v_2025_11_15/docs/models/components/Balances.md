@@ -1,0 +1,12 @@
+# Balances
+
+
+## Fields
+
+| Field                                                           | Type                                                            | Required                                                        | Description                                                     | Example                                                         |
+| --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- |
+| `policyUuid`                                                    | *Optional\<String>*                                             | :heavy_minus_sign:                                              | The UUID of the time off policy.                                | c2d9b1bd-3f36-4c2d-a727-b2af057d6a7f                            |
+| `balanceHours`                                                  | *Optional\<String>*                                             | :heavy_minus_sign:                                              | The employee's current available balance hours for this policy. | 32.0                                                            |
+| `accruedHours`                                                  | *Optional\<String>*                                             | :heavy_minus_sign:                                              | The total hours accrued year-to-date for this policy.           | 40.0                                                            |
+| `usedHours`                                                     | *Optional\<String>*                                             | :heavy_minus_sign:                                              | The total hours used year-to-date for this policy.              | 8.0                                                             |
+| `pendingHours`                                                  | *JsonNullable\<String>*                                         | :heavy_minus_sign:                                              | The total hours from pending time off requests for this policy. | 0.0                                                             |

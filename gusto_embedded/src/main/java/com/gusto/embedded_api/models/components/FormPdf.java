@@ -13,11 +13,7 @@ import java.lang.Override;
 import java.lang.String;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-/**
- * FormPdf
- * 
- * <p>Example response
- */
+
 public class FormPdf {
     /**
      * the UUID of the form

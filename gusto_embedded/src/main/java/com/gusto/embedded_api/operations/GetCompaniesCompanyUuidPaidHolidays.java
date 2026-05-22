@@ -10,9 +10,10 @@ import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
 import com.gusto.embedded_api.SecuritySource;
-import com.gusto.embedded_api.models.components.PaidHolidays;
+import com.gusto.embedded_api.models.components.PaidHoliday;
 import com.gusto.embedded_api.models.errors.APIException;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
 import com.gusto.embedded_api.models.operations.GetCompaniesCompanyUuidPaidHolidaysRequest;
 import com.gusto.embedded_api.models.operations.GetCompaniesCompanyUuidPaidHolidaysResponse;
 import com.gusto.embedded_api.utils.Blob;
@@ -22,17 +23,14 @@ import com.gusto.embedded_api.utils.Headers;
 import com.gusto.embedded_api.utils.Hook.AfterErrorContextImpl;
 import com.gusto.embedded_api.utils.Hook.AfterSuccessContextImpl;
 import com.gusto.embedded_api.utils.Hook.BeforeRequestContextImpl;
-import com.gusto.embedded_api.utils.SerializedBody;
-import com.gusto.embedded_api.utils.Utils.JsonShape;
 import com.gusto.embedded_api.utils.Utils;
 import java.io.InputStream;
 import java.lang.Exception;
-import java.lang.IllegalArgumentException;
-import java.lang.Object;
 import java.lang.String;
 import java.lang.Throwable;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Function;
@@ -85,31 +83,23 @@ public class GetCompaniesCompanyUuidPaidHolidays {
                     java.util.Optional.empty(),
                     securitySource());
         }
-        <T, U>HttpRequest buildRequest(T request, Class<T> klass, TypeReference<U> typeReference) throws Exception {
+        <T>HttpRequest buildRequest(T request, Class<T> klass) throws Exception {
             String url = Utils.generateURL(
                     klass,
                     this.baseUrl,
                     "/v1/companies/{company_uuid}/paid_holidays",
                     request, null);
             HTTPRequest req = new HTTPRequest(url, "GET");
-            Object convertedRequest = Utils.convertToShape(
-                    request,
-                    JsonShape.DEFAULT,
-                    typeReference);
-            SerializedBody serializedRequestBody = Utils.serializeRequestBody(
-                    convertedRequest,
-                    "requestBody",
-                    "json",
-                    false);
-            if (serializedRequestBody == null) {
-                throw new IllegalArgumentException("Request body is required");
-            }
-            req.setBody(Optional.ofNullable(serializedRequestBody));
             req.addHeader("Accept", "application/json")
                     .addHeader("user-agent", SDKConfiguration.USER_AGENT);
             _headers.forEach((k, list) -> list.forEach(v -> req.addHeader(k, v)));
+
+            req.addQueryParams(Utils.getQueryParams(
+                    klass,
+                    request,
+                    null));
             req.addHeaders(Utils.getHeadersFromMetadata(request, null));
-            Utils.configureSecurity(req, this.sdkConfiguration.securitySource().getSecurity());
+            Utils.configureSecurity(req, this.sdkConfiguration.securitySource().getSecurity(), "companyAccessAuth");
 
             return req.build();
         }
@@ -122,7 +112,7 @@ public class GetCompaniesCompanyUuidPaidHolidays {
         }
 
         private HttpRequest onBuildRequest(GetCompaniesCompanyUuidPaidHolidaysRequest request) throws Exception {
-            HttpRequest req = buildRequest(request, GetCompaniesCompanyUuidPaidHolidaysRequest.class, new TypeReference<GetCompaniesCompanyUuidPaidHolidaysRequest>() {});
+            HttpRequest req = buildRequest(request, GetCompaniesCompanyUuidPaidHolidaysRequest.class);
             return sdkConfiguration.hooks().beforeRequest(createBeforeRequestContext(), req);
         }
 
@@ -143,7 +133,7 @@ public class GetCompaniesCompanyUuidPaidHolidays {
             HttpResponse<InputStream> httpRes;
             try {
                 httpRes = client.send(r);
-                if (Utils.statusCodeMatches(httpRes.statusCode(), "404", "422", "4XX", "5XX")) {
+                if (Utils.statusCodeMatches(httpRes.statusCode(), "4XX", "5XX")) {
                     httpRes = onError(httpRes, null);
                 } else {
                     httpRes = onSuccess(httpRes);
@@ -173,19 +163,26 @@ public class GetCompaniesCompanyUuidPaidHolidays {
             
             if (Utils.statusCodeMatches(response.statusCode(), "200")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
-                    return res.withPaidHolidays(Utils.unmarshal(response, new TypeReference<PaidHolidays>() {}));
+                    return res.withPaidHolidays(Utils.unmarshal(response, new TypeReference<List<PaidHoliday>>() {}));
+                } else {
+                    throw APIException.from("Unexpected content-type received: " + contentType, response);
+                }
+            }
+            if (Utils.statusCodeMatches(response.statusCode(), "404")) {
+                if (Utils.contentTypeMatches(contentType, "application/json")) {
+                    throw NotFoundErrorObject.from(response);
                 } else {
                     throw APIException.from("Unexpected content-type received: " + contentType, response);
                 }
             }
             if (Utils.statusCodeMatches(response.statusCode(), "422")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
-                    throw UnprocessableEntityErrorObject.from(response);
+                    throw UnprocessableEntityError.from(response);
                 } else {
                     throw APIException.from("Unexpected content-type received: " + contentType, response);
                 }
             }
-            if (Utils.statusCodeMatches(response.statusCode(), "404", "4XX")) {
+            if (Utils.statusCodeMatches(response.statusCode(), "4XX")) {
                 // no content
                 throw APIException.from("API error occurred", response);
             }
@@ -204,7 +201,7 @@ public class GetCompaniesCompanyUuidPaidHolidays {
         }
 
         private CompletableFuture<HttpRequest> onBuildRequest(GetCompaniesCompanyUuidPaidHolidaysRequest request) throws Exception {
-            HttpRequest req = buildRequest(request, GetCompaniesCompanyUuidPaidHolidaysRequest.class, new TypeReference<GetCompaniesCompanyUuidPaidHolidaysRequest>() {});
+            HttpRequest req = buildRequest(request, GetCompaniesCompanyUuidPaidHolidaysRequest.class);
             return this.sdkConfiguration.asyncHooks().beforeRequest(createBeforeRequestContext(), req);
         }
 
@@ -223,7 +220,7 @@ public class GetCompaniesCompanyUuidPaidHolidays {
                         if (err != null) {
                             return onError(null, err);
                         }
-                        if (Utils.statusCodeMatches(resp.statusCode(), "404", "422", "4XX", "5XX")) {
+                        if (Utils.statusCodeMatches(resp.statusCode(), "4XX", "5XX")) {
                             return onError(resp, null);
                         }
                         return CompletableFuture.completedFuture(resp);
@@ -250,21 +247,29 @@ public class GetCompaniesCompanyUuidPaidHolidays {
             
             if (Utils.statusCodeMatches(response.statusCode(), "200")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
-                    return Utils.unmarshalAsync(response, new TypeReference<PaidHolidays>() {})
+                    return Utils.unmarshalAsync(response, new TypeReference<List<PaidHoliday>>() {})
                             .thenApply(res::withPaidHolidays);
+                } else {
+                    return Utils.createAsyncApiError(response, "Unexpected content-type received: " + contentType);
+                }
+            }
+            if (Utils.statusCodeMatches(response.statusCode(), "404")) {
+                if (Utils.contentTypeMatches(contentType, "application/json")) {
+                    return NotFoundErrorObject.fromAsync(response)
+                            .thenCompose(CompletableFuture::failedFuture);
                 } else {
                     return Utils.createAsyncApiError(response, "Unexpected content-type received: " + contentType);
                 }
             }
             if (Utils.statusCodeMatches(response.statusCode(), "422")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
-                    return UnprocessableEntityErrorObject.fromAsync(response)
+                    return UnprocessableEntityError.fromAsync(response)
                             .thenCompose(CompletableFuture::failedFuture);
                 } else {
                     return Utils.createAsyncApiError(response, "Unexpected content-type received: " + contentType);
                 }
             }
-            if (Utils.statusCodeMatches(response.statusCode(), "404", "4XX")) {
+            if (Utils.statusCodeMatches(response.statusCode(), "4XX")) {
                 // no content
                 return Utils.createAsyncApiError(response, "API error occurred");
             }

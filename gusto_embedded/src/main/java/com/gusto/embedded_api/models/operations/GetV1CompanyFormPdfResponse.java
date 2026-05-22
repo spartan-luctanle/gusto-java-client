@@ -34,7 +34,7 @@ public class GetV1CompanyFormPdfResponse implements Response {
     private HttpResponse<InputStream> rawResponse;
 
     /**
-     * Example response
+     * Success
      */
     private Optional<? extends FormPdf> formPdf;
 
@@ -87,7 +87,7 @@ public class GetV1CompanyFormPdfResponse implements Response {
     }
 
     /**
-     * Example response
+     * Success
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -128,7 +128,7 @@ public class GetV1CompanyFormPdfResponse implements Response {
     }
 
     /**
-     * Example response
+     * Success
      */
     public GetV1CompanyFormPdfResponse withFormPdf(FormPdf formPdf) {
         Utils.checkNotNull(formPdf, "formPdf");
@@ -138,7 +138,7 @@ public class GetV1CompanyFormPdfResponse implements Response {
 
 
     /**
-     * Example response
+     * Success
      */
     public GetV1CompanyFormPdfResponse withFormPdf(Optional<? extends FormPdf> formPdf) {
         Utils.checkNotNull(formPdf, "formPdf");
@@ -225,7 +225,7 @@ public class GetV1CompanyFormPdfResponse implements Response {
 
 
         /**
-         * Example response
+         * Success
          */
         public Builder formPdf(FormPdf formPdf) {
             Utils.checkNotNull(formPdf, "formPdf");
@@ -234,7 +234,7 @@ public class GetV1CompanyFormPdfResponse implements Response {
         }
 
         /**
-         * Example response
+         * Success
          */
         public Builder formPdf(Optional<? extends FormPdf> formPdf) {
             Utils.checkNotNull(formPdf, "formPdf");

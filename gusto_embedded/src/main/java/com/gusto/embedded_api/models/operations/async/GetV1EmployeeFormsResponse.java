@@ -35,24 +35,24 @@ public class GetV1EmployeeFormsResponse implements AsyncResponse {
     private HttpResponse<Blob> rawResponse;
 
     /**
-     * Example response
+     * Success
      */
-    private Optional<? extends List<Form>> formList;
+    private Optional<? extends List<Form>> forms;
 
     @JsonCreator
     public GetV1EmployeeFormsResponse(
             String contentType,
             int statusCode,
             HttpResponse<Blob> rawResponse,
-            Optional<? extends List<Form>> formList) {
+            Optional<? extends List<Form>> forms) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
-        Utils.checkNotNull(formList, "formList");
+        Utils.checkNotNull(forms, "forms");
         this.contentType = contentType;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
-        this.formList = formList;
+        this.forms = forms;
     }
     
     public GetV1EmployeeFormsResponse(
@@ -88,12 +88,12 @@ public class GetV1EmployeeFormsResponse implements AsyncResponse {
     }
 
     /**
-     * Example response
+     * Success
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<List<Form>> formList() {
-        return (Optional<List<Form>>) formList;
+    public Optional<List<Form>> forms() {
+        return (Optional<List<Form>>) forms;
     }
 
     public static Builder builder() {
@@ -129,21 +129,21 @@ public class GetV1EmployeeFormsResponse implements AsyncResponse {
     }
 
     /**
-     * Example response
+     * Success
      */
-    public GetV1EmployeeFormsResponse withFormList(List<Form> formList) {
-        Utils.checkNotNull(formList, "formList");
-        this.formList = Optional.ofNullable(formList);
+    public GetV1EmployeeFormsResponse withForms(List<Form> forms) {
+        Utils.checkNotNull(forms, "forms");
+        this.forms = Optional.ofNullable(forms);
         return this;
     }
 
 
     /**
-     * Example response
+     * Success
      */
-    public GetV1EmployeeFormsResponse withFormList(Optional<? extends List<Form>> formList) {
-        Utils.checkNotNull(formList, "formList");
-        this.formList = formList;
+    public GetV1EmployeeFormsResponse withForms(Optional<? extends List<Form>> forms) {
+        Utils.checkNotNull(forms, "forms");
+        this.forms = forms;
         return this;
     }
 
@@ -160,14 +160,14 @@ public class GetV1EmployeeFormsResponse implements AsyncResponse {
             Utils.enhancedDeepEquals(this.contentType, other.contentType) &&
             Utils.enhancedDeepEquals(this.statusCode, other.statusCode) &&
             Utils.enhancedDeepEquals(this.rawResponse, other.rawResponse) &&
-            Utils.enhancedDeepEquals(this.formList, other.formList);
+            Utils.enhancedDeepEquals(this.forms, other.forms);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             contentType, statusCode, rawResponse,
-            formList);
+            forms);
     }
     
     @Override
@@ -176,7 +176,7 @@ public class GetV1EmployeeFormsResponse implements AsyncResponse {
                 "contentType", contentType,
                 "statusCode", statusCode,
                 "rawResponse", rawResponse,
-                "formList", formList);
+                "forms", forms);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -188,7 +188,7 @@ public class GetV1EmployeeFormsResponse implements AsyncResponse {
 
         private HttpResponse<Blob> rawResponse;
 
-        private Optional<? extends List<Form>> formList = Optional.empty();
+        private Optional<? extends List<Form>> forms = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -226,20 +226,20 @@ public class GetV1EmployeeFormsResponse implements AsyncResponse {
 
 
         /**
-         * Example response
+         * Success
          */
-        public Builder formList(List<Form> formList) {
-            Utils.checkNotNull(formList, "formList");
-            this.formList = Optional.ofNullable(formList);
+        public Builder forms(List<Form> forms) {
+            Utils.checkNotNull(forms, "forms");
+            this.forms = Optional.ofNullable(forms);
             return this;
         }
 
         /**
-         * Example response
+         * Success
          */
-        public Builder formList(Optional<? extends List<Form>> formList) {
-            Utils.checkNotNull(formList, "formList");
-            this.formList = formList;
+        public Builder forms(Optional<? extends List<Form>> forms) {
+            Utils.checkNotNull(forms, "forms");
+            this.forms = forms;
             return this;
         }
 
@@ -247,7 +247,7 @@ public class GetV1EmployeeFormsResponse implements AsyncResponse {
 
             return new GetV1EmployeeFormsResponse(
                 contentType, statusCode, rawResponse,
-                formList);
+                forms);
         }
 
     }

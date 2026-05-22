@@ -35,24 +35,24 @@ public class GetRecoveryCasesResponse implements AsyncResponse {
     private HttpResponse<Blob> rawResponse;
 
     /**
-     * Example response
+     * Successful
      */
-    private Optional<? extends List<RecoveryCase>> recoveryCaseList;
+    private Optional<? extends List<RecoveryCase>> recoveryCases;
 
     @JsonCreator
     public GetRecoveryCasesResponse(
             String contentType,
             int statusCode,
             HttpResponse<Blob> rawResponse,
-            Optional<? extends List<RecoveryCase>> recoveryCaseList) {
+            Optional<? extends List<RecoveryCase>> recoveryCases) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
-        Utils.checkNotNull(recoveryCaseList, "recoveryCaseList");
+        Utils.checkNotNull(recoveryCases, "recoveryCases");
         this.contentType = contentType;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
-        this.recoveryCaseList = recoveryCaseList;
+        this.recoveryCases = recoveryCases;
     }
     
     public GetRecoveryCasesResponse(
@@ -88,12 +88,12 @@ public class GetRecoveryCasesResponse implements AsyncResponse {
     }
 
     /**
-     * Example response
+     * Successful
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<List<RecoveryCase>> recoveryCaseList() {
-        return (Optional<List<RecoveryCase>>) recoveryCaseList;
+    public Optional<List<RecoveryCase>> recoveryCases() {
+        return (Optional<List<RecoveryCase>>) recoveryCases;
     }
 
     public static Builder builder() {
@@ -129,21 +129,21 @@ public class GetRecoveryCasesResponse implements AsyncResponse {
     }
 
     /**
-     * Example response
+     * Successful
      */
-    public GetRecoveryCasesResponse withRecoveryCaseList(List<RecoveryCase> recoveryCaseList) {
-        Utils.checkNotNull(recoveryCaseList, "recoveryCaseList");
-        this.recoveryCaseList = Optional.ofNullable(recoveryCaseList);
+    public GetRecoveryCasesResponse withRecoveryCases(List<RecoveryCase> recoveryCases) {
+        Utils.checkNotNull(recoveryCases, "recoveryCases");
+        this.recoveryCases = Optional.ofNullable(recoveryCases);
         return this;
     }
 
 
     /**
-     * Example response
+     * Successful
      */
-    public GetRecoveryCasesResponse withRecoveryCaseList(Optional<? extends List<RecoveryCase>> recoveryCaseList) {
-        Utils.checkNotNull(recoveryCaseList, "recoveryCaseList");
-        this.recoveryCaseList = recoveryCaseList;
+    public GetRecoveryCasesResponse withRecoveryCases(Optional<? extends List<RecoveryCase>> recoveryCases) {
+        Utils.checkNotNull(recoveryCases, "recoveryCases");
+        this.recoveryCases = recoveryCases;
         return this;
     }
 
@@ -160,14 +160,14 @@ public class GetRecoveryCasesResponse implements AsyncResponse {
             Utils.enhancedDeepEquals(this.contentType, other.contentType) &&
             Utils.enhancedDeepEquals(this.statusCode, other.statusCode) &&
             Utils.enhancedDeepEquals(this.rawResponse, other.rawResponse) &&
-            Utils.enhancedDeepEquals(this.recoveryCaseList, other.recoveryCaseList);
+            Utils.enhancedDeepEquals(this.recoveryCases, other.recoveryCases);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             contentType, statusCode, rawResponse,
-            recoveryCaseList);
+            recoveryCases);
     }
     
     @Override
@@ -176,7 +176,7 @@ public class GetRecoveryCasesResponse implements AsyncResponse {
                 "contentType", contentType,
                 "statusCode", statusCode,
                 "rawResponse", rawResponse,
-                "recoveryCaseList", recoveryCaseList);
+                "recoveryCases", recoveryCases);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -188,7 +188,7 @@ public class GetRecoveryCasesResponse implements AsyncResponse {
 
         private HttpResponse<Blob> rawResponse;
 
-        private Optional<? extends List<RecoveryCase>> recoveryCaseList = Optional.empty();
+        private Optional<? extends List<RecoveryCase>> recoveryCases = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -226,20 +226,20 @@ public class GetRecoveryCasesResponse implements AsyncResponse {
 
 
         /**
-         * Example response
+         * Successful
          */
-        public Builder recoveryCaseList(List<RecoveryCase> recoveryCaseList) {
-            Utils.checkNotNull(recoveryCaseList, "recoveryCaseList");
-            this.recoveryCaseList = Optional.ofNullable(recoveryCaseList);
+        public Builder recoveryCases(List<RecoveryCase> recoveryCases) {
+            Utils.checkNotNull(recoveryCases, "recoveryCases");
+            this.recoveryCases = Optional.ofNullable(recoveryCases);
             return this;
         }
 
         /**
-         * Example response
+         * Successful
          */
-        public Builder recoveryCaseList(Optional<? extends List<RecoveryCase>> recoveryCaseList) {
-            Utils.checkNotNull(recoveryCaseList, "recoveryCaseList");
-            this.recoveryCaseList = recoveryCaseList;
+        public Builder recoveryCases(Optional<? extends List<RecoveryCase>> recoveryCases) {
+            Utils.checkNotNull(recoveryCases, "recoveryCases");
+            this.recoveryCases = recoveryCases;
             return this;
         }
 
@@ -247,7 +247,7 @@ public class GetRecoveryCasesResponse implements AsyncResponse {
 
             return new GetRecoveryCasesResponse(
                 contentType, statusCode, rawResponse,
-                recoveryCaseList);
+                recoveryCases);
         }
 
     }

@@ -11,7 +11,7 @@ import java.util.Optional;
 /**
  * WageType
  * 
- * <p>The contractor’s wage type.
+ * <p>The contractor's wage type, either "Fixed" or "Hourly".
  */
 public enum WageType {
     FIXED("Fixed"),

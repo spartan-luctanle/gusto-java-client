@@ -72,7 +72,7 @@ public class SignatoryCreateRequest {
      * The signatory's home address.
      */
     @JsonProperty("home_address")
-    private HomeAddress homeAddress;
+    private SignatoryCreateRequestHomeAddress homeAddress;
 
     @JsonCreator
     public SignatoryCreateRequest(
@@ -84,7 +84,7 @@ public class SignatoryCreateRequest {
             @JsonProperty("birthday") LocalDate birthday,
             @JsonProperty("email") String email,
             @JsonProperty("ssn") String ssn,
-            @JsonProperty("home_address") HomeAddress homeAddress) {
+            @JsonProperty("home_address") SignatoryCreateRequestHomeAddress homeAddress) {
         Utils.checkNotNull(firstName, "firstName");
         Utils.checkNotNull(middleInitial, "middleInitial");
         Utils.checkNotNull(lastName, "lastName");
@@ -113,7 +113,7 @@ public class SignatoryCreateRequest {
             LocalDate birthday,
             String email,
             String ssn,
-            HomeAddress homeAddress) {
+            SignatoryCreateRequestHomeAddress homeAddress) {
         this(firstName, Optional.empty(), lastName,
             title, phone, birthday,
             email, ssn, homeAddress);
@@ -184,7 +184,7 @@ public class SignatoryCreateRequest {
      * The signatory's home address.
      */
     @JsonIgnore
-    public HomeAddress homeAddress() {
+    public SignatoryCreateRequestHomeAddress homeAddress() {
         return homeAddress;
     }
 
@@ -272,7 +272,7 @@ public class SignatoryCreateRequest {
     /**
      * The signatory's home address.
      */
-    public SignatoryCreateRequest withHomeAddress(HomeAddress homeAddress) {
+    public SignatoryCreateRequest withHomeAddress(SignatoryCreateRequestHomeAddress homeAddress) {
         Utils.checkNotNull(homeAddress, "homeAddress");
         this.homeAddress = homeAddress;
         return this;
@@ -340,7 +340,7 @@ public class SignatoryCreateRequest {
 
         private String ssn;
 
-        private HomeAddress homeAddress;
+        private SignatoryCreateRequestHomeAddress homeAddress;
 
         private Builder() {
           // force use of static builder() method
@@ -433,7 +433,7 @@ public class SignatoryCreateRequest {
         /**
          * The signatory's home address.
          */
-        public Builder homeAddress(HomeAddress homeAddress) {
+        public Builder homeAddress(SignatoryCreateRequestHomeAddress homeAddress) {
             Utils.checkNotNull(homeAddress, "homeAddress");
             this.homeAddress = homeAddress;
             return this;

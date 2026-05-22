@@ -5,16 +5,19 @@ package com.gusto.embedded_api;
 
 import static com.gusto.embedded_api.operations.Operations.RequestOperation;
 
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.operations.GetV1ContractorDocumentHeaderXGustoAPIVersion;
+import com.gusto.embedded_api.models.operations.GetV1ContractorDocumentPdfHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1ContractorDocumentPdfRequest;
 import com.gusto.embedded_api.models.operations.GetV1ContractorDocumentPdfRequestBuilder;
 import com.gusto.embedded_api.models.operations.GetV1ContractorDocumentPdfResponse;
 import com.gusto.embedded_api.models.operations.GetV1ContractorDocumentRequest;
 import com.gusto.embedded_api.models.operations.GetV1ContractorDocumentRequestBuilder;
 import com.gusto.embedded_api.models.operations.GetV1ContractorDocumentResponse;
+import com.gusto.embedded_api.models.operations.GetV1ContractorDocumentsHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1ContractorDocumentsRequest;
 import com.gusto.embedded_api.models.operations.GetV1ContractorDocumentsRequestBuilder;
 import com.gusto.embedded_api.models.operations.GetV1ContractorDocumentsResponse;
+import com.gusto.embedded_api.models.operations.PutV1ContractorDocumentSignHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PutV1ContractorDocumentSignRequest;
 import com.gusto.embedded_api.models.operations.PutV1ContractorDocumentSignRequestBody;
 import com.gusto.embedded_api.models.operations.PutV1ContractorDocumentSignRequestBuilder;
@@ -54,6 +57,8 @@ public class ContractorDocuments {
      * 
      * <p>scope: `contractor_documents:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @return The call builder
      */
     public GetV1ContractorDocumentsRequestBuilder getAll() {
@@ -67,12 +72,14 @@ public class ContractorDocuments {
      * 
      * <p>scope: `contractor_documents:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param contractorUuid The UUID of the contractor
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
     public GetV1ContractorDocumentsResponse getAll(String contractorUuid) {
-        return getAll(contractorUuid, Optional.empty());
+        return getAll(Optional.empty(), contractorUuid);
     }
 
     /**
@@ -82,17 +89,19 @@ public class ContractorDocuments {
      * 
      * <p>scope: `contractor_documents:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param contractorUuid The UUID of the contractor
-     * @param xGustoAPIVersion 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
-    public GetV1ContractorDocumentsResponse getAll(String contractorUuid, Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public GetV1ContractorDocumentsResponse getAll(Optional<? extends GetV1ContractorDocumentsHeaderXGustoAPIVersion> xGustoAPIVersion, String contractorUuid) {
         GetV1ContractorDocumentsRequest request =
             GetV1ContractorDocumentsRequest
                 .builder()
-                .contractorUuid(contractorUuid)
                 .xGustoAPIVersion(xGustoAPIVersion)
+                .contractorUuid(contractorUuid)
                 .build();
         RequestOperation<GetV1ContractorDocumentsRequest, GetV1ContractorDocumentsResponse> operation
               = new GetV1ContractorDocuments.Sync(sdkConfiguration, _headers);
@@ -105,6 +114,8 @@ public class ContractorDocuments {
      * <p>Get a contractor document.
      * 
      * <p>scope: `contractor_documents:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @return The call builder
      */
@@ -119,12 +130,14 @@ public class ContractorDocuments {
      * 
      * <p>scope: `contractor_documents:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param documentUuid The UUID of the document
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
     public GetV1ContractorDocumentResponse get(String documentUuid) {
-        return get(documentUuid, Optional.empty());
+        return get(Optional.empty(), documentUuid);
     }
 
     /**
@@ -134,17 +147,19 @@ public class ContractorDocuments {
      * 
      * <p>scope: `contractor_documents:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param documentUuid The UUID of the document
-     * @param xGustoAPIVersion 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
-    public GetV1ContractorDocumentResponse get(String documentUuid, Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public GetV1ContractorDocumentResponse get(Optional<? extends GetV1ContractorDocumentHeaderXGustoAPIVersion> xGustoAPIVersion, String documentUuid) {
         GetV1ContractorDocumentRequest request =
             GetV1ContractorDocumentRequest
                 .builder()
-                .documentUuid(documentUuid)
                 .xGustoAPIVersion(xGustoAPIVersion)
+                .documentUuid(documentUuid)
                 .build();
         RequestOperation<GetV1ContractorDocumentRequest, GetV1ContractorDocumentResponse> operation
               = new GetV1ContractorDocument.Sync(sdkConfiguration, _headers);
@@ -157,6 +172,8 @@ public class ContractorDocuments {
      * <p>Get the contractor document pdf.
      * 
      * <p>scope: `contractor_documents:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @return The call builder
      */
@@ -171,12 +188,14 @@ public class ContractorDocuments {
      * 
      * <p>scope: `contractor_documents:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param documentUuid The UUID of the document
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
     public GetV1ContractorDocumentPdfResponse getPdf(String documentUuid) {
-        return getPdf(documentUuid, Optional.empty());
+        return getPdf(Optional.empty(), documentUuid);
     }
 
     /**
@@ -186,17 +205,19 @@ public class ContractorDocuments {
      * 
      * <p>scope: `contractor_documents:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param documentUuid The UUID of the document
-     * @param xGustoAPIVersion 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
-    public GetV1ContractorDocumentPdfResponse getPdf(String documentUuid, Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public GetV1ContractorDocumentPdfResponse getPdf(Optional<? extends GetV1ContractorDocumentPdfHeaderXGustoAPIVersion> xGustoAPIVersion, String documentUuid) {
         GetV1ContractorDocumentPdfRequest request =
             GetV1ContractorDocumentPdfRequest
                 .builder()
-                .documentUuid(documentUuid)
                 .xGustoAPIVersion(xGustoAPIVersion)
+                .documentUuid(documentUuid)
                 .build();
         RequestOperation<GetV1ContractorDocumentPdfRequest, GetV1ContractorDocumentPdfResponse> operation
               = new GetV1ContractorDocumentPdf.Sync(sdkConfiguration, _headers);
@@ -209,6 +230,8 @@ public class ContractorDocuments {
      * <p>Sign a contractor document.
      * 
      * <p>scope: `contractor_documents:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @return The call builder
      */
@@ -223,13 +246,15 @@ public class ContractorDocuments {
      * 
      * <p>scope: `contractor_documents:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param documentUuid The UUID of the document
      * @param requestBody 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
     public PutV1ContractorDocumentSignResponse sign(String documentUuid, PutV1ContractorDocumentSignRequestBody requestBody) {
-        return sign(documentUuid, Optional.empty(), Optional.empty(),
+        return sign(Optional.empty(), documentUuid, Optional.empty(),
             requestBody);
     }
 
@@ -240,22 +265,24 @@ public class ContractorDocuments {
      * 
      * <p>scope: `contractor_documents:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param documentUuid The UUID of the document
      * @param xGustoClientIp Optional header to supply the IP address. This can be used to supply the IP address for signature endpoints instead of the signed_by_ip_address parameter.
-     * @param xGustoAPIVersion 
      * @param requestBody 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
     public PutV1ContractorDocumentSignResponse sign(
-            String documentUuid, Optional<String> xGustoClientIp,
-            Optional<? extends VersionHeader> xGustoAPIVersion, PutV1ContractorDocumentSignRequestBody requestBody) {
+            Optional<? extends PutV1ContractorDocumentSignHeaderXGustoAPIVersion> xGustoAPIVersion, String documentUuid,
+            Optional<String> xGustoClientIp, PutV1ContractorDocumentSignRequestBody requestBody) {
         PutV1ContractorDocumentSignRequest request =
             PutV1ContractorDocumentSignRequest
                 .builder()
+                .xGustoAPIVersion(xGustoAPIVersion)
                 .documentUuid(documentUuid)
                 .xGustoClientIp(xGustoClientIp)
-                .xGustoAPIVersion(xGustoAPIVersion)
                 .requestBody(requestBody)
                 .build();
         RequestOperation<PutV1ContractorDocumentSignRequest, PutV1ContractorDocumentSignResponse> operation

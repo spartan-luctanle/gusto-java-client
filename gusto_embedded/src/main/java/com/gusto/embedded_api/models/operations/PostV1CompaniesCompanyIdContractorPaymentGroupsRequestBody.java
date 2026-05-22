@@ -25,7 +25,7 @@ public class PostV1CompaniesCompanyIdContractorPaymentGroupsRequestBody {
     private LocalDate checkDate;
 
     /**
-     * Required token used to make contractor payment group creation idempotent. String must be unique for
+     * A token used to make contractor payment group creation idempotent. The string must be unique for
      * each group you intend to create.
      */
     @JsonProperty("creation_token")
@@ -76,7 +76,7 @@ public class PostV1CompaniesCompanyIdContractorPaymentGroupsRequestBody {
     }
 
     /**
-     * Required token used to make contractor payment group creation idempotent. String must be unique for
+     * A token used to make contractor payment group creation idempotent. The string must be unique for
      * each group you intend to create.
      */
     @JsonIgnore
@@ -114,7 +114,7 @@ public class PostV1CompaniesCompanyIdContractorPaymentGroupsRequestBody {
     }
 
     /**
-     * Required token used to make contractor payment group creation idempotent. String must be unique for
+     * A token used to make contractor payment group creation idempotent. The string must be unique for
      * each group you intend to create.
      */
     public PostV1CompaniesCompanyIdContractorPaymentGroupsRequestBody withCreationToken(String creationToken) {
@@ -209,7 +209,7 @@ public class PostV1CompaniesCompanyIdContractorPaymentGroupsRequestBody {
 
 
         /**
-         * Required token used to make contractor payment group creation idempotent. String must be unique for
+         * A token used to make contractor payment group creation idempotent. The string must be unique for
          * each group you intend to create.
          */
         public Builder creationToken(String creationToken) {

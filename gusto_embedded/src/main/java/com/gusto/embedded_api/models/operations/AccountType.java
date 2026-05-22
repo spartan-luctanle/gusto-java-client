@@ -8,6 +8,11 @@ import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * AccountType
+ * 
+ * <p>Type of bank account
+ */
 public enum AccountType {
     CHECKING("Checking"),
     SAVINGS("Savings");

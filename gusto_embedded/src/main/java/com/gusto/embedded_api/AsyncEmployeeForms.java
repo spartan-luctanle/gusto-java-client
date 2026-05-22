@@ -5,10 +5,13 @@ package com.gusto.embedded_api;
 
 import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation;
 
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.operations.GetV1EmployeeFormHeaderXGustoAPIVersion;
+import com.gusto.embedded_api.models.operations.GetV1EmployeeFormPdfHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1EmployeeFormPdfRequest;
 import com.gusto.embedded_api.models.operations.GetV1EmployeeFormRequest;
+import com.gusto.embedded_api.models.operations.GetV1EmployeeFormsHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1EmployeeFormsRequest;
+import com.gusto.embedded_api.models.operations.PostV1SandboxGenerateW2HeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostV1SandboxGenerateW2Request;
 import com.gusto.embedded_api.models.operations.PostV1SandboxGenerateW2RequestBody;
 import com.gusto.embedded_api.models.operations.PutV1EmployeeFormSignRequest;
@@ -64,6 +67,8 @@ public class AsyncEmployeeForms {
      * 
      * <p>scope: `employees:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @return The async call builder
      */
     public PostV1SandboxGenerateW2RequestBuilder generateW2() {
@@ -80,6 +85,8 @@ public class AsyncEmployeeForms {
      * <p>Generates a W2 document for testing purposes.
      * 
      * <p>scope: `employees:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @param requestBody 
      * @return {@code CompletableFuture<PostV1SandboxGenerateW2Response>} - The async response
@@ -99,11 +106,13 @@ public class AsyncEmployeeForms {
      * 
      * <p>scope: `employees:write`
      * 
-     * @param xGustoAPIVersion 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param requestBody 
      * @return {@code CompletableFuture<PostV1SandboxGenerateW2Response>} - The async response
      */
-    public CompletableFuture<PostV1SandboxGenerateW2Response> generateW2(Optional<? extends VersionHeader> xGustoAPIVersion, PostV1SandboxGenerateW2RequestBody requestBody) {
+    public CompletableFuture<PostV1SandboxGenerateW2Response> generateW2(Optional<? extends PostV1SandboxGenerateW2HeaderXGustoAPIVersion> xGustoAPIVersion, PostV1SandboxGenerateW2RequestBody requestBody) {
         PostV1SandboxGenerateW2Request request =
             PostV1SandboxGenerateW2Request
                 .builder()
@@ -124,6 +133,8 @@ public class AsyncEmployeeForms {
      * 
      * <p>scope: `employee_forms:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @return The async call builder
      */
     public GetV1EmployeeFormsRequestBuilder list() {
@@ -137,11 +148,13 @@ public class AsyncEmployeeForms {
      * 
      * <p>scope: `employee_forms:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param employeeId The UUID of the employee
      * @return {@code CompletableFuture<GetV1EmployeeFormsResponse>} - The async response
      */
     public CompletableFuture<GetV1EmployeeFormsResponse> list(String employeeId) {
-        return list(employeeId, Optional.empty());
+        return list(Optional.empty(), employeeId);
     }
 
     /**
@@ -151,16 +164,18 @@ public class AsyncEmployeeForms {
      * 
      * <p>scope: `employee_forms:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param employeeId The UUID of the employee
-     * @param xGustoAPIVersion 
      * @return {@code CompletableFuture<GetV1EmployeeFormsResponse>} - The async response
      */
-    public CompletableFuture<GetV1EmployeeFormsResponse> list(String employeeId, Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public CompletableFuture<GetV1EmployeeFormsResponse> list(Optional<? extends GetV1EmployeeFormsHeaderXGustoAPIVersion> xGustoAPIVersion, String employeeId) {
         GetV1EmployeeFormsRequest request =
             GetV1EmployeeFormsRequest
                 .builder()
-                .employeeId(employeeId)
                 .xGustoAPIVersion(xGustoAPIVersion)
+                .employeeId(employeeId)
                 .build();
         AsyncRequestOperation<GetV1EmployeeFormsRequest, GetV1EmployeeFormsResponse> operation
               = new GetV1EmployeeForms.Async(sdkConfiguration, _headers);
@@ -176,6 +191,8 @@ public class AsyncEmployeeForms {
      * 
      * <p>scope: `employee_forms:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @return The async call builder
      */
     public GetV1EmployeeFormRequestBuilder get() {
@@ -189,12 +206,14 @@ public class AsyncEmployeeForms {
      * 
      * <p>scope: `employee_forms:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param employeeId The UUID of the employee
      * @param formId The UUID of the form
      * @return {@code CompletableFuture<GetV1EmployeeFormResponse>} - The async response
      */
     public CompletableFuture<GetV1EmployeeFormResponse> get(String employeeId, String formId) {
-        return get(employeeId, formId, Optional.empty());
+        return get(Optional.empty(), employeeId, formId);
     }
 
     /**
@@ -204,20 +223,22 @@ public class AsyncEmployeeForms {
      * 
      * <p>scope: `employee_forms:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param employeeId The UUID of the employee
      * @param formId The UUID of the form
-     * @param xGustoAPIVersion 
      * @return {@code CompletableFuture<GetV1EmployeeFormResponse>} - The async response
      */
     public CompletableFuture<GetV1EmployeeFormResponse> get(
-            String employeeId, String formId,
-            Optional<? extends VersionHeader> xGustoAPIVersion) {
+            Optional<? extends GetV1EmployeeFormHeaderXGustoAPIVersion> xGustoAPIVersion, String employeeId,
+            String formId) {
         GetV1EmployeeFormRequest request =
             GetV1EmployeeFormRequest
                 .builder()
+                .xGustoAPIVersion(xGustoAPIVersion)
                 .employeeId(employeeId)
                 .formId(formId)
-                .xGustoAPIVersion(xGustoAPIVersion)
                 .build();
         AsyncRequestOperation<GetV1EmployeeFormRequest, GetV1EmployeeFormResponse> operation
               = new GetV1EmployeeForm.Async(sdkConfiguration, _headers);
@@ -233,6 +254,8 @@ public class AsyncEmployeeForms {
      * 
      * <p>scope: `employee_forms:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @return The async call builder
      */
     public GetV1EmployeeFormPdfRequestBuilder getPdf() {
@@ -246,12 +269,14 @@ public class AsyncEmployeeForms {
      * 
      * <p>scope: `employee_forms:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param employeeId The UUID of the employee
      * @param formId The UUID of the form
      * @return {@code CompletableFuture<GetV1EmployeeFormPdfResponse>} - The async response
      */
     public CompletableFuture<GetV1EmployeeFormPdfResponse> getPdf(String employeeId, String formId) {
-        return getPdf(employeeId, formId, Optional.empty());
+        return getPdf(Optional.empty(), employeeId, formId);
     }
 
     /**
@@ -261,20 +286,22 @@ public class AsyncEmployeeForms {
      * 
      * <p>scope: `employee_forms:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param employeeId The UUID of the employee
      * @param formId The UUID of the form
-     * @param xGustoAPIVersion 
      * @return {@code CompletableFuture<GetV1EmployeeFormPdfResponse>} - The async response
      */
     public CompletableFuture<GetV1EmployeeFormPdfResponse> getPdf(
-            String employeeId, String formId,
-            Optional<? extends VersionHeader> xGustoAPIVersion) {
+            Optional<? extends GetV1EmployeeFormPdfHeaderXGustoAPIVersion> xGustoAPIVersion, String employeeId,
+            String formId) {
         GetV1EmployeeFormPdfRequest request =
             GetV1EmployeeFormPdfRequest
                 .builder()
+                .xGustoAPIVersion(xGustoAPIVersion)
                 .employeeId(employeeId)
                 .formId(formId)
-                .xGustoAPIVersion(xGustoAPIVersion)
                 .build();
         AsyncRequestOperation<GetV1EmployeeFormPdfRequest, GetV1EmployeeFormPdfResponse> operation
               = new GetV1EmployeeFormPdf.Async(sdkConfiguration, _headers);
@@ -293,6 +320,8 @@ public class AsyncEmployeeForms {
      * 
      * <p>scope: `employee_forms:sign`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @return The async call builder
      */
     public PutV1EmployeeFormSignRequestBuilder sign() {
@@ -308,6 +337,8 @@ public class AsyncEmployeeForms {
      * first name, last name, street address, city, state, and zip for that preparer are all required.
      * 
      * <p>scope: `employee_forms:sign`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return {@code CompletableFuture<PutV1EmployeeFormSignResponse>} - The async response

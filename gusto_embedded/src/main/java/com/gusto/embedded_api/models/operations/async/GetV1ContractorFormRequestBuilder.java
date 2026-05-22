@@ -7,7 +7,7 @@ import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.operations.GetV1ContractorFormHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1ContractorFormRequest;
 import com.gusto.embedded_api.operations.GetV1ContractorForm;
 import com.gusto.embedded_api.utils.Headers;
@@ -19,17 +19,29 @@ import java.util.concurrent.CompletableFuture;
 
 public class GetV1ContractorFormRequestBuilder {
 
-    private String contractorUuid;
-    private String formId;
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
+    private Optional<? extends GetV1ContractorFormHeaderXGustoAPIVersion> xGustoAPIVersion = Utils.readDefaultOrConstValue(
                             "xGustoAPIVersion",
                             "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
+                            new TypeReference<Optional<? extends GetV1ContractorFormHeaderXGustoAPIVersion>>() {});
+    private String contractorUuid;
+    private String formId;
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
     public GetV1ContractorFormRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
+    }
+                
+    public GetV1ContractorFormRequestBuilder xGustoAPIVersion(GetV1ContractorFormHeaderXGustoAPIVersion xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
+        return this;
+    }
+
+    public GetV1ContractorFormRequestBuilder xGustoAPIVersion(Optional<? extends GetV1ContractorFormHeaderXGustoAPIVersion> xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = xGustoAPIVersion;
+        return this;
     }
 
     public GetV1ContractorFormRequestBuilder contractorUuid(String contractorUuid) {
@@ -43,18 +55,6 @@ public class GetV1ContractorFormRequestBuilder {
         this.formId = formId;
         return this;
     }
-                
-    public GetV1ContractorFormRequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
-        return this;
-    }
-
-    public GetV1ContractorFormRequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = xGustoAPIVersion;
-        return this;
-    }
 
 
     private GetV1ContractorFormRequest buildRequest() {
@@ -62,9 +62,9 @@ public class GetV1ContractorFormRequestBuilder {
             xGustoAPIVersion = _SINGLETON_VALUE_XGustoAPIVersion.value();
         }
 
-        GetV1ContractorFormRequest request = new GetV1ContractorFormRequest(contractorUuid,
-            formId,
-            xGustoAPIVersion);
+        GetV1ContractorFormRequest request = new GetV1ContractorFormRequest(xGustoAPIVersion,
+            contractorUuid,
+            formId);
 
         return request;
     }
@@ -79,9 +79,9 @@ public class GetV1ContractorFormRequestBuilder {
             .thenCompose(operation::handleResponse);
     }
 
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+    private static final LazySingletonValue<Optional<? extends GetV1ContractorFormHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
             new LazySingletonValue<>(
                     "xGustoAPIVersion",
                     "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
+                    new TypeReference<Optional<? extends GetV1ContractorFormHeaderXGustoAPIVersion>>() {});
 }

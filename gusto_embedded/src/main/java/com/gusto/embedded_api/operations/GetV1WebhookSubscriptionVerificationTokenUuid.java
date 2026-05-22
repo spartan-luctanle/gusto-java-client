@@ -7,9 +7,12 @@ import static com.gusto.embedded_api.operations.Operations.RequestOperation;
 import static com.gusto.embedded_api.utils.Exceptions.unchecked;
 import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
 import com.gusto.embedded_api.SecuritySource;
+import com.gusto.embedded_api.models.components.WebhookVerificationTokenResponse;
 import com.gusto.embedded_api.models.errors.APIException;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
 import com.gusto.embedded_api.models.operations.GetV1WebhookSubscriptionVerificationTokenUuidRequest;
 import com.gusto.embedded_api.models.operations.GetV1WebhookSubscriptionVerificationTokenUuidResponse;
 import com.gusto.embedded_api.models.operations.GetV1WebhookSubscriptionVerificationTokenUuidSecurity;
@@ -91,7 +94,7 @@ public class GetV1WebhookSubscriptionVerificationTokenUuid {
                     "/v1/webhook_subscriptions/{webhook_subscription_uuid}/request_verification_token",
                     request, null);
             HTTPRequest req = new HTTPRequest(url, "GET");
-            req.addHeader("Accept", "*/*")
+            req.addHeader("Accept", "application/json")
                     .addHeader("user-agent", SDKConfiguration.USER_AGENT);
             _headers.forEach((k, list) -> list.forEach(v -> req.addHeader(k, v)));
             req.addHeaders(Utils.getHeadersFromMetadata(request, null));
@@ -133,7 +136,7 @@ public class GetV1WebhookSubscriptionVerificationTokenUuid {
             HttpResponse<InputStream> httpRes;
             try {
                 httpRes = client.send(r);
-                if (Utils.statusCodeMatches(httpRes.statusCode(), "404", "4XX", "5XX")) {
+                if (Utils.statusCodeMatches(httpRes.statusCode(), "4XX", "5XX")) {
                     httpRes = onError(httpRes, null);
                 } else {
                     httpRes = onSuccess(httpRes);
@@ -162,10 +165,20 @@ public class GetV1WebhookSubscriptionVerificationTokenUuid {
             GetV1WebhookSubscriptionVerificationTokenUuidResponse res = resBuilder.build();
             
             if (Utils.statusCodeMatches(response.statusCode(), "200")) {
-                // no content
-                return res;
+                if (Utils.contentTypeMatches(contentType, "application/json")) {
+                    return res.withWebhookVerificationTokenResponse(Utils.unmarshal(response, new TypeReference<WebhookVerificationTokenResponse>() {}));
+                } else {
+                    throw APIException.from("Unexpected content-type received: " + contentType, response);
+                }
             }
-            if (Utils.statusCodeMatches(response.statusCode(), "404", "4XX")) {
+            if (Utils.statusCodeMatches(response.statusCode(), "404")) {
+                if (Utils.contentTypeMatches(contentType, "application/json")) {
+                    throw NotFoundErrorObject.from(response);
+                } else {
+                    throw APIException.from("Unexpected content-type received: " + contentType, response);
+                }
+            }
+            if (Utils.statusCodeMatches(response.statusCode(), "4XX")) {
                 // no content
                 throw APIException.from("API error occurred", response);
             }
@@ -207,7 +220,7 @@ public class GetV1WebhookSubscriptionVerificationTokenUuid {
                         if (err != null) {
                             return onError(null, err);
                         }
-                        if (Utils.statusCodeMatches(resp.statusCode(), "404", "4XX", "5XX")) {
+                        if (Utils.statusCodeMatches(resp.statusCode(), "4XX", "5XX")) {
                             return onError(resp, null);
                         }
                         return CompletableFuture.completedFuture(resp);
@@ -233,10 +246,22 @@ public class GetV1WebhookSubscriptionVerificationTokenUuid {
             com.gusto.embedded_api.models.operations.async.GetV1WebhookSubscriptionVerificationTokenUuidResponse res = resBuilder.build();
             
             if (Utils.statusCodeMatches(response.statusCode(), "200")) {
-                // no content
-                return CompletableFuture.completedFuture(res);
+                if (Utils.contentTypeMatches(contentType, "application/json")) {
+                    return Utils.unmarshalAsync(response, new TypeReference<WebhookVerificationTokenResponse>() {})
+                            .thenApply(res::withWebhookVerificationTokenResponse);
+                } else {
+                    return Utils.createAsyncApiError(response, "Unexpected content-type received: " + contentType);
+                }
             }
-            if (Utils.statusCodeMatches(response.statusCode(), "404", "4XX")) {
+            if (Utils.statusCodeMatches(response.statusCode(), "404")) {
+                if (Utils.contentTypeMatches(contentType, "application/json")) {
+                    return NotFoundErrorObject.fromAsync(response)
+                            .thenCompose(CompletableFuture::failedFuture);
+                } else {
+                    return Utils.createAsyncApiError(response, "Unexpected content-type received: " + contentType);
+                }
+            }
+            if (Utils.statusCodeMatches(response.statusCode(), "4XX")) {
                 // no content
                 return Utils.createAsyncApiError(response, "API error occurred");
             }

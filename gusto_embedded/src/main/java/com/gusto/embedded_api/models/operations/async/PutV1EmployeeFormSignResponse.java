@@ -34,7 +34,7 @@ public class PutV1EmployeeFormSignResponse implements AsyncResponse {
     private HttpResponse<Blob> rawResponse;
 
     /**
-     * Example response
+     * Success
      */
     private Optional<? extends Form> form;
 
@@ -87,7 +87,7 @@ public class PutV1EmployeeFormSignResponse implements AsyncResponse {
     }
 
     /**
-     * Example response
+     * Success
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -128,7 +128,7 @@ public class PutV1EmployeeFormSignResponse implements AsyncResponse {
     }
 
     /**
-     * Example response
+     * Success
      */
     public PutV1EmployeeFormSignResponse withForm(Form form) {
         Utils.checkNotNull(form, "form");
@@ -138,7 +138,7 @@ public class PutV1EmployeeFormSignResponse implements AsyncResponse {
 
 
     /**
-     * Example response
+     * Success
      */
     public PutV1EmployeeFormSignResponse withForm(Optional<? extends Form> form) {
         Utils.checkNotNull(form, "form");
@@ -225,7 +225,7 @@ public class PutV1EmployeeFormSignResponse implements AsyncResponse {
 
 
         /**
-         * Example response
+         * Success
          */
         public Builder form(Form form) {
             Utils.checkNotNull(form, "form");
@@ -234,7 +234,7 @@ public class PutV1EmployeeFormSignResponse implements AsyncResponse {
         }
 
         /**
-         * Example response
+         * Success
          */
         public Builder form(Optional<? extends Form> form) {
             Utils.checkNotNull(form, "form");

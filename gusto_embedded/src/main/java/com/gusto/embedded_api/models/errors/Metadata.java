@@ -16,47 +16,29 @@ import java.util.Optional;
 
 public class Metadata {
     /**
-     * The UUID of the existing entity.
+     * A categorization of the payroll blocker, e.g. "geocode_error"
      */
     @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("entity_uuid")
-    private Optional<String> entityUuid;
-
-    /**
-     * The type of the existing entity.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("entity_type")
-    private Optional<String> entityType;
+    @JsonProperty("key")
+    private Optional<String> key;
 
     @JsonCreator
     public Metadata(
-            @JsonProperty("entity_uuid") Optional<String> entityUuid,
-            @JsonProperty("entity_type") Optional<String> entityType) {
-        Utils.checkNotNull(entityUuid, "entityUuid");
-        Utils.checkNotNull(entityType, "entityType");
-        this.entityUuid = entityUuid;
-        this.entityType = entityType;
+            @JsonProperty("key") Optional<String> key) {
+        Utils.checkNotNull(key, "key");
+        this.key = key;
     }
     
     public Metadata() {
-        this(Optional.empty(), Optional.empty());
+        this(Optional.empty());
     }
 
     /**
-     * The UUID of the existing entity.
+     * A categorization of the payroll blocker, e.g. "geocode_error"
      */
     @JsonIgnore
-    public Optional<String> entityUuid() {
-        return entityUuid;
-    }
-
-    /**
-     * The type of the existing entity.
-     */
-    @JsonIgnore
-    public Optional<String> entityType() {
-        return entityType;
+    public Optional<String> key() {
+        return key;
     }
 
     public static Builder builder() {
@@ -65,40 +47,21 @@ public class Metadata {
 
 
     /**
-     * The UUID of the existing entity.
+     * A categorization of the payroll blocker, e.g. "geocode_error"
      */
-    public Metadata withEntityUuid(String entityUuid) {
-        Utils.checkNotNull(entityUuid, "entityUuid");
-        this.entityUuid = Optional.ofNullable(entityUuid);
+    public Metadata withKey(String key) {
+        Utils.checkNotNull(key, "key");
+        this.key = Optional.ofNullable(key);
         return this;
     }
 
 
     /**
-     * The UUID of the existing entity.
+     * A categorization of the payroll blocker, e.g. "geocode_error"
      */
-    public Metadata withEntityUuid(Optional<String> entityUuid) {
-        Utils.checkNotNull(entityUuid, "entityUuid");
-        this.entityUuid = entityUuid;
-        return this;
-    }
-
-    /**
-     * The type of the existing entity.
-     */
-    public Metadata withEntityType(String entityType) {
-        Utils.checkNotNull(entityType, "entityType");
-        this.entityType = Optional.ofNullable(entityType);
-        return this;
-    }
-
-
-    /**
-     * The type of the existing entity.
-     */
-    public Metadata withEntityType(Optional<String> entityType) {
-        Utils.checkNotNull(entityType, "entityType");
-        this.entityType = entityType;
+    public Metadata withKey(Optional<String> key) {
+        Utils.checkNotNull(key, "key");
+        this.key = key;
         return this;
     }
 
@@ -112,29 +75,25 @@ public class Metadata {
         }
         Metadata other = (Metadata) o;
         return 
-            Utils.enhancedDeepEquals(this.entityUuid, other.entityUuid) &&
-            Utils.enhancedDeepEquals(this.entityType, other.entityType);
+            Utils.enhancedDeepEquals(this.key, other.key);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            entityUuid, entityType);
+            key);
     }
     
     @Override
     public String toString() {
         return Utils.toString(Metadata.class,
-                "entityUuid", entityUuid,
-                "entityType", entityType);
+                "key", key);
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private Optional<String> entityUuid = Optional.empty();
-
-        private Optional<String> entityType = Optional.empty();
+        private Optional<String> key = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -142,46 +101,27 @@ public class Metadata {
 
 
         /**
-         * The UUID of the existing entity.
+         * A categorization of the payroll blocker, e.g. "geocode_error"
          */
-        public Builder entityUuid(String entityUuid) {
-            Utils.checkNotNull(entityUuid, "entityUuid");
-            this.entityUuid = Optional.ofNullable(entityUuid);
+        public Builder key(String key) {
+            Utils.checkNotNull(key, "key");
+            this.key = Optional.ofNullable(key);
             return this;
         }
 
         /**
-         * The UUID of the existing entity.
+         * A categorization of the payroll blocker, e.g. "geocode_error"
          */
-        public Builder entityUuid(Optional<String> entityUuid) {
-            Utils.checkNotNull(entityUuid, "entityUuid");
-            this.entityUuid = entityUuid;
-            return this;
-        }
-
-
-        /**
-         * The type of the existing entity.
-         */
-        public Builder entityType(String entityType) {
-            Utils.checkNotNull(entityType, "entityType");
-            this.entityType = Optional.ofNullable(entityType);
-            return this;
-        }
-
-        /**
-         * The type of the existing entity.
-         */
-        public Builder entityType(Optional<String> entityType) {
-            Utils.checkNotNull(entityType, "entityType");
-            this.entityType = entityType;
+        public Builder key(Optional<String> key) {
+            Utils.checkNotNull(key, "key");
+            this.key = key;
             return this;
         }
 
         public Metadata build() {
 
             return new Metadata(
-                entityUuid, entityType);
+                key);
         }
 
     }

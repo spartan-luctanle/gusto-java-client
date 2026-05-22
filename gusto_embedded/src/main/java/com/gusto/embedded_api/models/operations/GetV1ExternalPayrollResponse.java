@@ -34,7 +34,7 @@ public class GetV1ExternalPayrollResponse implements Response {
     private HttpResponse<InputStream> rawResponse;
 
     /**
-     * Example response
+     * Success
      */
     private Optional<? extends ExternalPayroll> externalPayroll;
 
@@ -87,7 +87,7 @@ public class GetV1ExternalPayrollResponse implements Response {
     }
 
     /**
-     * Example response
+     * Success
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -128,7 +128,7 @@ public class GetV1ExternalPayrollResponse implements Response {
     }
 
     /**
-     * Example response
+     * Success
      */
     public GetV1ExternalPayrollResponse withExternalPayroll(ExternalPayroll externalPayroll) {
         Utils.checkNotNull(externalPayroll, "externalPayroll");
@@ -138,7 +138,7 @@ public class GetV1ExternalPayrollResponse implements Response {
 
 
     /**
-     * Example response
+     * Success
      */
     public GetV1ExternalPayrollResponse withExternalPayroll(Optional<? extends ExternalPayroll> externalPayroll) {
         Utils.checkNotNull(externalPayroll, "externalPayroll");
@@ -225,7 +225,7 @@ public class GetV1ExternalPayrollResponse implements Response {
 
 
         /**
-         * Example response
+         * Success
          */
         public Builder externalPayroll(ExternalPayroll externalPayroll) {
             Utils.checkNotNull(externalPayroll, "externalPayroll");
@@ -234,7 +234,7 @@ public class GetV1ExternalPayrollResponse implements Response {
         }
 
         /**
-         * Example response
+         * Success
          */
         public Builder externalPayroll(Optional<? extends ExternalPayroll> externalPayroll) {
             Utils.checkNotNull(externalPayroll, "externalPayroll");

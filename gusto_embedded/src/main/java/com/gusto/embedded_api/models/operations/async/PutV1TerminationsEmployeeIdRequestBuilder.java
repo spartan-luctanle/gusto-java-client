@@ -7,7 +7,7 @@ import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.operations.PutV1TerminationsEmployeeIdHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PutV1TerminationsEmployeeIdRequest;
 import com.gusto.embedded_api.models.operations.PutV1TerminationsEmployeeIdRequestBody;
 import com.gusto.embedded_api.operations.PutV1TerminationsEmployeeId;
@@ -20,11 +20,11 @@ import java.util.concurrent.CompletableFuture;
 
 public class PutV1TerminationsEmployeeIdRequestBuilder {
 
-    private String employeeId;
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
+    private Optional<? extends PutV1TerminationsEmployeeIdHeaderXGustoAPIVersion> xGustoAPIVersion = Utils.readDefaultOrConstValue(
                             "xGustoAPIVersion",
                             "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
+                            new TypeReference<Optional<? extends PutV1TerminationsEmployeeIdHeaderXGustoAPIVersion>>() {});
+    private String employeeId;
     private PutV1TerminationsEmployeeIdRequestBody requestBody;
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
@@ -32,22 +32,22 @@ public class PutV1TerminationsEmployeeIdRequestBuilder {
     public PutV1TerminationsEmployeeIdRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
-
-    public PutV1TerminationsEmployeeIdRequestBuilder employeeId(String employeeId) {
-        Utils.checkNotNull(employeeId, "employeeId");
-        this.employeeId = employeeId;
-        return this;
-    }
                 
-    public PutV1TerminationsEmployeeIdRequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+    public PutV1TerminationsEmployeeIdRequestBuilder xGustoAPIVersion(PutV1TerminationsEmployeeIdHeaderXGustoAPIVersion xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
         return this;
     }
 
-    public PutV1TerminationsEmployeeIdRequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public PutV1TerminationsEmployeeIdRequestBuilder xGustoAPIVersion(Optional<? extends PutV1TerminationsEmployeeIdHeaderXGustoAPIVersion> xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = xGustoAPIVersion;
+        return this;
+    }
+
+    public PutV1TerminationsEmployeeIdRequestBuilder employeeId(String employeeId) {
+        Utils.checkNotNull(employeeId, "employeeId");
+        this.employeeId = employeeId;
         return this;
     }
 
@@ -63,8 +63,8 @@ public class PutV1TerminationsEmployeeIdRequestBuilder {
             xGustoAPIVersion = _SINGLETON_VALUE_XGustoAPIVersion.value();
         }
 
-        PutV1TerminationsEmployeeIdRequest request = new PutV1TerminationsEmployeeIdRequest(employeeId,
-            xGustoAPIVersion,
+        PutV1TerminationsEmployeeIdRequest request = new PutV1TerminationsEmployeeIdRequest(xGustoAPIVersion,
+            employeeId,
             requestBody);
 
         return request;
@@ -80,9 +80,9 @@ public class PutV1TerminationsEmployeeIdRequestBuilder {
             .thenCompose(operation::handleResponse);
     }
 
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+    private static final LazySingletonValue<Optional<? extends PutV1TerminationsEmployeeIdHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
             new LazySingletonValue<>(
                     "xGustoAPIVersion",
                     "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
+                    new TypeReference<Optional<? extends PutV1TerminationsEmployeeIdHeaderXGustoAPIVersion>>() {});
 }

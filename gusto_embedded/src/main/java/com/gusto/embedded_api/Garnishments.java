@@ -5,22 +5,26 @@ package com.gusto.embedded_api;
 
 import static com.gusto.embedded_api.operations.Operations.RequestOperation;
 
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.components.GarnishmentRequest;
+import com.gusto.embedded_api.models.components.UpdateGarnishmentRequest;
+import com.gusto.embedded_api.models.operations.GetV1EmployeesEmployeeIdGarnishmentsHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1EmployeesEmployeeIdGarnishmentsRequest;
 import com.gusto.embedded_api.models.operations.GetV1EmployeesEmployeeIdGarnishmentsRequestBuilder;
 import com.gusto.embedded_api.models.operations.GetV1EmployeesEmployeeIdGarnishmentsResponse;
+import com.gusto.embedded_api.models.operations.GetV1GarnishmentsChildSupportHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1GarnishmentsChildSupportRequest;
 import com.gusto.embedded_api.models.operations.GetV1GarnishmentsChildSupportRequestBuilder;
 import com.gusto.embedded_api.models.operations.GetV1GarnishmentsChildSupportResponse;
+import com.gusto.embedded_api.models.operations.GetV1GarnishmentsGarnishmentIdHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1GarnishmentsGarnishmentIdRequest;
 import com.gusto.embedded_api.models.operations.GetV1GarnishmentsGarnishmentIdRequestBuilder;
 import com.gusto.embedded_api.models.operations.GetV1GarnishmentsGarnishmentIdResponse;
+import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeIdGarnishmentsHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeIdGarnishmentsRequest;
-import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeIdGarnishmentsRequestBody;
 import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeIdGarnishmentsRequestBuilder;
 import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeIdGarnishmentsResponse;
+import com.gusto.embedded_api.models.operations.PutV1GarnishmentsGarnishmentIdHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PutV1GarnishmentsGarnishmentIdRequest;
-import com.gusto.embedded_api.models.operations.PutV1GarnishmentsGarnishmentIdRequestBody;
 import com.gusto.embedded_api.models.operations.PutV1GarnishmentsGarnishmentIdRequestBuilder;
 import com.gusto.embedded_api.models.operations.PutV1GarnishmentsGarnishmentIdResponse;
 import com.gusto.embedded_api.operations.GetV1EmployeesEmployeeIdGarnishments;
@@ -54,78 +58,6 @@ public class Garnishments {
     }
 
     /**
-     * Create a garnishment
-     * 
-     * <p>Garnishments, or employee deductions, are fixed amounts or percentages deducted from an employee’s
-     * pay. They can be deducted a specific number of times or on a recurring basis. Garnishments can also
-     * have maximum deductions on a yearly or per-pay-period bases.
-     * 
-     * <p>Common uses for garnishments are court-ordered payments for child support or back taxes. Some
-     * companies provide loans to their employees that are repaid via garnishments.
-     * 
-     * <p>scope: `garnishments:write`
-     * 
-     * @return The call builder
-     */
-    public PostV1EmployeesEmployeeIdGarnishmentsRequestBuilder create() {
-        return new PostV1EmployeesEmployeeIdGarnishmentsRequestBuilder(sdkConfiguration);
-    }
-
-    /**
-     * Create a garnishment
-     * 
-     * <p>Garnishments, or employee deductions, are fixed amounts or percentages deducted from an employee’s
-     * pay. They can be deducted a specific number of times or on a recurring basis. Garnishments can also
-     * have maximum deductions on a yearly or per-pay-period bases.
-     * 
-     * <p>Common uses for garnishments are court-ordered payments for child support or back taxes. Some
-     * companies provide loans to their employees that are repaid via garnishments.
-     * 
-     * <p>scope: `garnishments:write`
-     * 
-     * @param employeeId The UUID of the employee
-     * @param requestBody 
-     * @return The response from the API call
-     * @throws RuntimeException subclass if the API call fails
-     */
-    public PostV1EmployeesEmployeeIdGarnishmentsResponse create(String employeeId, PostV1EmployeesEmployeeIdGarnishmentsRequestBody requestBody) {
-        return create(employeeId, Optional.empty(), requestBody);
-    }
-
-    /**
-     * Create a garnishment
-     * 
-     * <p>Garnishments, or employee deductions, are fixed amounts or percentages deducted from an employee’s
-     * pay. They can be deducted a specific number of times or on a recurring basis. Garnishments can also
-     * have maximum deductions on a yearly or per-pay-period bases.
-     * 
-     * <p>Common uses for garnishments are court-ordered payments for child support or back taxes. Some
-     * companies provide loans to their employees that are repaid via garnishments.
-     * 
-     * <p>scope: `garnishments:write`
-     * 
-     * @param employeeId The UUID of the employee
-     * @param xGustoAPIVersion 
-     * @param requestBody 
-     * @return The response from the API call
-     * @throws RuntimeException subclass if the API call fails
-     */
-    public PostV1EmployeesEmployeeIdGarnishmentsResponse create(
-            String employeeId, Optional<? extends VersionHeader> xGustoAPIVersion,
-            PostV1EmployeesEmployeeIdGarnishmentsRequestBody requestBody) {
-        PostV1EmployeesEmployeeIdGarnishmentsRequest request =
-            PostV1EmployeesEmployeeIdGarnishmentsRequest
-                .builder()
-                .employeeId(employeeId)
-                .xGustoAPIVersion(xGustoAPIVersion)
-                .requestBody(requestBody)
-                .build();
-        RequestOperation<PostV1EmployeesEmployeeIdGarnishmentsRequest, PostV1EmployeesEmployeeIdGarnishmentsResponse> operation
-              = new PostV1EmployeesEmployeeIdGarnishments.Sync(sdkConfiguration, _headers);
-        return operation.handleResponse(operation.doRequest(request));
-    }
-
-    /**
      * Get garnishments for an employee
      * 
      * <p>Garnishments, or employee deductions, are fixed amounts or percentages deducted from an employee’s
@@ -136,6 +68,8 @@ public class Garnishments {
      * companies provide loans to their employees that are repaid via garnishments.
      * 
      * <p>scope: `garnishments:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @return The call builder
      */
@@ -155,12 +89,14 @@ public class Garnishments {
      * 
      * <p>scope: `garnishments:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param employeeId The UUID of the employee
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
     public GetV1EmployeesEmployeeIdGarnishmentsResponse list(String employeeId) {
-        return list(employeeId, Optional.empty(), Optional.empty(),
+        return list(Optional.empty(), employeeId, Optional.empty(),
             Optional.empty());
     }
 
@@ -176,26 +112,106 @@ public class Garnishments {
      * 
      * <p>scope: `garnishments:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param employeeId The UUID of the employee
      * @param page The page that is requested. When unspecified, will load all objects unless endpoint forces pagination.
      * @param per Number of objects per page. For majority of endpoints will default to 25
-     * @param xGustoAPIVersion 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
     public GetV1EmployeesEmployeeIdGarnishmentsResponse list(
-            String employeeId, Optional<Long> page,
-            Optional<Long> per, Optional<? extends VersionHeader> xGustoAPIVersion) {
+            Optional<? extends GetV1EmployeesEmployeeIdGarnishmentsHeaderXGustoAPIVersion> xGustoAPIVersion, String employeeId,
+            Optional<Long> page, Optional<Long> per) {
         GetV1EmployeesEmployeeIdGarnishmentsRequest request =
             GetV1EmployeesEmployeeIdGarnishmentsRequest
                 .builder()
+                .xGustoAPIVersion(xGustoAPIVersion)
                 .employeeId(employeeId)
                 .page(page)
                 .per(per)
-                .xGustoAPIVersion(xGustoAPIVersion)
                 .build();
         RequestOperation<GetV1EmployeesEmployeeIdGarnishmentsRequest, GetV1EmployeesEmployeeIdGarnishmentsResponse> operation
               = new GetV1EmployeesEmployeeIdGarnishments.Sync(sdkConfiguration, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Create a garnishment
+     * 
+     * <p>Garnishments, or employee deductions, are fixed amounts or percentages deducted from an employee’s
+     * pay. They can be deducted a specific number of times or on a recurring basis. Garnishments can also
+     * have maximum deductions on a yearly or per-pay-period bases.
+     * 
+     * <p>Common uses for garnishments are court-ordered payments for child support or back taxes. Some
+     * companies provide loans to their employees that are repaid via garnishments.
+     * 
+     * <p>scope: `garnishments:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @return The call builder
+     */
+    public PostV1EmployeesEmployeeIdGarnishmentsRequestBuilder create() {
+        return new PostV1EmployeesEmployeeIdGarnishmentsRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Create a garnishment
+     * 
+     * <p>Garnishments, or employee deductions, are fixed amounts or percentages deducted from an employee’s
+     * pay. They can be deducted a specific number of times or on a recurring basis. Garnishments can also
+     * have maximum deductions on a yearly or per-pay-period bases.
+     * 
+     * <p>Common uses for garnishments are court-ordered payments for child support or back taxes. Some
+     * companies provide loans to their employees that are repaid via garnishments.
+     * 
+     * <p>scope: `garnishments:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param employeeId The UUID of the employee
+     * @param garnishmentRequest Request body for creating a garnishment.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public PostV1EmployeesEmployeeIdGarnishmentsResponse create(String employeeId, GarnishmentRequest garnishmentRequest) {
+        return create(Optional.empty(), employeeId, garnishmentRequest);
+    }
+
+    /**
+     * Create a garnishment
+     * 
+     * <p>Garnishments, or employee deductions, are fixed amounts or percentages deducted from an employee’s
+     * pay. They can be deducted a specific number of times or on a recurring basis. Garnishments can also
+     * have maximum deductions on a yearly or per-pay-period bases.
+     * 
+     * <p>Common uses for garnishments are court-ordered payments for child support or back taxes. Some
+     * companies provide loans to their employees that are repaid via garnishments.
+     * 
+     * <p>scope: `garnishments:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     * @param employeeId The UUID of the employee
+     * @param garnishmentRequest Request body for creating a garnishment.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public PostV1EmployeesEmployeeIdGarnishmentsResponse create(
+            Optional<? extends PostV1EmployeesEmployeeIdGarnishmentsHeaderXGustoAPIVersion> xGustoAPIVersion, String employeeId,
+            GarnishmentRequest garnishmentRequest) {
+        PostV1EmployeesEmployeeIdGarnishmentsRequest request =
+            PostV1EmployeesEmployeeIdGarnishmentsRequest
+                .builder()
+                .xGustoAPIVersion(xGustoAPIVersion)
+                .employeeId(employeeId)
+                .garnishmentRequest(garnishmentRequest)
+                .build();
+        RequestOperation<PostV1EmployeesEmployeeIdGarnishmentsRequest, PostV1EmployeesEmployeeIdGarnishmentsResponse> operation
+              = new PostV1EmployeesEmployeeIdGarnishments.Sync(sdkConfiguration, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -210,6 +226,8 @@ public class Garnishments {
      * companies provide loans to their employees that are repaid via garnishments.
      * 
      * <p>scope: `garnishments:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @return The call builder
      */
@@ -229,12 +247,14 @@ public class Garnishments {
      * 
      * <p>scope: `garnishments:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param garnishmentId The UUID of the garnishment
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
     public GetV1GarnishmentsGarnishmentIdResponse get(String garnishmentId) {
-        return get(garnishmentId, Optional.empty());
+        return get(Optional.empty(), garnishmentId);
     }
 
     /**
@@ -249,17 +269,19 @@ public class Garnishments {
      * 
      * <p>scope: `garnishments:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param garnishmentId The UUID of the garnishment
-     * @param xGustoAPIVersion 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
-    public GetV1GarnishmentsGarnishmentIdResponse get(String garnishmentId, Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public GetV1GarnishmentsGarnishmentIdResponse get(Optional<? extends GetV1GarnishmentsGarnishmentIdHeaderXGustoAPIVersion> xGustoAPIVersion, String garnishmentId) {
         GetV1GarnishmentsGarnishmentIdRequest request =
             GetV1GarnishmentsGarnishmentIdRequest
                 .builder()
-                .garnishmentId(garnishmentId)
                 .xGustoAPIVersion(xGustoAPIVersion)
+                .garnishmentId(garnishmentId)
                 .build();
         RequestOperation<GetV1GarnishmentsGarnishmentIdRequest, GetV1GarnishmentsGarnishmentIdResponse> operation
               = new GetV1GarnishmentsGarnishmentId.Sync(sdkConfiguration, _headers);
@@ -277,6 +299,8 @@ public class Garnishments {
      * companies provide loans to their employees that are repaid via garnishments.
      * 
      * <p>scope: `garnishments:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @return The call builder
      */
@@ -296,13 +320,15 @@ public class Garnishments {
      * 
      * <p>scope: `garnishments:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param garnishmentId The UUID of the garnishment
-     * @param requestBody 
+     * @param updateGarnishmentRequest Request body for updating a garnishment.
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
-    public PutV1GarnishmentsGarnishmentIdResponse update(String garnishmentId, PutV1GarnishmentsGarnishmentIdRequestBody requestBody) {
-        return update(garnishmentId, Optional.empty(), requestBody);
+    public PutV1GarnishmentsGarnishmentIdResponse update(String garnishmentId, UpdateGarnishmentRequest updateGarnishmentRequest) {
+        return update(Optional.empty(), garnishmentId, updateGarnishmentRequest);
     }
 
     /**
@@ -317,21 +343,23 @@ public class Garnishments {
      * 
      * <p>scope: `garnishments:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param garnishmentId The UUID of the garnishment
-     * @param xGustoAPIVersion 
-     * @param requestBody 
+     * @param updateGarnishmentRequest Request body for updating a garnishment.
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
     public PutV1GarnishmentsGarnishmentIdResponse update(
-            String garnishmentId, Optional<? extends VersionHeader> xGustoAPIVersion,
-            PutV1GarnishmentsGarnishmentIdRequestBody requestBody) {
+            Optional<? extends PutV1GarnishmentsGarnishmentIdHeaderXGustoAPIVersion> xGustoAPIVersion, String garnishmentId,
+            UpdateGarnishmentRequest updateGarnishmentRequest) {
         PutV1GarnishmentsGarnishmentIdRequest request =
             PutV1GarnishmentsGarnishmentIdRequest
                 .builder()
-                .garnishmentId(garnishmentId)
                 .xGustoAPIVersion(xGustoAPIVersion)
-                .requestBody(requestBody)
+                .garnishmentId(garnishmentId)
+                .updateGarnishmentRequest(updateGarnishmentRequest)
                 .build();
         RequestOperation<PutV1GarnishmentsGarnishmentIdRequest, PutV1GarnishmentsGarnishmentIdResponse> operation
               = new PutV1GarnishmentsGarnishmentId.Sync(sdkConfiguration, _headers);
@@ -345,6 +373,8 @@ public class Garnishments {
      * 
      * <p>scope: `garnishments:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @return The call builder
      */
     public GetV1GarnishmentsChildSupportRequestBuilder getChildSupportData() {
@@ -357,6 +387,8 @@ public class Garnishments {
      * <p>Agency data and requirements to be used for creating child support garnishments
      * 
      * <p>scope: `garnishments:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -372,11 +404,13 @@ public class Garnishments {
      * 
      * <p>scope: `garnishments:read`
      * 
-     * @param xGustoAPIVersion 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
-    public GetV1GarnishmentsChildSupportResponse getChildSupportData(Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public GetV1GarnishmentsChildSupportResponse getChildSupportData(Optional<? extends GetV1GarnishmentsChildSupportHeaderXGustoAPIVersion> xGustoAPIVersion) {
         GetV1GarnishmentsChildSupportRequest request =
             GetV1GarnishmentsChildSupportRequest
                 .builder()

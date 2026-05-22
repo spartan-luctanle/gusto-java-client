@@ -5,29 +5,46 @@ package com.gusto.embedded_api;
 
 import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation;
 
+import com.gusto.embedded_api.models.components.ContractorAddressUpdateBody;
 import com.gusto.embedded_api.models.components.ContractorCreateRequestBody;
+import com.gusto.embedded_api.models.components.ContractorOnboardingStatusUpdateRequestBody;
 import com.gusto.embedded_api.models.components.ContractorUpdateRequestBody;
-import com.gusto.embedded_api.models.components.VersionHeader;
 import com.gusto.embedded_api.models.operations.DeleteV1ContractorsContractorUuidHeaderXGustoAPIVersion;
+import com.gusto.embedded_api.models.operations.DeleteV1ContractorsContractorUuidRehireHeaderXGustoAPIVersion;
+import com.gusto.embedded_api.models.operations.DeleteV1ContractorsContractorUuidRehireRequest;
 import com.gusto.embedded_api.models.operations.DeleteV1ContractorsContractorUuidRequest;
+import com.gusto.embedded_api.models.operations.DeleteV1ContractorsContractorUuidTerminationHeaderXGustoAPIVersion;
+import com.gusto.embedded_api.models.operations.DeleteV1ContractorsContractorUuidTerminationRequest;
 import com.gusto.embedded_api.models.operations.GetV1CompaniesCompanyIdContractorsPaymentDetailsHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1CompaniesCompanyIdContractorsPaymentDetailsRequest;
 import com.gusto.embedded_api.models.operations.GetV1CompaniesCompanyUuidContractorsRequest;
+import com.gusto.embedded_api.models.operations.GetV1ContractorsContractorUuidAddressHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1ContractorsContractorUuidAddressRequest;
 import com.gusto.embedded_api.models.operations.GetV1ContractorsContractorUuidHeaderXGustoAPIVersion;
+import com.gusto.embedded_api.models.operations.GetV1ContractorsContractorUuidOnboardingStatusHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1ContractorsContractorUuidOnboardingStatusRequest;
 import com.gusto.embedded_api.models.operations.GetV1ContractorsContractorUuidQueryParamInclude;
 import com.gusto.embedded_api.models.operations.GetV1ContractorsContractorUuidRequest;
 import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyUuidContractorsHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyUuidContractorsRequest;
+import com.gusto.embedded_api.models.operations.PostV1ContractorsContractorUuidRehireHeaderXGustoAPIVersion;
+import com.gusto.embedded_api.models.operations.PostV1ContractorsContractorUuidRehireRequest;
+import com.gusto.embedded_api.models.operations.PostV1ContractorsContractorUuidRehireRequestBody;
+import com.gusto.embedded_api.models.operations.PostV1ContractorsContractorUuidTerminationHeaderXGustoAPIVersion;
+import com.gusto.embedded_api.models.operations.PostV1ContractorsContractorUuidTerminationRequest;
+import com.gusto.embedded_api.models.operations.PostV1ContractorsContractorUuidTerminationRequestBody;
+import com.gusto.embedded_api.models.operations.PutV1ContractorsContractorUuidAddressHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PutV1ContractorsContractorUuidAddressRequest;
-import com.gusto.embedded_api.models.operations.PutV1ContractorsContractorUuidAddressRequestBody;
 import com.gusto.embedded_api.models.operations.PutV1ContractorsContractorUuidHeaderXGustoAPIVersion;
+import com.gusto.embedded_api.models.operations.PutV1ContractorsContractorUuidOnboardingStatusHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PutV1ContractorsContractorUuidOnboardingStatusRequest;
-import com.gusto.embedded_api.models.operations.PutV1ContractorsContractorUuidOnboardingStatusRequestBody;
 import com.gusto.embedded_api.models.operations.PutV1ContractorsContractorUuidRequest;
+import com.gusto.embedded_api.models.operations.async.DeleteV1ContractorsContractorUuidRehireRequestBuilder;
+import com.gusto.embedded_api.models.operations.async.DeleteV1ContractorsContractorUuidRehireResponse;
 import com.gusto.embedded_api.models.operations.async.DeleteV1ContractorsContractorUuidRequestBuilder;
 import com.gusto.embedded_api.models.operations.async.DeleteV1ContractorsContractorUuidResponse;
+import com.gusto.embedded_api.models.operations.async.DeleteV1ContractorsContractorUuidTerminationRequestBuilder;
+import com.gusto.embedded_api.models.operations.async.DeleteV1ContractorsContractorUuidTerminationResponse;
 import com.gusto.embedded_api.models.operations.async.GetV1CompaniesCompanyIdContractorsPaymentDetailsRequestBuilder;
 import com.gusto.embedded_api.models.operations.async.GetV1CompaniesCompanyIdContractorsPaymentDetailsResponse;
 import com.gusto.embedded_api.models.operations.async.GetV1CompaniesCompanyUuidContractorsRequestBuilder;
@@ -40,6 +57,10 @@ import com.gusto.embedded_api.models.operations.async.GetV1ContractorsContractor
 import com.gusto.embedded_api.models.operations.async.GetV1ContractorsContractorUuidResponse;
 import com.gusto.embedded_api.models.operations.async.PostV1CompaniesCompanyUuidContractorsRequestBuilder;
 import com.gusto.embedded_api.models.operations.async.PostV1CompaniesCompanyUuidContractorsResponse;
+import com.gusto.embedded_api.models.operations.async.PostV1ContractorsContractorUuidRehireRequestBuilder;
+import com.gusto.embedded_api.models.operations.async.PostV1ContractorsContractorUuidRehireResponse;
+import com.gusto.embedded_api.models.operations.async.PostV1ContractorsContractorUuidTerminationRequestBuilder;
+import com.gusto.embedded_api.models.operations.async.PostV1ContractorsContractorUuidTerminationResponse;
 import com.gusto.embedded_api.models.operations.async.PutV1ContractorsContractorUuidAddressRequestBuilder;
 import com.gusto.embedded_api.models.operations.async.PutV1ContractorsContractorUuidAddressResponse;
 import com.gusto.embedded_api.models.operations.async.PutV1ContractorsContractorUuidOnboardingStatusRequestBuilder;
@@ -47,12 +68,16 @@ import com.gusto.embedded_api.models.operations.async.PutV1ContractorsContractor
 import com.gusto.embedded_api.models.operations.async.PutV1ContractorsContractorUuidRequestBuilder;
 import com.gusto.embedded_api.models.operations.async.PutV1ContractorsContractorUuidResponse;
 import com.gusto.embedded_api.operations.DeleteV1ContractorsContractorUuid;
+import com.gusto.embedded_api.operations.DeleteV1ContractorsContractorUuidRehire;
+import com.gusto.embedded_api.operations.DeleteV1ContractorsContractorUuidTermination;
 import com.gusto.embedded_api.operations.GetV1CompaniesCompanyIdContractorsPaymentDetails;
 import com.gusto.embedded_api.operations.GetV1CompaniesCompanyUuidContractors;
 import com.gusto.embedded_api.operations.GetV1ContractorsContractorUuid;
 import com.gusto.embedded_api.operations.GetV1ContractorsContractorUuidAddress;
 import com.gusto.embedded_api.operations.GetV1ContractorsContractorUuidOnboardingStatus;
 import com.gusto.embedded_api.operations.PostV1CompaniesCompanyUuidContractors;
+import com.gusto.embedded_api.operations.PostV1ContractorsContractorUuidRehire;
+import com.gusto.embedded_api.operations.PostV1ContractorsContractorUuidTermination;
 import com.gusto.embedded_api.operations.PutV1ContractorsContractorUuid;
 import com.gusto.embedded_api.operations.PutV1ContractorsContractorUuidAddress;
 import com.gusto.embedded_api.operations.PutV1ContractorsContractorUuidOnboardingStatus;
@@ -80,6 +105,41 @@ public class AsyncContractors {
      */
     public Contractors sync() {
         return syncSDK;
+    }
+
+
+    /**
+     * Get contractors of a company
+     * 
+     * <p>Get all contractors, active and inactive, individual and business, for a company.
+     * 
+     * <p>scope: `contractors:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @return The async call builder
+     */
+    public GetV1CompaniesCompanyUuidContractorsRequestBuilder list() {
+        return new GetV1CompaniesCompanyUuidContractorsRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Get contractors of a company
+     * 
+     * <p>Get all contractors, active and inactive, individual and business, for a company.
+     * 
+     * <p>scope: `contractors:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param request The request object containing all the parameters for the API call.
+     * @return {@code CompletableFuture<GetV1CompaniesCompanyUuidContractorsResponse>} - The async response
+     */
+    public CompletableFuture<GetV1CompaniesCompanyUuidContractorsResponse> list(GetV1CompaniesCompanyUuidContractorsRequest request) {
+        AsyncRequestOperation<GetV1CompaniesCompanyUuidContractorsRequest, GetV1CompaniesCompanyUuidContractorsResponse> operation
+              = new GetV1CompaniesCompanyUuidContractors.Async(sdkConfiguration, _headers);
+        return operation.doRequest(request)
+            .thenCompose(operation::handleResponse);
     }
 
 
@@ -141,41 +201,6 @@ public class AsyncContractors {
                 .build();
         AsyncRequestOperation<PostV1CompaniesCompanyUuidContractorsRequest, PostV1CompaniesCompanyUuidContractorsResponse> operation
               = new PostV1CompaniesCompanyUuidContractors.Async(sdkConfiguration, _headers);
-        return operation.doRequest(request)
-            .thenCompose(operation::handleResponse);
-    }
-
-
-    /**
-     * Get contractors of a company
-     * 
-     * <p>Get all contractors, active and inactive, individual and business, for a company.
-     * 
-     * <p>scope: `contractors:read`
-     * 
-     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
-     * 
-     * @return The async call builder
-     */
-    public GetV1CompaniesCompanyUuidContractorsRequestBuilder list() {
-        return new GetV1CompaniesCompanyUuidContractorsRequestBuilder(sdkConfiguration);
-    }
-
-    /**
-     * Get contractors of a company
-     * 
-     * <p>Get all contractors, active and inactive, individual and business, for a company.
-     * 
-     * <p>scope: `contractors:read`
-     * 
-     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
-     * 
-     * @param request The request object containing all the parameters for the API call.
-     * @return {@code CompletableFuture<GetV1CompaniesCompanyUuidContractorsResponse>} - The async response
-     */
-    public CompletableFuture<GetV1CompaniesCompanyUuidContractorsResponse> list(GetV1CompaniesCompanyUuidContractorsRequest request) {
-        AsyncRequestOperation<GetV1CompaniesCompanyUuidContractorsRequest, GetV1CompaniesCompanyUuidContractorsResponse> operation
-              = new GetV1CompaniesCompanyUuidContractors.Async(sdkConfiguration, _headers);
         return operation.doRequest(request)
             .thenCompose(operation::handleResponse);
     }
@@ -388,8 +413,6 @@ public class AsyncContractors {
      * <p>Retrieves a contractor's onboarding status. The data returned helps inform the required onboarding
      * steps and respective completion status.
      * 
-     * <p>scope: `contractors:read`
-     * 
      * <p>## onboarding_status
      * 
      * <p>### Admin-facilitated onboarding
@@ -424,6 +447,10 @@ public class AsyncContractors {
      * | `payment_details` | (optional) Set up contractor's direct deposit or set to check. |
      * | `sign_documents` | Contractor forms (e.g., W9) are generated &amp; signed. |
      * | `file_new_hire_report` | Contractor new hire report is generated. |
+     * 
+     * <p>scope: `contractors:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @return The async call builder
      */
@@ -437,8 +464,6 @@ public class AsyncContractors {
      * <p>Retrieves a contractor's onboarding status. The data returned helps inform the required onboarding
      * steps and respective completion status.
      * 
-     * <p>scope: `contractors:read`
-     * 
      * <p>## onboarding_status
      * 
      * <p>### Admin-facilitated onboarding
@@ -474,11 +499,15 @@ public class AsyncContractors {
      * | `sign_documents` | Contractor forms (e.g., W9) are generated &amp; signed. |
      * | `file_new_hire_report` | Contractor new hire report is generated. |
      * 
+     * <p>scope: `contractors:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param contractorUuid The UUID of the contractor
      * @return {@code CompletableFuture<GetV1ContractorsContractorUuidOnboardingStatusResponse>} - The async response
      */
     public CompletableFuture<GetV1ContractorsContractorUuidOnboardingStatusResponse> getOnboardingStatus(String contractorUuid) {
-        return getOnboardingStatus(contractorUuid, Optional.empty());
+        return getOnboardingStatus(Optional.empty(), contractorUuid);
     }
 
     /**
@@ -487,8 +516,6 @@ public class AsyncContractors {
      * <p>Retrieves a contractor's onboarding status. The data returned helps inform the required onboarding
      * steps and respective completion status.
      * 
-     * <p>scope: `contractors:read`
-     * 
      * <p>## onboarding_status
      * 
      * <p>### Admin-facilitated onboarding
@@ -524,16 +551,20 @@ public class AsyncContractors {
      * | `sign_documents` | Contractor forms (e.g., W9) are generated &amp; signed. |
      * | `file_new_hire_report` | Contractor new hire report is generated. |
      * 
+     * <p>scope: `contractors:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param contractorUuid The UUID of the contractor
-     * @param xGustoAPIVersion 
      * @return {@code CompletableFuture<GetV1ContractorsContractorUuidOnboardingStatusResponse>} - The async response
      */
-    public CompletableFuture<GetV1ContractorsContractorUuidOnboardingStatusResponse> getOnboardingStatus(String contractorUuid, Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public CompletableFuture<GetV1ContractorsContractorUuidOnboardingStatusResponse> getOnboardingStatus(Optional<? extends GetV1ContractorsContractorUuidOnboardingStatusHeaderXGustoAPIVersion> xGustoAPIVersion, String contractorUuid) {
         GetV1ContractorsContractorUuidOnboardingStatusRequest request =
             GetV1ContractorsContractorUuidOnboardingStatusRequest
                 .builder()
-                .contractorUuid(contractorUuid)
                 .xGustoAPIVersion(xGustoAPIVersion)
+                .contractorUuid(contractorUuid)
                 .build();
         AsyncRequestOperation<GetV1ContractorsContractorUuidOnboardingStatusRequest, GetV1ContractorsContractorUuidOnboardingStatusResponse> operation
               = new GetV1ContractorsContractorUuidOnboardingStatus.Async(sdkConfiguration, _headers);
@@ -547,8 +578,6 @@ public class AsyncContractors {
      * 
      * <p>Updates a contractor's onboarding status.
      * 
-     * <p>scope: `contractors:write`
-     * 
      * <p>Below is a list of valid onboarding status changes depending on the intended action to be performed
      * on behalf of the contractor.
      * 
@@ -563,6 +592,10 @@ public class AsyncContractors {
      * | Review a contractor's self-onboarded info | `self_onboarding_started` | `self_onboarding_review` |
      * | Finish a contractor's onboarding | `admin_onboarding_review` or `self_onboarding_review` |
      * `onboarding_completed` |
+     * 
+     * <p>scope: `contractors:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @return The async call builder
      */
@@ -575,8 +608,6 @@ public class AsyncContractors {
      * 
      * <p>Updates a contractor's onboarding status.
      * 
-     * <p>scope: `contractors:write`
-     * 
      * <p>Below is a list of valid onboarding status changes depending on the intended action to be performed
      * on behalf of the contractor.
      * 
@@ -592,12 +623,16 @@ public class AsyncContractors {
      * | Finish a contractor's onboarding | `admin_onboarding_review` or `self_onboarding_review` |
      * `onboarding_completed` |
      * 
+     * <p>scope: `contractors:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param contractorUuid The UUID of the contractor
-     * @param requestBody 
+     * @param contractorOnboardingStatusUpdateRequestBody Request body for updating a contractor's onboarding status.
      * @return {@code CompletableFuture<PutV1ContractorsContractorUuidOnboardingStatusResponse>} - The async response
      */
-    public CompletableFuture<PutV1ContractorsContractorUuidOnboardingStatusResponse> updateOnboardingStatus(String contractorUuid, PutV1ContractorsContractorUuidOnboardingStatusRequestBody requestBody) {
-        return updateOnboardingStatus(contractorUuid, Optional.empty(), requestBody);
+    public CompletableFuture<PutV1ContractorsContractorUuidOnboardingStatusResponse> updateOnboardingStatus(String contractorUuid, ContractorOnboardingStatusUpdateRequestBody contractorOnboardingStatusUpdateRequestBody) {
+        return updateOnboardingStatus(Optional.empty(), contractorUuid, contractorOnboardingStatusUpdateRequestBody);
     }
 
     /**
@@ -605,8 +640,6 @@ public class AsyncContractors {
      * 
      * <p>Updates a contractor's onboarding status.
      * 
-     * <p>scope: `contractors:write`
-     * 
      * <p>Below is a list of valid onboarding status changes depending on the intended action to be performed
      * on behalf of the contractor.
      * 
@@ -622,20 +655,24 @@ public class AsyncContractors {
      * | Finish a contractor's onboarding | `admin_onboarding_review` or `self_onboarding_review` |
      * `onboarding_completed` |
      * 
+     * <p>scope: `contractors:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param contractorUuid The UUID of the contractor
-     * @param xGustoAPIVersion 
-     * @param requestBody 
+     * @param contractorOnboardingStatusUpdateRequestBody Request body for updating a contractor's onboarding status.
      * @return {@code CompletableFuture<PutV1ContractorsContractorUuidOnboardingStatusResponse>} - The async response
      */
     public CompletableFuture<PutV1ContractorsContractorUuidOnboardingStatusResponse> updateOnboardingStatus(
-            String contractorUuid, Optional<? extends VersionHeader> xGustoAPIVersion,
-            PutV1ContractorsContractorUuidOnboardingStatusRequestBody requestBody) {
+            Optional<? extends PutV1ContractorsContractorUuidOnboardingStatusHeaderXGustoAPIVersion> xGustoAPIVersion, String contractorUuid,
+            ContractorOnboardingStatusUpdateRequestBody contractorOnboardingStatusUpdateRequestBody) {
         PutV1ContractorsContractorUuidOnboardingStatusRequest request =
             PutV1ContractorsContractorUuidOnboardingStatusRequest
                 .builder()
-                .contractorUuid(contractorUuid)
                 .xGustoAPIVersion(xGustoAPIVersion)
-                .requestBody(requestBody)
+                .contractorUuid(contractorUuid)
+                .contractorOnboardingStatusUpdateRequestBody(contractorOnboardingStatusUpdateRequestBody)
                 .build();
         AsyncRequestOperation<PutV1ContractorsContractorUuidOnboardingStatusRequest, PutV1ContractorsContractorUuidOnboardingStatusResponse> operation
               = new PutV1ContractorsContractorUuidOnboardingStatus.Async(sdkConfiguration, _headers);
@@ -652,6 +689,8 @@ public class AsyncContractors {
      * 
      * <p>scope: `contractors:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @return The async call builder
      */
     public GetV1ContractorsContractorUuidAddressRequestBuilder getAddress() {
@@ -666,11 +705,13 @@ public class AsyncContractors {
      * 
      * <p>scope: `contractors:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param contractorUuid The UUID of the contractor
      * @return {@code CompletableFuture<GetV1ContractorsContractorUuidAddressResponse>} - The async response
      */
     public CompletableFuture<GetV1ContractorsContractorUuidAddressResponse> getAddress(String contractorUuid) {
-        return getAddress(contractorUuid, Optional.empty());
+        return getAddress(Optional.empty(), contractorUuid);
     }
 
     /**
@@ -681,16 +722,18 @@ public class AsyncContractors {
      * 
      * <p>scope: `contractors:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param contractorUuid The UUID of the contractor
-     * @param xGustoAPIVersion 
      * @return {@code CompletableFuture<GetV1ContractorsContractorUuidAddressResponse>} - The async response
      */
-    public CompletableFuture<GetV1ContractorsContractorUuidAddressResponse> getAddress(String contractorUuid, Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public CompletableFuture<GetV1ContractorsContractorUuidAddressResponse> getAddress(Optional<? extends GetV1ContractorsContractorUuidAddressHeaderXGustoAPIVersion> xGustoAPIVersion, String contractorUuid) {
         GetV1ContractorsContractorUuidAddressRequest request =
             GetV1ContractorsContractorUuidAddressRequest
                 .builder()
-                .contractorUuid(contractorUuid)
                 .xGustoAPIVersion(xGustoAPIVersion)
+                .contractorUuid(contractorUuid)
                 .build();
         AsyncRequestOperation<GetV1ContractorsContractorUuidAddressRequest, GetV1ContractorsContractorUuidAddressResponse> operation
               = new GetV1ContractorsContractorUuidAddress.Async(sdkConfiguration, _headers);
@@ -705,12 +748,14 @@ public class AsyncContractors {
      * <p>The address of a contractor is used to determine certain tax information about them. Addresses are
      * geocoded on create and update to ensure validity.
      * 
-     * <p>scope: `contractors:write`
-     * 
      * <p>&gt; 🚧 Contractors can only have one address.
      * &gt;
      * &gt; When a contractor is created, an address is created for them by default. Updating the address
      * will replace the existing address.
+     * 
+     * <p>scope: `contractors:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @return The async call builder
      */
@@ -724,19 +769,21 @@ public class AsyncContractors {
      * <p>The address of a contractor is used to determine certain tax information about them. Addresses are
      * geocoded on create and update to ensure validity.
      * 
-     * <p>scope: `contractors:write`
-     * 
      * <p>&gt; 🚧 Contractors can only have one address.
      * &gt;
      * &gt; When a contractor is created, an address is created for them by default. Updating the address
      * will replace the existing address.
      * 
+     * <p>scope: `contractors:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param contractorUuid The UUID of the contractor
-     * @param requestBody 
+     * @param contractorAddressUpdateBody 
      * @return {@code CompletableFuture<PutV1ContractorsContractorUuidAddressResponse>} - The async response
      */
-    public CompletableFuture<PutV1ContractorsContractorUuidAddressResponse> updateAddress(String contractorUuid, PutV1ContractorsContractorUuidAddressRequestBody requestBody) {
-        return updateAddress(contractorUuid, Optional.empty(), requestBody);
+    public CompletableFuture<PutV1ContractorsContractorUuidAddressResponse> updateAddress(String contractorUuid, ContractorAddressUpdateBody contractorAddressUpdateBody) {
+        return updateAddress(Optional.empty(), contractorUuid, contractorAddressUpdateBody);
     }
 
     /**
@@ -745,27 +792,29 @@ public class AsyncContractors {
      * <p>The address of a contractor is used to determine certain tax information about them. Addresses are
      * geocoded on create and update to ensure validity.
      * 
-     * <p>scope: `contractors:write`
-     * 
      * <p>&gt; 🚧 Contractors can only have one address.
      * &gt;
      * &gt; When a contractor is created, an address is created for them by default. Updating the address
      * will replace the existing address.
      * 
+     * <p>scope: `contractors:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param contractorUuid The UUID of the contractor
-     * @param xGustoAPIVersion 
-     * @param requestBody 
+     * @param contractorAddressUpdateBody 
      * @return {@code CompletableFuture<PutV1ContractorsContractorUuidAddressResponse>} - The async response
      */
     public CompletableFuture<PutV1ContractorsContractorUuidAddressResponse> updateAddress(
-            String contractorUuid, Optional<? extends VersionHeader> xGustoAPIVersion,
-            PutV1ContractorsContractorUuidAddressRequestBody requestBody) {
+            Optional<? extends PutV1ContractorsContractorUuidAddressHeaderXGustoAPIVersion> xGustoAPIVersion, String contractorUuid,
+            ContractorAddressUpdateBody contractorAddressUpdateBody) {
         PutV1ContractorsContractorUuidAddressRequest request =
             PutV1ContractorsContractorUuidAddressRequest
                 .builder()
-                .contractorUuid(contractorUuid)
                 .xGustoAPIVersion(xGustoAPIVersion)
-                .requestBody(requestBody)
+                .contractorUuid(contractorUuid)
+                .contractorAddressUpdateBody(contractorAddressUpdateBody)
                 .build();
         AsyncRequestOperation<PutV1ContractorsContractorUuidAddressRequest, PutV1ContractorsContractorUuidAddressResponse> operation
               = new PutV1ContractorsContractorUuidAddress.Async(sdkConfiguration, _headers);
@@ -910,6 +959,363 @@ public class AsyncContractors {
                 .build();
         AsyncRequestOperation<GetV1CompaniesCompanyIdContractorsPaymentDetailsRequest, GetV1CompaniesCompanyIdContractorsPaymentDetailsResponse> operation
               = new GetV1CompaniesCompanyIdContractorsPaymentDetails.Async(sdkConfiguration, _headers);
+        return operation.doRequest(request)
+            .thenCompose(operation::handleResponse);
+    }
+
+
+    /**
+     * Schedule a contractor rehire
+     * 
+     * <p>## Purpose
+     * Schedules a contractor rehire for a given date. Creates a new employment record for the contractor.
+     * 
+     * <p>## Prerequisites
+     * Before calling this endpoint:
+     * 1. The contractor must be inactive (previously dismissed)
+     * 2. The contractor must not already have an upcoming employment
+     * 
+     * <p>## Related webhooks
+     * - `contractor.reactivated`: Fires when the contractor becomes active again (on or after start_date)
+     * 
+     * <p>scope: `contractors:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @return The async call builder
+     */
+    public PostV1ContractorsContractorUuidRehireRequestBuilder postV1ContractorsContractorUuidRehire() {
+        return new PostV1ContractorsContractorUuidRehireRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Schedule a contractor rehire
+     * 
+     * <p>## Purpose
+     * Schedules a contractor rehire for a given date. Creates a new employment record for the contractor.
+     * 
+     * <p>## Prerequisites
+     * Before calling this endpoint:
+     * 1. The contractor must be inactive (previously dismissed)
+     * 2. The contractor must not already have an upcoming employment
+     * 
+     * <p>## Related webhooks
+     * - `contractor.reactivated`: Fires when the contractor becomes active again (on or after start_date)
+     * 
+     * <p>scope: `contractors:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param contractorUuid The UUID of the contractor
+     * @return {@code CompletableFuture<PostV1ContractorsContractorUuidRehireResponse>} - The async response
+     */
+    public CompletableFuture<PostV1ContractorsContractorUuidRehireResponse> postV1ContractorsContractorUuidRehire(String contractorUuid) {
+        return postV1ContractorsContractorUuidRehire(contractorUuid, Optional.empty(), Optional.empty());
+    }
+
+    /**
+     * Schedule a contractor rehire
+     * 
+     * <p>## Purpose
+     * Schedules a contractor rehire for a given date. Creates a new employment record for the contractor.
+     * 
+     * <p>## Prerequisites
+     * Before calling this endpoint:
+     * 1. The contractor must be inactive (previously dismissed)
+     * 2. The contractor must not already have an upcoming employment
+     * 
+     * <p>## Related webhooks
+     * - `contractor.reactivated`: Fires when the contractor becomes active again (on or after start_date)
+     * 
+     * <p>scope: `contractors:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param contractorUuid The UUID of the contractor
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     * @param requestBody 
+     * @return {@code CompletableFuture<PostV1ContractorsContractorUuidRehireResponse>} - The async response
+     */
+    public CompletableFuture<PostV1ContractorsContractorUuidRehireResponse> postV1ContractorsContractorUuidRehire(
+            String contractorUuid, Optional<? extends PostV1ContractorsContractorUuidRehireHeaderXGustoAPIVersion> xGustoAPIVersion,
+            Optional<? extends PostV1ContractorsContractorUuidRehireRequestBody> requestBody) {
+        PostV1ContractorsContractorUuidRehireRequest request =
+            PostV1ContractorsContractorUuidRehireRequest
+                .builder()
+                .contractorUuid(contractorUuid)
+                .xGustoAPIVersion(xGustoAPIVersion)
+                .requestBody(requestBody)
+                .build();
+        AsyncRequestOperation<PostV1ContractorsContractorUuidRehireRequest, PostV1ContractorsContractorUuidRehireResponse> operation
+              = new PostV1ContractorsContractorUuidRehire.Async(sdkConfiguration, _headers);
+        return operation.doRequest(request)
+            .thenCompose(operation::handleResponse);
+    }
+
+
+    /**
+     * Cancel a pending contractor rehire
+     * 
+     * <p>## Purpose
+     * Cancels a pending contractor rehire. For future-dated rehires, cancellation is available anytime
+     * before the date.
+     * For past-dated rehires, cancellation is only available within the 2-day grace period.
+     * 
+     * <p>## Prerequisites
+     * Before calling this endpoint:
+     * - The contractor must have a pending rehire (upcoming employment)
+     * 
+     * <p>## Related webhooks
+     * - `contractor.deactivated`: Fires when the contractor returns to inactive state after cancellation
+     * 
+     * <p>scope: `contractors:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @return The async call builder
+     */
+    public DeleteV1ContractorsContractorUuidRehireRequestBuilder deleteV1ContractorsContractorUuidRehire() {
+        return new DeleteV1ContractorsContractorUuidRehireRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Cancel a pending contractor rehire
+     * 
+     * <p>## Purpose
+     * Cancels a pending contractor rehire. For future-dated rehires, cancellation is available anytime
+     * before the date.
+     * For past-dated rehires, cancellation is only available within the 2-day grace period.
+     * 
+     * <p>## Prerequisites
+     * Before calling this endpoint:
+     * - The contractor must have a pending rehire (upcoming employment)
+     * 
+     * <p>## Related webhooks
+     * - `contractor.deactivated`: Fires when the contractor returns to inactive state after cancellation
+     * 
+     * <p>scope: `contractors:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param contractorUuid The UUID of the contractor
+     * @return {@code CompletableFuture<DeleteV1ContractorsContractorUuidRehireResponse>} - The async response
+     */
+    public CompletableFuture<DeleteV1ContractorsContractorUuidRehireResponse> deleteV1ContractorsContractorUuidRehire(String contractorUuid) {
+        return deleteV1ContractorsContractorUuidRehire(contractorUuid, Optional.empty());
+    }
+
+    /**
+     * Cancel a pending contractor rehire
+     * 
+     * <p>## Purpose
+     * Cancels a pending contractor rehire. For future-dated rehires, cancellation is available anytime
+     * before the date.
+     * For past-dated rehires, cancellation is only available within the 2-day grace period.
+     * 
+     * <p>## Prerequisites
+     * Before calling this endpoint:
+     * - The contractor must have a pending rehire (upcoming employment)
+     * 
+     * <p>## Related webhooks
+     * - `contractor.deactivated`: Fires when the contractor returns to inactive state after cancellation
+     * 
+     * <p>scope: `contractors:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param contractorUuid The UUID of the contractor
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     * @return {@code CompletableFuture<DeleteV1ContractorsContractorUuidRehireResponse>} - The async response
+     */
+    public CompletableFuture<DeleteV1ContractorsContractorUuidRehireResponse> deleteV1ContractorsContractorUuidRehire(String contractorUuid, Optional<? extends DeleteV1ContractorsContractorUuidRehireHeaderXGustoAPIVersion> xGustoAPIVersion) {
+        DeleteV1ContractorsContractorUuidRehireRequest request =
+            DeleteV1ContractorsContractorUuidRehireRequest
+                .builder()
+                .contractorUuid(contractorUuid)
+                .xGustoAPIVersion(xGustoAPIVersion)
+                .build();
+        AsyncRequestOperation<DeleteV1ContractorsContractorUuidRehireRequest, DeleteV1ContractorsContractorUuidRehireResponse> operation
+              = new DeleteV1ContractorsContractorUuidRehire.Async(sdkConfiguration, _headers);
+        return operation.doRequest(request)
+            .thenCompose(operation::handleResponse);
+    }
+
+
+    /**
+     * Schedule a contractor termination
+     * 
+     * <p>## Purpose
+     * Schedules a contractor dismissal for a given date. Supports both immediate (past dates) and
+     * future-dated dismissals.
+     * 
+     * <p>## Prerequisites
+     * Before calling this endpoint:
+     * 1. The contractor must be active (no existing pending dismissal)
+     * 2. The contractor must have a current employment
+     * 
+     * <p>## Related webhooks
+     * - `contractor.deactivated`: Fires when the contractor becomes inactive (on or after end_date)
+     * 
+     * <p>scope: `contractors:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @return The async call builder
+     */
+    public PostV1ContractorsContractorUuidTerminationRequestBuilder postV1ContractorsContractorUuidTermination() {
+        return new PostV1ContractorsContractorUuidTerminationRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Schedule a contractor termination
+     * 
+     * <p>## Purpose
+     * Schedules a contractor dismissal for a given date. Supports both immediate (past dates) and
+     * future-dated dismissals.
+     * 
+     * <p>## Prerequisites
+     * Before calling this endpoint:
+     * 1. The contractor must be active (no existing pending dismissal)
+     * 2. The contractor must have a current employment
+     * 
+     * <p>## Related webhooks
+     * - `contractor.deactivated`: Fires when the contractor becomes inactive (on or after end_date)
+     * 
+     * <p>scope: `contractors:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param contractorUuid The UUID of the contractor
+     * @return {@code CompletableFuture<PostV1ContractorsContractorUuidTerminationResponse>} - The async response
+     */
+    public CompletableFuture<PostV1ContractorsContractorUuidTerminationResponse> postV1ContractorsContractorUuidTermination(String contractorUuid) {
+        return postV1ContractorsContractorUuidTermination(contractorUuid, Optional.empty(), Optional.empty());
+    }
+
+    /**
+     * Schedule a contractor termination
+     * 
+     * <p>## Purpose
+     * Schedules a contractor dismissal for a given date. Supports both immediate (past dates) and
+     * future-dated dismissals.
+     * 
+     * <p>## Prerequisites
+     * Before calling this endpoint:
+     * 1. The contractor must be active (no existing pending dismissal)
+     * 2. The contractor must have a current employment
+     * 
+     * <p>## Related webhooks
+     * - `contractor.deactivated`: Fires when the contractor becomes inactive (on or after end_date)
+     * 
+     * <p>scope: `contractors:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param contractorUuid The UUID of the contractor
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     * @param requestBody 
+     * @return {@code CompletableFuture<PostV1ContractorsContractorUuidTerminationResponse>} - The async response
+     */
+    public CompletableFuture<PostV1ContractorsContractorUuidTerminationResponse> postV1ContractorsContractorUuidTermination(
+            String contractorUuid, Optional<? extends PostV1ContractorsContractorUuidTerminationHeaderXGustoAPIVersion> xGustoAPIVersion,
+            Optional<? extends PostV1ContractorsContractorUuidTerminationRequestBody> requestBody) {
+        PostV1ContractorsContractorUuidTerminationRequest request =
+            PostV1ContractorsContractorUuidTerminationRequest
+                .builder()
+                .contractorUuid(contractorUuid)
+                .xGustoAPIVersion(xGustoAPIVersion)
+                .requestBody(requestBody)
+                .build();
+        AsyncRequestOperation<PostV1ContractorsContractorUuidTerminationRequest, PostV1ContractorsContractorUuidTerminationResponse> operation
+              = new PostV1ContractorsContractorUuidTermination.Async(sdkConfiguration, _headers);
+        return operation.doRequest(request)
+            .thenCompose(operation::handleResponse);
+    }
+
+
+    /**
+     * Cancel a pending contractor termination
+     * 
+     * <p>## Purpose
+     * Cancels a pending contractor dismissal. For future-dated dismissals, cancellation is available
+     * anytime before the date.
+     * For past-dated dismissals, cancellation is only available within the 2-day grace period.
+     * 
+     * <p>## Prerequisites
+     * Before calling this endpoint:
+     * - The contractor must have a pending dismissal (scheduled or within the grace period)
+     * 
+     * <p>## Related webhooks
+     * - `contractor.reactivated`: Fires when the contractor becomes active again after cancellation
+     * 
+     * <p>scope: `contractors:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @return The async call builder
+     */
+    public DeleteV1ContractorsContractorUuidTerminationRequestBuilder deleteV1ContractorsContractorUuidTermination() {
+        return new DeleteV1ContractorsContractorUuidTerminationRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Cancel a pending contractor termination
+     * 
+     * <p>## Purpose
+     * Cancels a pending contractor dismissal. For future-dated dismissals, cancellation is available
+     * anytime before the date.
+     * For past-dated dismissals, cancellation is only available within the 2-day grace period.
+     * 
+     * <p>## Prerequisites
+     * Before calling this endpoint:
+     * - The contractor must have a pending dismissal (scheduled or within the grace period)
+     * 
+     * <p>## Related webhooks
+     * - `contractor.reactivated`: Fires when the contractor becomes active again after cancellation
+     * 
+     * <p>scope: `contractors:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param contractorUuid The UUID of the contractor
+     * @return {@code CompletableFuture<DeleteV1ContractorsContractorUuidTerminationResponse>} - The async response
+     */
+    public CompletableFuture<DeleteV1ContractorsContractorUuidTerminationResponse> deleteV1ContractorsContractorUuidTermination(String contractorUuid) {
+        return deleteV1ContractorsContractorUuidTermination(contractorUuid, Optional.empty());
+    }
+
+    /**
+     * Cancel a pending contractor termination
+     * 
+     * <p>## Purpose
+     * Cancels a pending contractor dismissal. For future-dated dismissals, cancellation is available
+     * anytime before the date.
+     * For past-dated dismissals, cancellation is only available within the 2-day grace period.
+     * 
+     * <p>## Prerequisites
+     * Before calling this endpoint:
+     * - The contractor must have a pending dismissal (scheduled or within the grace period)
+     * 
+     * <p>## Related webhooks
+     * - `contractor.reactivated`: Fires when the contractor becomes active again after cancellation
+     * 
+     * <p>scope: `contractors:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param contractorUuid The UUID of the contractor
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     * @return {@code CompletableFuture<DeleteV1ContractorsContractorUuidTerminationResponse>} - The async response
+     */
+    public CompletableFuture<DeleteV1ContractorsContractorUuidTerminationResponse> deleteV1ContractorsContractorUuidTermination(String contractorUuid, Optional<? extends DeleteV1ContractorsContractorUuidTerminationHeaderXGustoAPIVersion> xGustoAPIVersion) {
+        DeleteV1ContractorsContractorUuidTerminationRequest request =
+            DeleteV1ContractorsContractorUuidTerminationRequest
+                .builder()
+                .contractorUuid(contractorUuid)
+                .xGustoAPIVersion(xGustoAPIVersion)
+                .build();
+        AsyncRequestOperation<DeleteV1ContractorsContractorUuidTerminationRequest, DeleteV1ContractorsContractorUuidTerminationResponse> operation
+              = new DeleteV1ContractorsContractorUuidTermination.Async(sdkConfiguration, _headers);
         return operation.doRequest(request)
             .thenCompose(operation::handleResponse);
     }

@@ -1,0 +1,10 @@
+# CompanyBankAccountRequest
+
+
+## Fields
+
+| Field                                                                                                   | Type                                                                                                    | Required                                                                                                | Description                                                                                             |
+| ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `routingNumber`                                                                                         | *String*                                                                                                | :heavy_check_mark:                                                                                      | The bank routing number                                                                                 |
+| `accountNumber`                                                                                         | *String*                                                                                                | :heavy_check_mark:                                                                                      | The bank account number                                                                                 |
+| `accountType`                                                                                           | [CompanyBankAccountRequestAccountType](../../models/components/CompanyBankAccountRequestAccountType.md) | :heavy_check_mark:                                                                                      | The bank account type                                                                                   |

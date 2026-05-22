@@ -180,8 +180,11 @@ public class AsyncContractorPaymentGroups {
      * Preview a contractor payment group
      * 
      * <p>Preview a group of contractor payments. Request will validate inputs and return preview of the
-     * contractor payment group including the expected debit_date. Uuid will be null in the response.
-     * The returned creation_token is a required parameter in order to create the contractor payment group.
+     * contractor payment group including the expected `debit_date`. The `uuid` field will be null in the
+     * response.
+     * 
+     * <p>The returned `creation_token` is a required parameter in order to create the contractor payment
+     * group.
      * 
      * <p>scope: `payrolls:read`
      * 
@@ -197,8 +200,11 @@ public class AsyncContractorPaymentGroups {
      * Preview a contractor payment group
      * 
      * <p>Preview a group of contractor payments. Request will validate inputs and return preview of the
-     * contractor payment group including the expected debit_date. Uuid will be null in the response.
-     * The returned creation_token is a required parameter in order to create the contractor payment group.
+     * contractor payment group including the expected `debit_date`. The `uuid` field will be null in the
+     * response.
+     * 
+     * <p>The returned `creation_token` is a required parameter in order to create the contractor payment
+     * group.
      * 
      * <p>scope: `payrolls:read`
      * 
@@ -216,8 +222,11 @@ public class AsyncContractorPaymentGroups {
      * Preview a contractor payment group
      * 
      * <p>Preview a group of contractor payments. Request will validate inputs and return preview of the
-     * contractor payment group including the expected debit_date. Uuid will be null in the response.
-     * The returned creation_token is a required parameter in order to create the contractor payment group.
+     * contractor payment group including the expected `debit_date`. The `uuid` field will be null in the
+     * response.
+     * 
+     * <p>The returned `creation_token` is a required parameter in order to create the contractor payment
+     * group.
      * 
      * <p>scope: `payrolls:read`
      * 

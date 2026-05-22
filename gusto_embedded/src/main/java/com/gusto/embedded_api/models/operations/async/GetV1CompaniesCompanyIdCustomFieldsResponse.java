@@ -34,7 +34,7 @@ public class GetV1CompaniesCompanyIdCustomFieldsResponse implements AsyncRespons
     private HttpResponse<Blob> rawResponse;
 
     /**
-     * Example response
+     * successful
      */
     private Optional<? extends CompanyCustomFieldList> companyCustomFieldList;
 
@@ -87,7 +87,7 @@ public class GetV1CompaniesCompanyIdCustomFieldsResponse implements AsyncRespons
     }
 
     /**
-     * Example response
+     * successful
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -128,7 +128,7 @@ public class GetV1CompaniesCompanyIdCustomFieldsResponse implements AsyncRespons
     }
 
     /**
-     * Example response
+     * successful
      */
     public GetV1CompaniesCompanyIdCustomFieldsResponse withCompanyCustomFieldList(CompanyCustomFieldList companyCustomFieldList) {
         Utils.checkNotNull(companyCustomFieldList, "companyCustomFieldList");
@@ -138,7 +138,7 @@ public class GetV1CompaniesCompanyIdCustomFieldsResponse implements AsyncRespons
 
 
     /**
-     * Example response
+     * successful
      */
     public GetV1CompaniesCompanyIdCustomFieldsResponse withCompanyCustomFieldList(Optional<? extends CompanyCustomFieldList> companyCustomFieldList) {
         Utils.checkNotNull(companyCustomFieldList, "companyCustomFieldList");
@@ -225,7 +225,7 @@ public class GetV1CompaniesCompanyIdCustomFieldsResponse implements AsyncRespons
 
 
         /**
-         * Example response
+         * successful
          */
         public Builder companyCustomFieldList(CompanyCustomFieldList companyCustomFieldList) {
             Utils.checkNotNull(companyCustomFieldList, "companyCustomFieldList");
@@ -234,7 +234,7 @@ public class GetV1CompaniesCompanyIdCustomFieldsResponse implements AsyncRespons
         }
 
         /**
-         * Example response
+         * successful
          */
         public Builder companyCustomFieldList(Optional<? extends CompanyCustomFieldList> companyCustomFieldList) {
             Utils.checkNotNull(companyCustomFieldList, "companyCustomFieldList");

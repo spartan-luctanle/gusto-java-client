@@ -37,22 +37,22 @@ public class GetV1EmployeesEmployeeIdEmployeeBenefitsResponse implements Respons
     /**
      * Example response
      */
-    private Optional<? extends List<EmployeeBenefit>> employeeBenefitList;
+    private Optional<? extends List<EmployeeBenefit>> employeeBenefits;
 
     @JsonCreator
     public GetV1EmployeesEmployeeIdEmployeeBenefitsResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends List<EmployeeBenefit>> employeeBenefitList) {
+            Optional<? extends List<EmployeeBenefit>> employeeBenefits) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
-        Utils.checkNotNull(employeeBenefitList, "employeeBenefitList");
+        Utils.checkNotNull(employeeBenefits, "employeeBenefits");
         this.contentType = contentType;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
-        this.employeeBenefitList = employeeBenefitList;
+        this.employeeBenefits = employeeBenefits;
     }
     
     public GetV1EmployeesEmployeeIdEmployeeBenefitsResponse(
@@ -92,8 +92,8 @@ public class GetV1EmployeesEmployeeIdEmployeeBenefitsResponse implements Respons
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<List<EmployeeBenefit>> employeeBenefitList() {
-        return (Optional<List<EmployeeBenefit>>) employeeBenefitList;
+    public Optional<List<EmployeeBenefit>> employeeBenefits() {
+        return (Optional<List<EmployeeBenefit>>) employeeBenefits;
     }
 
     public static Builder builder() {
@@ -131,9 +131,9 @@ public class GetV1EmployeesEmployeeIdEmployeeBenefitsResponse implements Respons
     /**
      * Example response
      */
-    public GetV1EmployeesEmployeeIdEmployeeBenefitsResponse withEmployeeBenefitList(List<EmployeeBenefit> employeeBenefitList) {
-        Utils.checkNotNull(employeeBenefitList, "employeeBenefitList");
-        this.employeeBenefitList = Optional.ofNullable(employeeBenefitList);
+    public GetV1EmployeesEmployeeIdEmployeeBenefitsResponse withEmployeeBenefits(List<EmployeeBenefit> employeeBenefits) {
+        Utils.checkNotNull(employeeBenefits, "employeeBenefits");
+        this.employeeBenefits = Optional.ofNullable(employeeBenefits);
         return this;
     }
 
@@ -141,9 +141,9 @@ public class GetV1EmployeesEmployeeIdEmployeeBenefitsResponse implements Respons
     /**
      * Example response
      */
-    public GetV1EmployeesEmployeeIdEmployeeBenefitsResponse withEmployeeBenefitList(Optional<? extends List<EmployeeBenefit>> employeeBenefitList) {
-        Utils.checkNotNull(employeeBenefitList, "employeeBenefitList");
-        this.employeeBenefitList = employeeBenefitList;
+    public GetV1EmployeesEmployeeIdEmployeeBenefitsResponse withEmployeeBenefits(Optional<? extends List<EmployeeBenefit>> employeeBenefits) {
+        Utils.checkNotNull(employeeBenefits, "employeeBenefits");
+        this.employeeBenefits = employeeBenefits;
         return this;
     }
 
@@ -160,14 +160,14 @@ public class GetV1EmployeesEmployeeIdEmployeeBenefitsResponse implements Respons
             Utils.enhancedDeepEquals(this.contentType, other.contentType) &&
             Utils.enhancedDeepEquals(this.statusCode, other.statusCode) &&
             Utils.enhancedDeepEquals(this.rawResponse, other.rawResponse) &&
-            Utils.enhancedDeepEquals(this.employeeBenefitList, other.employeeBenefitList);
+            Utils.enhancedDeepEquals(this.employeeBenefits, other.employeeBenefits);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             contentType, statusCode, rawResponse,
-            employeeBenefitList);
+            employeeBenefits);
     }
     
     @Override
@@ -176,7 +176,7 @@ public class GetV1EmployeesEmployeeIdEmployeeBenefitsResponse implements Respons
                 "contentType", contentType,
                 "statusCode", statusCode,
                 "rawResponse", rawResponse,
-                "employeeBenefitList", employeeBenefitList);
+                "employeeBenefits", employeeBenefits);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -188,7 +188,7 @@ public class GetV1EmployeesEmployeeIdEmployeeBenefitsResponse implements Respons
 
         private HttpResponse<InputStream> rawResponse;
 
-        private Optional<? extends List<EmployeeBenefit>> employeeBenefitList = Optional.empty();
+        private Optional<? extends List<EmployeeBenefit>> employeeBenefits = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -228,18 +228,18 @@ public class GetV1EmployeesEmployeeIdEmployeeBenefitsResponse implements Respons
         /**
          * Example response
          */
-        public Builder employeeBenefitList(List<EmployeeBenefit> employeeBenefitList) {
-            Utils.checkNotNull(employeeBenefitList, "employeeBenefitList");
-            this.employeeBenefitList = Optional.ofNullable(employeeBenefitList);
+        public Builder employeeBenefits(List<EmployeeBenefit> employeeBenefits) {
+            Utils.checkNotNull(employeeBenefits, "employeeBenefits");
+            this.employeeBenefits = Optional.ofNullable(employeeBenefits);
             return this;
         }
 
         /**
          * Example response
          */
-        public Builder employeeBenefitList(Optional<? extends List<EmployeeBenefit>> employeeBenefitList) {
-            Utils.checkNotNull(employeeBenefitList, "employeeBenefitList");
-            this.employeeBenefitList = employeeBenefitList;
+        public Builder employeeBenefits(Optional<? extends List<EmployeeBenefit>> employeeBenefits) {
+            Utils.checkNotNull(employeeBenefits, "employeeBenefits");
+            this.employeeBenefits = employeeBenefits;
             return this;
         }
 
@@ -247,7 +247,7 @@ public class GetV1EmployeesEmployeeIdEmployeeBenefitsResponse implements Respons
 
             return new GetV1EmployeesEmployeeIdEmployeeBenefitsResponse(
                 contentType, statusCode, rawResponse,
-                employeeBenefitList);
+                employeeBenefits);
         }
 
     }

@@ -6,7 +6,7 @@ package com.gusto.embedded_api.models.operations;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.components.PlaidProcessorTokenRequest;
 import com.gusto.embedded_api.utils.LazySingletonValue;
 import com.gusto.embedded_api.utils.SpeakeasyMetadata;
 import com.gusto.embedded_api.utils.Utils;
@@ -23,25 +23,25 @@ public class PostV1PlaidProcessorTokenRequest {
      * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      */
     @SpeakeasyMetadata("header:style=simple,explode=false,name=X-Gusto-API-Version")
-    private Optional<? extends VersionHeader> xGustoAPIVersion;
+    private Optional<? extends PostV1PlaidProcessorTokenHeaderXGustoAPIVersion> xGustoAPIVersion;
 
 
     @SpeakeasyMetadata("request:mediaType=application/json")
-    private PostV1PlaidProcessorTokenRequestBody requestBody;
+    private PlaidProcessorTokenRequest plaidProcessorTokenRequest;
 
     @JsonCreator
     public PostV1PlaidProcessorTokenRequest(
-            Optional<? extends VersionHeader> xGustoAPIVersion,
-            PostV1PlaidProcessorTokenRequestBody requestBody) {
+            Optional<? extends PostV1PlaidProcessorTokenHeaderXGustoAPIVersion> xGustoAPIVersion,
+            PlaidProcessorTokenRequest plaidProcessorTokenRequest) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        Utils.checkNotNull(requestBody, "requestBody");
+        Utils.checkNotNull(plaidProcessorTokenRequest, "plaidProcessorTokenRequest");
         this.xGustoAPIVersion = xGustoAPIVersion;
-        this.requestBody = requestBody;
+        this.plaidProcessorTokenRequest = plaidProcessorTokenRequest;
     }
     
     public PostV1PlaidProcessorTokenRequest(
-            PostV1PlaidProcessorTokenRequestBody requestBody) {
-        this(Optional.empty(), requestBody);
+            PlaidProcessorTokenRequest plaidProcessorTokenRequest) {
+        this(Optional.empty(), plaidProcessorTokenRequest);
     }
 
     /**
@@ -51,13 +51,13 @@ public class PostV1PlaidProcessorTokenRequest {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<VersionHeader> xGustoAPIVersion() {
-        return (Optional<VersionHeader>) xGustoAPIVersion;
+    public Optional<PostV1PlaidProcessorTokenHeaderXGustoAPIVersion> xGustoAPIVersion() {
+        return (Optional<PostV1PlaidProcessorTokenHeaderXGustoAPIVersion>) xGustoAPIVersion;
     }
 
     @JsonIgnore
-    public PostV1PlaidProcessorTokenRequestBody requestBody() {
-        return requestBody;
+    public PlaidProcessorTokenRequest plaidProcessorTokenRequest() {
+        return plaidProcessorTokenRequest;
     }
 
     public static Builder builder() {
@@ -70,7 +70,7 @@ public class PostV1PlaidProcessorTokenRequest {
      * application's [minimum API
      * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      */
-    public PostV1PlaidProcessorTokenRequest withXGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+    public PostV1PlaidProcessorTokenRequest withXGustoAPIVersion(PostV1PlaidProcessorTokenHeaderXGustoAPIVersion xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
         return this;
@@ -82,15 +82,15 @@ public class PostV1PlaidProcessorTokenRequest {
      * application's [minimum API
      * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      */
-    public PostV1PlaidProcessorTokenRequest withXGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public PostV1PlaidProcessorTokenRequest withXGustoAPIVersion(Optional<? extends PostV1PlaidProcessorTokenHeaderXGustoAPIVersion> xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = xGustoAPIVersion;
         return this;
     }
 
-    public PostV1PlaidProcessorTokenRequest withRequestBody(PostV1PlaidProcessorTokenRequestBody requestBody) {
-        Utils.checkNotNull(requestBody, "requestBody");
-        this.requestBody = requestBody;
+    public PostV1PlaidProcessorTokenRequest withPlaidProcessorTokenRequest(PlaidProcessorTokenRequest plaidProcessorTokenRequest) {
+        Utils.checkNotNull(plaidProcessorTokenRequest, "plaidProcessorTokenRequest");
+        this.plaidProcessorTokenRequest = plaidProcessorTokenRequest;
         return this;
     }
 
@@ -105,28 +105,28 @@ public class PostV1PlaidProcessorTokenRequest {
         PostV1PlaidProcessorTokenRequest other = (PostV1PlaidProcessorTokenRequest) o;
         return 
             Utils.enhancedDeepEquals(this.xGustoAPIVersion, other.xGustoAPIVersion) &&
-            Utils.enhancedDeepEquals(this.requestBody, other.requestBody);
+            Utils.enhancedDeepEquals(this.plaidProcessorTokenRequest, other.plaidProcessorTokenRequest);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            xGustoAPIVersion, requestBody);
+            xGustoAPIVersion, plaidProcessorTokenRequest);
     }
     
     @Override
     public String toString() {
         return Utils.toString(PostV1PlaidProcessorTokenRequest.class,
                 "xGustoAPIVersion", xGustoAPIVersion,
-                "requestBody", requestBody);
+                "plaidProcessorTokenRequest", plaidProcessorTokenRequest);
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private Optional<? extends VersionHeader> xGustoAPIVersion;
+        private Optional<? extends PostV1PlaidProcessorTokenHeaderXGustoAPIVersion> xGustoAPIVersion;
 
-        private PostV1PlaidProcessorTokenRequestBody requestBody;
+        private PlaidProcessorTokenRequest plaidProcessorTokenRequest;
 
         private Builder() {
           // force use of static builder() method
@@ -138,7 +138,7 @@ public class PostV1PlaidProcessorTokenRequest {
          * application's [minimum API
          * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
          */
-        public Builder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+        public Builder xGustoAPIVersion(PostV1PlaidProcessorTokenHeaderXGustoAPIVersion xGustoAPIVersion) {
             Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
             this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
             return this;
@@ -149,16 +149,16 @@ public class PostV1PlaidProcessorTokenRequest {
          * application's [minimum API
          * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
          */
-        public Builder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+        public Builder xGustoAPIVersion(Optional<? extends PostV1PlaidProcessorTokenHeaderXGustoAPIVersion> xGustoAPIVersion) {
             Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
             this.xGustoAPIVersion = xGustoAPIVersion;
             return this;
         }
 
 
-        public Builder requestBody(PostV1PlaidProcessorTokenRequestBody requestBody) {
-            Utils.checkNotNull(requestBody, "requestBody");
-            this.requestBody = requestBody;
+        public Builder plaidProcessorTokenRequest(PlaidProcessorTokenRequest plaidProcessorTokenRequest) {
+            Utils.checkNotNull(plaidProcessorTokenRequest, "plaidProcessorTokenRequest");
+            this.plaidProcessorTokenRequest = plaidProcessorTokenRequest;
             return this;
         }
 
@@ -168,14 +168,14 @@ public class PostV1PlaidProcessorTokenRequest {
             }
 
             return new PostV1PlaidProcessorTokenRequest(
-                xGustoAPIVersion, requestBody);
+                xGustoAPIVersion, plaidProcessorTokenRequest);
         }
 
 
-        private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+        private static final LazySingletonValue<Optional<? extends PostV1PlaidProcessorTokenHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
                 new LazySingletonValue<>(
                         "X-Gusto-API-Version",
                         "\"2025-06-15\"",
-                        new TypeReference<Optional<? extends VersionHeader>>() {});
+                        new TypeReference<Optional<? extends PostV1PlaidProcessorTokenHeaderXGustoAPIVersion>>() {});
     }
 }

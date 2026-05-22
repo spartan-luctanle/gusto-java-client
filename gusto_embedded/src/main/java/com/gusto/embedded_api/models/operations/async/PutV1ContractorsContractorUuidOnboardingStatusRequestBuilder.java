@@ -7,9 +7,9 @@ import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.components.ContractorOnboardingStatusUpdateRequestBody;
+import com.gusto.embedded_api.models.operations.PutV1ContractorsContractorUuidOnboardingStatusHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PutV1ContractorsContractorUuidOnboardingStatusRequest;
-import com.gusto.embedded_api.models.operations.PutV1ContractorsContractorUuidOnboardingStatusRequestBody;
 import com.gusto.embedded_api.operations.PutV1ContractorsContractorUuidOnboardingStatus;
 import com.gusto.embedded_api.utils.Headers;
 import com.gusto.embedded_api.utils.LazySingletonValue;
@@ -20,17 +20,29 @@ import java.util.concurrent.CompletableFuture;
 
 public class PutV1ContractorsContractorUuidOnboardingStatusRequestBuilder {
 
-    private String contractorUuid;
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
+    private Optional<? extends PutV1ContractorsContractorUuidOnboardingStatusHeaderXGustoAPIVersion> xGustoAPIVersion = Utils.readDefaultOrConstValue(
                             "xGustoAPIVersion",
                             "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
-    private PutV1ContractorsContractorUuidOnboardingStatusRequestBody requestBody;
+                            new TypeReference<Optional<? extends PutV1ContractorsContractorUuidOnboardingStatusHeaderXGustoAPIVersion>>() {});
+    private String contractorUuid;
+    private ContractorOnboardingStatusUpdateRequestBody contractorOnboardingStatusUpdateRequestBody;
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
     public PutV1ContractorsContractorUuidOnboardingStatusRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
+    }
+                
+    public PutV1ContractorsContractorUuidOnboardingStatusRequestBuilder xGustoAPIVersion(PutV1ContractorsContractorUuidOnboardingStatusHeaderXGustoAPIVersion xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
+        return this;
+    }
+
+    public PutV1ContractorsContractorUuidOnboardingStatusRequestBuilder xGustoAPIVersion(Optional<? extends PutV1ContractorsContractorUuidOnboardingStatusHeaderXGustoAPIVersion> xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = xGustoAPIVersion;
+        return this;
     }
 
     public PutV1ContractorsContractorUuidOnboardingStatusRequestBuilder contractorUuid(String contractorUuid) {
@@ -38,22 +50,10 @@ public class PutV1ContractorsContractorUuidOnboardingStatusRequestBuilder {
         this.contractorUuid = contractorUuid;
         return this;
     }
-                
-    public PutV1ContractorsContractorUuidOnboardingStatusRequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
-        return this;
-    }
 
-    public PutV1ContractorsContractorUuidOnboardingStatusRequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = xGustoAPIVersion;
-        return this;
-    }
-
-    public PutV1ContractorsContractorUuidOnboardingStatusRequestBuilder requestBody(PutV1ContractorsContractorUuidOnboardingStatusRequestBody requestBody) {
-        Utils.checkNotNull(requestBody, "requestBody");
-        this.requestBody = requestBody;
+    public PutV1ContractorsContractorUuidOnboardingStatusRequestBuilder contractorOnboardingStatusUpdateRequestBody(ContractorOnboardingStatusUpdateRequestBody contractorOnboardingStatusUpdateRequestBody) {
+        Utils.checkNotNull(contractorOnboardingStatusUpdateRequestBody, "contractorOnboardingStatusUpdateRequestBody");
+        this.contractorOnboardingStatusUpdateRequestBody = contractorOnboardingStatusUpdateRequestBody;
         return this;
     }
 
@@ -63,9 +63,9 @@ public class PutV1ContractorsContractorUuidOnboardingStatusRequestBuilder {
             xGustoAPIVersion = _SINGLETON_VALUE_XGustoAPIVersion.value();
         }
 
-        PutV1ContractorsContractorUuidOnboardingStatusRequest request = new PutV1ContractorsContractorUuidOnboardingStatusRequest(contractorUuid,
-            xGustoAPIVersion,
-            requestBody);
+        PutV1ContractorsContractorUuidOnboardingStatusRequest request = new PutV1ContractorsContractorUuidOnboardingStatusRequest(xGustoAPIVersion,
+            contractorUuid,
+            contractorOnboardingStatusUpdateRequestBody);
 
         return request;
     }
@@ -80,9 +80,9 @@ public class PutV1ContractorsContractorUuidOnboardingStatusRequestBuilder {
             .thenCompose(operation::handleResponse);
     }
 
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+    private static final LazySingletonValue<Optional<? extends PutV1ContractorsContractorUuidOnboardingStatusHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
             new LazySingletonValue<>(
                     "xGustoAPIVersion",
                     "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
+                    new TypeReference<Optional<? extends PutV1ContractorsContractorUuidOnboardingStatusHeaderXGustoAPIVersion>>() {});
 }

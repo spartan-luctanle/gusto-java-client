@@ -121,10 +121,10 @@ public class GustoEmbedded {
     private final EmployeeTaxSetup employeeTaxSetup;
 
 
-    private final EmployeePaymentMethod employeePaymentMethod;
-
-
     private final EmployeePaymentMethods employeePaymentMethods;
+
+
+    private final EmployeePaymentMethod employeePaymentMethod;
 
 
     private final JobsAndCompensations jobsAndCompensations;
@@ -136,10 +136,10 @@ public class GustoEmbedded {
     private final Contractors contractors;
 
 
-    private final ContractorPaymentMethods contractorPaymentMethods;
-
-
     private final ContractorPaymentMethod contractorPaymentMethod;
+
+
+    private final ContractorPaymentMethods contractorPaymentMethods;
 
 
     private final Webhooks webhooks;
@@ -218,6 +218,9 @@ public class GustoEmbedded {
 
 
     private final PeopleBatches peopleBatches;
+
+
+    private final TimeOffRequests timeOffRequests;
 
 
     public Introspection introspection() {
@@ -320,13 +323,13 @@ public class GustoEmbedded {
     }
 
 
-    public EmployeePaymentMethod employeePaymentMethod() {
-        return employeePaymentMethod;
+    public EmployeePaymentMethods employeePaymentMethods() {
+        return employeePaymentMethods;
     }
 
 
-    public EmployeePaymentMethods employeePaymentMethods() {
-        return employeePaymentMethods;
+    public EmployeePaymentMethod employeePaymentMethod() {
+        return employeePaymentMethod;
     }
 
 
@@ -345,13 +348,13 @@ public class GustoEmbedded {
     }
 
 
-    public ContractorPaymentMethods contractorPaymentMethods() {
-        return contractorPaymentMethods;
+    public ContractorPaymentMethod contractorPaymentMethod() {
+        return contractorPaymentMethod;
     }
 
 
-    public ContractorPaymentMethod contractorPaymentMethod() {
-        return contractorPaymentMethod;
+    public ContractorPaymentMethods contractorPaymentMethods() {
+        return contractorPaymentMethods;
     }
 
 
@@ -482,6 +485,11 @@ public class GustoEmbedded {
 
     public PeopleBatches peopleBatches() {
         return peopleBatches;
+    }
+
+
+    public TimeOffRequests timeOffRequests() {
+        return timeOffRequests;
     }
     private final AsyncGustoEmbedded asyncSDK;
 
@@ -656,13 +664,13 @@ public class GustoEmbedded {
         this.employeeEmployments = new EmployeeEmployments(sdkConfiguration);
         this.employeeAddresses = new EmployeeAddresses(sdkConfiguration);
         this.employeeTaxSetup = new EmployeeTaxSetup(sdkConfiguration);
-        this.employeePaymentMethod = new EmployeePaymentMethod(sdkConfiguration);
         this.employeePaymentMethods = new EmployeePaymentMethods(sdkConfiguration);
+        this.employeePaymentMethod = new EmployeePaymentMethod(sdkConfiguration);
         this.jobsAndCompensations = new JobsAndCompensations(sdkConfiguration);
         this.earningTypes = new EarningTypes(sdkConfiguration);
         this.contractors = new Contractors(sdkConfiguration);
-        this.contractorPaymentMethods = new ContractorPaymentMethods(sdkConfiguration);
         this.contractorPaymentMethod = new ContractorPaymentMethod(sdkConfiguration);
+        this.contractorPaymentMethods = new ContractorPaymentMethods(sdkConfiguration);
         this.webhooks = new Webhooks(sdkConfiguration);
         this.contractorForms = new ContractorForms(sdkConfiguration);
         this.contractorDocuments = new ContractorDocuments(sdkConfiguration);
@@ -689,6 +697,7 @@ public class GustoEmbedded {
         this.salaryEstimates = new SalaryEstimates(sdkConfiguration);
         this.reimbursements = new Reimbursements(sdkConfiguration);
         this.peopleBatches = new PeopleBatches(sdkConfiguration);
+        this.timeOffRequests = new TimeOffRequests(sdkConfiguration);
         SdkInitData data = sdkConfiguration.hooks().sdkInit(
                 new SdkInitData(
                         sdkConfiguration.resolvedServerUrl(), 

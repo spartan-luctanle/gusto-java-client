@@ -1,7 +1,6 @@
 # WageType
 
-The contractor’s wage type.
-
+The contractor's wage type, either "Fixed" or "Hourly".
 
 ## Example Usage
 

@@ -5,7 +5,7 @@ package com.gusto.embedded_api.models.operations.async;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.gusto.embedded_api.models.operations.PostV1SandboxGenerateW2Form;
+import com.gusto.embedded_api.models.components.Form;
 import com.gusto.embedded_api.utils.AsyncResponse;
 import com.gusto.embedded_api.utils.Blob;
 import com.gusto.embedded_api.utils.Utils;
@@ -34,16 +34,16 @@ public class PostV1SandboxGenerateW2Response implements AsyncResponse {
     private HttpResponse<Blob> rawResponse;
 
     /**
-     * OK
+     * Created
      */
-    private Optional<? extends PostV1SandboxGenerateW2Form> form;
+    private Optional<? extends Form> form;
 
     @JsonCreator
     public PostV1SandboxGenerateW2Response(
             String contentType,
             int statusCode,
             HttpResponse<Blob> rawResponse,
-            Optional<? extends PostV1SandboxGenerateW2Form> form) {
+            Optional<? extends Form> form) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
@@ -87,12 +87,12 @@ public class PostV1SandboxGenerateW2Response implements AsyncResponse {
     }
 
     /**
-     * OK
+     * Created
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<PostV1SandboxGenerateW2Form> form() {
-        return (Optional<PostV1SandboxGenerateW2Form>) form;
+    public Optional<Form> form() {
+        return (Optional<Form>) form;
     }
 
     public static Builder builder() {
@@ -128,9 +128,9 @@ public class PostV1SandboxGenerateW2Response implements AsyncResponse {
     }
 
     /**
-     * OK
+     * Created
      */
-    public PostV1SandboxGenerateW2Response withForm(PostV1SandboxGenerateW2Form form) {
+    public PostV1SandboxGenerateW2Response withForm(Form form) {
         Utils.checkNotNull(form, "form");
         this.form = Optional.ofNullable(form);
         return this;
@@ -138,9 +138,9 @@ public class PostV1SandboxGenerateW2Response implements AsyncResponse {
 
 
     /**
-     * OK
+     * Created
      */
-    public PostV1SandboxGenerateW2Response withForm(Optional<? extends PostV1SandboxGenerateW2Form> form) {
+    public PostV1SandboxGenerateW2Response withForm(Optional<? extends Form> form) {
         Utils.checkNotNull(form, "form");
         this.form = form;
         return this;
@@ -187,7 +187,7 @@ public class PostV1SandboxGenerateW2Response implements AsyncResponse {
 
         private HttpResponse<Blob> rawResponse;
 
-        private Optional<? extends PostV1SandboxGenerateW2Form> form = Optional.empty();
+        private Optional<? extends Form> form = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -225,18 +225,18 @@ public class PostV1SandboxGenerateW2Response implements AsyncResponse {
 
 
         /**
-         * OK
+         * Created
          */
-        public Builder form(PostV1SandboxGenerateW2Form form) {
+        public Builder form(Form form) {
             Utils.checkNotNull(form, "form");
             this.form = Optional.ofNullable(form);
             return this;
         }
 
         /**
-         * OK
+         * Created
          */
-        public Builder form(Optional<? extends PostV1SandboxGenerateW2Form> form) {
+        public Builder form(Optional<? extends Form> form) {
             Utils.checkNotNull(form, "form");
             this.form = form;
             return this;

@@ -5,40 +5,36 @@ package com.gusto.embedded_api.models.operations;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.gusto.embedded_api.utils.Utils;
 import java.lang.Override;
 import java.lang.String;
 import java.time.LocalDate;
-import java.util.Optional;
 
-
+/**
+ * Job
+ * 
+ * <p>Hire date for the historical job used to build employments and filings.
+ */
 public class Job {
     /**
-     * The date when the employee was hired to the company
+     * First calendar day the employee was employed in this role at the company.
      */
-    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("hire_date")
-    private Optional<LocalDate> hireDate;
+    private LocalDate hireDate;
 
     @JsonCreator
     public Job(
-            @JsonProperty("hire_date") Optional<LocalDate> hireDate) {
+            @JsonProperty("hire_date") LocalDate hireDate) {
         Utils.checkNotNull(hireDate, "hireDate");
         this.hireDate = hireDate;
     }
-    
-    public Job() {
-        this(Optional.empty());
-    }
 
     /**
-     * The date when the employee was hired to the company
+     * First calendar day the employee was employed in this role at the company.
      */
     @JsonIgnore
-    public Optional<LocalDate> hireDate() {
+    public LocalDate hireDate() {
         return hireDate;
     }
 
@@ -48,19 +44,9 @@ public class Job {
 
 
     /**
-     * The date when the employee was hired to the company
+     * First calendar day the employee was employed in this role at the company.
      */
     public Job withHireDate(LocalDate hireDate) {
-        Utils.checkNotNull(hireDate, "hireDate");
-        this.hireDate = Optional.ofNullable(hireDate);
-        return this;
-    }
-
-
-    /**
-     * The date when the employee was hired to the company
-     */
-    public Job withHireDate(Optional<LocalDate> hireDate) {
         Utils.checkNotNull(hireDate, "hireDate");
         this.hireDate = hireDate;
         return this;
@@ -94,7 +80,7 @@ public class Job {
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private Optional<LocalDate> hireDate = Optional.empty();
+        private LocalDate hireDate;
 
         private Builder() {
           // force use of static builder() method
@@ -102,18 +88,9 @@ public class Job {
 
 
         /**
-         * The date when the employee was hired to the company
+         * First calendar day the employee was employed in this role at the company.
          */
         public Builder hireDate(LocalDate hireDate) {
-            Utils.checkNotNull(hireDate, "hireDate");
-            this.hireDate = Optional.ofNullable(hireDate);
-            return this;
-        }
-
-        /**
-         * The date when the employee was hired to the company
-         */
-        public Builder hireDate(Optional<LocalDate> hireDate) {
             Utils.checkNotNull(hireDate, "hireDate");
             this.hireDate = hireDate;
             return this;

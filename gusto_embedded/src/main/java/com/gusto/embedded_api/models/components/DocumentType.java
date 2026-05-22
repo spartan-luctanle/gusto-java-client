@@ -9,7 +9,9 @@ import java.util.Objects;
 import java.util.Optional;
 
 public enum DocumentType {
-    PRINTABLE_PAYROLL_CHECKS("printable_payroll_checks");
+    USCIS_ALIEN_REGISTRATION_NUMBER("uscis_alien_registration_number"),
+    FORM_I94("form_i94"),
+    FOREIGN_PASSPORT("foreign_passport");
 
     @JsonValue
     private final String value;

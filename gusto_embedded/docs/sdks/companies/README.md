@@ -7,11 +7,12 @@
 * [createPartnerManaged](#createpartnermanaged) - Create a partner managed company
 * [get](#get) - Get a company
 * [update](#update) - Update a company
+* [migrate](#migrate) - Migrate company to embedded payroll
 * [getV1PartnerManagedCompaniesCompanyUuidMigrationReadiness](#getv1partnermanagedcompaniescompanyuuidmigrationreadiness) - Check company migration readiness
 * [acceptTermsOfService](#accepttermsofservice) - Accept terms of service for a company user
 * [retrieveTermsOfService](#retrievetermsofservice) - Retrieve terms of service status for a company user
-* [createAdmin](#createadmin) - Create an admin for the company
 * [listAdmins](#listadmins) - Get all the admins at a company
+* [createAdmin](#createadmin) - Create an admin for the company
 * [getOnboardingStatus](#getonboardingstatus) - Get company onboarding status
 * [finishOnboarding](#finishonboarding) - Finish company onboarding
 * [getCustomFields](#getcustomfields) - Get the custom fields of a company
@@ -27,9 +28,11 @@ In response, you will receive oauth access tokens for the created company.
 
 IMPORTANT: the returned access and refresh tokens are reserved for this company only. They cannot be used to access other companies AND previously granted tokens cannot be used to access this company.
 
-> 📘 System Access Authentication
->
-> this endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP Authorization header](https://docs.gusto.com/embedded-payroll/docs/system-access)
+📘 System Access Authentication
+
+This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP Authorization header](https://docs.gusto.com/embedded-payroll/docs/system-access)
+
+scope: `partner_managed_companies:manage`
 
 ### Example Usage: Basic
 
@@ -38,14 +41,14 @@ IMPORTANT: the returned access and refresh tokens are reserved for this company 
 package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.VersionHeader;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
+import com.gusto.embedded_api.models.components.*;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
 import com.gusto.embedded_api.models.operations.*;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
             .build();
@@ -54,21 +57,21 @@ public class Application {
                 .security(PostV1PartnerManagedCompaniesSecurity.builder()
                     .systemAccessAuth(System.getenv().getOrDefault("SYSTEM_ACCESS_AUTH", ""))
                     .build())
-                .xGustoAPIVersion(VersionHeader.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
-                .requestBody(PostV1PartnerManagedCompaniesRequestBody.builder()
+                .xGustoAPIVersion(PostV1PartnerManagedCompaniesHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
+                .partnerManagedCompanyCreateRequest(PartnerManagedCompanyCreateRequest.builder()
                     .user(User.builder()
                         .firstName("Randi")
                         .lastName("Schaden")
                         .email("Geovanni_Mertz12@yahoo.com")
                         .build())
-                    .company(Company.builder()
+                    .company(PartnerManagedCompanyCreateRequestCompany.builder()
                         .name("<value>")
                         .build())
                     .build())
                 .call();
 
-        if (res.object().isPresent()) {
-            System.out.println(res.object().get());
+        if (res.partnerManagedCompany().isPresent()) {
+            System.out.println(res.partnerManagedCompany().get());
         }
     }
 }
@@ -80,14 +83,14 @@ public class Application {
 package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.VersionHeader;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
+import com.gusto.embedded_api.models.components.*;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
 import com.gusto.embedded_api.models.operations.*;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
             .build();
@@ -96,15 +99,15 @@ public class Application {
                 .security(PostV1PartnerManagedCompaniesSecurity.builder()
                     .systemAccessAuth(System.getenv().getOrDefault("SYSTEM_ACCESS_AUTH", ""))
                     .build())
-                .xGustoAPIVersion(VersionHeader.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
-                .requestBody(PostV1PartnerManagedCompaniesRequestBody.builder()
+                .xGustoAPIVersion(PostV1PartnerManagedCompaniesHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
+                .partnerManagedCompanyCreateRequest(PartnerManagedCompanyCreateRequest.builder()
                     .user(User.builder()
                         .firstName("Frank")
                         .lastName("Ocean")
                         .email("frank@example.com")
                         .phone("2345558899")
                         .build())
-                    .company(Company.builder()
+                    .company(PartnerManagedCompanyCreateRequestCompany.builder()
                         .name("Frank's Ocean, LLC")
                         .tradeName("Frank’s Ocean")
                         .ein("123456789")
@@ -113,8 +116,8 @@ public class Application {
                     .build())
                 .call();
 
-        if (res.object().isPresent()) {
-            System.out.println(res.object().get());
+        if (res.partnerManagedCompany().isPresent()) {
+            System.out.println(res.partnerManagedCompany().get());
         }
     }
 }
@@ -126,14 +129,14 @@ public class Application {
 package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.VersionHeader;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
+import com.gusto.embedded_api.models.components.*;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
 import com.gusto.embedded_api.models.operations.*;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
             .build();
@@ -142,21 +145,21 @@ public class Application {
                 .security(PostV1PartnerManagedCompaniesSecurity.builder()
                     .systemAccessAuth(System.getenv().getOrDefault("SYSTEM_ACCESS_AUTH", ""))
                     .build())
-                .xGustoAPIVersion(VersionHeader.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
-                .requestBody(PostV1PartnerManagedCompaniesRequestBody.builder()
+                .xGustoAPIVersion(PostV1PartnerManagedCompaniesHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
+                .partnerManagedCompanyCreateRequest(PartnerManagedCompanyCreateRequest.builder()
                     .user(User.builder()
                         .firstName("Randi")
                         .lastName("Schaden")
                         .email("Geovanni_Mertz12@yahoo.com")
                         .build())
-                    .company(Company.builder()
+                    .company(PartnerManagedCompanyCreateRequestCompany.builder()
                         .name("<value>")
                         .build())
                     .build())
                 .call();
 
-        if (res.object().isPresent()) {
-            System.out.println(res.object().get());
+        if (res.partnerManagedCompany().isPresent()) {
+            System.out.println(res.partnerManagedCompany().get());
         }
     }
 }
@@ -168,14 +171,14 @@ public class Application {
 package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.VersionHeader;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
+import com.gusto.embedded_api.models.components.*;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
 import com.gusto.embedded_api.models.operations.*;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
             .build();
@@ -184,21 +187,21 @@ public class Application {
                 .security(PostV1PartnerManagedCompaniesSecurity.builder()
                     .systemAccessAuth(System.getenv().getOrDefault("SYSTEM_ACCESS_AUTH", ""))
                     .build())
-                .xGustoAPIVersion(VersionHeader.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
-                .requestBody(PostV1PartnerManagedCompaniesRequestBody.builder()
+                .xGustoAPIVersion(PostV1PartnerManagedCompaniesHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
+                .partnerManagedCompanyCreateRequest(PartnerManagedCompanyCreateRequest.builder()
                     .user(User.builder()
                         .firstName("Randi")
                         .lastName("Schaden")
                         .email("Geovanni_Mertz12@yahoo.com")
                         .build())
-                    .company(Company.builder()
+                    .company(PartnerManagedCompanyCreateRequestCompany.builder()
                         .name("<value>")
                         .build())
                     .build())
                 .call();
 
-        if (res.object().isPresent()) {
-            System.out.println(res.object().get());
+        if (res.partnerManagedCompany().isPresent()) {
+            System.out.println(res.partnerManagedCompany().get());
         }
     }
 }
@@ -209,8 +212,8 @@ public class Application {
 | Parameter                                                                                                                                                                                                                    | Type                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                  |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `security`                                                                                                                                                                                                                   | [com.gusto.embedded_api.models.operations.PostV1PartnerManagedCompaniesSecurity](../../models/operations/PostV1PartnerManagedCompaniesSecurity.md)                                                                           | :heavy_check_mark:                                                                                                                                                                                                           | The security requirements to use for the request.                                                                                                                                                                            |
-| `xGustoAPIVersion`                                                                                                                                                                                                           | [Optional\<VersionHeader>](../../models/components/VersionHeader.md)                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                           | Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used. |
-| `requestBody`                                                                                                                                                                                                                | [PostV1PartnerManagedCompaniesRequestBody](../../models/operations/PostV1PartnerManagedCompaniesRequestBody.md)                                                                                                              | :heavy_check_mark:                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                          |
+| `xGustoAPIVersion`                                                                                                                                                                                                           | [Optional\<PostV1PartnerManagedCompaniesHeaderXGustoAPIVersion>](../../models/operations/PostV1PartnerManagedCompaniesHeaderXGustoAPIVersion.md)                                                                             | :heavy_minus_sign:                                                                                                                                                                                                           | Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used. |
+| `partnerManagedCompanyCreateRequest`                                                                                                                                                                                         | [PartnerManagedCompanyCreateRequest](../../models/components/PartnerManagedCompanyCreateRequest.md)                                                                                                                          | :heavy_check_mark:                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                          |
 
 ### Response
 
@@ -218,10 +221,10 @@ public class Application {
 
 ### Errors
 
-| Error Type                                   | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| models/errors/UnprocessableEntityErrorObject | 422                                          | application/json                             |
-| models/errors/APIException                   | 4XX, 5XX                                     | \*/\*                                        |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/UnprocessableEntityError | 422                                    | application/json                       |
+| models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
 
 ## get
 
@@ -297,13 +300,13 @@ package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
 import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
 import com.gusto.embedded_api.models.operations.*;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
@@ -331,13 +334,13 @@ package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
 import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
 import com.gusto.embedded_api.models.operations.*;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
@@ -365,13 +368,13 @@ package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
 import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
 import com.gusto.embedded_api.models.operations.*;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
@@ -399,13 +402,13 @@ package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
 import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
 import com.gusto.embedded_api.models.operations.*;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
@@ -440,11 +443,160 @@ public class Application {
 
 ### Errors
 
-| Error Type                                   | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| models/errors/NotFoundErrorObject            | 404                                          | application/json                             |
-| models/errors/UnprocessableEntityErrorObject | 422                                          | application/json                             |
-| models/errors/APIException                   | 4XX, 5XX                                     | \*/\*                                        |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/NotFoundErrorObject      | 404                                    | application/json                       |
+| models/errors/UnprocessableEntityError | 422                                    | application/json                       |
+| models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
+
+## migrate
+
+Migrate an existing Gusto customer to your embedded payroll product.
+
+### Prerequisites
+Before calling this endpoint:
+1. The customer must connect their Gusto account to your application using [OAuth2](doc:oauth2)
+2. The customer must view and [accept the Embedded Payroll Terms of Service](ref:post-partner-managed-companies-company_uuid-accept_terms_of_service)
+
+### Related guides
+- [Migrate an existing company](doc:migrate-existing-company)
+
+scope: `partner_managed_companies:write`
+
+### Example Usage: Basic
+
+<!-- UsageSnippet language="java" operationID="put-v1-partner-managed-companies-company-uuid-migrate" method="put" path="/v1/partner_managed_companies/{company_uuid}/migrate" example="Basic" -->
+```java
+package hello.world;
+
+import com.gusto.embedded_api.GustoEmbedded;
+import com.gusto.embedded_api.models.components.PartnerManagedCompanyMigrateRequest;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
+import com.gusto.embedded_api.models.operations.PutV1PartnerManagedCompaniesCompanyUuidMigrateHeaderXGustoAPIVersion;
+import com.gusto.embedded_api.models.operations.PutV1PartnerManagedCompaniesCompanyUuidMigrateResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
+
+        GustoEmbedded sdk = GustoEmbedded.builder()
+                .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
+            .build();
+
+        PutV1PartnerManagedCompaniesCompanyUuidMigrateResponse res = sdk.companies().migrate()
+                .companyUuid("<id>")
+                .xGustoAPIVersion(PutV1PartnerManagedCompaniesCompanyUuidMigrateHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
+                .partnerManagedCompanyMigrateRequest(PartnerManagedCompanyMigrateRequest.builder()
+                    .email("Janice18@gmail.com")
+                    .ipAddress("75.249.55.210")
+                    .externalUserId("<id>")
+                    .build())
+                .call();
+
+        if (res.partnerManagedCompanyMigrateResponse().isPresent()) {
+            System.out.println(res.partnerManagedCompanyMigrateResponse().get());
+        }
+    }
+}
+```
+### Example Usage: Nested
+
+<!-- UsageSnippet language="java" operationID="put-v1-partner-managed-companies-company-uuid-migrate" method="put" path="/v1/partner_managed_companies/{company_uuid}/migrate" example="Nested" -->
+```java
+package hello.world;
+
+import com.gusto.embedded_api.GustoEmbedded;
+import com.gusto.embedded_api.models.components.PartnerManagedCompanyMigrateRequest;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
+import com.gusto.embedded_api.models.operations.PutV1PartnerManagedCompaniesCompanyUuidMigrateHeaderXGustoAPIVersion;
+import com.gusto.embedded_api.models.operations.PutV1PartnerManagedCompaniesCompanyUuidMigrateResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
+
+        GustoEmbedded sdk = GustoEmbedded.builder()
+                .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
+            .build();
+
+        PutV1PartnerManagedCompaniesCompanyUuidMigrateResponse res = sdk.companies().migrate()
+                .companyUuid("<id>")
+                .xGustoAPIVersion(PutV1PartnerManagedCompaniesCompanyUuidMigrateHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
+                .partnerManagedCompanyMigrateRequest(PartnerManagedCompanyMigrateRequest.builder()
+                    .email("Janice18@gmail.com")
+                    .ipAddress("75.249.55.210")
+                    .externalUserId("<id>")
+                    .build())
+                .call();
+
+        if (res.partnerManagedCompanyMigrateResponse().isPresent()) {
+            System.out.println(res.partnerManagedCompanyMigrateResponse().get());
+        }
+    }
+}
+```
+### Example Usage: Resource
+
+<!-- UsageSnippet language="java" operationID="put-v1-partner-managed-companies-company-uuid-migrate" method="put" path="/v1/partner_managed_companies/{company_uuid}/migrate" example="Resource" -->
+```java
+package hello.world;
+
+import com.gusto.embedded_api.GustoEmbedded;
+import com.gusto.embedded_api.models.components.PartnerManagedCompanyMigrateRequest;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
+import com.gusto.embedded_api.models.operations.PutV1PartnerManagedCompaniesCompanyUuidMigrateHeaderXGustoAPIVersion;
+import com.gusto.embedded_api.models.operations.PutV1PartnerManagedCompaniesCompanyUuidMigrateResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
+
+        GustoEmbedded sdk = GustoEmbedded.builder()
+                .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
+            .build();
+
+        PutV1PartnerManagedCompaniesCompanyUuidMigrateResponse res = sdk.companies().migrate()
+                .companyUuid("<id>")
+                .xGustoAPIVersion(PutV1PartnerManagedCompaniesCompanyUuidMigrateHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
+                .partnerManagedCompanyMigrateRequest(PartnerManagedCompanyMigrateRequest.builder()
+                    .email("Janice18@gmail.com")
+                    .ipAddress("75.249.55.210")
+                    .externalUserId("<id>")
+                    .build())
+                .call();
+
+        if (res.partnerManagedCompanyMigrateResponse().isPresent()) {
+            System.out.println(res.partnerManagedCompanyMigrateResponse().get());
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                                                                    | Type                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                  |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `companyUuid`                                                                                                                                                                                                                | *String*                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                           | The UUID of the company                                                                                                                                                                                                      |
+| `xGustoAPIVersion`                                                                                                                                                                                                           | [Optional\<PutV1PartnerManagedCompaniesCompanyUuidMigrateHeaderXGustoAPIVersion>](../../models/operations/PutV1PartnerManagedCompaniesCompanyUuidMigrateHeaderXGustoAPIVersion.md)                                           | :heavy_minus_sign:                                                                                                                                                                                                           | Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used. |
+| `partnerManagedCompanyMigrateRequest`                                                                                                                                                                                        | [PartnerManagedCompanyMigrateRequest](../../models/components/PartnerManagedCompanyMigrateRequest.md)                                                                                                                        | :heavy_check_mark:                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                          |
+
+### Response
+
+**[PutV1PartnerManagedCompaniesCompanyUuidMigrateResponse](../../models/operations/PutV1PartnerManagedCompaniesCompanyUuidMigrateResponse.md)**
+
+### Errors
+
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/NotFoundErrorObject      | 404                                    | application/json                       |
+| models/errors/UnprocessableEntityError | 422                                    | application/json                       |
+| models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
 
 ## getV1PartnerManagedCompaniesCompanyUuidMigrationReadiness
 
@@ -459,13 +611,14 @@ scope: `partner_managed_companies:read`
 package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.operations.GetV1PartnerManagedCompaniesCompanyUuidMigrationReadinessHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1PartnerManagedCompaniesCompanyUuidMigrationReadinessResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
@@ -473,11 +626,11 @@ public class Application {
 
         GetV1PartnerManagedCompaniesCompanyUuidMigrationReadinessResponse res = sdk.companies().getV1PartnerManagedCompaniesCompanyUuidMigrationReadiness()
                 .companyUuid("<id>")
-                .xGustoAPIVersion(VersionHeader.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
+                .xGustoAPIVersion(GetV1PartnerManagedCompaniesCompanyUuidMigrationReadinessHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
                 .call();
 
-        if (res.object().isPresent()) {
-            System.out.println(res.object().get());
+        if (res.partnerManagedCompanyMigrationReadinessResponse().isPresent()) {
+            System.out.println(res.partnerManagedCompanyMigrationReadinessResponse().get());
         }
     }
 }
@@ -488,7 +641,7 @@ public class Application {
 | Parameter                                                                                                                                                                                                                    | Type                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                  |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `companyUuid`                                                                                                                                                                                                                | *String*                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                           | The UUID of the company                                                                                                                                                                                                      |
-| `xGustoAPIVersion`                                                                                                                                                                                                           | [Optional\<VersionHeader>](../../models/components/VersionHeader.md)                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                           | Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used. |
+| `xGustoAPIVersion`                                                                                                                                                                                                           | [Optional\<GetV1PartnerManagedCompaniesCompanyUuidMigrationReadinessHeaderXGustoAPIVersion>](../../models/operations/GetV1PartnerManagedCompaniesCompanyUuidMigrationReadinessHeaderXGustoAPIVersion.md)                     | :heavy_minus_sign:                                                                                                                                                                                                           | Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used. |
 
 ### Response
 
@@ -496,9 +649,10 @@ public class Application {
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| models/errors/APIException | 4XX, 5XX                   | \*/\*                      |
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/NotFoundErrorObject | 404                               | application/json                  |
+| models/errors/APIException        | 4XX, 5XX                          | \*/\*                             |
 
 ## acceptTermsOfService
 
@@ -514,15 +668,16 @@ scope: `terms_of_services:write`
 package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.VersionHeader;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
-import com.gusto.embedded_api.models.operations.PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceRequestBody;
+import com.gusto.embedded_api.models.components.PartnerManagedCompanyAcceptTermsOfServiceRequest;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
+import com.gusto.embedded_api.models.operations.PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
@@ -530,16 +685,16 @@ public class Application {
 
         PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceResponse res = sdk.companies().acceptTermsOfService()
                 .companyUuid("<id>")
-                .xGustoAPIVersion(VersionHeader.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
-                .requestBody(PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceRequestBody.builder()
+                .xGustoAPIVersion(PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
+                .partnerManagedCompanyAcceptTermsOfServiceRequest(PartnerManagedCompanyAcceptTermsOfServiceRequest.builder()
                     .email("Mary_Welch@hotmail.com")
                     .ipAddress("ad95:edec:dbf8:daea:be73:caca:2bf2:c269")
                     .externalUserId("<id>")
                     .build())
                 .call();
 
-        if (res.object().isPresent()) {
-            System.out.println(res.object().get());
+        if (res.partnerManagedCompanyTermsOfServiceResponse().isPresent()) {
+            System.out.println(res.partnerManagedCompanyTermsOfServiceResponse().get());
         }
     }
 }
@@ -551,15 +706,16 @@ public class Application {
 package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.VersionHeader;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
-import com.gusto.embedded_api.models.operations.PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceRequestBody;
+import com.gusto.embedded_api.models.components.PartnerManagedCompanyAcceptTermsOfServiceRequest;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
+import com.gusto.embedded_api.models.operations.PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
@@ -567,16 +723,16 @@ public class Application {
 
         PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceResponse res = sdk.companies().acceptTermsOfService()
                 .companyUuid("<id>")
-                .xGustoAPIVersion(VersionHeader.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
-                .requestBody(PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceRequestBody.builder()
+                .xGustoAPIVersion(PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
+                .partnerManagedCompanyAcceptTermsOfServiceRequest(PartnerManagedCompanyAcceptTermsOfServiceRequest.builder()
                     .email("jsmith99@gmail.com")
                     .ipAddress("192.168.1.2")
                     .externalUserId("2005648946132")
                     .build())
                 .call();
 
-        if (res.object().isPresent()) {
-            System.out.println(res.object().get());
+        if (res.partnerManagedCompanyTermsOfServiceResponse().isPresent()) {
+            System.out.println(res.partnerManagedCompanyTermsOfServiceResponse().get());
         }
     }
 }
@@ -588,15 +744,16 @@ public class Application {
 package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.VersionHeader;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
-import com.gusto.embedded_api.models.operations.PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceRequestBody;
+import com.gusto.embedded_api.models.components.PartnerManagedCompanyAcceptTermsOfServiceRequest;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
+import com.gusto.embedded_api.models.operations.PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
@@ -604,16 +761,16 @@ public class Application {
 
         PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceResponse res = sdk.companies().acceptTermsOfService()
                 .companyUuid("<id>")
-                .xGustoAPIVersion(VersionHeader.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
-                .requestBody(PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceRequestBody.builder()
+                .xGustoAPIVersion(PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
+                .partnerManagedCompanyAcceptTermsOfServiceRequest(PartnerManagedCompanyAcceptTermsOfServiceRequest.builder()
                     .email("Mary_Welch@hotmail.com")
                     .ipAddress("ad95:edec:dbf8:daea:be73:caca:2bf2:c269")
                     .externalUserId("<id>")
                     .build())
                 .call();
 
-        if (res.object().isPresent()) {
-            System.out.println(res.object().get());
+        if (res.partnerManagedCompanyTermsOfServiceResponse().isPresent()) {
+            System.out.println(res.partnerManagedCompanyTermsOfServiceResponse().get());
         }
     }
 }
@@ -625,15 +782,16 @@ public class Application {
 package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.VersionHeader;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
-import com.gusto.embedded_api.models.operations.PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceRequestBody;
+import com.gusto.embedded_api.models.components.PartnerManagedCompanyAcceptTermsOfServiceRequest;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
+import com.gusto.embedded_api.models.operations.PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
@@ -641,16 +799,16 @@ public class Application {
 
         PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceResponse res = sdk.companies().acceptTermsOfService()
                 .companyUuid("<id>")
-                .xGustoAPIVersion(VersionHeader.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
-                .requestBody(PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceRequestBody.builder()
+                .xGustoAPIVersion(PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
+                .partnerManagedCompanyAcceptTermsOfServiceRequest(PartnerManagedCompanyAcceptTermsOfServiceRequest.builder()
                     .email("Mary_Welch@hotmail.com")
                     .ipAddress("ad95:edec:dbf8:daea:be73:caca:2bf2:c269")
                     .externalUserId("<id>")
                     .build())
                 .call();
 
-        if (res.object().isPresent()) {
-            System.out.println(res.object().get());
+        if (res.partnerManagedCompanyTermsOfServiceResponse().isPresent()) {
+            System.out.println(res.partnerManagedCompanyTermsOfServiceResponse().get());
         }
     }
 }
@@ -661,8 +819,8 @@ public class Application {
 | Parameter                                                                                                                                                                                                                    | Type                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                  |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `companyUuid`                                                                                                                                                                                                                | *String*                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                           | The UUID of the company                                                                                                                                                                                                      |
-| `xGustoAPIVersion`                                                                                                                                                                                                           | [Optional\<VersionHeader>](../../models/components/VersionHeader.md)                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                           | Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used. |
-| `requestBody`                                                                                                                                                                                                                | [PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceRequestBody](../../models/operations/PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceRequestBody.md)                                                    | :heavy_check_mark:                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                          |
+| `xGustoAPIVersion`                                                                                                                                                                                                           | [Optional\<PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceHeaderXGustoAPIVersion>](../../models/operations/PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceHeaderXGustoAPIVersion.md)                   | :heavy_minus_sign:                                                                                                                                                                                                           | Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used. |
+| `partnerManagedCompanyAcceptTermsOfServiceRequest`                                                                                                                                                                           | [PartnerManagedCompanyAcceptTermsOfServiceRequest](../../models/components/PartnerManagedCompanyAcceptTermsOfServiceRequest.md)                                                                                              | :heavy_check_mark:                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                          |
 
 ### Response
 
@@ -670,10 +828,11 @@ public class Application {
 
 ### Errors
 
-| Error Type                                   | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| models/errors/UnprocessableEntityErrorObject | 422                                          | application/json                             |
-| models/errors/APIException                   | 4XX, 5XX                                     | \*/\*                                        |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/NotFoundErrorObject      | 404                                    | application/json                       |
+| models/errors/UnprocessableEntityError | 422                                    | application/json                       |
+| models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
 
 ## retrieveTermsOfService
 
@@ -688,15 +847,16 @@ scope: `terms_of_services:read`
 package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.VersionHeader;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
-import com.gusto.embedded_api.models.operations.PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceRequestBody;
+import com.gusto.embedded_api.models.components.PartnerManagedCompanyRetrieveTermsOfServiceRequest;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
+import com.gusto.embedded_api.models.operations.PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
@@ -704,14 +864,14 @@ public class Application {
 
         PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceResponse res = sdk.companies().retrieveTermsOfService()
                 .companyUuid("<id>")
-                .xGustoAPIVersion(VersionHeader.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
-                .requestBody(PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceRequestBody.builder()
+                .xGustoAPIVersion(PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
+                .partnerManagedCompanyRetrieveTermsOfServiceRequest(PartnerManagedCompanyRetrieveTermsOfServiceRequest.builder()
                     .email("Valentin_Ziemann@yahoo.com")
                     .build())
                 .call();
 
-        if (res.object().isPresent()) {
-            System.out.println(res.object().get());
+        if (res.partnerManagedCompanyTermsOfServiceResponse().isPresent()) {
+            System.out.println(res.partnerManagedCompanyTermsOfServiceResponse().get());
         }
     }
 }
@@ -723,15 +883,16 @@ public class Application {
 package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.VersionHeader;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
-import com.gusto.embedded_api.models.operations.PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceRequestBody;
+import com.gusto.embedded_api.models.components.PartnerManagedCompanyRetrieveTermsOfServiceRequest;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
+import com.gusto.embedded_api.models.operations.PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
@@ -739,14 +900,14 @@ public class Application {
 
         PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceResponse res = sdk.companies().retrieveTermsOfService()
                 .companyUuid("<id>")
-                .xGustoAPIVersion(VersionHeader.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
-                .requestBody(PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceRequestBody.builder()
+                .xGustoAPIVersion(PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
+                .partnerManagedCompanyRetrieveTermsOfServiceRequest(PartnerManagedCompanyRetrieveTermsOfServiceRequest.builder()
                     .email("jsmith99@gmail.com")
                     .build())
                 .call();
 
-        if (res.object().isPresent()) {
-            System.out.println(res.object().get());
+        if (res.partnerManagedCompanyTermsOfServiceResponse().isPresent()) {
+            System.out.println(res.partnerManagedCompanyTermsOfServiceResponse().get());
         }
     }
 }
@@ -758,15 +919,16 @@ public class Application {
 package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.VersionHeader;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
-import com.gusto.embedded_api.models.operations.PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceRequestBody;
+import com.gusto.embedded_api.models.components.PartnerManagedCompanyRetrieveTermsOfServiceRequest;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
+import com.gusto.embedded_api.models.operations.PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
@@ -774,14 +936,14 @@ public class Application {
 
         PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceResponse res = sdk.companies().retrieveTermsOfService()
                 .companyUuid("<id>")
-                .xGustoAPIVersion(VersionHeader.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
-                .requestBody(PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceRequestBody.builder()
+                .xGustoAPIVersion(PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
+                .partnerManagedCompanyRetrieveTermsOfServiceRequest(PartnerManagedCompanyRetrieveTermsOfServiceRequest.builder()
                     .email("Valentin_Ziemann@yahoo.com")
                     .build())
                 .call();
 
-        if (res.object().isPresent()) {
-            System.out.println(res.object().get());
+        if (res.partnerManagedCompanyTermsOfServiceResponse().isPresent()) {
+            System.out.println(res.partnerManagedCompanyTermsOfServiceResponse().get());
         }
     }
 }
@@ -793,15 +955,16 @@ public class Application {
 package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.VersionHeader;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
-import com.gusto.embedded_api.models.operations.PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceRequestBody;
+import com.gusto.embedded_api.models.components.PartnerManagedCompanyRetrieveTermsOfServiceRequest;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
+import com.gusto.embedded_api.models.operations.PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
@@ -809,14 +972,14 @@ public class Application {
 
         PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceResponse res = sdk.companies().retrieveTermsOfService()
                 .companyUuid("<id>")
-                .xGustoAPIVersion(VersionHeader.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
-                .requestBody(PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceRequestBody.builder()
+                .xGustoAPIVersion(PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
+                .partnerManagedCompanyRetrieveTermsOfServiceRequest(PartnerManagedCompanyRetrieveTermsOfServiceRequest.builder()
                     .email("Valentin_Ziemann@yahoo.com")
                     .build())
                 .call();
 
-        if (res.object().isPresent()) {
-            System.out.println(res.object().get());
+        if (res.partnerManagedCompanyTermsOfServiceResponse().isPresent()) {
+            System.out.println(res.partnerManagedCompanyTermsOfServiceResponse().get());
         }
     }
 }
@@ -827,8 +990,8 @@ public class Application {
 | Parameter                                                                                                                                                                                                                    | Type                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                  |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `companyUuid`                                                                                                                                                                                                                | *String*                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                           | The UUID of the company                                                                                                                                                                                                      |
-| `xGustoAPIVersion`                                                                                                                                                                                                           | [Optional\<VersionHeader>](../../models/components/VersionHeader.md)                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                           | Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used. |
-| `requestBody`                                                                                                                                                                                                                | [PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceRequestBody](../../models/operations/PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceRequestBody.md)                                                | :heavy_check_mark:                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                          |
+| `xGustoAPIVersion`                                                                                                                                                                                                           | [Optional\<PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceHeaderXGustoAPIVersion>](../../models/operations/PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceHeaderXGustoAPIVersion.md)               | :heavy_minus_sign:                                                                                                                                                                                                           | Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used. |
+| `partnerManagedCompanyRetrieveTermsOfServiceRequest`                                                                                                                                                                         | [PartnerManagedCompanyRetrieveTermsOfServiceRequest](../../models/components/PartnerManagedCompanyRetrieveTermsOfServiceRequest.md)                                                                                          | :heavy_check_mark:                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                          |
 
 ### Response
 
@@ -836,190 +999,11 @@ public class Application {
 
 ### Errors
 
-| Error Type                                   | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| models/errors/UnprocessableEntityErrorObject | 422                                          | application/json                             |
-| models/errors/APIException                   | 4XX, 5XX                                     | \*/\*                                        |
-
-## createAdmin
-
-Creates a new admin for a company.
-If the email matches an existing user, this will create an admin account for the current user. Otherwise, this will create a new user.
-
-scope: `company_admin:write`
-
-### Example Usage: Basic
-
-<!-- UsageSnippet language="java" operationID="post-v1-companies-company_id-admins" method="post" path="/v1/companies/{company_id}/admins" example="Basic" -->
-```java
-package hello.world;
-
-import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.AdminCreateRequest;
-import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
-import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdAdminsHeaderXGustoAPIVersion;
-import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdAdminsResponse;
-import java.lang.Exception;
-
-public class Application {
-
-    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityErrorObject, Exception {
-
-        GustoEmbedded sdk = GustoEmbedded.builder()
-                .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
-            .build();
-
-        PostV1CompaniesCompanyIdAdminsResponse res = sdk.companies().createAdmin()
-                .xGustoAPIVersion(PostV1CompaniesCompanyIdAdminsHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
-                .companyId("<id>")
-                .adminCreateRequest(AdminCreateRequest.builder()
-                    .firstName("Hilbert")
-                    .lastName("Hilll")
-                    .email("Dejah.Pagac14@gmail.com")
-                    .build())
-                .call();
-
-        if (res.admin().isPresent()) {
-            System.out.println(res.admin().get());
-        }
-    }
-}
-```
-### Example Usage: Example
-
-<!-- UsageSnippet language="java" operationID="post-v1-companies-company_id-admins" method="post" path="/v1/companies/{company_id}/admins" example="Example" -->
-```java
-package hello.world;
-
-import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.AdminCreateRequest;
-import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
-import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdAdminsHeaderXGustoAPIVersion;
-import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdAdminsResponse;
-import java.lang.Exception;
-
-public class Application {
-
-    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityErrorObject, Exception {
-
-        GustoEmbedded sdk = GustoEmbedded.builder()
-                .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
-            .build();
-
-        PostV1CompaniesCompanyIdAdminsResponse res = sdk.companies().createAdmin()
-                .xGustoAPIVersion(PostV1CompaniesCompanyIdAdminsHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
-                .companyId("<id>")
-                .adminCreateRequest(AdminCreateRequest.builder()
-                    .firstName("John")
-                    .lastName("Smith")
-                    .email("jsmith99@gmail.com")
-                    .build())
-                .call();
-
-        if (res.admin().isPresent()) {
-            System.out.println(res.admin().get());
-        }
-    }
-}
-```
-### Example Usage: Nested
-
-<!-- UsageSnippet language="java" operationID="post-v1-companies-company_id-admins" method="post" path="/v1/companies/{company_id}/admins" example="Nested" -->
-```java
-package hello.world;
-
-import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.AdminCreateRequest;
-import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
-import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdAdminsHeaderXGustoAPIVersion;
-import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdAdminsResponse;
-import java.lang.Exception;
-
-public class Application {
-
-    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityErrorObject, Exception {
-
-        GustoEmbedded sdk = GustoEmbedded.builder()
-                .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
-            .build();
-
-        PostV1CompaniesCompanyIdAdminsResponse res = sdk.companies().createAdmin()
-                .xGustoAPIVersion(PostV1CompaniesCompanyIdAdminsHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
-                .companyId("<id>")
-                .adminCreateRequest(AdminCreateRequest.builder()
-                    .firstName("Hilbert")
-                    .lastName("Hilll")
-                    .email("Dejah.Pagac14@gmail.com")
-                    .build())
-                .call();
-
-        if (res.admin().isPresent()) {
-            System.out.println(res.admin().get());
-        }
-    }
-}
-```
-### Example Usage: Resource
-
-<!-- UsageSnippet language="java" operationID="post-v1-companies-company_id-admins" method="post" path="/v1/companies/{company_id}/admins" example="Resource" -->
-```java
-package hello.world;
-
-import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.AdminCreateRequest;
-import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
-import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdAdminsHeaderXGustoAPIVersion;
-import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdAdminsResponse;
-import java.lang.Exception;
-
-public class Application {
-
-    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityErrorObject, Exception {
-
-        GustoEmbedded sdk = GustoEmbedded.builder()
-                .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
-            .build();
-
-        PostV1CompaniesCompanyIdAdminsResponse res = sdk.companies().createAdmin()
-                .xGustoAPIVersion(PostV1CompaniesCompanyIdAdminsHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
-                .companyId("<id>")
-                .adminCreateRequest(AdminCreateRequest.builder()
-                    .firstName("Hilbert")
-                    .lastName("Hilll")
-                    .email("Dejah.Pagac14@gmail.com")
-                    .build())
-                .call();
-
-        if (res.admin().isPresent()) {
-            System.out.println(res.admin().get());
-        }
-    }
-}
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                                                                    | Type                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                  |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `xGustoAPIVersion`                                                                                                                                                                                                           | [Optional\<PostV1CompaniesCompanyIdAdminsHeaderXGustoAPIVersion>](../../models/operations/PostV1CompaniesCompanyIdAdminsHeaderXGustoAPIVersion.md)                                                                           | :heavy_minus_sign:                                                                                                                                                                                                           | Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used. |
-| `companyId`                                                                                                                                                                                                                  | *String*                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                           | The UUID of the company                                                                                                                                                                                                      |
-| `adminCreateRequest`                                                                                                                                                                                                         | [AdminCreateRequest](../../models/components/AdminCreateRequest.md)                                                                                                                                                          | :heavy_check_mark:                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                          |
-
-### Response
-
-**[PostV1CompaniesCompanyIdAdminsResponse](../../models/operations/PostV1CompaniesCompanyIdAdminsResponse.md)**
-
-### Errors
-
-| Error Type                                   | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| models/errors/NotFoundErrorObject            | 404                                          | application/json                             |
-| models/errors/UnprocessableEntityErrorObject | 422                                          | application/json                             |
-| models/errors/APIException                   | 4XX, 5XX                                     | \*/\*                                        |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/NotFoundErrorObject      | 404                                    | application/json                       |
+| models/errors/UnprocessableEntityError | 422                                    | application/json                       |
+| models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
 
 ## listAdmins
 
@@ -1078,6 +1062,186 @@ public class Application {
 | --------------------------------- | --------------------------------- | --------------------------------- |
 | models/errors/NotFoundErrorObject | 404                               | application/json                  |
 | models/errors/APIException        | 4XX, 5XX                          | \*/\*                             |
+
+## createAdmin
+
+Creates a new admin for a company.
+If the email matches an existing user, this will create an admin account for the current user. Otherwise, this will create a new user.
+
+scope: `company_admin:write`
+
+### Example Usage: Basic
+
+<!-- UsageSnippet language="java" operationID="post-v1-companies-company_id-admins" method="post" path="/v1/companies/{company_id}/admins" example="Basic" -->
+```java
+package hello.world;
+
+import com.gusto.embedded_api.GustoEmbedded;
+import com.gusto.embedded_api.models.components.AdminCreateRequest;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
+import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdAdminsHeaderXGustoAPIVersion;
+import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdAdminsResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
+
+        GustoEmbedded sdk = GustoEmbedded.builder()
+                .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
+            .build();
+
+        PostV1CompaniesCompanyIdAdminsResponse res = sdk.companies().createAdmin()
+                .xGustoAPIVersion(PostV1CompaniesCompanyIdAdminsHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
+                .companyId("<id>")
+                .adminCreateRequest(AdminCreateRequest.builder()
+                    .firstName("Hilbert")
+                    .lastName("Hilll")
+                    .email("Dejah.Pagac14@gmail.com")
+                    .build())
+                .call();
+
+        if (res.admin().isPresent()) {
+            System.out.println(res.admin().get());
+        }
+    }
+}
+```
+### Example Usage: Example
+
+<!-- UsageSnippet language="java" operationID="post-v1-companies-company_id-admins" method="post" path="/v1/companies/{company_id}/admins" example="Example" -->
+```java
+package hello.world;
+
+import com.gusto.embedded_api.GustoEmbedded;
+import com.gusto.embedded_api.models.components.AdminCreateRequest;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
+import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdAdminsHeaderXGustoAPIVersion;
+import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdAdminsResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
+
+        GustoEmbedded sdk = GustoEmbedded.builder()
+                .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
+            .build();
+
+        PostV1CompaniesCompanyIdAdminsResponse res = sdk.companies().createAdmin()
+                .xGustoAPIVersion(PostV1CompaniesCompanyIdAdminsHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
+                .companyId("<id>")
+                .adminCreateRequest(AdminCreateRequest.builder()
+                    .firstName("John")
+                    .lastName("Smith")
+                    .email("jsmith99@gmail.com")
+                    .build())
+                .call();
+
+        if (res.admin().isPresent()) {
+            System.out.println(res.admin().get());
+        }
+    }
+}
+```
+### Example Usage: Nested
+
+<!-- UsageSnippet language="java" operationID="post-v1-companies-company_id-admins" method="post" path="/v1/companies/{company_id}/admins" example="Nested" -->
+```java
+package hello.world;
+
+import com.gusto.embedded_api.GustoEmbedded;
+import com.gusto.embedded_api.models.components.AdminCreateRequest;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
+import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdAdminsHeaderXGustoAPIVersion;
+import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdAdminsResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
+
+        GustoEmbedded sdk = GustoEmbedded.builder()
+                .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
+            .build();
+
+        PostV1CompaniesCompanyIdAdminsResponse res = sdk.companies().createAdmin()
+                .xGustoAPIVersion(PostV1CompaniesCompanyIdAdminsHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
+                .companyId("<id>")
+                .adminCreateRequest(AdminCreateRequest.builder()
+                    .firstName("Hilbert")
+                    .lastName("Hilll")
+                    .email("Dejah.Pagac14@gmail.com")
+                    .build())
+                .call();
+
+        if (res.admin().isPresent()) {
+            System.out.println(res.admin().get());
+        }
+    }
+}
+```
+### Example Usage: Resource
+
+<!-- UsageSnippet language="java" operationID="post-v1-companies-company_id-admins" method="post" path="/v1/companies/{company_id}/admins" example="Resource" -->
+```java
+package hello.world;
+
+import com.gusto.embedded_api.GustoEmbedded;
+import com.gusto.embedded_api.models.components.AdminCreateRequest;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
+import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdAdminsHeaderXGustoAPIVersion;
+import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdAdminsResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
+
+        GustoEmbedded sdk = GustoEmbedded.builder()
+                .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
+            .build();
+
+        PostV1CompaniesCompanyIdAdminsResponse res = sdk.companies().createAdmin()
+                .xGustoAPIVersion(PostV1CompaniesCompanyIdAdminsHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
+                .companyId("<id>")
+                .adminCreateRequest(AdminCreateRequest.builder()
+                    .firstName("Hilbert")
+                    .lastName("Hilll")
+                    .email("Dejah.Pagac14@gmail.com")
+                    .build())
+                .call();
+
+        if (res.admin().isPresent()) {
+            System.out.println(res.admin().get());
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                                                                    | Type                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                  |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `xGustoAPIVersion`                                                                                                                                                                                                           | [Optional\<PostV1CompaniesCompanyIdAdminsHeaderXGustoAPIVersion>](../../models/operations/PostV1CompaniesCompanyIdAdminsHeaderXGustoAPIVersion.md)                                                                           | :heavy_minus_sign:                                                                                                                                                                                                           | Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used. |
+| `companyId`                                                                                                                                                                                                                  | *String*                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                           | The UUID of the company                                                                                                                                                                                                      |
+| `adminCreateRequest`                                                                                                                                                                                                         | [AdminCreateRequest](../../models/components/AdminCreateRequest.md)                                                                                                                                                          | :heavy_check_mark:                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                          |
+
+### Response
+
+**[PostV1CompaniesCompanyIdAdminsResponse](../../models/operations/PostV1CompaniesCompanyIdAdminsResponse.md)**
+
+### Errors
+
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/NotFoundErrorObject      | 404                                    | application/json                       |
+| models/errors/UnprocessableEntityError | 422                                    | application/json                       |
+| models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
 
 ## getOnboardingStatus
 
@@ -1166,14 +1330,14 @@ package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
 import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
 import com.gusto.embedded_api.models.operations.GetV1CompanyFinishOnboardingHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1CompanyFinishOnboardingResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
@@ -1204,15 +1368,15 @@ public class Application {
 
 ### Errors
 
-| Error Type                                   | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| models/errors/NotFoundErrorObject            | 404                                          | application/json                             |
-| models/errors/UnprocessableEntityErrorObject | 422                                          | application/json                             |
-| models/errors/APIException                   | 4XX, 5XX                                     | \*/\*                                        |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/NotFoundErrorObject      | 404                                    | application/json                       |
+| models/errors/UnprocessableEntityError | 422                                    | application/json                       |
+| models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
 
 ## getCustomFields
 
-Returns a list of the custom fields of the company. Useful when you need to know the schema of custom fields for an entire company
+Returns a list of the custom fields of the company. Useful when you need to know the schema of custom fields for an entire company.
 
 scope: `companies:read`
 
@@ -1223,21 +1387,22 @@ scope: `companies:read`
 package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.operations.GetV1CompaniesCompanyIdCustomFieldsHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1CompaniesCompanyIdCustomFieldsResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
             .build();
 
         GetV1CompaniesCompanyIdCustomFieldsResponse res = sdk.companies().getCustomFields()
+                .xGustoAPIVersion(GetV1CompaniesCompanyIdCustomFieldsHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
                 .companyId("<id>")
-                .xGustoAPIVersion(VersionHeader.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
                 .call();
 
         if (res.companyCustomFieldList().isPresent()) {
@@ -1251,10 +1416,10 @@ public class Application {
 
 | Parameter                                                                                                                                                                                                                    | Type                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                  |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `xGustoAPIVersion`                                                                                                                                                                                                           | [Optional\<GetV1CompaniesCompanyIdCustomFieldsHeaderXGustoAPIVersion>](../../models/operations/GetV1CompaniesCompanyIdCustomFieldsHeaderXGustoAPIVersion.md)                                                                 | :heavy_minus_sign:                                                                                                                                                                                                           | Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used. |
 | `companyId`                                                                                                                                                                                                                  | *String*                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                           | The UUID of the company                                                                                                                                                                                                      |
 | `page`                                                                                                                                                                                                                       | *Optional\<Long>*                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                           | The page that is requested. When unspecified, will load all objects unless endpoint forces pagination.                                                                                                                       |
 | `per`                                                                                                                                                                                                                        | *Optional\<Long>*                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                           | Number of objects per page. For majority of endpoints will default to 25                                                                                                                                                     |
-| `xGustoAPIVersion`                                                                                                                                                                                                           | [Optional\<VersionHeader>](../../models/components/VersionHeader.md)                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                           | Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used. |
 
 ### Response
 
@@ -1262,6 +1427,7 @@ public class Application {
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| models/errors/APIException | 4XX, 5XX                   | \*/\*                      |
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/NotFoundErrorObject | 404                               | application/json                  |
+| models/errors/APIException        | 4XX, 5XX                          | \*/\*                             |

@@ -5,13 +5,15 @@ package com.gusto.embedded_api;
 
 import static com.gusto.embedded_api.operations.Operations.RequestOperation;
 
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.operations.GetV1ContractorsContractorUuidBankAccountsHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1ContractorsContractorUuidBankAccountsRequest;
 import com.gusto.embedded_api.models.operations.GetV1ContractorsContractorUuidBankAccountsRequestBuilder;
 import com.gusto.embedded_api.models.operations.GetV1ContractorsContractorUuidBankAccountsResponse;
+import com.gusto.embedded_api.models.operations.GetV1ContractorsContractorUuidPaymentMethodHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1ContractorsContractorUuidPaymentMethodRequest;
 import com.gusto.embedded_api.models.operations.GetV1ContractorsContractorUuidPaymentMethodRequestBuilder;
 import com.gusto.embedded_api.models.operations.GetV1ContractorsContractorUuidPaymentMethodResponse;
+import com.gusto.embedded_api.models.operations.PutV1ContractorsContractorIdPaymentMethodHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PutV1ContractorsContractorIdPaymentMethodRequest;
 import com.gusto.embedded_api.models.operations.PutV1ContractorsContractorIdPaymentMethodRequestBody;
 import com.gusto.embedded_api.models.operations.PutV1ContractorsContractorIdPaymentMethodRequestBuilder;
@@ -50,6 +52,8 @@ public class ContractorPaymentMethod {
      * 
      * <p>scope: `contractor_payment_methods:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @return The call builder
      */
     public GetV1ContractorsContractorUuidBankAccountsRequestBuilder getBankAccounts() {
@@ -63,12 +67,14 @@ public class ContractorPaymentMethod {
      * 
      * <p>scope: `contractor_payment_methods:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param contractorUuid The UUID of the contractor
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
     public GetV1ContractorsContractorUuidBankAccountsResponse getBankAccounts(String contractorUuid) {
-        return getBankAccounts(contractorUuid, Optional.empty());
+        return getBankAccounts(Optional.empty(), contractorUuid);
     }
 
     /**
@@ -78,17 +84,19 @@ public class ContractorPaymentMethod {
      * 
      * <p>scope: `contractor_payment_methods:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param contractorUuid The UUID of the contractor
-     * @param xGustoAPIVersion 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
-    public GetV1ContractorsContractorUuidBankAccountsResponse getBankAccounts(String contractorUuid, Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public GetV1ContractorsContractorUuidBankAccountsResponse getBankAccounts(Optional<? extends GetV1ContractorsContractorUuidBankAccountsHeaderXGustoAPIVersion> xGustoAPIVersion, String contractorUuid) {
         GetV1ContractorsContractorUuidBankAccountsRequest request =
             GetV1ContractorsContractorUuidBankAccountsRequest
                 .builder()
-                .contractorUuid(contractorUuid)
                 .xGustoAPIVersion(xGustoAPIVersion)
+                .contractorUuid(contractorUuid)
                 .build();
         RequestOperation<GetV1ContractorsContractorUuidBankAccountsRequest, GetV1ContractorsContractorUuidBankAccountsResponse> operation
               = new GetV1ContractorsContractorUuidBankAccounts.Sync(sdkConfiguration, _headers);
@@ -103,6 +111,8 @@ public class ContractorPaymentMethod {
      * bank accounts.
      * 
      * <p>scope: `contractor_payment_methods:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @return The call builder
      */
@@ -119,12 +129,14 @@ public class ContractorPaymentMethod {
      * 
      * <p>scope: `contractor_payment_methods:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param contractorUuid The UUID of the contractor
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
     public GetV1ContractorsContractorUuidPaymentMethodResponse get(String contractorUuid) {
-        return get(contractorUuid, Optional.empty());
+        return get(Optional.empty(), contractorUuid);
     }
 
     /**
@@ -136,17 +148,19 @@ public class ContractorPaymentMethod {
      * 
      * <p>scope: `contractor_payment_methods:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param contractorUuid The UUID of the contractor
-     * @param xGustoAPIVersion 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
-    public GetV1ContractorsContractorUuidPaymentMethodResponse get(String contractorUuid, Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public GetV1ContractorsContractorUuidPaymentMethodResponse get(Optional<? extends GetV1ContractorsContractorUuidPaymentMethodHeaderXGustoAPIVersion> xGustoAPIVersion, String contractorUuid) {
         GetV1ContractorsContractorUuidPaymentMethodRequest request =
             GetV1ContractorsContractorUuidPaymentMethodRequest
                 .builder()
-                .contractorUuid(contractorUuid)
                 .xGustoAPIVersion(xGustoAPIVersion)
+                .contractorUuid(contractorUuid)
                 .build();
         RequestOperation<GetV1ContractorsContractorUuidPaymentMethodRequest, GetV1ContractorsContractorUuidPaymentMethodResponse> operation
               = new GetV1ContractorsContractorUuidPaymentMethod.Sync(sdkConfiguration, _headers);
@@ -160,6 +174,8 @@ public class ContractorPaymentMethod {
      * bank account will also update the contractor's payment method.
      * 
      * <p>scope: `contractor_payment_methods:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @return The call builder
      */
@@ -175,13 +191,15 @@ public class ContractorPaymentMethod {
      * 
      * <p>scope: `contractor_payment_methods:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param contractorUuid The UUID of the contractor
      * @param requestBody 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
     public PutV1ContractorsContractorIdPaymentMethodResponse update(String contractorUuid, PutV1ContractorsContractorIdPaymentMethodRequestBody requestBody) {
-        return update(contractorUuid, Optional.empty(), requestBody);
+        return update(Optional.empty(), contractorUuid, requestBody);
     }
 
     /**
@@ -192,20 +210,22 @@ public class ContractorPaymentMethod {
      * 
      * <p>scope: `contractor_payment_methods:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param contractorUuid The UUID of the contractor
-     * @param xGustoAPIVersion 
      * @param requestBody 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
     public PutV1ContractorsContractorIdPaymentMethodResponse update(
-            String contractorUuid, Optional<? extends VersionHeader> xGustoAPIVersion,
+            Optional<? extends PutV1ContractorsContractorIdPaymentMethodHeaderXGustoAPIVersion> xGustoAPIVersion, String contractorUuid,
             PutV1ContractorsContractorIdPaymentMethodRequestBody requestBody) {
         PutV1ContractorsContractorIdPaymentMethodRequest request =
             PutV1ContractorsContractorIdPaymentMethodRequest
                 .builder()
-                .contractorUuid(contractorUuid)
                 .xGustoAPIVersion(xGustoAPIVersion)
+                .contractorUuid(contractorUuid)
                 .requestBody(requestBody)
                 .build();
         RequestOperation<PutV1ContractorsContractorIdPaymentMethodRequest, PutV1ContractorsContractorIdPaymentMethodResponse> operation

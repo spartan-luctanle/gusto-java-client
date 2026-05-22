@@ -52,8 +52,10 @@ public class GetV1CompaniesCompanyIdEmployeesRequest {
     private Optional<String> searchTerm;
 
     /**
-     * Sort employees by field. Cannot be used with search_term. Options: created_at, name,
-     * onboarding_status
+     * Sort employees by a given field. Cannot be used with search_term. Append `:asc` or `:desc` to
+     * specify direction (e.g., `name:desc`).
+     * 
+     * <p>Defaults to ascending.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=sort_by")
     private Optional<String> sortBy;
@@ -207,8 +209,10 @@ public class GetV1CompaniesCompanyIdEmployeesRequest {
     }
 
     /**
-     * Sort employees by field. Cannot be used with search_term. Options: created_at, name,
-     * onboarding_status
+     * Sort employees by a given field. Cannot be used with search_term. Append `:asc` or `:desc` to
+     * specify direction (e.g., `name:desc`).
+     * 
+     * <p>Defaults to ascending.
      */
     @JsonIgnore
     public Optional<String> sortBy() {
@@ -378,8 +382,10 @@ public class GetV1CompaniesCompanyIdEmployeesRequest {
     }
 
     /**
-     * Sort employees by field. Cannot be used with search_term. Options: created_at, name,
-     * onboarding_status
+     * Sort employees by a given field. Cannot be used with search_term. Append `:asc` or `:desc` to
+     * specify direction (e.g., `name:desc`).
+     * 
+     * <p>Defaults to ascending.
      */
     public GetV1CompaniesCompanyIdEmployeesRequest withSortBy(String sortBy) {
         Utils.checkNotNull(sortBy, "sortBy");
@@ -389,8 +395,10 @@ public class GetV1CompaniesCompanyIdEmployeesRequest {
 
 
     /**
-     * Sort employees by field. Cannot be used with search_term. Options: created_at, name,
-     * onboarding_status
+     * Sort employees by a given field. Cannot be used with search_term. Append `:asc` or `:desc` to
+     * specify direction (e.g., `name:desc`).
+     * 
+     * <p>Defaults to ascending.
      */
     public GetV1CompaniesCompanyIdEmployeesRequest withSortBy(Optional<String> sortBy) {
         Utils.checkNotNull(sortBy, "sortBy");
@@ -736,8 +744,10 @@ public class GetV1CompaniesCompanyIdEmployeesRequest {
 
 
         /**
-         * Sort employees by field. Cannot be used with search_term. Options: created_at, name,
-         * onboarding_status
+         * Sort employees by a given field. Cannot be used with search_term. Append `:asc` or `:desc` to
+         * specify direction (e.g., `name:desc`).
+         * 
+         * <p>Defaults to ascending.
          */
         public Builder sortBy(String sortBy) {
             Utils.checkNotNull(sortBy, "sortBy");
@@ -746,8 +756,10 @@ public class GetV1CompaniesCompanyIdEmployeesRequest {
         }
 
         /**
-         * Sort employees by field. Cannot be used with search_term. Options: created_at, name,
-         * onboarding_status
+         * Sort employees by a given field. Cannot be used with search_term. Append `:asc` or `:desc` to
+         * specify direction (e.g., `name:desc`).
+         * 
+         * <p>Defaults to ascending.
          */
         public Builder sortBy(Optional<String> sortBy) {
             Utils.checkNotNull(sortBy, "sortBy");

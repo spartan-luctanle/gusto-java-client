@@ -6,11 +6,10 @@ package com.gusto.embedded_api;
 import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation;
 
 import com.gusto.embedded_api.models.components.HolidayPayPolicyRequest;
-import com.gusto.embedded_api.models.components.VersionHeader;
 import com.gusto.embedded_api.models.operations.DeleteV1CompaniesCompanyUuidHolidayPayPolicyHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.DeleteV1CompaniesCompanyUuidHolidayPayPolicyRequest;
+import com.gusto.embedded_api.models.operations.GetCompaniesCompanyUuidPaidHolidaysHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetCompaniesCompanyUuidPaidHolidaysRequest;
-import com.gusto.embedded_api.models.operations.GetCompaniesCompanyUuidPaidHolidaysRequestBody;
 import com.gusto.embedded_api.models.operations.GetV1CompaniesCompanyUuidHolidayPayPolicyHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1CompaniesCompanyUuidHolidayPayPolicyRequest;
 import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyUuidHolidayPayPolicyHeaderXGustoAPIVersion;
@@ -443,7 +442,12 @@ public class AsyncHolidayPayPolicies {
      * 
      * <p>Preview a company's paid holidays
      * 
+     * <p>If a year is passed, paid holidays for that year will be returned. Otherwise, paid holidays for the
+     * next three years will be returned.
+     * 
      * <p>scope: `holiday_pay_policies:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @return The async call builder
      */
@@ -456,14 +460,18 @@ public class AsyncHolidayPayPolicies {
      * 
      * <p>Preview a company's paid holidays
      * 
+     * <p>If a year is passed, paid holidays for that year will be returned. Otherwise, paid holidays for the
+     * next three years will be returned.
+     * 
      * <p>scope: `holiday_pay_policies:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param companyUuid The UUID of the company
-     * @param requestBody 
      * @return {@code CompletableFuture<GetCompaniesCompanyUuidPaidHolidaysResponse>} - The async response
      */
-    public CompletableFuture<GetCompaniesCompanyUuidPaidHolidaysResponse> previewPaidHolidays(String companyUuid, GetCompaniesCompanyUuidPaidHolidaysRequestBody requestBody) {
-        return previewPaidHolidays(companyUuid, Optional.empty(), requestBody);
+    public CompletableFuture<GetCompaniesCompanyUuidPaidHolidaysResponse> previewPaidHolidays(String companyUuid) {
+        return previewPaidHolidays(Optional.empty(), companyUuid, Optional.empty());
     }
 
     /**
@@ -471,22 +479,27 @@ public class AsyncHolidayPayPolicies {
      * 
      * <p>Preview a company's paid holidays
      * 
+     * <p>If a year is passed, paid holidays for that year will be returned. Otherwise, paid holidays for the
+     * next three years will be returned.
+     * 
      * <p>scope: `holiday_pay_policies:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param companyUuid The UUID of the company
-     * @param xGustoAPIVersion 
-     * @param requestBody 
+     * @param year If a year is passed, paid holidays for that year will be returned. Otherwise, paid holidays for the next three years will be returned.
      * @return {@code CompletableFuture<GetCompaniesCompanyUuidPaidHolidaysResponse>} - The async response
      */
     public CompletableFuture<GetCompaniesCompanyUuidPaidHolidaysResponse> previewPaidHolidays(
-            String companyUuid, Optional<? extends VersionHeader> xGustoAPIVersion,
-            GetCompaniesCompanyUuidPaidHolidaysRequestBody requestBody) {
+            Optional<? extends GetCompaniesCompanyUuidPaidHolidaysHeaderXGustoAPIVersion> xGustoAPIVersion, String companyUuid,
+            Optional<String> year) {
         GetCompaniesCompanyUuidPaidHolidaysRequest request =
             GetCompaniesCompanyUuidPaidHolidaysRequest
                 .builder()
-                .companyUuid(companyUuid)
                 .xGustoAPIVersion(xGustoAPIVersion)
-                .requestBody(requestBody)
+                .companyUuid(companyUuid)
+                .year(year)
                 .build();
         AsyncRequestOperation<GetCompaniesCompanyUuidPaidHolidaysRequest, GetCompaniesCompanyUuidPaidHolidaysResponse> operation
               = new GetCompaniesCompanyUuidPaidHolidays.Async(sdkConfiguration, _headers);

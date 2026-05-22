@@ -34,7 +34,7 @@ public class GetWireInRequestsWireInRequestUuidResponse implements AsyncResponse
     private HttpResponse<Blob> rawResponse;
 
     /**
-     * Example response
+     * Success
      */
     private Optional<? extends WireInRequest> wireInRequest;
 
@@ -87,7 +87,7 @@ public class GetWireInRequestsWireInRequestUuidResponse implements AsyncResponse
     }
 
     /**
-     * Example response
+     * Success
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -128,7 +128,7 @@ public class GetWireInRequestsWireInRequestUuidResponse implements AsyncResponse
     }
 
     /**
-     * Example response
+     * Success
      */
     public GetWireInRequestsWireInRequestUuidResponse withWireInRequest(WireInRequest wireInRequest) {
         Utils.checkNotNull(wireInRequest, "wireInRequest");
@@ -138,7 +138,7 @@ public class GetWireInRequestsWireInRequestUuidResponse implements AsyncResponse
 
 
     /**
-     * Example response
+     * Success
      */
     public GetWireInRequestsWireInRequestUuidResponse withWireInRequest(Optional<? extends WireInRequest> wireInRequest) {
         Utils.checkNotNull(wireInRequest, "wireInRequest");
@@ -225,7 +225,7 @@ public class GetWireInRequestsWireInRequestUuidResponse implements AsyncResponse
 
 
         /**
-         * Example response
+         * Success
          */
         public Builder wireInRequest(WireInRequest wireInRequest) {
             Utils.checkNotNull(wireInRequest, "wireInRequest");
@@ -234,7 +234,7 @@ public class GetWireInRequestsWireInRequestUuidResponse implements AsyncResponse
         }
 
         /**
-         * Example response
+         * Success
          */
         public Builder wireInRequest(Optional<? extends WireInRequest> wireInRequest) {
             Utils.checkNotNull(wireInRequest, "wireInRequest");

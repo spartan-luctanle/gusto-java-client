@@ -6,7 +6,6 @@ package com.gusto.embedded_api.models.operations;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.gusto.embedded_api.models.components.VersionHeader;
 import com.gusto.embedded_api.utils.LazySingletonValue;
 import com.gusto.embedded_api.utils.SpeakeasyMetadata;
 import com.gusto.embedded_api.utils.Utils;
@@ -23,7 +22,7 @@ public class PostV1SandboxGenerate1099Request {
      * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      */
     @SpeakeasyMetadata("header:style=simple,explode=false,name=X-Gusto-API-Version")
-    private Optional<? extends VersionHeader> xGustoAPIVersion;
+    private Optional<? extends PostV1SandboxGenerate1099HeaderXGustoAPIVersion> xGustoAPIVersion;
 
 
     @SpeakeasyMetadata("request:mediaType=application/json")
@@ -31,7 +30,7 @@ public class PostV1SandboxGenerate1099Request {
 
     @JsonCreator
     public PostV1SandboxGenerate1099Request(
-            Optional<? extends VersionHeader> xGustoAPIVersion,
+            Optional<? extends PostV1SandboxGenerate1099HeaderXGustoAPIVersion> xGustoAPIVersion,
             PostV1SandboxGenerate1099RequestBody requestBody) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         Utils.checkNotNull(requestBody, "requestBody");
@@ -51,8 +50,8 @@ public class PostV1SandboxGenerate1099Request {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<VersionHeader> xGustoAPIVersion() {
-        return (Optional<VersionHeader>) xGustoAPIVersion;
+    public Optional<PostV1SandboxGenerate1099HeaderXGustoAPIVersion> xGustoAPIVersion() {
+        return (Optional<PostV1SandboxGenerate1099HeaderXGustoAPIVersion>) xGustoAPIVersion;
     }
 
     @JsonIgnore
@@ -70,7 +69,7 @@ public class PostV1SandboxGenerate1099Request {
      * application's [minimum API
      * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      */
-    public PostV1SandboxGenerate1099Request withXGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+    public PostV1SandboxGenerate1099Request withXGustoAPIVersion(PostV1SandboxGenerate1099HeaderXGustoAPIVersion xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
         return this;
@@ -82,7 +81,7 @@ public class PostV1SandboxGenerate1099Request {
      * application's [minimum API
      * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      */
-    public PostV1SandboxGenerate1099Request withXGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public PostV1SandboxGenerate1099Request withXGustoAPIVersion(Optional<? extends PostV1SandboxGenerate1099HeaderXGustoAPIVersion> xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = xGustoAPIVersion;
         return this;
@@ -124,7 +123,7 @@ public class PostV1SandboxGenerate1099Request {
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private Optional<? extends VersionHeader> xGustoAPIVersion;
+        private Optional<? extends PostV1SandboxGenerate1099HeaderXGustoAPIVersion> xGustoAPIVersion;
 
         private PostV1SandboxGenerate1099RequestBody requestBody;
 
@@ -138,7 +137,7 @@ public class PostV1SandboxGenerate1099Request {
          * application's [minimum API
          * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
          */
-        public Builder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+        public Builder xGustoAPIVersion(PostV1SandboxGenerate1099HeaderXGustoAPIVersion xGustoAPIVersion) {
             Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
             this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
             return this;
@@ -149,7 +148,7 @@ public class PostV1SandboxGenerate1099Request {
          * application's [minimum API
          * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
          */
-        public Builder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+        public Builder xGustoAPIVersion(Optional<? extends PostV1SandboxGenerate1099HeaderXGustoAPIVersion> xGustoAPIVersion) {
             Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
             this.xGustoAPIVersion = xGustoAPIVersion;
             return this;
@@ -172,10 +171,10 @@ public class PostV1SandboxGenerate1099Request {
         }
 
 
-        private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+        private static final LazySingletonValue<Optional<? extends PostV1SandboxGenerate1099HeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
                 new LazySingletonValue<>(
                         "X-Gusto-API-Version",
                         "\"2025-06-15\"",
-                        new TypeReference<Optional<? extends VersionHeader>>() {});
+                        new TypeReference<Optional<? extends PostV1SandboxGenerate1099HeaderXGustoAPIVersion>>() {});
     }
 }

@@ -5,40 +5,38 @@ package com.gusto.embedded_api.models.components;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.gusto.embedded_api.utils.Utils;
 import java.lang.Override;
 import java.lang.String;
 import java.time.LocalDate;
-import java.util.Optional;
 
-
+/**
+ * HistoricalEmployeeBodyTermination
+ * 
+ * <p>End of the historical employment period.
+ */
 public class HistoricalEmployeeBodyTermination {
     /**
-     * Date the employee was terminated from the company
+     * Last day of employment (termination date). This is recorded on the employment; use the calendar date
+     * the person stopped working for the company.
      */
-    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("effective_date")
-    private Optional<LocalDate> effectiveDate;
+    private LocalDate effectiveDate;
 
     @JsonCreator
     public HistoricalEmployeeBodyTermination(
-            @JsonProperty("effective_date") Optional<LocalDate> effectiveDate) {
+            @JsonProperty("effective_date") LocalDate effectiveDate) {
         Utils.checkNotNull(effectiveDate, "effectiveDate");
         this.effectiveDate = effectiveDate;
     }
-    
-    public HistoricalEmployeeBodyTermination() {
-        this(Optional.empty());
-    }
 
     /**
-     * Date the employee was terminated from the company
+     * Last day of employment (termination date). This is recorded on the employment; use the calendar date
+     * the person stopped working for the company.
      */
     @JsonIgnore
-    public Optional<LocalDate> effectiveDate() {
+    public LocalDate effectiveDate() {
         return effectiveDate;
     }
 
@@ -48,19 +46,10 @@ public class HistoricalEmployeeBodyTermination {
 
 
     /**
-     * Date the employee was terminated from the company
+     * Last day of employment (termination date). This is recorded on the employment; use the calendar date
+     * the person stopped working for the company.
      */
     public HistoricalEmployeeBodyTermination withEffectiveDate(LocalDate effectiveDate) {
-        Utils.checkNotNull(effectiveDate, "effectiveDate");
-        this.effectiveDate = Optional.ofNullable(effectiveDate);
-        return this;
-    }
-
-
-    /**
-     * Date the employee was terminated from the company
-     */
-    public HistoricalEmployeeBodyTermination withEffectiveDate(Optional<LocalDate> effectiveDate) {
         Utils.checkNotNull(effectiveDate, "effectiveDate");
         this.effectiveDate = effectiveDate;
         return this;
@@ -94,7 +83,7 @@ public class HistoricalEmployeeBodyTermination {
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private Optional<LocalDate> effectiveDate = Optional.empty();
+        private LocalDate effectiveDate;
 
         private Builder() {
           // force use of static builder() method
@@ -102,18 +91,10 @@ public class HistoricalEmployeeBodyTermination {
 
 
         /**
-         * Date the employee was terminated from the company
+         * Last day of employment (termination date). This is recorded on the employment; use the calendar date
+         * the person stopped working for the company.
          */
         public Builder effectiveDate(LocalDate effectiveDate) {
-            Utils.checkNotNull(effectiveDate, "effectiveDate");
-            this.effectiveDate = Optional.ofNullable(effectiveDate);
-            return this;
-        }
-
-        /**
-         * Date the employee was terminated from the company
-         */
-        public Builder effectiveDate(Optional<LocalDate> effectiveDate) {
             Utils.checkNotNull(effectiveDate, "effectiveDate");
             this.effectiveDate = effectiveDate;
             return this;

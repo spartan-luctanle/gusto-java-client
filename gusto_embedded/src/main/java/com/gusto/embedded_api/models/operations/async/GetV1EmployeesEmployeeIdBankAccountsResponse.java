@@ -35,24 +35,24 @@ public class GetV1EmployeesEmployeeIdBankAccountsResponse implements AsyncRespon
     private HttpResponse<Blob> rawResponse;
 
     /**
-     * Example response
+     * Success
      */
-    private Optional<? extends List<EmployeeBankAccount>> employeeBankAccountList;
+    private Optional<? extends List<EmployeeBankAccount>> employeeBankAccounts;
 
     @JsonCreator
     public GetV1EmployeesEmployeeIdBankAccountsResponse(
             String contentType,
             int statusCode,
             HttpResponse<Blob> rawResponse,
-            Optional<? extends List<EmployeeBankAccount>> employeeBankAccountList) {
+            Optional<? extends List<EmployeeBankAccount>> employeeBankAccounts) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
-        Utils.checkNotNull(employeeBankAccountList, "employeeBankAccountList");
+        Utils.checkNotNull(employeeBankAccounts, "employeeBankAccounts");
         this.contentType = contentType;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
-        this.employeeBankAccountList = employeeBankAccountList;
+        this.employeeBankAccounts = employeeBankAccounts;
     }
     
     public GetV1EmployeesEmployeeIdBankAccountsResponse(
@@ -88,12 +88,12 @@ public class GetV1EmployeesEmployeeIdBankAccountsResponse implements AsyncRespon
     }
 
     /**
-     * Example response
+     * Success
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<List<EmployeeBankAccount>> employeeBankAccountList() {
-        return (Optional<List<EmployeeBankAccount>>) employeeBankAccountList;
+    public Optional<List<EmployeeBankAccount>> employeeBankAccounts() {
+        return (Optional<List<EmployeeBankAccount>>) employeeBankAccounts;
     }
 
     public static Builder builder() {
@@ -129,21 +129,21 @@ public class GetV1EmployeesEmployeeIdBankAccountsResponse implements AsyncRespon
     }
 
     /**
-     * Example response
+     * Success
      */
-    public GetV1EmployeesEmployeeIdBankAccountsResponse withEmployeeBankAccountList(List<EmployeeBankAccount> employeeBankAccountList) {
-        Utils.checkNotNull(employeeBankAccountList, "employeeBankAccountList");
-        this.employeeBankAccountList = Optional.ofNullable(employeeBankAccountList);
+    public GetV1EmployeesEmployeeIdBankAccountsResponse withEmployeeBankAccounts(List<EmployeeBankAccount> employeeBankAccounts) {
+        Utils.checkNotNull(employeeBankAccounts, "employeeBankAccounts");
+        this.employeeBankAccounts = Optional.ofNullable(employeeBankAccounts);
         return this;
     }
 
 
     /**
-     * Example response
+     * Success
      */
-    public GetV1EmployeesEmployeeIdBankAccountsResponse withEmployeeBankAccountList(Optional<? extends List<EmployeeBankAccount>> employeeBankAccountList) {
-        Utils.checkNotNull(employeeBankAccountList, "employeeBankAccountList");
-        this.employeeBankAccountList = employeeBankAccountList;
+    public GetV1EmployeesEmployeeIdBankAccountsResponse withEmployeeBankAccounts(Optional<? extends List<EmployeeBankAccount>> employeeBankAccounts) {
+        Utils.checkNotNull(employeeBankAccounts, "employeeBankAccounts");
+        this.employeeBankAccounts = employeeBankAccounts;
         return this;
     }
 
@@ -160,14 +160,14 @@ public class GetV1EmployeesEmployeeIdBankAccountsResponse implements AsyncRespon
             Utils.enhancedDeepEquals(this.contentType, other.contentType) &&
             Utils.enhancedDeepEquals(this.statusCode, other.statusCode) &&
             Utils.enhancedDeepEquals(this.rawResponse, other.rawResponse) &&
-            Utils.enhancedDeepEquals(this.employeeBankAccountList, other.employeeBankAccountList);
+            Utils.enhancedDeepEquals(this.employeeBankAccounts, other.employeeBankAccounts);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             contentType, statusCode, rawResponse,
-            employeeBankAccountList);
+            employeeBankAccounts);
     }
     
     @Override
@@ -176,7 +176,7 @@ public class GetV1EmployeesEmployeeIdBankAccountsResponse implements AsyncRespon
                 "contentType", contentType,
                 "statusCode", statusCode,
                 "rawResponse", rawResponse,
-                "employeeBankAccountList", employeeBankAccountList);
+                "employeeBankAccounts", employeeBankAccounts);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -188,7 +188,7 @@ public class GetV1EmployeesEmployeeIdBankAccountsResponse implements AsyncRespon
 
         private HttpResponse<Blob> rawResponse;
 
-        private Optional<? extends List<EmployeeBankAccount>> employeeBankAccountList = Optional.empty();
+        private Optional<? extends List<EmployeeBankAccount>> employeeBankAccounts = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -226,20 +226,20 @@ public class GetV1EmployeesEmployeeIdBankAccountsResponse implements AsyncRespon
 
 
         /**
-         * Example response
+         * Success
          */
-        public Builder employeeBankAccountList(List<EmployeeBankAccount> employeeBankAccountList) {
-            Utils.checkNotNull(employeeBankAccountList, "employeeBankAccountList");
-            this.employeeBankAccountList = Optional.ofNullable(employeeBankAccountList);
+        public Builder employeeBankAccounts(List<EmployeeBankAccount> employeeBankAccounts) {
+            Utils.checkNotNull(employeeBankAccounts, "employeeBankAccounts");
+            this.employeeBankAccounts = Optional.ofNullable(employeeBankAccounts);
             return this;
         }
 
         /**
-         * Example response
+         * Success
          */
-        public Builder employeeBankAccountList(Optional<? extends List<EmployeeBankAccount>> employeeBankAccountList) {
-            Utils.checkNotNull(employeeBankAccountList, "employeeBankAccountList");
-            this.employeeBankAccountList = employeeBankAccountList;
+        public Builder employeeBankAccounts(Optional<? extends List<EmployeeBankAccount>> employeeBankAccounts) {
+            Utils.checkNotNull(employeeBankAccounts, "employeeBankAccounts");
+            this.employeeBankAccounts = employeeBankAccounts;
             return this;
         }
 
@@ -247,7 +247,7 @@ public class GetV1EmployeesEmployeeIdBankAccountsResponse implements AsyncRespon
 
             return new GetV1EmployeesEmployeeIdBankAccountsResponse(
                 contentType, statusCode, rawResponse,
-                employeeBankAccountList);
+                employeeBankAccounts);
         }
 
     }

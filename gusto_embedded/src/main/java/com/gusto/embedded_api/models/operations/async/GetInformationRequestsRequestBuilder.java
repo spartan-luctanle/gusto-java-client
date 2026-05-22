@@ -7,7 +7,7 @@ import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.operations.GetInformationRequestsHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetInformationRequestsRequest;
 import com.gusto.embedded_api.operations.GetInformationRequests;
 import com.gusto.embedded_api.utils.Headers;
@@ -19,33 +19,33 @@ import java.util.concurrent.CompletableFuture;
 
 public class GetInformationRequestsRequestBuilder {
 
-    private String companyUuid;
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
+    private Optional<? extends GetInformationRequestsHeaderXGustoAPIVersion> xGustoAPIVersion = Utils.readDefaultOrConstValue(
                             "xGustoAPIVersion",
                             "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
+                            new TypeReference<Optional<? extends GetInformationRequestsHeaderXGustoAPIVersion>>() {});
+    private String companyUuid;
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
     public GetInformationRequestsRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
-
-    public GetInformationRequestsRequestBuilder companyUuid(String companyUuid) {
-        Utils.checkNotNull(companyUuid, "companyUuid");
-        this.companyUuid = companyUuid;
-        return this;
-    }
                 
-    public GetInformationRequestsRequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+    public GetInformationRequestsRequestBuilder xGustoAPIVersion(GetInformationRequestsHeaderXGustoAPIVersion xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
         return this;
     }
 
-    public GetInformationRequestsRequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public GetInformationRequestsRequestBuilder xGustoAPIVersion(Optional<? extends GetInformationRequestsHeaderXGustoAPIVersion> xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = xGustoAPIVersion;
+        return this;
+    }
+
+    public GetInformationRequestsRequestBuilder companyUuid(String companyUuid) {
+        Utils.checkNotNull(companyUuid, "companyUuid");
+        this.companyUuid = companyUuid;
         return this;
     }
 
@@ -55,8 +55,8 @@ public class GetInformationRequestsRequestBuilder {
             xGustoAPIVersion = _SINGLETON_VALUE_XGustoAPIVersion.value();
         }
 
-        GetInformationRequestsRequest request = new GetInformationRequestsRequest(companyUuid,
-            xGustoAPIVersion);
+        GetInformationRequestsRequest request = new GetInformationRequestsRequest(xGustoAPIVersion,
+            companyUuid);
 
         return request;
     }
@@ -71,9 +71,9 @@ public class GetInformationRequestsRequestBuilder {
             .thenCompose(operation::handleResponse);
     }
 
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+    private static final LazySingletonValue<Optional<? extends GetInformationRequestsHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
             new LazySingletonValue<>(
                     "xGustoAPIVersion",
                     "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
+                    new TypeReference<Optional<? extends GetInformationRequestsHeaderXGustoAPIVersion>>() {});
 }

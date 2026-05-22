@@ -34,7 +34,7 @@ public class PostDepartmentsResponse implements AsyncResponse {
     private HttpResponse<Blob> rawResponse;
 
     /**
-     * Department Object Example
+     * Created
      */
     private Optional<? extends Department> department;
 
@@ -87,7 +87,7 @@ public class PostDepartmentsResponse implements AsyncResponse {
     }
 
     /**
-     * Department Object Example
+     * Created
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -128,7 +128,7 @@ public class PostDepartmentsResponse implements AsyncResponse {
     }
 
     /**
-     * Department Object Example
+     * Created
      */
     public PostDepartmentsResponse withDepartment(Department department) {
         Utils.checkNotNull(department, "department");
@@ -138,7 +138,7 @@ public class PostDepartmentsResponse implements AsyncResponse {
 
 
     /**
-     * Department Object Example
+     * Created
      */
     public PostDepartmentsResponse withDepartment(Optional<? extends Department> department) {
         Utils.checkNotNull(department, "department");
@@ -225,7 +225,7 @@ public class PostDepartmentsResponse implements AsyncResponse {
 
 
         /**
-         * Department Object Example
+         * Created
          */
         public Builder department(Department department) {
             Utils.checkNotNull(department, "department");
@@ -234,7 +234,7 @@ public class PostDepartmentsResponse implements AsyncResponse {
         }
 
         /**
-         * Department Object Example
+         * Created
          */
         public Builder department(Optional<? extends Department> department) {
             Utils.checkNotNull(department, "department");

@@ -11,7 +11,9 @@ import java.util.Optional;
 /**
  * PayScheduleFrequency
  * 
- * <p>Pay frequency for this schedule. READ-ONLY.
+ * <p>The frequency that employees on this pay schedule are paid with Gusto.
+ * 
+ * <p>READ-ONLY in responses. Possible values:
  * 
  * <p>- `Every week`: Employees are paid weekly.
  * - `Every other week`: Employees are paid bi-weekly (every two weeks).

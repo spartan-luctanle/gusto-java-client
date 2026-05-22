@@ -7,7 +7,6 @@ import static com.gusto.embedded_api.operations.Operations.RequestOperation;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.VersionHeader;
 import com.gusto.embedded_api.operations.PutV1TaxLiabilitiesFinish;
 import com.gusto.embedded_api.utils.Headers;
 import com.gusto.embedded_api.utils.LazySingletonValue;
@@ -17,33 +16,33 @@ import java.util.Optional;
 
 public class PutV1TaxLiabilitiesFinishRequestBuilder {
 
-    private String companyUuid;
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
+    private Optional<? extends PutV1TaxLiabilitiesFinishHeaderXGustoAPIVersion> xGustoAPIVersion = Utils.readDefaultOrConstValue(
                             "xGustoAPIVersion",
                             "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
+                            new TypeReference<Optional<? extends PutV1TaxLiabilitiesFinishHeaderXGustoAPIVersion>>() {});
+    private String companyUuid;
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
     public PutV1TaxLiabilitiesFinishRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
-
-    public PutV1TaxLiabilitiesFinishRequestBuilder companyUuid(String companyUuid) {
-        Utils.checkNotNull(companyUuid, "companyUuid");
-        this.companyUuid = companyUuid;
-        return this;
-    }
                 
-    public PutV1TaxLiabilitiesFinishRequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+    public PutV1TaxLiabilitiesFinishRequestBuilder xGustoAPIVersion(PutV1TaxLiabilitiesFinishHeaderXGustoAPIVersion xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
         return this;
     }
 
-    public PutV1TaxLiabilitiesFinishRequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public PutV1TaxLiabilitiesFinishRequestBuilder xGustoAPIVersion(Optional<? extends PutV1TaxLiabilitiesFinishHeaderXGustoAPIVersion> xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = xGustoAPIVersion;
+        return this;
+    }
+
+    public PutV1TaxLiabilitiesFinishRequestBuilder companyUuid(String companyUuid) {
+        Utils.checkNotNull(companyUuid, "companyUuid");
+        this.companyUuid = companyUuid;
         return this;
     }
 
@@ -53,8 +52,8 @@ public class PutV1TaxLiabilitiesFinishRequestBuilder {
             xGustoAPIVersion = _SINGLETON_VALUE_XGustoAPIVersion.value();
         }
 
-        PutV1TaxLiabilitiesFinishRequest request = new PutV1TaxLiabilitiesFinishRequest(companyUuid,
-            xGustoAPIVersion);
+        PutV1TaxLiabilitiesFinishRequest request = new PutV1TaxLiabilitiesFinishRequest(xGustoAPIVersion,
+            companyUuid);
 
         return request;
     }
@@ -68,9 +67,9 @@ public class PutV1TaxLiabilitiesFinishRequestBuilder {
         return operation.handleResponse(operation.doRequest(request));
     }
 
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+    private static final LazySingletonValue<Optional<? extends PutV1TaxLiabilitiesFinishHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
             new LazySingletonValue<>(
                     "xGustoAPIVersion",
                     "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
+                    new TypeReference<Optional<? extends PutV1TaxLiabilitiesFinishHeaderXGustoAPIVersion>>() {});
 }

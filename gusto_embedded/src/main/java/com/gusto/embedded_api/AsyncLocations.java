@@ -60,87 +60,6 @@ public class AsyncLocations {
 
 
     /**
-     * Create a company location
-     * 
-     * <p>Create a company location, which represents any address associated with a company: mailing
-     * addresses, filing addresses, or work locations. A single address may serve multiple, or all,
-     * purposes.
-     * 
-     * <p>Since all company locations are subsets of locations, use the Locations endpoints to
-     * [get](ref:get-v1-locations-location_id) or [update](ref:put-v1-locations-location_id) an individual
-     * record.
-     * 
-     * <p>scope: `companies:write`
-     * 
-     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
-     * 
-     * @return The async call builder
-     */
-    public PostV1CompaniesCompanyIdLocationsRequestBuilder create() {
-        return new PostV1CompaniesCompanyIdLocationsRequestBuilder(sdkConfiguration);
-    }
-
-    /**
-     * Create a company location
-     * 
-     * <p>Create a company location, which represents any address associated with a company: mailing
-     * addresses, filing addresses, or work locations. A single address may serve multiple, or all,
-     * purposes.
-     * 
-     * <p>Since all company locations are subsets of locations, use the Locations endpoints to
-     * [get](ref:get-v1-locations-location_id) or [update](ref:put-v1-locations-location_id) an individual
-     * record.
-     * 
-     * <p>scope: `companies:write`
-     * 
-     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
-     * 
-     * @param companyId The UUID of the company
-     * @param companyLocationRequest Request body for creating a company location (company address).
-     * @return {@code CompletableFuture<PostV1CompaniesCompanyIdLocationsResponse>} - The async response
-     */
-    public CompletableFuture<PostV1CompaniesCompanyIdLocationsResponse> create(String companyId, CompanyLocationRequest companyLocationRequest) {
-        return create(Optional.empty(), companyId, companyLocationRequest);
-    }
-
-    /**
-     * Create a company location
-     * 
-     * <p>Create a company location, which represents any address associated with a company: mailing
-     * addresses, filing addresses, or work locations. A single address may serve multiple, or all,
-     * purposes.
-     * 
-     * <p>Since all company locations are subsets of locations, use the Locations endpoints to
-     * [get](ref:get-v1-locations-location_id) or [update](ref:put-v1-locations-location_id) an individual
-     * record.
-     * 
-     * <p>scope: `companies:write`
-     * 
-     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
-     * 
-     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
-     * @param companyId The UUID of the company
-     * @param companyLocationRequest Request body for creating a company location (company address).
-     * @return {@code CompletableFuture<PostV1CompaniesCompanyIdLocationsResponse>} - The async response
-     */
-    public CompletableFuture<PostV1CompaniesCompanyIdLocationsResponse> create(
-            Optional<? extends PostV1CompaniesCompanyIdLocationsHeaderXGustoAPIVersion> xGustoAPIVersion, String companyId,
-            CompanyLocationRequest companyLocationRequest) {
-        PostV1CompaniesCompanyIdLocationsRequest request =
-            PostV1CompaniesCompanyIdLocationsRequest
-                .builder()
-                .xGustoAPIVersion(xGustoAPIVersion)
-                .companyId(companyId)
-                .companyLocationRequest(companyLocationRequest)
-                .build();
-        AsyncRequestOperation<PostV1CompaniesCompanyIdLocationsRequest, PostV1CompaniesCompanyIdLocationsResponse> operation
-              = new PostV1CompaniesCompanyIdLocations.Async(sdkConfiguration, _headers);
-        return operation.doRequest(request)
-            .thenCompose(operation::handleResponse);
-    }
-
-
-    /**
      * Get all company locations
      * 
      * <p>Retrieves all company locations (addresses) associated with a company: mailing addresses, filing
@@ -216,6 +135,87 @@ public class AsyncLocations {
                 .build();
         AsyncRequestOperation<GetV1CompaniesCompanyIdLocationsRequest, GetV1CompaniesCompanyIdLocationsResponse> operation
               = new GetV1CompaniesCompanyIdLocations.Async(sdkConfiguration, _headers);
+        return operation.doRequest(request)
+            .thenCompose(operation::handleResponse);
+    }
+
+
+    /**
+     * Create a company location
+     * 
+     * <p>Create a company location, which represents any address associated with a company: mailing
+     * addresses, filing addresses, or work locations. A single address may serve multiple, or all,
+     * purposes.
+     * 
+     * <p>Since all company locations are subsets of locations, use the Locations endpoints to
+     * [get](ref:get-v1-locations-location_id) or [update](ref:put-v1-locations-location_id) an individual
+     * record.
+     * 
+     * <p>scope: `companies:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @return The async call builder
+     */
+    public PostV1CompaniesCompanyIdLocationsRequestBuilder create() {
+        return new PostV1CompaniesCompanyIdLocationsRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Create a company location
+     * 
+     * <p>Create a company location, which represents any address associated with a company: mailing
+     * addresses, filing addresses, or work locations. A single address may serve multiple, or all,
+     * purposes.
+     * 
+     * <p>Since all company locations are subsets of locations, use the Locations endpoints to
+     * [get](ref:get-v1-locations-location_id) or [update](ref:put-v1-locations-location_id) an individual
+     * record.
+     * 
+     * <p>scope: `companies:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param companyId The UUID of the company
+     * @param companyLocationRequest Request body for creating a company location (company address).
+     * @return {@code CompletableFuture<PostV1CompaniesCompanyIdLocationsResponse>} - The async response
+     */
+    public CompletableFuture<PostV1CompaniesCompanyIdLocationsResponse> create(String companyId, CompanyLocationRequest companyLocationRequest) {
+        return create(Optional.empty(), companyId, companyLocationRequest);
+    }
+
+    /**
+     * Create a company location
+     * 
+     * <p>Create a company location, which represents any address associated with a company: mailing
+     * addresses, filing addresses, or work locations. A single address may serve multiple, or all,
+     * purposes.
+     * 
+     * <p>Since all company locations are subsets of locations, use the Locations endpoints to
+     * [get](ref:get-v1-locations-location_id) or [update](ref:put-v1-locations-location_id) an individual
+     * record.
+     * 
+     * <p>scope: `companies:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     * @param companyId The UUID of the company
+     * @param companyLocationRequest Request body for creating a company location (company address).
+     * @return {@code CompletableFuture<PostV1CompaniesCompanyIdLocationsResponse>} - The async response
+     */
+    public CompletableFuture<PostV1CompaniesCompanyIdLocationsResponse> create(
+            Optional<? extends PostV1CompaniesCompanyIdLocationsHeaderXGustoAPIVersion> xGustoAPIVersion, String companyId,
+            CompanyLocationRequest companyLocationRequest) {
+        PostV1CompaniesCompanyIdLocationsRequest request =
+            PostV1CompaniesCompanyIdLocationsRequest
+                .builder()
+                .xGustoAPIVersion(xGustoAPIVersion)
+                .companyId(companyId)
+                .companyLocationRequest(companyLocationRequest)
+                .build();
+        AsyncRequestOperation<PostV1CompaniesCompanyIdLocationsRequest, PostV1CompaniesCompanyIdLocationsResponse> operation
+              = new PostV1CompaniesCompanyIdLocations.Async(sdkConfiguration, _headers);
         return operation.doRequest(request)
             .thenCompose(operation::handleResponse);
     }

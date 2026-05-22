@@ -5,9 +5,9 @@ package com.gusto.embedded_api;
 
 import static com.gusto.embedded_api.operations.Operations.RequestOperation;
 
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.components.ContractorBankAccountCreateRequestBody;
+import com.gusto.embedded_api.models.operations.PostV1ContractorsContractorUuidBankAccountsHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostV1ContractorsContractorUuidBankAccountsRequest;
-import com.gusto.embedded_api.models.operations.PostV1ContractorsContractorUuidBankAccountsRequestBody;
 import com.gusto.embedded_api.models.operations.PostV1ContractorsContractorUuidBankAccountsRequestBuilder;
 import com.gusto.embedded_api.models.operations.PostV1ContractorsContractorUuidBankAccountsResponse;
 import com.gusto.embedded_api.operations.PostV1ContractorsContractorUuidBankAccounts;
@@ -45,6 +45,8 @@ public class ContractorPaymentMethods {
      * 
      * <p>scope: `contractor_payment_methods:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @return The call builder
      */
     public PostV1ContractorsContractorUuidBankAccountsRequestBuilder createBankAccount() {
@@ -61,13 +63,15 @@ public class ContractorPaymentMethods {
      * 
      * <p>scope: `contractor_payment_methods:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param contractorUuid The UUID of the contractor
-     * @param requestBody 
+     * @param contractorBankAccountCreateRequestBody 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
-    public PostV1ContractorsContractorUuidBankAccountsResponse createBankAccount(String contractorUuid, PostV1ContractorsContractorUuidBankAccountsRequestBody requestBody) {
-        return createBankAccount(contractorUuid, Optional.empty(), requestBody);
+    public PostV1ContractorsContractorUuidBankAccountsResponse createBankAccount(String contractorUuid, ContractorBankAccountCreateRequestBody contractorBankAccountCreateRequestBody) {
+        return createBankAccount(Optional.empty(), contractorUuid, contractorBankAccountCreateRequestBody);
     }
 
     /**
@@ -80,21 +84,23 @@ public class ContractorPaymentMethods {
      * 
      * <p>scope: `contractor_payment_methods:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param contractorUuid The UUID of the contractor
-     * @param xGustoAPIVersion 
-     * @param requestBody 
+     * @param contractorBankAccountCreateRequestBody 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
     public PostV1ContractorsContractorUuidBankAccountsResponse createBankAccount(
-            String contractorUuid, Optional<? extends VersionHeader> xGustoAPIVersion,
-            PostV1ContractorsContractorUuidBankAccountsRequestBody requestBody) {
+            Optional<? extends PostV1ContractorsContractorUuidBankAccountsHeaderXGustoAPIVersion> xGustoAPIVersion, String contractorUuid,
+            ContractorBankAccountCreateRequestBody contractorBankAccountCreateRequestBody) {
         PostV1ContractorsContractorUuidBankAccountsRequest request =
             PostV1ContractorsContractorUuidBankAccountsRequest
                 .builder()
-                .contractorUuid(contractorUuid)
                 .xGustoAPIVersion(xGustoAPIVersion)
-                .requestBody(requestBody)
+                .contractorUuid(contractorUuid)
+                .contractorBankAccountCreateRequestBody(contractorBankAccountCreateRequestBody)
                 .build();
         RequestOperation<PostV1ContractorsContractorUuidBankAccountsRequest, PostV1ContractorsContractorUuidBankAccountsResponse> operation
               = new PostV1ContractorsContractorUuidBankAccounts.Sync(sdkConfiguration, _headers);

@@ -4,8 +4,8 @@
 
 ### Available Operations
 
-* [create](#create) - Create an employee benefit
 * [get](#get) - Get all benefits for an employee
+* [create](#create) - Create an employee benefit
 * [retrieve](#retrieve) - Get an employee benefit
 * [update](#update) - Update an employee benefit
 * [delete](#delete) - Delete an employee benefit
@@ -15,213 +15,6 @@
 * [postV1EmployeesEmployeeUuidSection603HighEarnerStatuses](#postv1employeesemployeeuuidsection603highearnerstatuses) - Create a Section 603 high earner status
 * [getV1EmployeesEmployeeUuidSection603HighEarnerStatusesEffectiveYear](#getv1employeesemployeeuuidsection603highearnerstatuseseffectiveyear) - Get a Section 603 high earner status for a specific year
 * [patchV1EmployeesEmployeeUuidSection603HighEarnerStatusesEffectiveYear](#patchv1employeesemployeeuuidsection603highearnerstatuseseffectiveyear) - Update a Section 603 high earner status
-
-## create
-
-Employee benefits represent an employee enrolled in a particular company benefit. It includes information specific to that employee's enrollment.
-
-When the application has the `employee_benefits:write:benefit_type_limited` data scope, the application can only create employee benefits for benefit types that are permitted for the application.
-
-scope: `employee_benefits:write`
-
-### Example Usage: Basic
-
-<!-- UsageSnippet language="java" operationID="post-v1-employees-employee_id-employee_benefits" method="post" path="/v1/employees/{employee_id}/employee_benefits" example="Basic" -->
-```java
-package hello.world;
-
-import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.VersionHeader;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
-import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeIdEmployeeBenefitsRequestBody;
-import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeIdEmployeeBenefitsResponse;
-import java.lang.Exception;
-
-public class Application {
-
-    public static void main(String[] args) throws UnprocessableEntityErrorObject, Exception {
-
-        GustoEmbedded sdk = GustoEmbedded.builder()
-                .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
-            .build();
-
-        PostV1EmployeesEmployeeIdEmployeeBenefitsResponse res = sdk.employeeBenefits().create()
-                .employeeId("<id>")
-                .xGustoAPIVersion(VersionHeader.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
-                .requestBody(PostV1EmployeesEmployeeIdEmployeeBenefitsRequestBody.builder()
-                    .companyBenefitUuid("<id>")
-                    .build())
-                .call();
-
-        if (res.employeeBenefit().isPresent()) {
-            System.out.println(res.employeeBenefit().get());
-        }
-    }
-}
-```
-### Example Usage: Example
-
-<!-- UsageSnippet language="java" operationID="post-v1-employees-employee_id-employee_benefits" method="post" path="/v1/employees/{employee_id}/employee_benefits" example="Example" -->
-```java
-package hello.world;
-
-import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.VersionHeader;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
-import com.gusto.embedded_api.models.operations.*;
-import java.lang.Exception;
-
-public class Application {
-
-    public static void main(String[] args) throws UnprocessableEntityErrorObject, Exception {
-
-        GustoEmbedded sdk = GustoEmbedded.builder()
-                .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
-            .build();
-
-        PostV1EmployeesEmployeeIdEmployeeBenefitsResponse res = sdk.employeeBenefits().create()
-                .employeeId("<id>")
-                .xGustoAPIVersion(VersionHeader.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
-                .requestBody(PostV1EmployeesEmployeeIdEmployeeBenefitsRequestBody.builder()
-                    .companyBenefitUuid("f68abb42-431e-4392-bc3f-2795627e00f3")
-                    .employeeDeduction("100.00")
-                    .contribution(Contribution.builder()
-                        .type(PostV1EmployeesEmployeeIdEmployeeBenefitsType.AMOUNT)
-                        .value(Value.of("100.00"))
-                        .build())
-                    .build())
-                .call();
-
-        if (res.employeeBenefit().isPresent()) {
-            System.out.println(res.employeeBenefit().get());
-        }
-    }
-}
-```
-### Example Usage: Nested
-
-<!-- UsageSnippet language="java" operationID="post-v1-employees-employee_id-employee_benefits" method="post" path="/v1/employees/{employee_id}/employee_benefits" example="Nested" -->
-```java
-package hello.world;
-
-import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.VersionHeader;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
-import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeIdEmployeeBenefitsRequestBody;
-import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeIdEmployeeBenefitsResponse;
-import java.lang.Exception;
-
-public class Application {
-
-    public static void main(String[] args) throws UnprocessableEntityErrorObject, Exception {
-
-        GustoEmbedded sdk = GustoEmbedded.builder()
-                .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
-            .build();
-
-        PostV1EmployeesEmployeeIdEmployeeBenefitsResponse res = sdk.employeeBenefits().create()
-                .employeeId("<id>")
-                .xGustoAPIVersion(VersionHeader.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
-                .requestBody(PostV1EmployeesEmployeeIdEmployeeBenefitsRequestBody.builder()
-                    .companyBenefitUuid("<id>")
-                    .build())
-                .call();
-
-        if (res.employeeBenefit().isPresent()) {
-            System.out.println(res.employeeBenefit().get());
-        }
-    }
-}
-```
-### Example Usage: Resource
-
-<!-- UsageSnippet language="java" operationID="post-v1-employees-employee_id-employee_benefits" method="post" path="/v1/employees/{employee_id}/employee_benefits" example="Resource" -->
-```java
-package hello.world;
-
-import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.VersionHeader;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
-import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeIdEmployeeBenefitsRequestBody;
-import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeIdEmployeeBenefitsResponse;
-import java.lang.Exception;
-
-public class Application {
-
-    public static void main(String[] args) throws UnprocessableEntityErrorObject, Exception {
-
-        GustoEmbedded sdk = GustoEmbedded.builder()
-                .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
-            .build();
-
-        PostV1EmployeesEmployeeIdEmployeeBenefitsResponse res = sdk.employeeBenefits().create()
-                .employeeId("<id>")
-                .xGustoAPIVersion(VersionHeader.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
-                .requestBody(PostV1EmployeesEmployeeIdEmployeeBenefitsRequestBody.builder()
-                    .companyBenefitUuid("<id>")
-                    .build())
-                .call();
-
-        if (res.employeeBenefit().isPresent()) {
-            System.out.println(res.employeeBenefit().get());
-        }
-    }
-}
-```
-### Example Usage: Tiered example
-
-<!-- UsageSnippet language="java" operationID="post-v1-employees-employee_id-employee_benefits" method="post" path="/v1/employees/{employee_id}/employee_benefits" example="Tiered example" -->
-```java
-package hello.world;
-
-import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.VersionHeader;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
-import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeIdEmployeeBenefitsRequestBody;
-import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeIdEmployeeBenefitsResponse;
-import java.lang.Exception;
-
-public class Application {
-
-    public static void main(String[] args) throws UnprocessableEntityErrorObject, Exception {
-
-        GustoEmbedded sdk = GustoEmbedded.builder()
-                .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
-            .build();
-
-        PostV1EmployeesEmployeeIdEmployeeBenefitsResponse res = sdk.employeeBenefits().create()
-                .employeeId("<id>")
-                .xGustoAPIVersion(VersionHeader.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
-                .requestBody(PostV1EmployeesEmployeeIdEmployeeBenefitsRequestBody.builder()
-                    .companyBenefitUuid("<id>")
-                    .build())
-                .call();
-
-        if (res.employeeBenefit().isPresent()) {
-            System.out.println(res.employeeBenefit().get());
-        }
-    }
-}
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                                                                    | Type                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                  |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `employeeId`                                                                                                                                                                                                                 | *String*                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                           | The UUID of the employee                                                                                                                                                                                                     |
-| `xGustoAPIVersion`                                                                                                                                                                                                           | [Optional\<VersionHeader>](../../models/components/VersionHeader.md)                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                           | Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used. |
-| `requestBody`                                                                                                                                                                                                                | [PostV1EmployeesEmployeeIdEmployeeBenefitsRequestBody](../../models/operations/PostV1EmployeesEmployeeIdEmployeeBenefitsRequestBody.md)                                                                                      | :heavy_check_mark:                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                          |
-
-### Response
-
-**[PostV1EmployeesEmployeeIdEmployeeBenefitsResponse](../../models/operations/PostV1EmployeesEmployeeIdEmployeeBenefitsResponse.md)**
-
-### Errors
-
-| Error Type                                   | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| models/errors/UnprocessableEntityErrorObject | 422                                          | application/json                             |
-| models/errors/APIException                   | 4XX, 5XX                                     | \*/\*                                        |
 
 ## get
 
@@ -240,13 +33,14 @@ scope: `employee_benefits:read`
 package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
 import com.gusto.embedded_api.models.operations.GetV1EmployeesEmployeeIdEmployeeBenefitsRequest;
 import com.gusto.embedded_api.models.operations.GetV1EmployeesEmployeeIdEmployeeBenefitsResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
@@ -260,8 +54,8 @@ public class Application {
                 .request(req)
                 .call();
 
-        if (res.employeeBenefitList().isPresent()) {
-            System.out.println(res.employeeBenefitList().get());
+        if (res.employeeBenefits().isPresent()) {
+            System.out.println(res.employeeBenefits().get());
         }
     }
 }
@@ -279,9 +73,224 @@ public class Application {
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| models/errors/APIException | 4XX, 5XX                   | \*/\*                      |
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/NotFoundErrorObject | 404                               | application/json                  |
+| models/errors/APIException        | 4XX, 5XX                          | \*/\*                             |
+
+## create
+
+Employee benefits represent an employee enrolled in a particular company benefit. It includes information specific to that employee's enrollment.
+
+When the application has the `employee_benefits:write:benefit_type_limited` data scope, the application can only create employee benefits for benefit types that are permitted for the application.
+
+scope: `employee_benefits:write`
+
+### Example Usage: Basic
+
+<!-- UsageSnippet language="java" operationID="post-v1-employees-employee_id-employee_benefits" method="post" path="/v1/employees/{employee_id}/employee_benefits" example="Basic" -->
+```java
+package hello.world;
+
+import com.gusto.embedded_api.GustoEmbedded;
+import com.gusto.embedded_api.models.components.EmployeeBenefitCreateRequest;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
+import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeIdEmployeeBenefitsHeaderXGustoAPIVersion;
+import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeIdEmployeeBenefitsResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
+
+        GustoEmbedded sdk = GustoEmbedded.builder()
+                .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
+            .build();
+
+        PostV1EmployeesEmployeeIdEmployeeBenefitsResponse res = sdk.employeeBenefits().create()
+                .xGustoAPIVersion(PostV1EmployeesEmployeeIdEmployeeBenefitsHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
+                .employeeId("<id>")
+                .employeeBenefitCreateRequest(EmployeeBenefitCreateRequest.builder()
+                    .companyBenefitUuid("<id>")
+                    .build())
+                .call();
+
+        if (res.employeeBenefit().isPresent()) {
+            System.out.println(res.employeeBenefit().get());
+        }
+    }
+}
+```
+### Example Usage: Example
+
+<!-- UsageSnippet language="java" operationID="post-v1-employees-employee_id-employee_benefits" method="post" path="/v1/employees/{employee_id}/employee_benefits" example="Example" -->
+```java
+package hello.world;
+
+import com.gusto.embedded_api.GustoEmbedded;
+import com.gusto.embedded_api.models.components.*;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
+import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeIdEmployeeBenefitsHeaderXGustoAPIVersion;
+import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeIdEmployeeBenefitsResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
+
+        GustoEmbedded sdk = GustoEmbedded.builder()
+                .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
+            .build();
+
+        PostV1EmployeesEmployeeIdEmployeeBenefitsResponse res = sdk.employeeBenefits().create()
+                .xGustoAPIVersion(PostV1EmployeesEmployeeIdEmployeeBenefitsHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
+                .employeeId("<id>")
+                .employeeBenefitCreateRequest(EmployeeBenefitCreateRequest.builder()
+                    .companyBenefitUuid("f68abb42-431e-4392-bc3f-2795627e00f3")
+                    .employeeDeduction("100.00")
+                    .contribution(EmployeeBenefitCreateRequestContribution.builder()
+                        .type(EmployeeBenefitCreateRequestType.AMOUNT)
+                        .value(EmployeeBenefitCreateRequestValue.of("100.00"))
+                        .build())
+                    .build())
+                .call();
+
+        if (res.employeeBenefit().isPresent()) {
+            System.out.println(res.employeeBenefit().get());
+        }
+    }
+}
+```
+### Example Usage: Nested
+
+<!-- UsageSnippet language="java" operationID="post-v1-employees-employee_id-employee_benefits" method="post" path="/v1/employees/{employee_id}/employee_benefits" example="Nested" -->
+```java
+package hello.world;
+
+import com.gusto.embedded_api.GustoEmbedded;
+import com.gusto.embedded_api.models.components.EmployeeBenefitCreateRequest;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
+import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeIdEmployeeBenefitsHeaderXGustoAPIVersion;
+import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeIdEmployeeBenefitsResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
+
+        GustoEmbedded sdk = GustoEmbedded.builder()
+                .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
+            .build();
+
+        PostV1EmployeesEmployeeIdEmployeeBenefitsResponse res = sdk.employeeBenefits().create()
+                .xGustoAPIVersion(PostV1EmployeesEmployeeIdEmployeeBenefitsHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
+                .employeeId("<id>")
+                .employeeBenefitCreateRequest(EmployeeBenefitCreateRequest.builder()
+                    .companyBenefitUuid("<id>")
+                    .build())
+                .call();
+
+        if (res.employeeBenefit().isPresent()) {
+            System.out.println(res.employeeBenefit().get());
+        }
+    }
+}
+```
+### Example Usage: Resource
+
+<!-- UsageSnippet language="java" operationID="post-v1-employees-employee_id-employee_benefits" method="post" path="/v1/employees/{employee_id}/employee_benefits" example="Resource" -->
+```java
+package hello.world;
+
+import com.gusto.embedded_api.GustoEmbedded;
+import com.gusto.embedded_api.models.components.EmployeeBenefitCreateRequest;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
+import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeIdEmployeeBenefitsHeaderXGustoAPIVersion;
+import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeIdEmployeeBenefitsResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
+
+        GustoEmbedded sdk = GustoEmbedded.builder()
+                .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
+            .build();
+
+        PostV1EmployeesEmployeeIdEmployeeBenefitsResponse res = sdk.employeeBenefits().create()
+                .xGustoAPIVersion(PostV1EmployeesEmployeeIdEmployeeBenefitsHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
+                .employeeId("<id>")
+                .employeeBenefitCreateRequest(EmployeeBenefitCreateRequest.builder()
+                    .companyBenefitUuid("<id>")
+                    .build())
+                .call();
+
+        if (res.employeeBenefit().isPresent()) {
+            System.out.println(res.employeeBenefit().get());
+        }
+    }
+}
+```
+### Example Usage: Tiered example
+
+<!-- UsageSnippet language="java" operationID="post-v1-employees-employee_id-employee_benefits" method="post" path="/v1/employees/{employee_id}/employee_benefits" example="Tiered example" -->
+```java
+package hello.world;
+
+import com.gusto.embedded_api.GustoEmbedded;
+import com.gusto.embedded_api.models.components.EmployeeBenefitCreateRequest;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
+import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeIdEmployeeBenefitsHeaderXGustoAPIVersion;
+import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeIdEmployeeBenefitsResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
+
+        GustoEmbedded sdk = GustoEmbedded.builder()
+                .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
+            .build();
+
+        PostV1EmployeesEmployeeIdEmployeeBenefitsResponse res = sdk.employeeBenefits().create()
+                .xGustoAPIVersion(PostV1EmployeesEmployeeIdEmployeeBenefitsHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
+                .employeeId("<id>")
+                .employeeBenefitCreateRequest(EmployeeBenefitCreateRequest.builder()
+                    .companyBenefitUuid("<id>")
+                    .build())
+                .call();
+
+        if (res.employeeBenefit().isPresent()) {
+            System.out.println(res.employeeBenefit().get());
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                                                                    | Type                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                  |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `xGustoAPIVersion`                                                                                                                                                                                                           | [Optional\<PostV1EmployeesEmployeeIdEmployeeBenefitsHeaderXGustoAPIVersion>](../../models/operations/PostV1EmployeesEmployeeIdEmployeeBenefitsHeaderXGustoAPIVersion.md)                                                     | :heavy_minus_sign:                                                                                                                                                                                                           | Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used. |
+| `employeeId`                                                                                                                                                                                                                 | *String*                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                           | The UUID of the employee                                                                                                                                                                                                     |
+| `employeeBenefitCreateRequest`                                                                                                                                                                                               | [EmployeeBenefitCreateRequest](../../models/components/EmployeeBenefitCreateRequest.md)                                                                                                                                      | :heavy_check_mark:                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                          |
+
+### Response
+
+**[PostV1EmployeesEmployeeIdEmployeeBenefitsResponse](../../models/operations/PostV1EmployeesEmployeeIdEmployeeBenefitsResponse.md)**
+
+### Errors
+
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/NotFoundErrorObject      | 404                                    | application/json                       |
+| models/errors/UnprocessableEntityError | 422                                    | application/json                       |
+| models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
 
 ## retrieve
 
@@ -298,21 +307,22 @@ scope: `employee_benefits:read`
 package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.operations.GetV1EmployeeBenefitsEmployeeBenefitIdHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1EmployeeBenefitsEmployeeBenefitIdResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
             .build();
 
         GetV1EmployeeBenefitsEmployeeBenefitIdResponse res = sdk.employeeBenefits().retrieve()
+                .xGustoAPIVersion(GetV1EmployeeBenefitsEmployeeBenefitIdHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
                 .employeeBenefitId("<id>")
-                .xGustoAPIVersion(VersionHeader.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
                 .call();
 
         if (res.employeeBenefit().isPresent()) {
@@ -328,21 +338,22 @@ public class Application {
 package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.operations.GetV1EmployeeBenefitsEmployeeBenefitIdHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1EmployeeBenefitsEmployeeBenefitIdResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
             .build();
 
         GetV1EmployeeBenefitsEmployeeBenefitIdResponse res = sdk.employeeBenefits().retrieve()
+                .xGustoAPIVersion(GetV1EmployeeBenefitsEmployeeBenefitIdHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
                 .employeeBenefitId("<id>")
-                .xGustoAPIVersion(VersionHeader.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
                 .call();
 
         if (res.employeeBenefit().isPresent()) {
@@ -356,8 +367,8 @@ public class Application {
 
 | Parameter                                                                                                                                                                                                                    | Type                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                  |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `xGustoAPIVersion`                                                                                                                                                                                                           | [Optional\<GetV1EmployeeBenefitsEmployeeBenefitIdHeaderXGustoAPIVersion>](../../models/operations/GetV1EmployeeBenefitsEmployeeBenefitIdHeaderXGustoAPIVersion.md)                                                           | :heavy_minus_sign:                                                                                                                                                                                                           | Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used. |
 | `employeeBenefitId`                                                                                                                                                                                                          | *String*                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                           | The UUID of the employee benefit.                                                                                                                                                                                            |
-| `xGustoAPIVersion`                                                                                                                                                                                                           | [Optional\<VersionHeader>](../../models/components/VersionHeader.md)                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                           | Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used. |
 
 ### Response
 
@@ -365,9 +376,10 @@ public class Application {
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| models/errors/APIException | 4XX, 5XX                   | \*/\*                      |
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/NotFoundErrorObject | 404                               | application/json                  |
+| models/errors/APIException        | 4XX, 5XX                          | \*/\*                             |
 
 ## update
 
@@ -384,24 +396,25 @@ scope: `employee_benefits:write`
 package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.VersionHeader;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
-import com.gusto.embedded_api.models.operations.PutV1EmployeeBenefitsEmployeeBenefitIdRequestBody;
+import com.gusto.embedded_api.models.components.EmployeeBenefitUpdateRequest;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
+import com.gusto.embedded_api.models.operations.PutV1EmployeeBenefitsEmployeeBenefitIdHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PutV1EmployeeBenefitsEmployeeBenefitIdResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
             .build();
 
         PutV1EmployeeBenefitsEmployeeBenefitIdResponse res = sdk.employeeBenefits().update()
+                .xGustoAPIVersion(PutV1EmployeeBenefitsEmployeeBenefitIdHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
                 .employeeBenefitId("<id>")
-                .xGustoAPIVersion(VersionHeader.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
-                .requestBody(PutV1EmployeeBenefitsEmployeeBenefitIdRequestBody.builder()
+                .employeeBenefitUpdateRequest(EmployeeBenefitUpdateRequest.builder()
                     .version("<value>")
                     .build())
                 .call();
@@ -419,24 +432,25 @@ public class Application {
 package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.VersionHeader;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
-import com.gusto.embedded_api.models.operations.PutV1EmployeeBenefitsEmployeeBenefitIdRequestBody;
+import com.gusto.embedded_api.models.components.EmployeeBenefitUpdateRequest;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
+import com.gusto.embedded_api.models.operations.PutV1EmployeeBenefitsEmployeeBenefitIdHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PutV1EmployeeBenefitsEmployeeBenefitIdResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
             .build();
 
         PutV1EmployeeBenefitsEmployeeBenefitIdResponse res = sdk.employeeBenefits().update()
+                .xGustoAPIVersion(PutV1EmployeeBenefitsEmployeeBenefitIdHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
                 .employeeBenefitId("<id>")
-                .xGustoAPIVersion(VersionHeader.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
-                .requestBody(PutV1EmployeeBenefitsEmployeeBenefitIdRequestBody.builder()
+                .employeeBenefitUpdateRequest(EmployeeBenefitUpdateRequest.builder()
                     .version("09j3d29jqdpj92109j9j2d90dq")
                     .employeeDeduction("250.00")
                     .build())
@@ -455,24 +469,25 @@ public class Application {
 package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.VersionHeader;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
-import com.gusto.embedded_api.models.operations.PutV1EmployeeBenefitsEmployeeBenefitIdRequestBody;
+import com.gusto.embedded_api.models.components.EmployeeBenefitUpdateRequest;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
+import com.gusto.embedded_api.models.operations.PutV1EmployeeBenefitsEmployeeBenefitIdHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PutV1EmployeeBenefitsEmployeeBenefitIdResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
             .build();
 
         PutV1EmployeeBenefitsEmployeeBenefitIdResponse res = sdk.employeeBenefits().update()
+                .xGustoAPIVersion(PutV1EmployeeBenefitsEmployeeBenefitIdHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
                 .employeeBenefitId("<id>")
-                .xGustoAPIVersion(VersionHeader.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
-                .requestBody(PutV1EmployeeBenefitsEmployeeBenefitIdRequestBody.builder()
+                .employeeBenefitUpdateRequest(EmployeeBenefitUpdateRequest.builder()
                     .version("<value>")
                     .build())
                 .call();
@@ -490,24 +505,25 @@ public class Application {
 package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.VersionHeader;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
-import com.gusto.embedded_api.models.operations.PutV1EmployeeBenefitsEmployeeBenefitIdRequestBody;
+import com.gusto.embedded_api.models.components.EmployeeBenefitUpdateRequest;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
+import com.gusto.embedded_api.models.operations.PutV1EmployeeBenefitsEmployeeBenefitIdHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PutV1EmployeeBenefitsEmployeeBenefitIdResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
             .build();
 
         PutV1EmployeeBenefitsEmployeeBenefitIdResponse res = sdk.employeeBenefits().update()
+                .xGustoAPIVersion(PutV1EmployeeBenefitsEmployeeBenefitIdHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
                 .employeeBenefitId("<id>")
-                .xGustoAPIVersion(VersionHeader.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
-                .requestBody(PutV1EmployeeBenefitsEmployeeBenefitIdRequestBody.builder()
+                .employeeBenefitUpdateRequest(EmployeeBenefitUpdateRequest.builder()
                     .version("<value>")
                     .build())
                 .call();
@@ -525,24 +541,25 @@ public class Application {
 package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.VersionHeader;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
-import com.gusto.embedded_api.models.operations.PutV1EmployeeBenefitsEmployeeBenefitIdRequestBody;
+import com.gusto.embedded_api.models.components.EmployeeBenefitUpdateRequest;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
+import com.gusto.embedded_api.models.operations.PutV1EmployeeBenefitsEmployeeBenefitIdHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PutV1EmployeeBenefitsEmployeeBenefitIdResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
             .build();
 
         PutV1EmployeeBenefitsEmployeeBenefitIdResponse res = sdk.employeeBenefits().update()
+                .xGustoAPIVersion(PutV1EmployeeBenefitsEmployeeBenefitIdHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
                 .employeeBenefitId("<id>")
-                .xGustoAPIVersion(VersionHeader.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
-                .requestBody(PutV1EmployeeBenefitsEmployeeBenefitIdRequestBody.builder()
+                .employeeBenefitUpdateRequest(EmployeeBenefitUpdateRequest.builder()
                     .version("<value>")
                     .build())
                 .call();
@@ -558,9 +575,9 @@ public class Application {
 
 | Parameter                                                                                                                                                                                                                    | Type                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                  |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `xGustoAPIVersion`                                                                                                                                                                                                           | [Optional\<PutV1EmployeeBenefitsEmployeeBenefitIdHeaderXGustoAPIVersion>](../../models/operations/PutV1EmployeeBenefitsEmployeeBenefitIdHeaderXGustoAPIVersion.md)                                                           | :heavy_minus_sign:                                                                                                                                                                                                           | Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used. |
 | `employeeBenefitId`                                                                                                                                                                                                          | *String*                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                           | The UUID of the employee benefit.                                                                                                                                                                                            |
-| `xGustoAPIVersion`                                                                                                                                                                                                           | [Optional\<VersionHeader>](../../models/components/VersionHeader.md)                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                           | Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used. |
-| `requestBody`                                                                                                                                                                                                                | [PutV1EmployeeBenefitsEmployeeBenefitIdRequestBody](../../models/operations/PutV1EmployeeBenefitsEmployeeBenefitIdRequestBody.md)                                                                                            | :heavy_check_mark:                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                          |
+| `employeeBenefitUpdateRequest`                                                                                                                                                                                               | [EmployeeBenefitUpdateRequest](../../models/components/EmployeeBenefitUpdateRequest.md)                                                                                                                                      | :heavy_check_mark:                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                          |
 
 ### Response
 
@@ -568,10 +585,11 @@ public class Application {
 
 ### Errors
 
-| Error Type                                   | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| models/errors/UnprocessableEntityErrorObject | 422                                          | application/json                             |
-| models/errors/APIException                   | 4XX, 5XX                                     | \*/\*                                        |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/NotFoundErrorObject      | 404                                    | application/json                       |
+| models/errors/UnprocessableEntityError | 422                                    | application/json                       |
+| models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
 
 ## delete
 
@@ -588,22 +606,21 @@ scope: `employee_benefits:write`
 package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.VersionHeader;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
+import com.gusto.embedded_api.models.operations.DeleteV1EmployeeBenefitsEmployeeBenefitIdHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.DeleteV1EmployeeBenefitsEmployeeBenefitIdResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
             .build();
 
         DeleteV1EmployeeBenefitsEmployeeBenefitIdResponse res = sdk.employeeBenefits().delete()
+                .xGustoAPIVersion(DeleteV1EmployeeBenefitsEmployeeBenefitIdHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
                 .employeeBenefitId("<id>")
-                .xGustoAPIVersion(VersionHeader.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
                 .call();
 
         // handle response
@@ -615,8 +632,8 @@ public class Application {
 
 | Parameter                                                                                                                                                                                                                    | Type                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                  |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `xGustoAPIVersion`                                                                                                                                                                                                           | [Optional\<DeleteV1EmployeeBenefitsEmployeeBenefitIdHeaderXGustoAPIVersion>](../../models/operations/DeleteV1EmployeeBenefitsEmployeeBenefitIdHeaderXGustoAPIVersion.md)                                                     | :heavy_minus_sign:                                                                                                                                                                                                           | Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used. |
 | `employeeBenefitId`                                                                                                                                                                                                          | *String*                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                           | The UUID of the employee benefit.                                                                                                                                                                                            |
-| `xGustoAPIVersion`                                                                                                                                                                                                           | [Optional\<VersionHeader>](../../models/components/VersionHeader.md)                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                           | Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used. |
 
 ### Response
 
@@ -624,10 +641,9 @@ public class Application {
 
 ### Errors
 
-| Error Type                                   | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| models/errors/UnprocessableEntityErrorObject | 422                                          | application/json                             |
-| models/errors/APIException                   | 4XX, 5XX                                     | \*/\*                                        |
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| models/errors/APIException | 4XX, 5XX                   | \*/\*                      |
 
 ## getYtdBenefitAmountsFromDifferentCompany
 
@@ -645,26 +661,27 @@ scope: `employee_benefits:read`
 package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.operations.GetEmployeeYtdBenefitAmountsFromDifferentCompanyHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetEmployeeYtdBenefitAmountsFromDifferentCompanyResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
             .build();
 
         GetEmployeeYtdBenefitAmountsFromDifferentCompanyResponse res = sdk.employeeBenefits().getYtdBenefitAmountsFromDifferentCompany()
+                .xGustoAPIVersion(GetEmployeeYtdBenefitAmountsFromDifferentCompanyHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
                 .employeeId("<id>")
                 .taxYear(2024L)
-                .xGustoAPIVersion(VersionHeader.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
                 .call();
 
-        if (res.ytdBenefitAmountsFromDifferentCompanyList().isPresent()) {
-            System.out.println(res.ytdBenefitAmountsFromDifferentCompanyList().get());
+        if (res.ytdBenefitAmountsFromDifferentCompanies().isPresent()) {
+            System.out.println(res.ytdBenefitAmountsFromDifferentCompanies().get());
         }
     }
 }
@@ -674,9 +691,9 @@ public class Application {
 
 | Parameter                                                                                                                                                                                                                    | Type                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                  | Example                                                                                                                                                                                                                      |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `xGustoAPIVersion`                                                                                                                                                                                                           | [Optional\<GetEmployeeYtdBenefitAmountsFromDifferentCompanyHeaderXGustoAPIVersion>](../../models/operations/GetEmployeeYtdBenefitAmountsFromDifferentCompanyHeaderXGustoAPIVersion.md)                                       | :heavy_minus_sign:                                                                                                                                                                                                           | Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used. |                                                                                                                                                                                                                              |
 | `employeeId`                                                                                                                                                                                                                 | *String*                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                           | The UUID of the employee                                                                                                                                                                                                     |                                                                                                                                                                                                                              |
 | `taxYear`                                                                                                                                                                                                                    | *Optional\<Long>*                                                                                                                                                                                                            | :heavy_minus_sign:                                                                                                                                                                                                           | The tax year for which to retrieve YTD benefit amounts. Defaults to current year if not specified.                                                                                                                           | 2024                                                                                                                                                                                                                         |
-| `xGustoAPIVersion`                                                                                                                                                                                                           | [Optional\<VersionHeader>](../../models/components/VersionHeader.md)                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                           | Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used. |                                                                                                                                                                                                                              |
 
 ### Response
 
@@ -684,9 +701,10 @@ public class Application {
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| models/errors/APIException | 4XX, 5XX                   | \*/\*                      |
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/NotFoundErrorObject | 404                               | application/json                  |
+| models/errors/APIException        | 4XX, 5XX                          | \*/\*                             |
 
 ## createYtdBenefitAmountsFromDifferentCompany
 
@@ -703,24 +721,26 @@ scope: `employee_benefits:write`
 package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.PostEmployeeYtdBenefitAmountsFromDifferentCompany;
-import com.gusto.embedded_api.models.components.VersionHeader;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
+import com.gusto.embedded_api.models.components.YtdBenefitAmountsFromDifferentCompanyBody;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
+import com.gusto.embedded_api.models.operations.PostEmployeeYtdBenefitAmountsFromDifferentCompanyHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostEmployeeYtdBenefitAmountsFromDifferentCompanyResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
             .build();
 
         PostEmployeeYtdBenefitAmountsFromDifferentCompanyResponse res = sdk.employeeBenefits().createYtdBenefitAmountsFromDifferentCompany()
+                .xGustoAPIVersion(PostEmployeeYtdBenefitAmountsFromDifferentCompanyHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
                 .employeeId("<id>")
-                .xGustoAPIVersion(VersionHeader.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
-                .postEmployeeYtdBenefitAmountsFromDifferentCompany(PostEmployeeYtdBenefitAmountsFromDifferentCompany.builder()
+                .ytdBenefitAmountsFromDifferentCompanyBody(YtdBenefitAmountsFromDifferentCompanyBody.builder()
+                    .benefitType(182856L)
                     .taxYear(1828.56)
                     .build())
                 .call();
@@ -736,24 +756,26 @@ public class Application {
 package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.PostEmployeeYtdBenefitAmountsFromDifferentCompany;
-import com.gusto.embedded_api.models.components.VersionHeader;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
+import com.gusto.embedded_api.models.components.YtdBenefitAmountsFromDifferentCompanyBody;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
+import com.gusto.embedded_api.models.operations.PostEmployeeYtdBenefitAmountsFromDifferentCompanyHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostEmployeeYtdBenefitAmountsFromDifferentCompanyResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
             .build();
 
         PostEmployeeYtdBenefitAmountsFromDifferentCompanyResponse res = sdk.employeeBenefits().createYtdBenefitAmountsFromDifferentCompany()
+                .xGustoAPIVersion(PostEmployeeYtdBenefitAmountsFromDifferentCompanyHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
                 .employeeId("<id>")
-                .xGustoAPIVersion(VersionHeader.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
-                .postEmployeeYtdBenefitAmountsFromDifferentCompany(PostEmployeeYtdBenefitAmountsFromDifferentCompany.builder()
+                .ytdBenefitAmountsFromDifferentCompanyBody(YtdBenefitAmountsFromDifferentCompanyBody.builder()
+                    .benefitType(600673L)
                     .taxYear(1828.56)
                     .build())
                 .call();
@@ -769,24 +791,26 @@ public class Application {
 package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.PostEmployeeYtdBenefitAmountsFromDifferentCompany;
-import com.gusto.embedded_api.models.components.VersionHeader;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
+import com.gusto.embedded_api.models.components.YtdBenefitAmountsFromDifferentCompanyBody;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
+import com.gusto.embedded_api.models.operations.PostEmployeeYtdBenefitAmountsFromDifferentCompanyHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostEmployeeYtdBenefitAmountsFromDifferentCompanyResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
             .build();
 
         PostEmployeeYtdBenefitAmountsFromDifferentCompanyResponse res = sdk.employeeBenefits().createYtdBenefitAmountsFromDifferentCompany()
+                .xGustoAPIVersion(PostEmployeeYtdBenefitAmountsFromDifferentCompanyHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
                 .employeeId("<id>")
-                .xGustoAPIVersion(VersionHeader.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
-                .postEmployeeYtdBenefitAmountsFromDifferentCompany(PostEmployeeYtdBenefitAmountsFromDifferentCompany.builder()
+                .ytdBenefitAmountsFromDifferentCompanyBody(YtdBenefitAmountsFromDifferentCompanyBody.builder()
+                    .benefitType(270638L)
                     .taxYear(1828.56)
                     .build())
                 .call();
@@ -800,9 +824,9 @@ public class Application {
 
 | Parameter                                                                                                                                                                                                                    | Type                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                  |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `xGustoAPIVersion`                                                                                                                                                                                                           | [Optional\<PostEmployeeYtdBenefitAmountsFromDifferentCompanyHeaderXGustoAPIVersion>](../../models/operations/PostEmployeeYtdBenefitAmountsFromDifferentCompanyHeaderXGustoAPIVersion.md)                                     | :heavy_minus_sign:                                                                                                                                                                                                           | Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used. |
 | `employeeId`                                                                                                                                                                                                                 | *String*                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                           | The UUID of the employee                                                                                                                                                                                                     |
-| `xGustoAPIVersion`                                                                                                                                                                                                           | [Optional\<VersionHeader>](../../models/components/VersionHeader.md)                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                           | Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used. |
-| `postEmployeeYtdBenefitAmountsFromDifferentCompany`                                                                                                                                                                          | [PostEmployeeYtdBenefitAmountsFromDifferentCompany](../../models/components/PostEmployeeYtdBenefitAmountsFromDifferentCompany.md)                                                                                            | :heavy_check_mark:                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                          |
+| `ytdBenefitAmountsFromDifferentCompanyBody`                                                                                                                                                                                  | [YtdBenefitAmountsFromDifferentCompanyBody](../../models/components/YtdBenefitAmountsFromDifferentCompanyBody.md)                                                                                                            | :heavy_check_mark:                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                          |
 
 ### Response
 
@@ -810,10 +834,11 @@ public class Application {
 
 ### Errors
 
-| Error Type                                   | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| models/errors/UnprocessableEntityErrorObject | 422                                          | application/json                             |
-| models/errors/APIException                   | 4XX, 5XX                                     | \*/\*                                        |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/NotFoundErrorObject      | 404                                    | application/json                       |
+| models/errors/UnprocessableEntityError | 422                                    | application/json                       |
+| models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
 
 ## getV1EmployeesEmployeeUuidSection603HighEarnerStatuses
 
@@ -892,14 +917,14 @@ package hello.world;
 import com.gusto.embedded_api.GustoEmbedded;
 import com.gusto.embedded_api.models.components.EmployeeSection603HighEarnerStatusCreateRequest;
 import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
 import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeUuidSection603HighEarnerStatusesHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeUuidSection603HighEarnerStatusesResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
@@ -935,11 +960,11 @@ public class Application {
 
 ### Errors
 
-| Error Type                                   | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| models/errors/NotFoundErrorObject            | 404                                          | application/json                             |
-| models/errors/UnprocessableEntityErrorObject | 409, 422                                     | application/json                             |
-| models/errors/APIException                   | 4XX, 5XX                                     | \*/\*                                        |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/NotFoundErrorObject      | 404                                    | application/json                       |
+| models/errors/UnprocessableEntityError | 409, 422                               | application/json                       |
+| models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
 
 ## getV1EmployeesEmployeeUuidSection603HighEarnerStatusesEffectiveYear
 
@@ -958,14 +983,14 @@ package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
 import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
 import com.gusto.embedded_api.models.operations.GetV1EmployeesEmployeeUuidSection603HighEarnerStatusesEffectiveYearHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1EmployeesEmployeeUuidSection603HighEarnerStatusesEffectiveYearResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
@@ -998,11 +1023,11 @@ public class Application {
 
 ### Errors
 
-| Error Type                                   | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| models/errors/NotFoundErrorObject            | 404                                          | application/json                             |
-| models/errors/UnprocessableEntityErrorObject | 422                                          | application/json                             |
-| models/errors/APIException                   | 4XX, 5XX                                     | \*/\*                                        |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/NotFoundErrorObject      | 404                                    | application/json                       |
+| models/errors/UnprocessableEntityError | 422                                    | application/json                       |
+| models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
 
 ## patchV1EmployeesEmployeeUuidSection603HighEarnerStatusesEffectiveYear
 
@@ -1022,14 +1047,14 @@ package hello.world;
 import com.gusto.embedded_api.GustoEmbedded;
 import com.gusto.embedded_api.models.components.EmployeeSection603HighEarnerStatusUpdateRequest;
 import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
 import com.gusto.embedded_api.models.operations.PatchV1EmployeesEmployeeUuidSection603HighEarnerStatusesEffectiveYearHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PatchV1EmployeesEmployeeUuidSection603HighEarnerStatusesEffectiveYearResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
@@ -1066,8 +1091,8 @@ public class Application {
 
 ### Errors
 
-| Error Type                                   | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| models/errors/NotFoundErrorObject            | 404                                          | application/json                             |
-| models/errors/UnprocessableEntityErrorObject | 422                                          | application/json                             |
-| models/errors/APIException                   | 4XX, 5XX                                     | \*/\*                                        |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/NotFoundErrorObject      | 404                                    | application/json                       |
+| models/errors/UnprocessableEntityError | 422                                    | application/json                       |
+| models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |

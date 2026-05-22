@@ -5,8 +5,8 @@ package com.gusto.embedded_api;
 
 import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation;
 
-import com.gusto.embedded_api.models.components.DocumentType;
 import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.operations.DocumentType;
 import com.gusto.embedded_api.models.operations.GetV1GeneratedDocumentsDocumentTypeRequestUuidRequest;
 import com.gusto.embedded_api.models.operations.async.GetV1GeneratedDocumentsDocumentTypeRequestUuidRequestBuilder;
 import com.gusto.embedded_api.models.operations.async.GetV1GeneratedDocumentsDocumentTypeRequestUuidResponse;
@@ -45,6 +45,8 @@ public class AsyncGeneratedDocuments {
      * 
      * <p>scope: `generated_documents:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @return The async call builder
      */
     public GetV1GeneratedDocumentsDocumentTypeRequestUuidRequestBuilder get() {
@@ -59,7 +61,9 @@ public class AsyncGeneratedDocuments {
      * 
      * <p>scope: `generated_documents:read`
      * 
-     * @param documentType 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param documentType The type of document being generated
      * @param requestUuid The UUID of the request to generate a document. Generate document endpoints return request_uuids to be used with the GET generated document endpoint.
      * @return {@code CompletableFuture<GetV1GeneratedDocumentsDocumentTypeRequestUuidResponse>} - The async response
      */
@@ -75,7 +79,9 @@ public class AsyncGeneratedDocuments {
      * 
      * <p>scope: `generated_documents:read`
      * 
-     * @param documentType 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param documentType The type of document being generated
      * @param requestUuid The UUID of the request to generate a document. Generate document endpoints return request_uuids to be used with the GET generated document endpoint.
      * @param xGustoAPIVersion 
      * @return {@code CompletableFuture<GetV1GeneratedDocumentsDocumentTypeRequestUuidResponse>} - The async response

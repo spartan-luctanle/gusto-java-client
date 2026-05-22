@@ -5,6 +5,7 @@ package com.gusto.embedded_api.models.operations;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.gusto.embedded_api.models.components.EmployeeCustomFieldList;
 import com.gusto.embedded_api.utils.Response;
 import com.gusto.embedded_api.utils.Utils;
 import java.io.InputStream;
@@ -33,24 +34,24 @@ public class GetV1EmployeesEmployeeIdCustomFieldsResponse implements Response {
     private HttpResponse<InputStream> rawResponse;
 
     /**
-     * OK
+     * Success
      */
-    private Optional<? extends GetV1EmployeesEmployeeIdCustomFieldsResponseBody> object;
+    private Optional<? extends EmployeeCustomFieldList> employeeCustomFieldList;
 
     @JsonCreator
     public GetV1EmployeesEmployeeIdCustomFieldsResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends GetV1EmployeesEmployeeIdCustomFieldsResponseBody> object) {
+            Optional<? extends EmployeeCustomFieldList> employeeCustomFieldList) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
-        Utils.checkNotNull(object, "object");
+        Utils.checkNotNull(employeeCustomFieldList, "employeeCustomFieldList");
         this.contentType = contentType;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
-        this.object = object;
+        this.employeeCustomFieldList = employeeCustomFieldList;
     }
     
     public GetV1EmployeesEmployeeIdCustomFieldsResponse(
@@ -86,12 +87,12 @@ public class GetV1EmployeesEmployeeIdCustomFieldsResponse implements Response {
     }
 
     /**
-     * OK
+     * Success
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<GetV1EmployeesEmployeeIdCustomFieldsResponseBody> object() {
-        return (Optional<GetV1EmployeesEmployeeIdCustomFieldsResponseBody>) object;
+    public Optional<EmployeeCustomFieldList> employeeCustomFieldList() {
+        return (Optional<EmployeeCustomFieldList>) employeeCustomFieldList;
     }
 
     public static Builder builder() {
@@ -127,21 +128,21 @@ public class GetV1EmployeesEmployeeIdCustomFieldsResponse implements Response {
     }
 
     /**
-     * OK
+     * Success
      */
-    public GetV1EmployeesEmployeeIdCustomFieldsResponse withObject(GetV1EmployeesEmployeeIdCustomFieldsResponseBody object) {
-        Utils.checkNotNull(object, "object");
-        this.object = Optional.ofNullable(object);
+    public GetV1EmployeesEmployeeIdCustomFieldsResponse withEmployeeCustomFieldList(EmployeeCustomFieldList employeeCustomFieldList) {
+        Utils.checkNotNull(employeeCustomFieldList, "employeeCustomFieldList");
+        this.employeeCustomFieldList = Optional.ofNullable(employeeCustomFieldList);
         return this;
     }
 
 
     /**
-     * OK
+     * Success
      */
-    public GetV1EmployeesEmployeeIdCustomFieldsResponse withObject(Optional<? extends GetV1EmployeesEmployeeIdCustomFieldsResponseBody> object) {
-        Utils.checkNotNull(object, "object");
-        this.object = object;
+    public GetV1EmployeesEmployeeIdCustomFieldsResponse withEmployeeCustomFieldList(Optional<? extends EmployeeCustomFieldList> employeeCustomFieldList) {
+        Utils.checkNotNull(employeeCustomFieldList, "employeeCustomFieldList");
+        this.employeeCustomFieldList = employeeCustomFieldList;
         return this;
     }
 
@@ -158,14 +159,14 @@ public class GetV1EmployeesEmployeeIdCustomFieldsResponse implements Response {
             Utils.enhancedDeepEquals(this.contentType, other.contentType) &&
             Utils.enhancedDeepEquals(this.statusCode, other.statusCode) &&
             Utils.enhancedDeepEquals(this.rawResponse, other.rawResponse) &&
-            Utils.enhancedDeepEquals(this.object, other.object);
+            Utils.enhancedDeepEquals(this.employeeCustomFieldList, other.employeeCustomFieldList);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             contentType, statusCode, rawResponse,
-            object);
+            employeeCustomFieldList);
     }
     
     @Override
@@ -174,7 +175,7 @@ public class GetV1EmployeesEmployeeIdCustomFieldsResponse implements Response {
                 "contentType", contentType,
                 "statusCode", statusCode,
                 "rawResponse", rawResponse,
-                "object", object);
+                "employeeCustomFieldList", employeeCustomFieldList);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -186,7 +187,7 @@ public class GetV1EmployeesEmployeeIdCustomFieldsResponse implements Response {
 
         private HttpResponse<InputStream> rawResponse;
 
-        private Optional<? extends GetV1EmployeesEmployeeIdCustomFieldsResponseBody> object = Optional.empty();
+        private Optional<? extends EmployeeCustomFieldList> employeeCustomFieldList = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -224,20 +225,20 @@ public class GetV1EmployeesEmployeeIdCustomFieldsResponse implements Response {
 
 
         /**
-         * OK
+         * Success
          */
-        public Builder object(GetV1EmployeesEmployeeIdCustomFieldsResponseBody object) {
-            Utils.checkNotNull(object, "object");
-            this.object = Optional.ofNullable(object);
+        public Builder employeeCustomFieldList(EmployeeCustomFieldList employeeCustomFieldList) {
+            Utils.checkNotNull(employeeCustomFieldList, "employeeCustomFieldList");
+            this.employeeCustomFieldList = Optional.ofNullable(employeeCustomFieldList);
             return this;
         }
 
         /**
-         * OK
+         * Success
          */
-        public Builder object(Optional<? extends GetV1EmployeesEmployeeIdCustomFieldsResponseBody> object) {
-            Utils.checkNotNull(object, "object");
-            this.object = object;
+        public Builder employeeCustomFieldList(Optional<? extends EmployeeCustomFieldList> employeeCustomFieldList) {
+            Utils.checkNotNull(employeeCustomFieldList, "employeeCustomFieldList");
+            this.employeeCustomFieldList = employeeCustomFieldList;
             return this;
         }
 
@@ -245,7 +246,7 @@ public class GetV1EmployeesEmployeeIdCustomFieldsResponse implements Response {
 
             return new GetV1EmployeesEmployeeIdCustomFieldsResponse(
                 contentType, statusCode, rawResponse,
-                object);
+                employeeCustomFieldList);
         }
 
     }

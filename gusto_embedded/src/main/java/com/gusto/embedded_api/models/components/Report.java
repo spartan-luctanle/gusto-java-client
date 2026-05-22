@@ -15,11 +15,7 @@ import java.lang.SuppressWarnings;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Report
- * 
- * <p>Example response
- */
+
 public class Report {
     /**
      * A unique identifier of the report request

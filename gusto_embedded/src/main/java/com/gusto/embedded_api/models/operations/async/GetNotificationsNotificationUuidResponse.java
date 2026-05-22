@@ -34,7 +34,7 @@ public class GetNotificationsNotificationUuidResponse implements AsyncResponse {
     private HttpResponse<Blob> rawResponse;
 
     /**
-     * Example response
+     * Successful
      */
     private Optional<? extends Notification> notification;
 
@@ -87,7 +87,7 @@ public class GetNotificationsNotificationUuidResponse implements AsyncResponse {
     }
 
     /**
-     * Example response
+     * Successful
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -128,7 +128,7 @@ public class GetNotificationsNotificationUuidResponse implements AsyncResponse {
     }
 
     /**
-     * Example response
+     * Successful
      */
     public GetNotificationsNotificationUuidResponse withNotification(Notification notification) {
         Utils.checkNotNull(notification, "notification");
@@ -138,7 +138,7 @@ public class GetNotificationsNotificationUuidResponse implements AsyncResponse {
 
 
     /**
-     * Example response
+     * Successful
      */
     public GetNotificationsNotificationUuidResponse withNotification(Optional<? extends Notification> notification) {
         Utils.checkNotNull(notification, "notification");
@@ -225,7 +225,7 @@ public class GetNotificationsNotificationUuidResponse implements AsyncResponse {
 
 
         /**
-         * Example response
+         * Successful
          */
         public Builder notification(Notification notification) {
             Utils.checkNotNull(notification, "notification");
@@ -234,7 +234,7 @@ public class GetNotificationsNotificationUuidResponse implements AsyncResponse {
         }
 
         /**
-         * Example response
+         * Successful
          */
         public Builder notification(Optional<? extends Notification> notification) {
             Utils.checkNotNull(notification, "notification");

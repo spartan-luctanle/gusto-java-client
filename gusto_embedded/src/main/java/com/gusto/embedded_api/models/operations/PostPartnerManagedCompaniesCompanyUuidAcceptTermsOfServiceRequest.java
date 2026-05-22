@@ -6,7 +6,7 @@ package com.gusto.embedded_api.models.operations;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.components.PartnerManagedCompanyAcceptTermsOfServiceRequest;
 import com.gusto.embedded_api.utils.LazySingletonValue;
 import com.gusto.embedded_api.utils.SpeakeasyMetadata;
 import com.gusto.embedded_api.utils.Utils;
@@ -29,29 +29,29 @@ public class PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceRequest {
      * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      */
     @SpeakeasyMetadata("header:style=simple,explode=false,name=X-Gusto-API-Version")
-    private Optional<? extends VersionHeader> xGustoAPIVersion;
+    private Optional<? extends PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceHeaderXGustoAPIVersion> xGustoAPIVersion;
 
 
     @SpeakeasyMetadata("request:mediaType=application/json")
-    private PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceRequestBody requestBody;
+    private PartnerManagedCompanyAcceptTermsOfServiceRequest partnerManagedCompanyAcceptTermsOfServiceRequest;
 
     @JsonCreator
     public PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceRequest(
             String companyUuid,
-            Optional<? extends VersionHeader> xGustoAPIVersion,
-            PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceRequestBody requestBody) {
+            Optional<? extends PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceHeaderXGustoAPIVersion> xGustoAPIVersion,
+            PartnerManagedCompanyAcceptTermsOfServiceRequest partnerManagedCompanyAcceptTermsOfServiceRequest) {
         Utils.checkNotNull(companyUuid, "companyUuid");
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        Utils.checkNotNull(requestBody, "requestBody");
+        Utils.checkNotNull(partnerManagedCompanyAcceptTermsOfServiceRequest, "partnerManagedCompanyAcceptTermsOfServiceRequest");
         this.companyUuid = companyUuid;
         this.xGustoAPIVersion = xGustoAPIVersion;
-        this.requestBody = requestBody;
+        this.partnerManagedCompanyAcceptTermsOfServiceRequest = partnerManagedCompanyAcceptTermsOfServiceRequest;
     }
     
     public PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceRequest(
             String companyUuid,
-            PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceRequestBody requestBody) {
-        this(companyUuid, Optional.empty(), requestBody);
+            PartnerManagedCompanyAcceptTermsOfServiceRequest partnerManagedCompanyAcceptTermsOfServiceRequest) {
+        this(companyUuid, Optional.empty(), partnerManagedCompanyAcceptTermsOfServiceRequest);
     }
 
     /**
@@ -69,13 +69,13 @@ public class PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceRequest {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<VersionHeader> xGustoAPIVersion() {
-        return (Optional<VersionHeader>) xGustoAPIVersion;
+    public Optional<PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceHeaderXGustoAPIVersion> xGustoAPIVersion() {
+        return (Optional<PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceHeaderXGustoAPIVersion>) xGustoAPIVersion;
     }
 
     @JsonIgnore
-    public PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceRequestBody requestBody() {
-        return requestBody;
+    public PartnerManagedCompanyAcceptTermsOfServiceRequest partnerManagedCompanyAcceptTermsOfServiceRequest() {
+        return partnerManagedCompanyAcceptTermsOfServiceRequest;
     }
 
     public static Builder builder() {
@@ -97,7 +97,7 @@ public class PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceRequest {
      * application's [minimum API
      * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      */
-    public PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceRequest withXGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+    public PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceRequest withXGustoAPIVersion(PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceHeaderXGustoAPIVersion xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
         return this;
@@ -109,15 +109,15 @@ public class PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceRequest {
      * application's [minimum API
      * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      */
-    public PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceRequest withXGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceRequest withXGustoAPIVersion(Optional<? extends PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceHeaderXGustoAPIVersion> xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = xGustoAPIVersion;
         return this;
     }
 
-    public PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceRequest withRequestBody(PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceRequestBody requestBody) {
-        Utils.checkNotNull(requestBody, "requestBody");
-        this.requestBody = requestBody;
+    public PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceRequest withPartnerManagedCompanyAcceptTermsOfServiceRequest(PartnerManagedCompanyAcceptTermsOfServiceRequest partnerManagedCompanyAcceptTermsOfServiceRequest) {
+        Utils.checkNotNull(partnerManagedCompanyAcceptTermsOfServiceRequest, "partnerManagedCompanyAcceptTermsOfServiceRequest");
+        this.partnerManagedCompanyAcceptTermsOfServiceRequest = partnerManagedCompanyAcceptTermsOfServiceRequest;
         return this;
     }
 
@@ -133,13 +133,13 @@ public class PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceRequest {
         return 
             Utils.enhancedDeepEquals(this.companyUuid, other.companyUuid) &&
             Utils.enhancedDeepEquals(this.xGustoAPIVersion, other.xGustoAPIVersion) &&
-            Utils.enhancedDeepEquals(this.requestBody, other.requestBody);
+            Utils.enhancedDeepEquals(this.partnerManagedCompanyAcceptTermsOfServiceRequest, other.partnerManagedCompanyAcceptTermsOfServiceRequest);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            companyUuid, xGustoAPIVersion, requestBody);
+            companyUuid, xGustoAPIVersion, partnerManagedCompanyAcceptTermsOfServiceRequest);
     }
     
     @Override
@@ -147,7 +147,7 @@ public class PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceRequest {
         return Utils.toString(PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceRequest.class,
                 "companyUuid", companyUuid,
                 "xGustoAPIVersion", xGustoAPIVersion,
-                "requestBody", requestBody);
+                "partnerManagedCompanyAcceptTermsOfServiceRequest", partnerManagedCompanyAcceptTermsOfServiceRequest);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -155,9 +155,9 @@ public class PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceRequest {
 
         private String companyUuid;
 
-        private Optional<? extends VersionHeader> xGustoAPIVersion;
+        private Optional<? extends PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceHeaderXGustoAPIVersion> xGustoAPIVersion;
 
-        private PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceRequestBody requestBody;
+        private PartnerManagedCompanyAcceptTermsOfServiceRequest partnerManagedCompanyAcceptTermsOfServiceRequest;
 
         private Builder() {
           // force use of static builder() method
@@ -179,7 +179,7 @@ public class PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceRequest {
          * application's [minimum API
          * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
          */
-        public Builder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+        public Builder xGustoAPIVersion(PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceHeaderXGustoAPIVersion xGustoAPIVersion) {
             Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
             this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
             return this;
@@ -190,16 +190,16 @@ public class PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceRequest {
          * application's [minimum API
          * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
          */
-        public Builder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+        public Builder xGustoAPIVersion(Optional<? extends PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceHeaderXGustoAPIVersion> xGustoAPIVersion) {
             Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
             this.xGustoAPIVersion = xGustoAPIVersion;
             return this;
         }
 
 
-        public Builder requestBody(PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceRequestBody requestBody) {
-            Utils.checkNotNull(requestBody, "requestBody");
-            this.requestBody = requestBody;
+        public Builder partnerManagedCompanyAcceptTermsOfServiceRequest(PartnerManagedCompanyAcceptTermsOfServiceRequest partnerManagedCompanyAcceptTermsOfServiceRequest) {
+            Utils.checkNotNull(partnerManagedCompanyAcceptTermsOfServiceRequest, "partnerManagedCompanyAcceptTermsOfServiceRequest");
+            this.partnerManagedCompanyAcceptTermsOfServiceRequest = partnerManagedCompanyAcceptTermsOfServiceRequest;
             return this;
         }
 
@@ -209,14 +209,14 @@ public class PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceRequest {
             }
 
             return new PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceRequest(
-                companyUuid, xGustoAPIVersion, requestBody);
+                companyUuid, xGustoAPIVersion, partnerManagedCompanyAcceptTermsOfServiceRequest);
         }
 
 
-        private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+        private static final LazySingletonValue<Optional<? extends PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
                 new LazySingletonValue<>(
                         "X-Gusto-API-Version",
                         "\"2025-06-15\"",
-                        new TypeReference<Optional<? extends VersionHeader>>() {});
+                        new TypeReference<Optional<? extends PostPartnerManagedCompaniesCompanyUuidAcceptTermsOfServiceHeaderXGustoAPIVersion>>() {});
     }
 }

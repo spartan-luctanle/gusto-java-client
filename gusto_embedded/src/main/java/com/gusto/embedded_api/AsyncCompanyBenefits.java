@@ -100,6 +100,53 @@ public class AsyncCompanyBenefits {
 
 
     /**
+     * Get benefits for a company
+     * 
+     * <p>Company benefits represent the benefits that a company is offering to employees. This ties together
+     * a particular supported benefit with the company-specific information for the offering of that
+     * benefit.
+     * 
+     * <p>Note that company benefits can be deactivated only when no employees are enrolled.
+     * 
+     * <p>Benefits containing PHI are only visible to applications with the `company_benefits:read:phi` scope.
+     * 
+     * <p>scope: `company_benefits:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @return The async call builder
+     */
+    public GetV1CompaniesCompanyIdCompanyBenefitsRequestBuilder list() {
+        return new GetV1CompaniesCompanyIdCompanyBenefitsRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Get benefits for a company
+     * 
+     * <p>Company benefits represent the benefits that a company is offering to employees. This ties together
+     * a particular supported benefit with the company-specific information for the offering of that
+     * benefit.
+     * 
+     * <p>Note that company benefits can be deactivated only when no employees are enrolled.
+     * 
+     * <p>Benefits containing PHI are only visible to applications with the `company_benefits:read:phi` scope.
+     * 
+     * <p>scope: `company_benefits:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param request The request object containing all the parameters for the API call.
+     * @return {@code CompletableFuture<GetV1CompaniesCompanyIdCompanyBenefitsResponse>} - The async response
+     */
+    public CompletableFuture<GetV1CompaniesCompanyIdCompanyBenefitsResponse> list(GetV1CompaniesCompanyIdCompanyBenefitsRequest request) {
+        AsyncRequestOperation<GetV1CompaniesCompanyIdCompanyBenefitsRequest, GetV1CompaniesCompanyIdCompanyBenefitsResponse> operation
+              = new GetV1CompaniesCompanyIdCompanyBenefits.Async(sdkConfiguration, _headers);
+        return operation.doRequest(request)
+            .thenCompose(operation::handleResponse);
+    }
+
+
+    /**
      * Create a company benefit
      * 
      * <p>Company benefits represent the benefits that a company is offering to employees. This ties together
@@ -181,53 +228,6 @@ public class AsyncCompanyBenefits {
                 .build();
         AsyncRequestOperation<PostV1CompaniesCompanyIdCompanyBenefitsRequest, PostV1CompaniesCompanyIdCompanyBenefitsResponse> operation
               = new PostV1CompaniesCompanyIdCompanyBenefits.Async(sdkConfiguration, _headers);
-        return operation.doRequest(request)
-            .thenCompose(operation::handleResponse);
-    }
-
-
-    /**
-     * Get benefits for a company
-     * 
-     * <p>Company benefits represent the benefits that a company is offering to employees. This ties together
-     * a particular supported benefit with the company-specific information for the offering of that
-     * benefit.
-     * 
-     * <p>Note that company benefits can be deactivated only when no employees are enrolled.
-     * 
-     * <p>Benefits containing PHI are only visible to applications with the `company_benefits:read:phi` scope.
-     * 
-     * <p>scope: `company_benefits:read`
-     * 
-     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
-     * 
-     * @return The async call builder
-     */
-    public GetV1CompaniesCompanyIdCompanyBenefitsRequestBuilder list() {
-        return new GetV1CompaniesCompanyIdCompanyBenefitsRequestBuilder(sdkConfiguration);
-    }
-
-    /**
-     * Get benefits for a company
-     * 
-     * <p>Company benefits represent the benefits that a company is offering to employees. This ties together
-     * a particular supported benefit with the company-specific information for the offering of that
-     * benefit.
-     * 
-     * <p>Note that company benefits can be deactivated only when no employees are enrolled.
-     * 
-     * <p>Benefits containing PHI are only visible to applications with the `company_benefits:read:phi` scope.
-     * 
-     * <p>scope: `company_benefits:read`
-     * 
-     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
-     * 
-     * @param request The request object containing all the parameters for the API call.
-     * @return {@code CompletableFuture<GetV1CompaniesCompanyIdCompanyBenefitsResponse>} - The async response
-     */
-    public CompletableFuture<GetV1CompaniesCompanyIdCompanyBenefitsResponse> list(GetV1CompaniesCompanyIdCompanyBenefitsRequest request) {
-        AsyncRequestOperation<GetV1CompaniesCompanyIdCompanyBenefitsRequest, GetV1CompaniesCompanyIdCompanyBenefitsResponse> operation
-              = new GetV1CompaniesCompanyIdCompanyBenefits.Async(sdkConfiguration, _headers);
         return operation.doRequest(request)
             .thenCompose(operation::handleResponse);
     }

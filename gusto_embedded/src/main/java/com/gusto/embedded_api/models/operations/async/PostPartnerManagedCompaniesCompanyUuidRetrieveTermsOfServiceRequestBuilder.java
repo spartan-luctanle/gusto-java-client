@@ -7,9 +7,9 @@ import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.components.PartnerManagedCompanyRetrieveTermsOfServiceRequest;
+import com.gusto.embedded_api.models.operations.PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceRequest;
-import com.gusto.embedded_api.models.operations.PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceRequestBody;
 import com.gusto.embedded_api.operations.PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfService;
 import com.gusto.embedded_api.utils.Headers;
 import com.gusto.embedded_api.utils.LazySingletonValue;
@@ -21,11 +21,11 @@ import java.util.concurrent.CompletableFuture;
 public class PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceRequestBuilder {
 
     private String companyUuid;
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
+    private Optional<? extends PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceHeaderXGustoAPIVersion> xGustoAPIVersion = Utils.readDefaultOrConstValue(
                             "xGustoAPIVersion",
                             "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
-    private PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceRequestBody requestBody;
+                            new TypeReference<Optional<? extends PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceHeaderXGustoAPIVersion>>() {});
+    private PartnerManagedCompanyRetrieveTermsOfServiceRequest partnerManagedCompanyRetrieveTermsOfServiceRequest;
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
@@ -39,21 +39,21 @@ public class PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceRequest
         return this;
     }
                 
-    public PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceRequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+    public PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceRequestBuilder xGustoAPIVersion(PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceHeaderXGustoAPIVersion xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
         return this;
     }
 
-    public PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceRequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceRequestBuilder xGustoAPIVersion(Optional<? extends PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceHeaderXGustoAPIVersion> xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = xGustoAPIVersion;
         return this;
     }
 
-    public PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceRequestBuilder requestBody(PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceRequestBody requestBody) {
-        Utils.checkNotNull(requestBody, "requestBody");
-        this.requestBody = requestBody;
+    public PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceRequestBuilder partnerManagedCompanyRetrieveTermsOfServiceRequest(PartnerManagedCompanyRetrieveTermsOfServiceRequest partnerManagedCompanyRetrieveTermsOfServiceRequest) {
+        Utils.checkNotNull(partnerManagedCompanyRetrieveTermsOfServiceRequest, "partnerManagedCompanyRetrieveTermsOfServiceRequest");
+        this.partnerManagedCompanyRetrieveTermsOfServiceRequest = partnerManagedCompanyRetrieveTermsOfServiceRequest;
         return this;
     }
 
@@ -65,7 +65,7 @@ public class PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceRequest
 
         PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceRequest request = new PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceRequest(companyUuid,
             xGustoAPIVersion,
-            requestBody);
+            partnerManagedCompanyRetrieveTermsOfServiceRequest);
 
         return request;
     }
@@ -80,9 +80,9 @@ public class PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceRequest
             .thenCompose(operation::handleResponse);
     }
 
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+    private static final LazySingletonValue<Optional<? extends PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
             new LazySingletonValue<>(
                     "xGustoAPIVersion",
                     "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
+                    new TypeReference<Optional<? extends PostPartnerManagedCompaniesCompanyUuidRetrieveTermsOfServiceHeaderXGustoAPIVersion>>() {});
 }

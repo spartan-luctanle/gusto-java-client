@@ -7,7 +7,6 @@ import static com.gusto.embedded_api.operations.Operations.RequestOperation;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.VersionHeader;
 import com.gusto.embedded_api.operations.GetEmployeeYtdBenefitAmountsFromDifferentCompany;
 import com.gusto.embedded_api.utils.Headers;
 import com.gusto.embedded_api.utils.LazySingletonValue;
@@ -18,17 +17,29 @@ import java.util.Optional;
 
 public class GetEmployeeYtdBenefitAmountsFromDifferentCompanyRequestBuilder {
 
-    private String employeeId;
-    private Optional<Long> taxYear = Optional.empty();
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
+    private Optional<? extends GetEmployeeYtdBenefitAmountsFromDifferentCompanyHeaderXGustoAPIVersion> xGustoAPIVersion = Utils.readDefaultOrConstValue(
                             "xGustoAPIVersion",
                             "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
+                            new TypeReference<Optional<? extends GetEmployeeYtdBenefitAmountsFromDifferentCompanyHeaderXGustoAPIVersion>>() {});
+    private String employeeId;
+    private Optional<Long> taxYear = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
     public GetEmployeeYtdBenefitAmountsFromDifferentCompanyRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
+    }
+                
+    public GetEmployeeYtdBenefitAmountsFromDifferentCompanyRequestBuilder xGustoAPIVersion(GetEmployeeYtdBenefitAmountsFromDifferentCompanyHeaderXGustoAPIVersion xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
+        return this;
+    }
+
+    public GetEmployeeYtdBenefitAmountsFromDifferentCompanyRequestBuilder xGustoAPIVersion(Optional<? extends GetEmployeeYtdBenefitAmountsFromDifferentCompanyHeaderXGustoAPIVersion> xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = xGustoAPIVersion;
+        return this;
     }
 
     public GetEmployeeYtdBenefitAmountsFromDifferentCompanyRequestBuilder employeeId(String employeeId) {
@@ -48,18 +59,6 @@ public class GetEmployeeYtdBenefitAmountsFromDifferentCompanyRequestBuilder {
         this.taxYear = taxYear;
         return this;
     }
-                
-    public GetEmployeeYtdBenefitAmountsFromDifferentCompanyRequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
-        return this;
-    }
-
-    public GetEmployeeYtdBenefitAmountsFromDifferentCompanyRequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = xGustoAPIVersion;
-        return this;
-    }
 
 
     private GetEmployeeYtdBenefitAmountsFromDifferentCompanyRequest buildRequest() {
@@ -67,9 +66,9 @@ public class GetEmployeeYtdBenefitAmountsFromDifferentCompanyRequestBuilder {
             xGustoAPIVersion = _SINGLETON_VALUE_XGustoAPIVersion.value();
         }
 
-        GetEmployeeYtdBenefitAmountsFromDifferentCompanyRequest request = new GetEmployeeYtdBenefitAmountsFromDifferentCompanyRequest(employeeId,
-            taxYear,
-            xGustoAPIVersion);
+        GetEmployeeYtdBenefitAmountsFromDifferentCompanyRequest request = new GetEmployeeYtdBenefitAmountsFromDifferentCompanyRequest(xGustoAPIVersion,
+            employeeId,
+            taxYear);
 
         return request;
     }
@@ -83,9 +82,9 @@ public class GetEmployeeYtdBenefitAmountsFromDifferentCompanyRequestBuilder {
         return operation.handleResponse(operation.doRequest(request));
     }
 
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+    private static final LazySingletonValue<Optional<? extends GetEmployeeYtdBenefitAmountsFromDifferentCompanyHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
             new LazySingletonValue<>(
                     "xGustoAPIVersion",
                     "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
+                    new TypeReference<Optional<? extends GetEmployeeYtdBenefitAmountsFromDifferentCompanyHeaderXGustoAPIVersion>>() {});
 }

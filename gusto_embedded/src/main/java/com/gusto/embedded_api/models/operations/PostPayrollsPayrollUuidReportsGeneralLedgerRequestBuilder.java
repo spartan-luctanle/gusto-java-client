@@ -7,7 +7,7 @@ import static com.gusto.embedded_api.operations.Operations.RequestOperation;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.components.GeneralLedgerReportBody;
 import com.gusto.embedded_api.operations.PostPayrollsPayrollUuidReportsGeneralLedger;
 import com.gusto.embedded_api.utils.Headers;
 import com.gusto.embedded_api.utils.LazySingletonValue;
@@ -17,17 +17,29 @@ import java.util.Optional;
 
 public class PostPayrollsPayrollUuidReportsGeneralLedgerRequestBuilder {
 
-    private String payrollUuid;
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
+    private Optional<? extends PostPayrollsPayrollUuidReportsGeneralLedgerHeaderXGustoAPIVersion> xGustoAPIVersion = Utils.readDefaultOrConstValue(
                             "xGustoAPIVersion",
                             "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
-    private PostPayrollsPayrollUuidReportsGeneralLedgerRequestBody requestBody;
+                            new TypeReference<Optional<? extends PostPayrollsPayrollUuidReportsGeneralLedgerHeaderXGustoAPIVersion>>() {});
+    private String payrollUuid;
+    private GeneralLedgerReportBody generalLedgerReportBody;
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
     public PostPayrollsPayrollUuidReportsGeneralLedgerRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
+    }
+                
+    public PostPayrollsPayrollUuidReportsGeneralLedgerRequestBuilder xGustoAPIVersion(PostPayrollsPayrollUuidReportsGeneralLedgerHeaderXGustoAPIVersion xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
+        return this;
+    }
+
+    public PostPayrollsPayrollUuidReportsGeneralLedgerRequestBuilder xGustoAPIVersion(Optional<? extends PostPayrollsPayrollUuidReportsGeneralLedgerHeaderXGustoAPIVersion> xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = xGustoAPIVersion;
+        return this;
     }
 
     public PostPayrollsPayrollUuidReportsGeneralLedgerRequestBuilder payrollUuid(String payrollUuid) {
@@ -35,22 +47,10 @@ public class PostPayrollsPayrollUuidReportsGeneralLedgerRequestBuilder {
         this.payrollUuid = payrollUuid;
         return this;
     }
-                
-    public PostPayrollsPayrollUuidReportsGeneralLedgerRequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
-        return this;
-    }
 
-    public PostPayrollsPayrollUuidReportsGeneralLedgerRequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = xGustoAPIVersion;
-        return this;
-    }
-
-    public PostPayrollsPayrollUuidReportsGeneralLedgerRequestBuilder requestBody(PostPayrollsPayrollUuidReportsGeneralLedgerRequestBody requestBody) {
-        Utils.checkNotNull(requestBody, "requestBody");
-        this.requestBody = requestBody;
+    public PostPayrollsPayrollUuidReportsGeneralLedgerRequestBuilder generalLedgerReportBody(GeneralLedgerReportBody generalLedgerReportBody) {
+        Utils.checkNotNull(generalLedgerReportBody, "generalLedgerReportBody");
+        this.generalLedgerReportBody = generalLedgerReportBody;
         return this;
     }
 
@@ -60,9 +60,9 @@ public class PostPayrollsPayrollUuidReportsGeneralLedgerRequestBuilder {
             xGustoAPIVersion = _SINGLETON_VALUE_XGustoAPIVersion.value();
         }
 
-        PostPayrollsPayrollUuidReportsGeneralLedgerRequest request = new PostPayrollsPayrollUuidReportsGeneralLedgerRequest(payrollUuid,
-            xGustoAPIVersion,
-            requestBody);
+        PostPayrollsPayrollUuidReportsGeneralLedgerRequest request = new PostPayrollsPayrollUuidReportsGeneralLedgerRequest(xGustoAPIVersion,
+            payrollUuid,
+            generalLedgerReportBody);
 
         return request;
     }
@@ -76,9 +76,9 @@ public class PostPayrollsPayrollUuidReportsGeneralLedgerRequestBuilder {
         return operation.handleResponse(operation.doRequest(request));
     }
 
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+    private static final LazySingletonValue<Optional<? extends PostPayrollsPayrollUuidReportsGeneralLedgerHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
             new LazySingletonValue<>(
                     "xGustoAPIVersion",
                     "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
+                    new TypeReference<Optional<? extends PostPayrollsPayrollUuidReportsGeneralLedgerHeaderXGustoAPIVersion>>() {});
 }

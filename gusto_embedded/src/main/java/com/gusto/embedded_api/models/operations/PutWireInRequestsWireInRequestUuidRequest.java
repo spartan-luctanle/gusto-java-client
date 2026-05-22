@@ -6,7 +6,7 @@ package com.gusto.embedded_api.models.operations;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.components.WireInRequestUpdateRequestBody;
 import com.gusto.embedded_api.utils.LazySingletonValue;
 import com.gusto.embedded_api.utils.SpeakeasyMetadata;
 import com.gusto.embedded_api.utils.Utils;
@@ -29,29 +29,29 @@ public class PutWireInRequestsWireInRequestUuidRequest {
      * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      */
     @SpeakeasyMetadata("header:style=simple,explode=false,name=X-Gusto-API-Version")
-    private Optional<? extends VersionHeader> xGustoAPIVersion;
+    private Optional<? extends PutWireInRequestsWireInRequestUuidHeaderXGustoAPIVersion> xGustoAPIVersion;
 
 
     @SpeakeasyMetadata("request:mediaType=application/json")
-    private PutWireInRequestsWireInRequestUuidRequestBody requestBody;
+    private WireInRequestUpdateRequestBody wireInRequestUpdateRequestBody;
 
     @JsonCreator
     public PutWireInRequestsWireInRequestUuidRequest(
             String wireInRequestUuid,
-            Optional<? extends VersionHeader> xGustoAPIVersion,
-            PutWireInRequestsWireInRequestUuidRequestBody requestBody) {
+            Optional<? extends PutWireInRequestsWireInRequestUuidHeaderXGustoAPIVersion> xGustoAPIVersion,
+            WireInRequestUpdateRequestBody wireInRequestUpdateRequestBody) {
         Utils.checkNotNull(wireInRequestUuid, "wireInRequestUuid");
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        Utils.checkNotNull(requestBody, "requestBody");
+        Utils.checkNotNull(wireInRequestUpdateRequestBody, "wireInRequestUpdateRequestBody");
         this.wireInRequestUuid = wireInRequestUuid;
         this.xGustoAPIVersion = xGustoAPIVersion;
-        this.requestBody = requestBody;
+        this.wireInRequestUpdateRequestBody = wireInRequestUpdateRequestBody;
     }
     
     public PutWireInRequestsWireInRequestUuidRequest(
             String wireInRequestUuid,
-            PutWireInRequestsWireInRequestUuidRequestBody requestBody) {
-        this(wireInRequestUuid, Optional.empty(), requestBody);
+            WireInRequestUpdateRequestBody wireInRequestUpdateRequestBody) {
+        this(wireInRequestUuid, Optional.empty(), wireInRequestUpdateRequestBody);
     }
 
     /**
@@ -69,13 +69,13 @@ public class PutWireInRequestsWireInRequestUuidRequest {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<VersionHeader> xGustoAPIVersion() {
-        return (Optional<VersionHeader>) xGustoAPIVersion;
+    public Optional<PutWireInRequestsWireInRequestUuidHeaderXGustoAPIVersion> xGustoAPIVersion() {
+        return (Optional<PutWireInRequestsWireInRequestUuidHeaderXGustoAPIVersion>) xGustoAPIVersion;
     }
 
     @JsonIgnore
-    public PutWireInRequestsWireInRequestUuidRequestBody requestBody() {
-        return requestBody;
+    public WireInRequestUpdateRequestBody wireInRequestUpdateRequestBody() {
+        return wireInRequestUpdateRequestBody;
     }
 
     public static Builder builder() {
@@ -97,7 +97,7 @@ public class PutWireInRequestsWireInRequestUuidRequest {
      * application's [minimum API
      * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      */
-    public PutWireInRequestsWireInRequestUuidRequest withXGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+    public PutWireInRequestsWireInRequestUuidRequest withXGustoAPIVersion(PutWireInRequestsWireInRequestUuidHeaderXGustoAPIVersion xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
         return this;
@@ -109,15 +109,15 @@ public class PutWireInRequestsWireInRequestUuidRequest {
      * application's [minimum API
      * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      */
-    public PutWireInRequestsWireInRequestUuidRequest withXGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public PutWireInRequestsWireInRequestUuidRequest withXGustoAPIVersion(Optional<? extends PutWireInRequestsWireInRequestUuidHeaderXGustoAPIVersion> xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = xGustoAPIVersion;
         return this;
     }
 
-    public PutWireInRequestsWireInRequestUuidRequest withRequestBody(PutWireInRequestsWireInRequestUuidRequestBody requestBody) {
-        Utils.checkNotNull(requestBody, "requestBody");
-        this.requestBody = requestBody;
+    public PutWireInRequestsWireInRequestUuidRequest withWireInRequestUpdateRequestBody(WireInRequestUpdateRequestBody wireInRequestUpdateRequestBody) {
+        Utils.checkNotNull(wireInRequestUpdateRequestBody, "wireInRequestUpdateRequestBody");
+        this.wireInRequestUpdateRequestBody = wireInRequestUpdateRequestBody;
         return this;
     }
 
@@ -133,13 +133,13 @@ public class PutWireInRequestsWireInRequestUuidRequest {
         return 
             Utils.enhancedDeepEquals(this.wireInRequestUuid, other.wireInRequestUuid) &&
             Utils.enhancedDeepEquals(this.xGustoAPIVersion, other.xGustoAPIVersion) &&
-            Utils.enhancedDeepEquals(this.requestBody, other.requestBody);
+            Utils.enhancedDeepEquals(this.wireInRequestUpdateRequestBody, other.wireInRequestUpdateRequestBody);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            wireInRequestUuid, xGustoAPIVersion, requestBody);
+            wireInRequestUuid, xGustoAPIVersion, wireInRequestUpdateRequestBody);
     }
     
     @Override
@@ -147,7 +147,7 @@ public class PutWireInRequestsWireInRequestUuidRequest {
         return Utils.toString(PutWireInRequestsWireInRequestUuidRequest.class,
                 "wireInRequestUuid", wireInRequestUuid,
                 "xGustoAPIVersion", xGustoAPIVersion,
-                "requestBody", requestBody);
+                "wireInRequestUpdateRequestBody", wireInRequestUpdateRequestBody);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -155,9 +155,9 @@ public class PutWireInRequestsWireInRequestUuidRequest {
 
         private String wireInRequestUuid;
 
-        private Optional<? extends VersionHeader> xGustoAPIVersion;
+        private Optional<? extends PutWireInRequestsWireInRequestUuidHeaderXGustoAPIVersion> xGustoAPIVersion;
 
-        private PutWireInRequestsWireInRequestUuidRequestBody requestBody;
+        private WireInRequestUpdateRequestBody wireInRequestUpdateRequestBody;
 
         private Builder() {
           // force use of static builder() method
@@ -179,7 +179,7 @@ public class PutWireInRequestsWireInRequestUuidRequest {
          * application's [minimum API
          * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
          */
-        public Builder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+        public Builder xGustoAPIVersion(PutWireInRequestsWireInRequestUuidHeaderXGustoAPIVersion xGustoAPIVersion) {
             Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
             this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
             return this;
@@ -190,16 +190,16 @@ public class PutWireInRequestsWireInRequestUuidRequest {
          * application's [minimum API
          * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
          */
-        public Builder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+        public Builder xGustoAPIVersion(Optional<? extends PutWireInRequestsWireInRequestUuidHeaderXGustoAPIVersion> xGustoAPIVersion) {
             Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
             this.xGustoAPIVersion = xGustoAPIVersion;
             return this;
         }
 
 
-        public Builder requestBody(PutWireInRequestsWireInRequestUuidRequestBody requestBody) {
-            Utils.checkNotNull(requestBody, "requestBody");
-            this.requestBody = requestBody;
+        public Builder wireInRequestUpdateRequestBody(WireInRequestUpdateRequestBody wireInRequestUpdateRequestBody) {
+            Utils.checkNotNull(wireInRequestUpdateRequestBody, "wireInRequestUpdateRequestBody");
+            this.wireInRequestUpdateRequestBody = wireInRequestUpdateRequestBody;
             return this;
         }
 
@@ -209,14 +209,14 @@ public class PutWireInRequestsWireInRequestUuidRequest {
             }
 
             return new PutWireInRequestsWireInRequestUuidRequest(
-                wireInRequestUuid, xGustoAPIVersion, requestBody);
+                wireInRequestUuid, xGustoAPIVersion, wireInRequestUpdateRequestBody);
         }
 
 
-        private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+        private static final LazySingletonValue<Optional<? extends PutWireInRequestsWireInRequestUuidHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
                 new LazySingletonValue<>(
                         "X-Gusto-API-Version",
                         "\"2025-06-15\"",
-                        new TypeReference<Optional<? extends VersionHeader>>() {});
+                        new TypeReference<Optional<? extends PutWireInRequestsWireInRequestUuidHeaderXGustoAPIVersion>>() {});
     }
 }

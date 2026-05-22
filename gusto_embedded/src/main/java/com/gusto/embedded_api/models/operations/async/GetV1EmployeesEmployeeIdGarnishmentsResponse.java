@@ -37,22 +37,22 @@ public class GetV1EmployeesEmployeeIdGarnishmentsResponse implements AsyncRespon
     /**
      * Example response
      */
-    private Optional<? extends List<Garnishment>> garnishmentList;
+    private Optional<? extends List<Garnishment>> garnishments;
 
     @JsonCreator
     public GetV1EmployeesEmployeeIdGarnishmentsResponse(
             String contentType,
             int statusCode,
             HttpResponse<Blob> rawResponse,
-            Optional<? extends List<Garnishment>> garnishmentList) {
+            Optional<? extends List<Garnishment>> garnishments) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
-        Utils.checkNotNull(garnishmentList, "garnishmentList");
+        Utils.checkNotNull(garnishments, "garnishments");
         this.contentType = contentType;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
-        this.garnishmentList = garnishmentList;
+        this.garnishments = garnishments;
     }
     
     public GetV1EmployeesEmployeeIdGarnishmentsResponse(
@@ -92,8 +92,8 @@ public class GetV1EmployeesEmployeeIdGarnishmentsResponse implements AsyncRespon
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<List<Garnishment>> garnishmentList() {
-        return (Optional<List<Garnishment>>) garnishmentList;
+    public Optional<List<Garnishment>> garnishments() {
+        return (Optional<List<Garnishment>>) garnishments;
     }
 
     public static Builder builder() {
@@ -131,9 +131,9 @@ public class GetV1EmployeesEmployeeIdGarnishmentsResponse implements AsyncRespon
     /**
      * Example response
      */
-    public GetV1EmployeesEmployeeIdGarnishmentsResponse withGarnishmentList(List<Garnishment> garnishmentList) {
-        Utils.checkNotNull(garnishmentList, "garnishmentList");
-        this.garnishmentList = Optional.ofNullable(garnishmentList);
+    public GetV1EmployeesEmployeeIdGarnishmentsResponse withGarnishments(List<Garnishment> garnishments) {
+        Utils.checkNotNull(garnishments, "garnishments");
+        this.garnishments = Optional.ofNullable(garnishments);
         return this;
     }
 
@@ -141,9 +141,9 @@ public class GetV1EmployeesEmployeeIdGarnishmentsResponse implements AsyncRespon
     /**
      * Example response
      */
-    public GetV1EmployeesEmployeeIdGarnishmentsResponse withGarnishmentList(Optional<? extends List<Garnishment>> garnishmentList) {
-        Utils.checkNotNull(garnishmentList, "garnishmentList");
-        this.garnishmentList = garnishmentList;
+    public GetV1EmployeesEmployeeIdGarnishmentsResponse withGarnishments(Optional<? extends List<Garnishment>> garnishments) {
+        Utils.checkNotNull(garnishments, "garnishments");
+        this.garnishments = garnishments;
         return this;
     }
 
@@ -160,14 +160,14 @@ public class GetV1EmployeesEmployeeIdGarnishmentsResponse implements AsyncRespon
             Utils.enhancedDeepEquals(this.contentType, other.contentType) &&
             Utils.enhancedDeepEquals(this.statusCode, other.statusCode) &&
             Utils.enhancedDeepEquals(this.rawResponse, other.rawResponse) &&
-            Utils.enhancedDeepEquals(this.garnishmentList, other.garnishmentList);
+            Utils.enhancedDeepEquals(this.garnishments, other.garnishments);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             contentType, statusCode, rawResponse,
-            garnishmentList);
+            garnishments);
     }
     
     @Override
@@ -176,7 +176,7 @@ public class GetV1EmployeesEmployeeIdGarnishmentsResponse implements AsyncRespon
                 "contentType", contentType,
                 "statusCode", statusCode,
                 "rawResponse", rawResponse,
-                "garnishmentList", garnishmentList);
+                "garnishments", garnishments);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -188,7 +188,7 @@ public class GetV1EmployeesEmployeeIdGarnishmentsResponse implements AsyncRespon
 
         private HttpResponse<Blob> rawResponse;
 
-        private Optional<? extends List<Garnishment>> garnishmentList = Optional.empty();
+        private Optional<? extends List<Garnishment>> garnishments = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -228,18 +228,18 @@ public class GetV1EmployeesEmployeeIdGarnishmentsResponse implements AsyncRespon
         /**
          * Example response
          */
-        public Builder garnishmentList(List<Garnishment> garnishmentList) {
-            Utils.checkNotNull(garnishmentList, "garnishmentList");
-            this.garnishmentList = Optional.ofNullable(garnishmentList);
+        public Builder garnishments(List<Garnishment> garnishments) {
+            Utils.checkNotNull(garnishments, "garnishments");
+            this.garnishments = Optional.ofNullable(garnishments);
             return this;
         }
 
         /**
          * Example response
          */
-        public Builder garnishmentList(Optional<? extends List<Garnishment>> garnishmentList) {
-            Utils.checkNotNull(garnishmentList, "garnishmentList");
-            this.garnishmentList = garnishmentList;
+        public Builder garnishments(Optional<? extends List<Garnishment>> garnishments) {
+            Utils.checkNotNull(garnishments, "garnishments");
+            this.garnishments = garnishments;
             return this;
         }
 
@@ -247,7 +247,7 @@ public class GetV1EmployeesEmployeeIdGarnishmentsResponse implements AsyncRespon
 
             return new GetV1EmployeesEmployeeIdGarnishmentsResponse(
                 contentType, statusCode, rawResponse,
-                garnishmentList);
+                garnishments);
         }
 
     }

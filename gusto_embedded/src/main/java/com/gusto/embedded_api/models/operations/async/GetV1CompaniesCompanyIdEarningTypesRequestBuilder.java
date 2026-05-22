@@ -7,7 +7,7 @@ import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.operations.GetV1CompaniesCompanyIdEarningTypesHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1CompaniesCompanyIdEarningTypesRequest;
 import com.gusto.embedded_api.operations.GetV1CompaniesCompanyIdEarningTypes;
 import com.gusto.embedded_api.utils.Headers;
@@ -19,33 +19,33 @@ import java.util.concurrent.CompletableFuture;
 
 public class GetV1CompaniesCompanyIdEarningTypesRequestBuilder {
 
-    private String companyId;
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
+    private Optional<? extends GetV1CompaniesCompanyIdEarningTypesHeaderXGustoAPIVersion> xGustoAPIVersion = Utils.readDefaultOrConstValue(
                             "xGustoAPIVersion",
                             "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
+                            new TypeReference<Optional<? extends GetV1CompaniesCompanyIdEarningTypesHeaderXGustoAPIVersion>>() {});
+    private String companyId;
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
     public GetV1CompaniesCompanyIdEarningTypesRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
-
-    public GetV1CompaniesCompanyIdEarningTypesRequestBuilder companyId(String companyId) {
-        Utils.checkNotNull(companyId, "companyId");
-        this.companyId = companyId;
-        return this;
-    }
                 
-    public GetV1CompaniesCompanyIdEarningTypesRequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+    public GetV1CompaniesCompanyIdEarningTypesRequestBuilder xGustoAPIVersion(GetV1CompaniesCompanyIdEarningTypesHeaderXGustoAPIVersion xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
         return this;
     }
 
-    public GetV1CompaniesCompanyIdEarningTypesRequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public GetV1CompaniesCompanyIdEarningTypesRequestBuilder xGustoAPIVersion(Optional<? extends GetV1CompaniesCompanyIdEarningTypesHeaderXGustoAPIVersion> xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = xGustoAPIVersion;
+        return this;
+    }
+
+    public GetV1CompaniesCompanyIdEarningTypesRequestBuilder companyId(String companyId) {
+        Utils.checkNotNull(companyId, "companyId");
+        this.companyId = companyId;
         return this;
     }
 
@@ -55,8 +55,8 @@ public class GetV1CompaniesCompanyIdEarningTypesRequestBuilder {
             xGustoAPIVersion = _SINGLETON_VALUE_XGustoAPIVersion.value();
         }
 
-        GetV1CompaniesCompanyIdEarningTypesRequest request = new GetV1CompaniesCompanyIdEarningTypesRequest(companyId,
-            xGustoAPIVersion);
+        GetV1CompaniesCompanyIdEarningTypesRequest request = new GetV1CompaniesCompanyIdEarningTypesRequest(xGustoAPIVersion,
+            companyId);
 
         return request;
     }
@@ -71,9 +71,9 @@ public class GetV1CompaniesCompanyIdEarningTypesRequestBuilder {
             .thenCompose(operation::handleResponse);
     }
 
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+    private static final LazySingletonValue<Optional<? extends GetV1CompaniesCompanyIdEarningTypesHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
             new LazySingletonValue<>(
                     "xGustoAPIVersion",
                     "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
+                    new TypeReference<Optional<? extends GetV1CompaniesCompanyIdEarningTypesHeaderXGustoAPIVersion>>() {});
 }

@@ -7,7 +7,6 @@ import static com.gusto.embedded_api.operations.Operations.RequestOperation;
 
 import com.gusto.embedded_api.models.components.EmployeeOnboardingDocumentsConfigRequest;
 import com.gusto.embedded_api.models.components.HistoricalEmployeeBody;
-import com.gusto.embedded_api.models.components.VersionHeader;
 import com.gusto.embedded_api.models.operations.DeleteV1EmployeeHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.DeleteV1EmployeeRequest;
 import com.gusto.embedded_api.models.operations.DeleteV1EmployeeRequestBuilder;
@@ -18,6 +17,7 @@ import com.gusto.embedded_api.models.operations.GetV1CompaniesCompanyIdEmployees
 import com.gusto.embedded_api.models.operations.GetV1CompaniesCompanyIdEmployeesRequest;
 import com.gusto.embedded_api.models.operations.GetV1CompaniesCompanyIdEmployeesRequestBuilder;
 import com.gusto.embedded_api.models.operations.GetV1CompaniesCompanyIdEmployeesResponse;
+import com.gusto.embedded_api.models.operations.GetV1EmployeesEmployeeIdCustomFieldsHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1EmployeesEmployeeIdCustomFieldsRequest;
 import com.gusto.embedded_api.models.operations.GetV1EmployeesEmployeeIdCustomFieldsRequestBuilder;
 import com.gusto.embedded_api.models.operations.GetV1EmployeesEmployeeIdCustomFieldsResponse;
@@ -29,6 +29,7 @@ import com.gusto.embedded_api.models.operations.GetV1EmployeesHeaderXGustoAPIVer
 import com.gusto.embedded_api.models.operations.GetV1EmployeesRequest;
 import com.gusto.embedded_api.models.operations.GetV1EmployeesRequestBuilder;
 import com.gusto.embedded_api.models.operations.GetV1EmployeesResponse;
+import com.gusto.embedded_api.models.operations.GetVersionEmployeesTimeOffActivitiesHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetVersionEmployeesTimeOffActivitiesRequest;
 import com.gusto.embedded_api.models.operations.GetVersionEmployeesTimeOffActivitiesRequestBuilder;
 import com.gusto.embedded_api.models.operations.GetVersionEmployeesTimeOffActivitiesResponse;
@@ -37,6 +38,7 @@ import com.gusto.embedded_api.models.operations.PostV1EmployeesRequest;
 import com.gusto.embedded_api.models.operations.PostV1EmployeesRequestBody;
 import com.gusto.embedded_api.models.operations.PostV1EmployeesRequestBuilder;
 import com.gusto.embedded_api.models.operations.PostV1EmployeesResponse;
+import com.gusto.embedded_api.models.operations.PostV1HistoricalEmployeesHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostV1HistoricalEmployeesRequest;
 import com.gusto.embedded_api.models.operations.PostV1HistoricalEmployeesRequestBuilder;
 import com.gusto.embedded_api.models.operations.PostV1HistoricalEmployeesResponse;
@@ -206,14 +208,16 @@ public class Employees {
      * 
      * <p>Use the `employee_uuid` query parameter to filter for a single employee.
      * Use the `payroll_uuid` query parameter to filter for employees on a specific payroll.
-     * Providing both `employee_uuid` and `payroll_uuid` will result in a 400 error.
+     * Providing both `employee_uuid` and `payroll_uuid` will result in a 422 error.
      * An empty array is returned if the company has no employees or if no employees match the filter
      * criteria.
      * 
      * <p>The `encrypted_account_number` in the `splits` array is only visible if the
      * `employee_payment_methods:read:account_number` scope is present.
      * 
-     * <p>Base scope: `employee_payment_methods:read`
+     * <p>scope: `employee_payment_methods:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @return The call builder
      */
@@ -228,14 +232,16 @@ public class Employees {
      * 
      * <p>Use the `employee_uuid` query parameter to filter for a single employee.
      * Use the `payroll_uuid` query parameter to filter for employees on a specific payroll.
-     * Providing both `employee_uuid` and `payroll_uuid` will result in a 400 error.
+     * Providing both `employee_uuid` and `payroll_uuid` will result in a 422 error.
      * An empty array is returned if the company has no employees or if no employees match the filter
      * criteria.
      * 
      * <p>The `encrypted_account_number` in the `splits` array is only visible if the
      * `employee_payment_methods:read:account_number` scope is present.
      * 
-     * <p>Base scope: `employee_payment_methods:read`
+     * <p>scope: `employee_payment_methods:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
@@ -255,6 +261,8 @@ public class Employees {
      * 
      * <p>scope: `employees:manage`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @return The call builder
      */
     public PostV1HistoricalEmployeesRequestBuilder createHistorical() {
@@ -269,13 +277,18 @@ public class Employees {
      * 
      * <p>scope: `employees:manage`
      * 
-     * @param companyUuid The UUID of the company
-     * @param historicalEmployeeBody 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param companyUuid The UUID of the company that will employ this historical record.
+     * @param historicalEmployeeBody Request body for creating or updating a **historical employee**—someone who already separated from the company and must appear on year-to-date or tax filings without receiving ongoing payroll.
+     *         
+     *         Send this object under the JSON root key `employee`. All dates are ISO 8601 (`YYYY-MM-DD`). Use a `work_address.location_uuid` returned from your company locations API for an active work site.
+     *         
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
     public PostV1HistoricalEmployeesResponse createHistorical(String companyUuid, HistoricalEmployeeBody historicalEmployeeBody) {
-        return createHistorical(companyUuid, Optional.empty(), historicalEmployeeBody);
+        return createHistorical(Optional.empty(), companyUuid, historicalEmployeeBody);
     }
 
     /**
@@ -286,20 +299,25 @@ public class Employees {
      * 
      * <p>scope: `employees:manage`
      * 
-     * @param companyUuid The UUID of the company
-     * @param xGustoAPIVersion 
-     * @param historicalEmployeeBody 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     * @param companyUuid The UUID of the company that will employ this historical record.
+     * @param historicalEmployeeBody Request body for creating or updating a **historical employee**—someone who already separated from the company and must appear on year-to-date or tax filings without receiving ongoing payroll.
+     *         
+     *         Send this object under the JSON root key `employee`. All dates are ISO 8601 (`YYYY-MM-DD`). Use a `work_address.location_uuid` returned from your company locations API for an active work site.
+     *         
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
     public PostV1HistoricalEmployeesResponse createHistorical(
-            String companyUuid, Optional<? extends VersionHeader> xGustoAPIVersion,
+            Optional<? extends PostV1HistoricalEmployeesHeaderXGustoAPIVersion> xGustoAPIVersion, String companyUuid,
             HistoricalEmployeeBody historicalEmployeeBody) {
         PostV1HistoricalEmployeesRequest request =
             PostV1HistoricalEmployeesRequest
                 .builder()
-                .companyUuid(companyUuid)
                 .xGustoAPIVersion(xGustoAPIVersion)
+                .companyUuid(companyUuid)
                 .historicalEmployeeBody(historicalEmployeeBody)
                 .build();
         RequestOperation<PostV1HistoricalEmployeesRequest, PostV1HistoricalEmployeesResponse> operation
@@ -521,6 +539,8 @@ public class Employees {
      * 
      * <p>scope: `employees:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @return The call builder
      */
     public GetV1EmployeesEmployeeIdCustomFieldsRequestBuilder getCustomFields() {
@@ -533,6 +553,8 @@ public class Employees {
      * <p>Returns a list of the employee's custom fields.
      * 
      * <p>scope: `employees:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @param employeeId The UUID of the employee
      * @return The response from the API call
@@ -550,16 +572,18 @@ public class Employees {
      * 
      * <p>scope: `employees:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param employeeId The UUID of the employee
      * @param page The page that is requested. When unspecified, will load all objects unless endpoint forces pagination.
      * @param per Number of objects per page. For majority of endpoints will default to 25
-     * @param xGustoAPIVersion 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
     public GetV1EmployeesEmployeeIdCustomFieldsResponse getCustomFields(
             String employeeId, Optional<Long> page,
-            Optional<Long> per, Optional<? extends VersionHeader> xGustoAPIVersion) {
+            Optional<Long> per, Optional<? extends GetV1EmployeesEmployeeIdCustomFieldsHeaderXGustoAPIVersion> xGustoAPIVersion) {
         GetV1EmployeesEmployeeIdCustomFieldsRequest request =
             GetV1EmployeesEmployeeIdCustomFieldsRequest
                 .builder()
@@ -955,6 +979,8 @@ public class Employees {
      * 
      * <p>scope: `employee_time_off_activities:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @return The call builder
      */
     public GetVersionEmployeesTimeOffActivitiesRequestBuilder getTimeOffActivities() {
@@ -968,13 +994,15 @@ public class Employees {
      * 
      * <p>scope: `employee_time_off_activities:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param employeeUuid The UUID of the employee
      * @param timeOffType The time off type name you want to query data for. ex: 'sick' or 'vacation'
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
     public GetVersionEmployeesTimeOffActivitiesResponse getTimeOffActivities(String employeeUuid, String timeOffType) {
-        return getTimeOffActivities(employeeUuid, timeOffType, Optional.empty());
+        return getTimeOffActivities(Optional.empty(), employeeUuid, timeOffType);
     }
 
     /**
@@ -984,21 +1012,23 @@ public class Employees {
      * 
      * <p>scope: `employee_time_off_activities:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param employeeUuid The UUID of the employee
      * @param timeOffType The time off type name you want to query data for. ex: 'sick' or 'vacation'
-     * @param xGustoAPIVersion 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
     public GetVersionEmployeesTimeOffActivitiesResponse getTimeOffActivities(
-            String employeeUuid, String timeOffType,
-            Optional<? extends VersionHeader> xGustoAPIVersion) {
+            Optional<? extends GetVersionEmployeesTimeOffActivitiesHeaderXGustoAPIVersion> xGustoAPIVersion, String employeeUuid,
+            String timeOffType) {
         GetVersionEmployeesTimeOffActivitiesRequest request =
             GetVersionEmployeesTimeOffActivitiesRequest
                 .builder()
+                .xGustoAPIVersion(xGustoAPIVersion)
                 .employeeUuid(employeeUuid)
                 .timeOffType(timeOffType)
-                .xGustoAPIVersion(xGustoAPIVersion)
                 .build();
         RequestOperation<GetVersionEmployeesTimeOffActivitiesRequest, GetVersionEmployeesTimeOffActivitiesResponse> operation
               = new GetVersionEmployeesTimeOffActivities.Sync(sdkConfiguration, _headers);

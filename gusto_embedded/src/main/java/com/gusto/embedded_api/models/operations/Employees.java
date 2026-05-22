@@ -11,29 +11,52 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.gusto.embedded_api.utils.Utils;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Optional;
+import org.openapitools.jackson.nullable.JsonNullable;
 
 
 public class Employees {
-
-    @JsonInclude(Include.NON_ABSENT)
+    /**
+     * The UUID of the employee
+     */
     @JsonProperty("uuid")
-    private Optional<String> uuid;
+    private String uuid;
+
+    /**
+     * The starting balance for the employee
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("balance")
+    private JsonNullable<String> balance;
 
     @JsonCreator
     public Employees(
-            @JsonProperty("uuid") Optional<String> uuid) {
+            @JsonProperty("uuid") String uuid,
+            @JsonProperty("balance") JsonNullable<String> balance) {
         Utils.checkNotNull(uuid, "uuid");
+        Utils.checkNotNull(balance, "balance");
         this.uuid = uuid;
+        this.balance = balance;
     }
     
-    public Employees() {
-        this(Optional.empty());
+    public Employees(
+            String uuid) {
+        this(uuid, JsonNullable.undefined());
     }
 
+    /**
+     * The UUID of the employee
+     */
     @JsonIgnore
-    public Optional<String> uuid() {
+    public String uuid() {
         return uuid;
+    }
+
+    /**
+     * The starting balance for the employee
+     */
+    @JsonIgnore
+    public JsonNullable<String> balance() {
+        return balance;
     }
 
     public static Builder builder() {
@@ -41,16 +64,30 @@ public class Employees {
     }
 
 
+    /**
+     * The UUID of the employee
+     */
     public Employees withUuid(String uuid) {
         Utils.checkNotNull(uuid, "uuid");
-        this.uuid = Optional.ofNullable(uuid);
+        this.uuid = uuid;
         return this;
     }
 
+    /**
+     * The starting balance for the employee
+     */
+    public Employees withBalance(String balance) {
+        Utils.checkNotNull(balance, "balance");
+        this.balance = JsonNullable.of(balance);
+        return this;
+    }
 
-    public Employees withUuid(Optional<String> uuid) {
-        Utils.checkNotNull(uuid, "uuid");
-        this.uuid = uuid;
+    /**
+     * The starting balance for the employee
+     */
+    public Employees withBalance(JsonNullable<String> balance) {
+        Utils.checkNotNull(balance, "balance");
+        this.balance = balance;
         return this;
     }
 
@@ -64,47 +101,67 @@ public class Employees {
         }
         Employees other = (Employees) o;
         return 
-            Utils.enhancedDeepEquals(this.uuid, other.uuid);
+            Utils.enhancedDeepEquals(this.uuid, other.uuid) &&
+            Utils.enhancedDeepEquals(this.balance, other.balance);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            uuid);
+            uuid, balance);
     }
     
     @Override
     public String toString() {
         return Utils.toString(Employees.class,
-                "uuid", uuid);
+                "uuid", uuid,
+                "balance", balance);
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private Optional<String> uuid = Optional.empty();
+        private String uuid;
+
+        private JsonNullable<String> balance = JsonNullable.undefined();
 
         private Builder() {
           // force use of static builder() method
         }
 
 
+        /**
+         * The UUID of the employee
+         */
         public Builder uuid(String uuid) {
             Utils.checkNotNull(uuid, "uuid");
-            this.uuid = Optional.ofNullable(uuid);
+            this.uuid = uuid;
             return this;
         }
 
-        public Builder uuid(Optional<String> uuid) {
-            Utils.checkNotNull(uuid, "uuid");
-            this.uuid = uuid;
+
+        /**
+         * The starting balance for the employee
+         */
+        public Builder balance(String balance) {
+            Utils.checkNotNull(balance, "balance");
+            this.balance = JsonNullable.of(balance);
+            return this;
+        }
+
+        /**
+         * The starting balance for the employee
+         */
+        public Builder balance(JsonNullable<String> balance) {
+            Utils.checkNotNull(balance, "balance");
+            this.balance = balance;
             return this;
         }
 
         public Employees build() {
 
             return new Employees(
-                uuid);
+                uuid, balance);
         }
 
     }

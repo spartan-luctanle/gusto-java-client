@@ -17,11 +17,7 @@ import java.util.List;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-/**
- * PayrollCheck
- * 
- * <p>Example response
- */
+
 public class PayrollCheck {
     /**
      * A unique identifier of the payroll.

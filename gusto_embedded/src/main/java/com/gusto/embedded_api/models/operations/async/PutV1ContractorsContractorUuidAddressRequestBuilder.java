@@ -7,9 +7,9 @@ import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.components.ContractorAddressUpdateBody;
+import com.gusto.embedded_api.models.operations.PutV1ContractorsContractorUuidAddressHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PutV1ContractorsContractorUuidAddressRequest;
-import com.gusto.embedded_api.models.operations.PutV1ContractorsContractorUuidAddressRequestBody;
 import com.gusto.embedded_api.operations.PutV1ContractorsContractorUuidAddress;
 import com.gusto.embedded_api.utils.Headers;
 import com.gusto.embedded_api.utils.LazySingletonValue;
@@ -20,17 +20,29 @@ import java.util.concurrent.CompletableFuture;
 
 public class PutV1ContractorsContractorUuidAddressRequestBuilder {
 
-    private String contractorUuid;
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
+    private Optional<? extends PutV1ContractorsContractorUuidAddressHeaderXGustoAPIVersion> xGustoAPIVersion = Utils.readDefaultOrConstValue(
                             "xGustoAPIVersion",
                             "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
-    private PutV1ContractorsContractorUuidAddressRequestBody requestBody;
+                            new TypeReference<Optional<? extends PutV1ContractorsContractorUuidAddressHeaderXGustoAPIVersion>>() {});
+    private String contractorUuid;
+    private ContractorAddressUpdateBody contractorAddressUpdateBody;
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
     public PutV1ContractorsContractorUuidAddressRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
+    }
+                
+    public PutV1ContractorsContractorUuidAddressRequestBuilder xGustoAPIVersion(PutV1ContractorsContractorUuidAddressHeaderXGustoAPIVersion xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
+        return this;
+    }
+
+    public PutV1ContractorsContractorUuidAddressRequestBuilder xGustoAPIVersion(Optional<? extends PutV1ContractorsContractorUuidAddressHeaderXGustoAPIVersion> xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = xGustoAPIVersion;
+        return this;
     }
 
     public PutV1ContractorsContractorUuidAddressRequestBuilder contractorUuid(String contractorUuid) {
@@ -38,22 +50,10 @@ public class PutV1ContractorsContractorUuidAddressRequestBuilder {
         this.contractorUuid = contractorUuid;
         return this;
     }
-                
-    public PutV1ContractorsContractorUuidAddressRequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
-        return this;
-    }
 
-    public PutV1ContractorsContractorUuidAddressRequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = xGustoAPIVersion;
-        return this;
-    }
-
-    public PutV1ContractorsContractorUuidAddressRequestBuilder requestBody(PutV1ContractorsContractorUuidAddressRequestBody requestBody) {
-        Utils.checkNotNull(requestBody, "requestBody");
-        this.requestBody = requestBody;
+    public PutV1ContractorsContractorUuidAddressRequestBuilder contractorAddressUpdateBody(ContractorAddressUpdateBody contractorAddressUpdateBody) {
+        Utils.checkNotNull(contractorAddressUpdateBody, "contractorAddressUpdateBody");
+        this.contractorAddressUpdateBody = contractorAddressUpdateBody;
         return this;
     }
 
@@ -63,9 +63,9 @@ public class PutV1ContractorsContractorUuidAddressRequestBuilder {
             xGustoAPIVersion = _SINGLETON_VALUE_XGustoAPIVersion.value();
         }
 
-        PutV1ContractorsContractorUuidAddressRequest request = new PutV1ContractorsContractorUuidAddressRequest(contractorUuid,
-            xGustoAPIVersion,
-            requestBody);
+        PutV1ContractorsContractorUuidAddressRequest request = new PutV1ContractorsContractorUuidAddressRequest(xGustoAPIVersion,
+            contractorUuid,
+            contractorAddressUpdateBody);
 
         return request;
     }
@@ -80,9 +80,9 @@ public class PutV1ContractorsContractorUuidAddressRequestBuilder {
             .thenCompose(operation::handleResponse);
     }
 
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+    private static final LazySingletonValue<Optional<? extends PutV1ContractorsContractorUuidAddressHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
             new LazySingletonValue<>(
                     "xGustoAPIVersion",
                     "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
+                    new TypeReference<Optional<? extends PutV1ContractorsContractorUuidAddressHeaderXGustoAPIVersion>>() {});
 }

@@ -7,7 +7,6 @@ import static com.gusto.embedded_api.operations.Operations.RequestOperation;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.VersionHeader;
 import com.gusto.embedded_api.operations.PutV1ContractorDocumentSign;
 import com.gusto.embedded_api.utils.Headers;
 import com.gusto.embedded_api.utils.LazySingletonValue;
@@ -17,18 +16,30 @@ import java.util.Optional;
 
 public class PutV1ContractorDocumentSignRequestBuilder {
 
-    private String documentUuid;
-    private Optional<String> xGustoClientIp = Optional.empty();
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
+    private Optional<? extends PutV1ContractorDocumentSignHeaderXGustoAPIVersion> xGustoAPIVersion = Utils.readDefaultOrConstValue(
                             "xGustoAPIVersion",
                             "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
+                            new TypeReference<Optional<? extends PutV1ContractorDocumentSignHeaderXGustoAPIVersion>>() {});
+    private String documentUuid;
+    private Optional<String> xGustoClientIp = Optional.empty();
     private PutV1ContractorDocumentSignRequestBody requestBody;
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
     public PutV1ContractorDocumentSignRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
+    }
+                
+    public PutV1ContractorDocumentSignRequestBuilder xGustoAPIVersion(PutV1ContractorDocumentSignHeaderXGustoAPIVersion xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
+        return this;
+    }
+
+    public PutV1ContractorDocumentSignRequestBuilder xGustoAPIVersion(Optional<? extends PutV1ContractorDocumentSignHeaderXGustoAPIVersion> xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = xGustoAPIVersion;
+        return this;
     }
 
     public PutV1ContractorDocumentSignRequestBuilder documentUuid(String documentUuid) {
@@ -48,18 +59,6 @@ public class PutV1ContractorDocumentSignRequestBuilder {
         this.xGustoClientIp = xGustoClientIp;
         return this;
     }
-                
-    public PutV1ContractorDocumentSignRequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
-        return this;
-    }
-
-    public PutV1ContractorDocumentSignRequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = xGustoAPIVersion;
-        return this;
-    }
 
     public PutV1ContractorDocumentSignRequestBuilder requestBody(PutV1ContractorDocumentSignRequestBody requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
@@ -73,9 +72,9 @@ public class PutV1ContractorDocumentSignRequestBuilder {
             xGustoAPIVersion = _SINGLETON_VALUE_XGustoAPIVersion.value();
         }
 
-        PutV1ContractorDocumentSignRequest request = new PutV1ContractorDocumentSignRequest(documentUuid,
+        PutV1ContractorDocumentSignRequest request = new PutV1ContractorDocumentSignRequest(xGustoAPIVersion,
+            documentUuid,
             xGustoClientIp,
-            xGustoAPIVersion,
             requestBody);
 
         return request;
@@ -90,9 +89,9 @@ public class PutV1ContractorDocumentSignRequestBuilder {
         return operation.handleResponse(operation.doRequest(request));
     }
 
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+    private static final LazySingletonValue<Optional<? extends PutV1ContractorDocumentSignHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
             new LazySingletonValue<>(
                     "xGustoAPIVersion",
                     "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
+                    new TypeReference<Optional<? extends PutV1ContractorDocumentSignHeaderXGustoAPIVersion>>() {});
 }

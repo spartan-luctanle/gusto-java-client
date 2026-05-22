@@ -35,24 +35,24 @@ public class GetInformationRequestsResponse implements Response {
     private HttpResponse<InputStream> rawResponse;
 
     /**
-     * Example response
+     * Successful
      */
-    private Optional<? extends List<InformationRequest>> informationRequestList;
+    private Optional<? extends List<InformationRequest>> informationRequests;
 
     @JsonCreator
     public GetInformationRequestsResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends List<InformationRequest>> informationRequestList) {
+            Optional<? extends List<InformationRequest>> informationRequests) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
-        Utils.checkNotNull(informationRequestList, "informationRequestList");
+        Utils.checkNotNull(informationRequests, "informationRequests");
         this.contentType = contentType;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
-        this.informationRequestList = informationRequestList;
+        this.informationRequests = informationRequests;
     }
     
     public GetInformationRequestsResponse(
@@ -88,12 +88,12 @@ public class GetInformationRequestsResponse implements Response {
     }
 
     /**
-     * Example response
+     * Successful
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<List<InformationRequest>> informationRequestList() {
-        return (Optional<List<InformationRequest>>) informationRequestList;
+    public Optional<List<InformationRequest>> informationRequests() {
+        return (Optional<List<InformationRequest>>) informationRequests;
     }
 
     public static Builder builder() {
@@ -129,21 +129,21 @@ public class GetInformationRequestsResponse implements Response {
     }
 
     /**
-     * Example response
+     * Successful
      */
-    public GetInformationRequestsResponse withInformationRequestList(List<InformationRequest> informationRequestList) {
-        Utils.checkNotNull(informationRequestList, "informationRequestList");
-        this.informationRequestList = Optional.ofNullable(informationRequestList);
+    public GetInformationRequestsResponse withInformationRequests(List<InformationRequest> informationRequests) {
+        Utils.checkNotNull(informationRequests, "informationRequests");
+        this.informationRequests = Optional.ofNullable(informationRequests);
         return this;
     }
 
 
     /**
-     * Example response
+     * Successful
      */
-    public GetInformationRequestsResponse withInformationRequestList(Optional<? extends List<InformationRequest>> informationRequestList) {
-        Utils.checkNotNull(informationRequestList, "informationRequestList");
-        this.informationRequestList = informationRequestList;
+    public GetInformationRequestsResponse withInformationRequests(Optional<? extends List<InformationRequest>> informationRequests) {
+        Utils.checkNotNull(informationRequests, "informationRequests");
+        this.informationRequests = informationRequests;
         return this;
     }
 
@@ -160,14 +160,14 @@ public class GetInformationRequestsResponse implements Response {
             Utils.enhancedDeepEquals(this.contentType, other.contentType) &&
             Utils.enhancedDeepEquals(this.statusCode, other.statusCode) &&
             Utils.enhancedDeepEquals(this.rawResponse, other.rawResponse) &&
-            Utils.enhancedDeepEquals(this.informationRequestList, other.informationRequestList);
+            Utils.enhancedDeepEquals(this.informationRequests, other.informationRequests);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             contentType, statusCode, rawResponse,
-            informationRequestList);
+            informationRequests);
     }
     
     @Override
@@ -176,7 +176,7 @@ public class GetInformationRequestsResponse implements Response {
                 "contentType", contentType,
                 "statusCode", statusCode,
                 "rawResponse", rawResponse,
-                "informationRequestList", informationRequestList);
+                "informationRequests", informationRequests);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -188,7 +188,7 @@ public class GetInformationRequestsResponse implements Response {
 
         private HttpResponse<InputStream> rawResponse;
 
-        private Optional<? extends List<InformationRequest>> informationRequestList = Optional.empty();
+        private Optional<? extends List<InformationRequest>> informationRequests = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -226,20 +226,20 @@ public class GetInformationRequestsResponse implements Response {
 
 
         /**
-         * Example response
+         * Successful
          */
-        public Builder informationRequestList(List<InformationRequest> informationRequestList) {
-            Utils.checkNotNull(informationRequestList, "informationRequestList");
-            this.informationRequestList = Optional.ofNullable(informationRequestList);
+        public Builder informationRequests(List<InformationRequest> informationRequests) {
+            Utils.checkNotNull(informationRequests, "informationRequests");
+            this.informationRequests = Optional.ofNullable(informationRequests);
             return this;
         }
 
         /**
-         * Example response
+         * Successful
          */
-        public Builder informationRequestList(Optional<? extends List<InformationRequest>> informationRequestList) {
-            Utils.checkNotNull(informationRequestList, "informationRequestList");
-            this.informationRequestList = informationRequestList;
+        public Builder informationRequests(Optional<? extends List<InformationRequest>> informationRequests) {
+            Utils.checkNotNull(informationRequests, "informationRequests");
+            this.informationRequests = informationRequests;
             return this;
         }
 
@@ -247,7 +247,7 @@ public class GetInformationRequestsResponse implements Response {
 
             return new GetInformationRequestsResponse(
                 contentType, statusCode, rawResponse,
-                informationRequestList);
+                informationRequests);
         }
 
     }

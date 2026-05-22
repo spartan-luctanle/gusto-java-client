@@ -34,7 +34,7 @@ public class GetReportsRequestUuidResponse implements AsyncResponse {
     private HttpResponse<Blob> rawResponse;
 
     /**
-     * Example response
+     * OK
      */
     private Optional<? extends Report> report;
 
@@ -87,7 +87,7 @@ public class GetReportsRequestUuidResponse implements AsyncResponse {
     }
 
     /**
-     * Example response
+     * OK
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -128,7 +128,7 @@ public class GetReportsRequestUuidResponse implements AsyncResponse {
     }
 
     /**
-     * Example response
+     * OK
      */
     public GetReportsRequestUuidResponse withReport(Report report) {
         Utils.checkNotNull(report, "report");
@@ -138,7 +138,7 @@ public class GetReportsRequestUuidResponse implements AsyncResponse {
 
 
     /**
-     * Example response
+     * OK
      */
     public GetReportsRequestUuidResponse withReport(Optional<? extends Report> report) {
         Utils.checkNotNull(report, "report");
@@ -225,7 +225,7 @@ public class GetReportsRequestUuidResponse implements AsyncResponse {
 
 
         /**
-         * Example response
+         * OK
          */
         public Builder report(Report report) {
             Utils.checkNotNull(report, "report");
@@ -234,7 +234,7 @@ public class GetReportsRequestUuidResponse implements AsyncResponse {
         }
 
         /**
-         * Example response
+         * OK
          */
         public Builder report(Optional<? extends Report> report) {
             Utils.checkNotNull(report, "report");

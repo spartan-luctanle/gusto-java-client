@@ -7,9 +7,9 @@ import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.components.EmployeeBankAccountRequest;
+import com.gusto.embedded_api.models.operations.PutV1EmployeesEmployeeIdBankAccountsHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PutV1EmployeesEmployeeIdBankAccountsRequest;
-import com.gusto.embedded_api.models.operations.PutV1EmployeesEmployeeIdBankAccountsRequestBody;
 import com.gusto.embedded_api.operations.PutV1EmployeesEmployeeIdBankAccounts;
 import com.gusto.embedded_api.utils.Headers;
 import com.gusto.embedded_api.utils.LazySingletonValue;
@@ -20,18 +20,30 @@ import java.util.concurrent.CompletableFuture;
 
 public class PutV1EmployeesEmployeeIdBankAccountsRequestBuilder {
 
-    private String employeeId;
-    private String bankAccountUuid;
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
+    private Optional<? extends PutV1EmployeesEmployeeIdBankAccountsHeaderXGustoAPIVersion> xGustoAPIVersion = Utils.readDefaultOrConstValue(
                             "xGustoAPIVersion",
                             "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
-    private PutV1EmployeesEmployeeIdBankAccountsRequestBody requestBody;
+                            new TypeReference<Optional<? extends PutV1EmployeesEmployeeIdBankAccountsHeaderXGustoAPIVersion>>() {});
+    private String employeeId;
+    private String bankAccountUuid;
+    private EmployeeBankAccountRequest employeeBankAccountRequest;
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
     public PutV1EmployeesEmployeeIdBankAccountsRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
+    }
+                
+    public PutV1EmployeesEmployeeIdBankAccountsRequestBuilder xGustoAPIVersion(PutV1EmployeesEmployeeIdBankAccountsHeaderXGustoAPIVersion xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
+        return this;
+    }
+
+    public PutV1EmployeesEmployeeIdBankAccountsRequestBuilder xGustoAPIVersion(Optional<? extends PutV1EmployeesEmployeeIdBankAccountsHeaderXGustoAPIVersion> xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = xGustoAPIVersion;
+        return this;
     }
 
     public PutV1EmployeesEmployeeIdBankAccountsRequestBuilder employeeId(String employeeId) {
@@ -45,22 +57,10 @@ public class PutV1EmployeesEmployeeIdBankAccountsRequestBuilder {
         this.bankAccountUuid = bankAccountUuid;
         return this;
     }
-                
-    public PutV1EmployeesEmployeeIdBankAccountsRequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
-        return this;
-    }
 
-    public PutV1EmployeesEmployeeIdBankAccountsRequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = xGustoAPIVersion;
-        return this;
-    }
-
-    public PutV1EmployeesEmployeeIdBankAccountsRequestBuilder requestBody(PutV1EmployeesEmployeeIdBankAccountsRequestBody requestBody) {
-        Utils.checkNotNull(requestBody, "requestBody");
-        this.requestBody = requestBody;
+    public PutV1EmployeesEmployeeIdBankAccountsRequestBuilder employeeBankAccountRequest(EmployeeBankAccountRequest employeeBankAccountRequest) {
+        Utils.checkNotNull(employeeBankAccountRequest, "employeeBankAccountRequest");
+        this.employeeBankAccountRequest = employeeBankAccountRequest;
         return this;
     }
 
@@ -70,10 +70,10 @@ public class PutV1EmployeesEmployeeIdBankAccountsRequestBuilder {
             xGustoAPIVersion = _SINGLETON_VALUE_XGustoAPIVersion.value();
         }
 
-        PutV1EmployeesEmployeeIdBankAccountsRequest request = new PutV1EmployeesEmployeeIdBankAccountsRequest(employeeId,
+        PutV1EmployeesEmployeeIdBankAccountsRequest request = new PutV1EmployeesEmployeeIdBankAccountsRequest(xGustoAPIVersion,
+            employeeId,
             bankAccountUuid,
-            xGustoAPIVersion,
-            requestBody);
+            employeeBankAccountRequest);
 
         return request;
     }
@@ -88,9 +88,9 @@ public class PutV1EmployeesEmployeeIdBankAccountsRequestBuilder {
             .thenCompose(operation::handleResponse);
     }
 
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+    private static final LazySingletonValue<Optional<? extends PutV1EmployeesEmployeeIdBankAccountsHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
             new LazySingletonValue<>(
                     "xGustoAPIVersion",
                     "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
+                    new TypeReference<Optional<? extends PutV1EmployeesEmployeeIdBankAccountsHeaderXGustoAPIVersion>>() {});
 }

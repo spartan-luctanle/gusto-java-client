@@ -5,13 +5,16 @@ package com.gusto.embedded_api;
 
 import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation;
 
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.components.CreateReportBody;
+import com.gusto.embedded_api.models.components.GeneralLedgerReportBody;
+import com.gusto.embedded_api.models.operations.GetCompaniesCompanyUuidReportTemplatesReportTypeHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetCompaniesCompanyUuidReportTemplatesReportTypeRequest;
+import com.gusto.embedded_api.models.operations.GetReportsRequestUuidHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetReportsRequestUuidRequest;
+import com.gusto.embedded_api.models.operations.PostCompaniesCompanyUuidReportsHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostCompaniesCompanyUuidReportsRequest;
-import com.gusto.embedded_api.models.operations.PostCompaniesCompanyUuidReportsRequestBody;
+import com.gusto.embedded_api.models.operations.PostPayrollsPayrollUuidReportsGeneralLedgerHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostPayrollsPayrollUuidReportsGeneralLedgerRequest;
-import com.gusto.embedded_api.models.operations.PostPayrollsPayrollUuidReportsGeneralLedgerRequestBody;
 import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdReportsEmployeesAnnualFicaWageHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdReportsEmployeesAnnualFicaWageRequest;
 import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdReportsEmployeesAnnualFicaWageRequestBody;
@@ -68,6 +71,8 @@ public class AsyncReports {
      * 
      * <p>scope: `company_reports:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @return The async call builder
      */
     public PostCompaniesCompanyUuidReportsRequestBuilder createCustom() {
@@ -86,12 +91,14 @@ public class AsyncReports {
      * 
      * <p>scope: `company_reports:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param companyUuid The UUID of the company
-     * @param requestBody 
+     * @param createReportBody Request body for creating a custom report.
      * @return {@code CompletableFuture<PostCompaniesCompanyUuidReportsResponse>} - The async response
      */
-    public CompletableFuture<PostCompaniesCompanyUuidReportsResponse> createCustom(String companyUuid, PostCompaniesCompanyUuidReportsRequestBody requestBody) {
-        return createCustom(companyUuid, Optional.empty(), requestBody);
+    public CompletableFuture<PostCompaniesCompanyUuidReportsResponse> createCustom(String companyUuid, CreateReportBody createReportBody) {
+        return createCustom(Optional.empty(), companyUuid, createReportBody);
     }
 
     /**
@@ -106,20 +113,22 @@ public class AsyncReports {
      * 
      * <p>scope: `company_reports:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param companyUuid The UUID of the company
-     * @param xGustoAPIVersion 
-     * @param requestBody 
+     * @param createReportBody Request body for creating a custom report.
      * @return {@code CompletableFuture<PostCompaniesCompanyUuidReportsResponse>} - The async response
      */
     public CompletableFuture<PostCompaniesCompanyUuidReportsResponse> createCustom(
-            String companyUuid, Optional<? extends VersionHeader> xGustoAPIVersion,
-            PostCompaniesCompanyUuidReportsRequestBody requestBody) {
+            Optional<? extends PostCompaniesCompanyUuidReportsHeaderXGustoAPIVersion> xGustoAPIVersion, String companyUuid,
+            CreateReportBody createReportBody) {
         PostCompaniesCompanyUuidReportsRequest request =
             PostCompaniesCompanyUuidReportsRequest
                 .builder()
-                .companyUuid(companyUuid)
                 .xGustoAPIVersion(xGustoAPIVersion)
-                .requestBody(requestBody)
+                .companyUuid(companyUuid)
+                .createReportBody(createReportBody)
                 .build();
         AsyncRequestOperation<PostCompaniesCompanyUuidReportsRequest, PostCompaniesCompanyUuidReportsResponse> operation
               = new PostCompaniesCompanyUuidReports.Async(sdkConfiguration, _headers);
@@ -138,7 +147,9 @@ public class AsyncReports {
      * endpoint](../reference/get-reports-request_uuid) to poll for the status and report URL upon
      * completion. The retrieved report will be generated in a JSON format.
      * 
-     * <p>scope: `company_reports:write` OR `company_reports:write:general_ledger`
+     * <p>scope: `company_reports:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @return The async call builder
      */
@@ -156,14 +167,16 @@ public class AsyncReports {
      * endpoint](../reference/get-reports-request_uuid) to poll for the status and report URL upon
      * completion. The retrieved report will be generated in a JSON format.
      * 
-     * <p>scope: `company_reports:write` OR `company_reports:write:general_ledger`
+     * <p>scope: `company_reports:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @param payrollUuid The UUID of the payroll
-     * @param requestBody 
+     * @param generalLedgerReportBody Request body for generating a general ledger report. The report can be aggregated by different dimensions such as job or department.
      * @return {@code CompletableFuture<PostPayrollsPayrollUuidReportsGeneralLedgerResponse>} - The async response
      */
-    public CompletableFuture<PostPayrollsPayrollUuidReportsGeneralLedgerResponse> postPayrollsPayrollUuidReportsGeneralLedger(String payrollUuid, PostPayrollsPayrollUuidReportsGeneralLedgerRequestBody requestBody) {
-        return postPayrollsPayrollUuidReportsGeneralLedger(payrollUuid, Optional.empty(), requestBody);
+    public CompletableFuture<PostPayrollsPayrollUuidReportsGeneralLedgerResponse> postPayrollsPayrollUuidReportsGeneralLedger(String payrollUuid, GeneralLedgerReportBody generalLedgerReportBody) {
+        return postPayrollsPayrollUuidReportsGeneralLedger(Optional.empty(), payrollUuid, generalLedgerReportBody);
     }
 
     /**
@@ -176,22 +189,24 @@ public class AsyncReports {
      * endpoint](../reference/get-reports-request_uuid) to poll for the status and report URL upon
      * completion. The retrieved report will be generated in a JSON format.
      * 
-     * <p>scope: `company_reports:write` OR `company_reports:write:general_ledger`
+     * <p>scope: `company_reports:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param payrollUuid The UUID of the payroll
-     * @param xGustoAPIVersion 
-     * @param requestBody 
+     * @param generalLedgerReportBody Request body for generating a general ledger report. The report can be aggregated by different dimensions such as job or department.
      * @return {@code CompletableFuture<PostPayrollsPayrollUuidReportsGeneralLedgerResponse>} - The async response
      */
     public CompletableFuture<PostPayrollsPayrollUuidReportsGeneralLedgerResponse> postPayrollsPayrollUuidReportsGeneralLedger(
-            String payrollUuid, Optional<? extends VersionHeader> xGustoAPIVersion,
-            PostPayrollsPayrollUuidReportsGeneralLedgerRequestBody requestBody) {
+            Optional<? extends PostPayrollsPayrollUuidReportsGeneralLedgerHeaderXGustoAPIVersion> xGustoAPIVersion, String payrollUuid,
+            GeneralLedgerReportBody generalLedgerReportBody) {
         PostPayrollsPayrollUuidReportsGeneralLedgerRequest request =
             PostPayrollsPayrollUuidReportsGeneralLedgerRequest
                 .builder()
-                .payrollUuid(payrollUuid)
                 .xGustoAPIVersion(xGustoAPIVersion)
-                .requestBody(requestBody)
+                .payrollUuid(payrollUuid)
+                .generalLedgerReportBody(generalLedgerReportBody)
                 .build();
         AsyncRequestOperation<PostPayrollsPayrollUuidReportsGeneralLedgerRequest, PostPayrollsPayrollUuidReportsGeneralLedgerResponse> operation
               = new PostPayrollsPayrollUuidReportsGeneralLedger.Async(sdkConfiguration, _headers);
@@ -210,6 +225,8 @@ public class AsyncReports {
      * 
      * <p>scope: `company_reports:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @return The async call builder
      */
     public GetReportsRequestUuidRequestBuilder getReportsRequestUuid() {
@@ -226,11 +243,13 @@ public class AsyncReports {
      * 
      * <p>scope: `company_reports:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param requestUuid The UUID of the request to generate a document. Generate document endpoints return request_uuids to be used with the GET generated document endpoint.
      * @return {@code CompletableFuture<GetReportsRequestUuidResponse>} - The async response
      */
     public CompletableFuture<GetReportsRequestUuidResponse> getReportsRequestUuid(String requestUuid) {
-        return getReportsRequestUuid(requestUuid, Optional.empty());
+        return getReportsRequestUuid(Optional.empty(), requestUuid);
     }
 
     /**
@@ -243,16 +262,18 @@ public class AsyncReports {
      * 
      * <p>scope: `company_reports:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param requestUuid The UUID of the request to generate a document. Generate document endpoints return request_uuids to be used with the GET generated document endpoint.
-     * @param xGustoAPIVersion 
      * @return {@code CompletableFuture<GetReportsRequestUuidResponse>} - The async response
      */
-    public CompletableFuture<GetReportsRequestUuidResponse> getReportsRequestUuid(String requestUuid, Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public CompletableFuture<GetReportsRequestUuidResponse> getReportsRequestUuid(Optional<? extends GetReportsRequestUuidHeaderXGustoAPIVersion> xGustoAPIVersion, String requestUuid) {
         GetReportsRequestUuidRequest request =
             GetReportsRequestUuidRequest
                 .builder()
-                .requestUuid(requestUuid)
                 .xGustoAPIVersion(xGustoAPIVersion)
+                .requestUuid(requestUuid)
                 .build();
         AsyncRequestOperation<GetReportsRequestUuidRequest, GetReportsRequestUuidResponse> operation
               = new GetReportsRequestUuid.Async(sdkConfiguration, _headers);
@@ -270,6 +291,8 @@ public class AsyncReports {
      * 
      * <p>scope: `company_reports:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @return The async call builder
      */
     public GetCompaniesCompanyUuidReportTemplatesReportTypeRequestBuilder getTemplate() {
@@ -285,12 +308,14 @@ public class AsyncReports {
      * 
      * <p>scope: `company_reports:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param companyUuid The UUID of the company
      * @param reportType The report type
      * @return {@code CompletableFuture<GetCompaniesCompanyUuidReportTemplatesReportTypeResponse>} - The async response
      */
     public CompletableFuture<GetCompaniesCompanyUuidReportTemplatesReportTypeResponse> getTemplate(String companyUuid, String reportType) {
-        return getTemplate(companyUuid, reportType, Optional.empty());
+        return getTemplate(Optional.empty(), companyUuid, reportType);
     }
 
     /**
@@ -302,20 +327,22 @@ public class AsyncReports {
      * 
      * <p>scope: `company_reports:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param companyUuid The UUID of the company
      * @param reportType The report type
-     * @param xGustoAPIVersion 
      * @return {@code CompletableFuture<GetCompaniesCompanyUuidReportTemplatesReportTypeResponse>} - The async response
      */
     public CompletableFuture<GetCompaniesCompanyUuidReportTemplatesReportTypeResponse> getTemplate(
-            String companyUuid, String reportType,
-            Optional<? extends VersionHeader> xGustoAPIVersion) {
+            Optional<? extends GetCompaniesCompanyUuidReportTemplatesReportTypeHeaderXGustoAPIVersion> xGustoAPIVersion, String companyUuid,
+            String reportType) {
         GetCompaniesCompanyUuidReportTemplatesReportTypeRequest request =
             GetCompaniesCompanyUuidReportTemplatesReportTypeRequest
                 .builder()
+                .xGustoAPIVersion(xGustoAPIVersion)
                 .companyUuid(companyUuid)
                 .reportType(reportType)
-                .xGustoAPIVersion(xGustoAPIVersion)
                 .build();
         AsyncRequestOperation<GetCompaniesCompanyUuidReportTemplatesReportTypeRequest, GetCompaniesCompanyUuidReportTemplatesReportTypeResponse> operation
               = new GetCompaniesCompanyUuidReportTemplatesReportType.Async(sdkConfiguration, _headers);

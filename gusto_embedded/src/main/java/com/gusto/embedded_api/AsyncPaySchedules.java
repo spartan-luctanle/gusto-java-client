@@ -8,16 +8,19 @@ import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation
 import com.gusto.embedded_api.models.components.PayScheduleAssignmentBody;
 import com.gusto.embedded_api.models.components.PayScheduleCreateRequest;
 import com.gusto.embedded_api.models.components.PayScheduleUpdateRequest;
-import com.gusto.embedded_api.models.components.VersionHeader;
 import com.gusto.embedded_api.models.operations.GetV1CompaniesCompanyIdPayPeriodsRequest;
+import com.gusto.embedded_api.models.operations.GetV1CompaniesCompanyIdPaySchedulesAssignmentsHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1CompaniesCompanyIdPaySchedulesAssignmentsRequest;
 import com.gusto.embedded_api.models.operations.GetV1CompaniesCompanyIdPaySchedulesHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1CompaniesCompanyIdPaySchedulesPayScheduleIdHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1CompaniesCompanyIdPaySchedulesPayScheduleIdRequest;
 import com.gusto.embedded_api.models.operations.GetV1CompaniesCompanyIdPaySchedulesPreviewRequest;
 import com.gusto.embedded_api.models.operations.GetV1CompaniesCompanyIdPaySchedulesRequest;
+import com.gusto.embedded_api.models.operations.GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsRequest;
+import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdPaySchedulesAssignHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdPaySchedulesAssignRequest;
+import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdPaySchedulesAssignmentPreviewHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdPaySchedulesAssignmentPreviewRequest;
 import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdPaySchedulesHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdPaySchedulesRequest;
@@ -77,125 +80,6 @@ public class AsyncPaySchedules {
      */
     public PaySchedules sync() {
         return syncSDK;
-    }
-
-
-    /**
-     * Create a new pay schedule
-     * 
-     * <p>If a company does not have any pay schedules, this endpoint creates a single pay schedule and
-     * assigns it to all employees (common during company onboarding).
-     * 
-     * <p>If a company already has an active pay schedule and wants multiple pay schedules, this endpoint
-     * creates a pay schedule that is not assigned to any employee.
-     * 
-     * <p>Be sure to [check state laws](https://www.dol.gov/agencies/whd/state/payday) to know what schedule
-     * is right for your customers. If an onboarded company misses their first pay date, the pay schedule
-     * may be automatically adjusted.
-     * 
-     * <p>### Webhooks
-     * - `pay_schedule.created`: Fires when a pay schedule is successfully created.
-     * 
-     * <p>### Related guides
-     * - [Create a pay schedule](doc:create-a-pay-schedule)
-     * - [Pay Schedules](doc:pay-schedule-info)
-     * - [Manage Pay Schedules via API](doc:manage-pay-schedules-api)
-     * 
-     * <p>scope: `pay_schedules:write`
-     * 
-     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
-     * 
-     * @return The async call builder
-     */
-    public PostV1CompaniesCompanyIdPaySchedulesRequestBuilder create() {
-        return new PostV1CompaniesCompanyIdPaySchedulesRequestBuilder(sdkConfiguration);
-    }
-
-    /**
-     * Create a new pay schedule
-     * 
-     * <p>If a company does not have any pay schedules, this endpoint creates a single pay schedule and
-     * assigns it to all employees (common during company onboarding).
-     * 
-     * <p>If a company already has an active pay schedule and wants multiple pay schedules, this endpoint
-     * creates a pay schedule that is not assigned to any employee.
-     * 
-     * <p>Be sure to [check state laws](https://www.dol.gov/agencies/whd/state/payday) to know what schedule
-     * is right for your customers. If an onboarded company misses their first pay date, the pay schedule
-     * may be automatically adjusted.
-     * 
-     * <p>### Webhooks
-     * - `pay_schedule.created`: Fires when a pay schedule is successfully created.
-     * 
-     * <p>### Related guides
-     * - [Create a pay schedule](doc:create-a-pay-schedule)
-     * - [Pay Schedules](doc:pay-schedule-info)
-     * - [Manage Pay Schedules via API](doc:manage-pay-schedules-api)
-     * 
-     * <p>scope: `pay_schedules:write`
-     * 
-     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
-     * 
-     * @param companyId The UUID of the company
-     * @param payScheduleCreateRequest Request body for creating a pay schedule. Required when a company has no pay schedules (onboarding) or when adding an additional schedule. Be sure to [check state laws](https://www.dol.gov/agencies/whd/state/payday) to know what schedule is right for your customers.
-     *         
-     *         - **anchor_pay_date**: The first date that employees on this pay schedule will be paid (first company payday).
-     *         - **anchor_end_of_pay_period**: The last date of the first pay period; can be the same as anchor_pay_date.
-     *         
-     * @return {@code CompletableFuture<PostV1CompaniesCompanyIdPaySchedulesResponse>} - The async response
-     */
-    public CompletableFuture<PostV1CompaniesCompanyIdPaySchedulesResponse> create(String companyId, PayScheduleCreateRequest payScheduleCreateRequest) {
-        return create(Optional.empty(), companyId, payScheduleCreateRequest);
-    }
-
-    /**
-     * Create a new pay schedule
-     * 
-     * <p>If a company does not have any pay schedules, this endpoint creates a single pay schedule and
-     * assigns it to all employees (common during company onboarding).
-     * 
-     * <p>If a company already has an active pay schedule and wants multiple pay schedules, this endpoint
-     * creates a pay schedule that is not assigned to any employee.
-     * 
-     * <p>Be sure to [check state laws](https://www.dol.gov/agencies/whd/state/payday) to know what schedule
-     * is right for your customers. If an onboarded company misses their first pay date, the pay schedule
-     * may be automatically adjusted.
-     * 
-     * <p>### Webhooks
-     * - `pay_schedule.created`: Fires when a pay schedule is successfully created.
-     * 
-     * <p>### Related guides
-     * - [Create a pay schedule](doc:create-a-pay-schedule)
-     * - [Pay Schedules](doc:pay-schedule-info)
-     * - [Manage Pay Schedules via API](doc:manage-pay-schedules-api)
-     * 
-     * <p>scope: `pay_schedules:write`
-     * 
-     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
-     * 
-     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
-     * @param companyId The UUID of the company
-     * @param payScheduleCreateRequest Request body for creating a pay schedule. Required when a company has no pay schedules (onboarding) or when adding an additional schedule. Be sure to [check state laws](https://www.dol.gov/agencies/whd/state/payday) to know what schedule is right for your customers.
-     *         
-     *         - **anchor_pay_date**: The first date that employees on this pay schedule will be paid (first company payday).
-     *         - **anchor_end_of_pay_period**: The last date of the first pay period; can be the same as anchor_pay_date.
-     *         
-     * @return {@code CompletableFuture<PostV1CompaniesCompanyIdPaySchedulesResponse>} - The async response
-     */
-    public CompletableFuture<PostV1CompaniesCompanyIdPaySchedulesResponse> create(
-            Optional<? extends PostV1CompaniesCompanyIdPaySchedulesHeaderXGustoAPIVersion> xGustoAPIVersion, String companyId,
-            PayScheduleCreateRequest payScheduleCreateRequest) {
-        PostV1CompaniesCompanyIdPaySchedulesRequest request =
-            PostV1CompaniesCompanyIdPaySchedulesRequest
-                .builder()
-                .xGustoAPIVersion(xGustoAPIVersion)
-                .companyId(companyId)
-                .payScheduleCreateRequest(payScheduleCreateRequest)
-                .build();
-        AsyncRequestOperation<PostV1CompaniesCompanyIdPaySchedulesRequest, PostV1CompaniesCompanyIdPaySchedulesResponse> operation
-              = new PostV1CompaniesCompanyIdPaySchedules.Async(sdkConfiguration, _headers);
-        return operation.doRequest(request)
-            .thenCompose(operation::handleResponse);
     }
 
 
@@ -269,11 +153,136 @@ public class AsyncPaySchedules {
 
 
     /**
+     * Create a new pay schedule
+     * 
+     * <p>If a company does not have any pay schedules, this endpoint will create a single pay schedule and
+     * assign it to all employees. This is a common use case during company onboarding.
+     * 
+     * <p>If a company has an existing active pay schedule and want to support multiple pay schedules, this
+     * endpoint will create a pay schedule that is not assigned to any employee.
+     * 
+     * <p>Be sure to **[check state laws](https://www.dol.gov/agencies/whd/state/payday)** to know what
+     * schedule is right for your customers.
+     * 
+     * <p>&gt; If an onboarded company misses their first pay date, Gusto will automatically adjust the pay
+     * schedule to the next available pay date.
+     * 
+     * <p>### Webhooks
+     * - `pay_schedule.created`: Fires when a pay schedule is successfully created.
+     * 
+     * <p>### Related guides
+     * - [Create a pay schedule](doc:create-a-pay-schedule)
+     * - [Pay Schedules](doc:pay-schedule-info)
+     * - [Manage Pay Schedules via API](doc:manage-pay-schedules-api)
+     * 
+     * <p>scope: `pay_schedules:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @return The async call builder
+     */
+    public PostV1CompaniesCompanyIdPaySchedulesRequestBuilder create() {
+        return new PostV1CompaniesCompanyIdPaySchedulesRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Create a new pay schedule
+     * 
+     * <p>If a company does not have any pay schedules, this endpoint will create a single pay schedule and
+     * assign it to all employees. This is a common use case during company onboarding.
+     * 
+     * <p>If a company has an existing active pay schedule and want to support multiple pay schedules, this
+     * endpoint will create a pay schedule that is not assigned to any employee.
+     * 
+     * <p>Be sure to **[check state laws](https://www.dol.gov/agencies/whd/state/payday)** to know what
+     * schedule is right for your customers.
+     * 
+     * <p>&gt; If an onboarded company misses their first pay date, Gusto will automatically adjust the pay
+     * schedule to the next available pay date.
+     * 
+     * <p>### Webhooks
+     * - `pay_schedule.created`: Fires when a pay schedule is successfully created.
+     * 
+     * <p>### Related guides
+     * - [Create a pay schedule](doc:create-a-pay-schedule)
+     * - [Pay Schedules](doc:pay-schedule-info)
+     * - [Manage Pay Schedules via API](doc:manage-pay-schedules-api)
+     * 
+     * <p>scope: `pay_schedules:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param companyId The UUID of the company
+     * @param payScheduleCreateRequest Request body for creating a pay schedule. Required when a company has no pay schedules (onboarding) or when adding an additional schedule. Be sure to [check state laws](https://www.dol.gov/agencies/whd/state/payday) to know what schedule is right for your customers.
+     *         
+     *         - **anchor_pay_date**: The first date that employees on this pay schedule will be paid (first company payday).
+     *         - **anchor_end_of_pay_period**: The last date of the first pay period; can be the same as anchor_pay_date.
+     *         
+     * @return {@code CompletableFuture<PostV1CompaniesCompanyIdPaySchedulesResponse>} - The async response
+     */
+    public CompletableFuture<PostV1CompaniesCompanyIdPaySchedulesResponse> create(String companyId, PayScheduleCreateRequest payScheduleCreateRequest) {
+        return create(Optional.empty(), companyId, payScheduleCreateRequest);
+    }
+
+    /**
+     * Create a new pay schedule
+     * 
+     * <p>If a company does not have any pay schedules, this endpoint will create a single pay schedule and
+     * assign it to all employees. This is a common use case during company onboarding.
+     * 
+     * <p>If a company has an existing active pay schedule and want to support multiple pay schedules, this
+     * endpoint will create a pay schedule that is not assigned to any employee.
+     * 
+     * <p>Be sure to **[check state laws](https://www.dol.gov/agencies/whd/state/payday)** to know what
+     * schedule is right for your customers.
+     * 
+     * <p>&gt; If an onboarded company misses their first pay date, Gusto will automatically adjust the pay
+     * schedule to the next available pay date.
+     * 
+     * <p>### Webhooks
+     * - `pay_schedule.created`: Fires when a pay schedule is successfully created.
+     * 
+     * <p>### Related guides
+     * - [Create a pay schedule](doc:create-a-pay-schedule)
+     * - [Pay Schedules](doc:pay-schedule-info)
+     * - [Manage Pay Schedules via API](doc:manage-pay-schedules-api)
+     * 
+     * <p>scope: `pay_schedules:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     * @param companyId The UUID of the company
+     * @param payScheduleCreateRequest Request body for creating a pay schedule. Required when a company has no pay schedules (onboarding) or when adding an additional schedule. Be sure to [check state laws](https://www.dol.gov/agencies/whd/state/payday) to know what schedule is right for your customers.
+     *         
+     *         - **anchor_pay_date**: The first date that employees on this pay schedule will be paid (first company payday).
+     *         - **anchor_end_of_pay_period**: The last date of the first pay period; can be the same as anchor_pay_date.
+     *         
+     * @return {@code CompletableFuture<PostV1CompaniesCompanyIdPaySchedulesResponse>} - The async response
+     */
+    public CompletableFuture<PostV1CompaniesCompanyIdPaySchedulesResponse> create(
+            Optional<? extends PostV1CompaniesCompanyIdPaySchedulesHeaderXGustoAPIVersion> xGustoAPIVersion, String companyId,
+            PayScheduleCreateRequest payScheduleCreateRequest) {
+        PostV1CompaniesCompanyIdPaySchedulesRequest request =
+            PostV1CompaniesCompanyIdPaySchedulesRequest
+                .builder()
+                .xGustoAPIVersion(xGustoAPIVersion)
+                .companyId(companyId)
+                .payScheduleCreateRequest(payScheduleCreateRequest)
+                .build();
+        AsyncRequestOperation<PostV1CompaniesCompanyIdPaySchedulesRequest, PostV1CompaniesCompanyIdPaySchedulesResponse> operation
+              = new PostV1CompaniesCompanyIdPaySchedules.Async(sdkConfiguration, _headers);
+        return operation.doRequest(request)
+            .thenCompose(operation::handleResponse);
+    }
+
+
+    /**
      * Preview pay schedule dates
      * 
-     * <p>Returns a preview of pay period dates and holidays for the given parameters (e.g. frequency, anchor
-     * pay date) for the next 18 months. Use this before creating or updating a pay schedule to show
-     * expected check dates and payroll deadlines.
+     * <p>Provides a preview of a pay schedule with the specified parameters for the next 18 months. Use this
+     * before creating or updating a pay schedule to show expected check dates, pay period boundaries, and
+     * payroll deadlines.
      * 
      * <p>### Related guides
      * - [Create a pay schedule](doc:create-a-pay-schedule)
@@ -292,9 +301,9 @@ public class AsyncPaySchedules {
     /**
      * Preview pay schedule dates
      * 
-     * <p>Returns a preview of pay period dates and holidays for the given parameters (e.g. frequency, anchor
-     * pay date) for the next 18 months. Use this before creating or updating a pay schedule to show
-     * expected check dates and payroll deadlines.
+     * <p>Provides a preview of a pay schedule with the specified parameters for the next 18 months. Use this
+     * before creating or updating a pay schedule to show expected check dates, pay period boundaries, and
+     * payroll deadlines.
      * 
      * <p>### Related guides
      * - [Create a pay schedule](doc:create-a-pay-schedule)
@@ -318,7 +327,7 @@ public class AsyncPaySchedules {
     /**
      * Get a pay schedule
      * 
-     * <p>Returns a single pay schedule by UUID. The pay schedule object captures the details of when
+     * <p>Returns a single pay schedule by UUID. The pay schedule object in Gusto captures the details of when
      * employees work and when they should be paid. A company can have multiple pay schedules.
      * 
      * <p>scope: `pay_schedules:read`
@@ -334,7 +343,7 @@ public class AsyncPaySchedules {
     /**
      * Get a pay schedule
      * 
-     * <p>Returns a single pay schedule by UUID. The pay schedule object captures the details of when
+     * <p>Returns a single pay schedule by UUID. The pay schedule object in Gusto captures the details of when
      * employees work and when they should be paid. A company can have multiple pay schedules.
      * 
      * <p>scope: `pay_schedules:read`
@@ -352,7 +361,7 @@ public class AsyncPaySchedules {
     /**
      * Get a pay schedule
      * 
-     * <p>Returns a single pay schedule by UUID. The pay schedule object captures the details of when
+     * <p>Returns a single pay schedule by UUID. The pay schedule object in Gusto captures the details of when
      * employees work and when they should be paid. A company can have multiple pay schedules.
      * 
      * <p>scope: `pay_schedules:read`
@@ -392,7 +401,8 @@ public class AsyncPaySchedules {
      * today or in the future. Already-processed payrolls are not affected.
      * 
      * <p>### Pay schedules may be automatically adjusted
-     * If an onboarded company misses their first pay date, the pay schedule may be automatically adjusted.
+     * If an onboarded company misses their first pay date, Gusto will automatically adjust the pay
+     * schedule to the next available pay date.
      * 
      * <p>### Webhooks
      * - `pay_schedule.updated`: Fires when a pay schedule is successfully updated.
@@ -422,7 +432,8 @@ public class AsyncPaySchedules {
      * today or in the future. Already-processed payrolls are not affected.
      * 
      * <p>### Pay schedules may be automatically adjusted
-     * If an onboarded company misses their first pay date, the pay schedule may be automatically adjusted.
+     * If an onboarded company misses their first pay date, Gusto will automatically adjust the pay
+     * schedule to the next available pay date.
      * 
      * <p>### Webhooks
      * - `pay_schedule.updated`: Fires when a pay schedule is successfully updated.
@@ -459,7 +470,8 @@ public class AsyncPaySchedules {
      * today or in the future. Already-processed payrolls are not affected.
      * 
      * <p>### Pay schedules may be automatically adjusted
-     * If an onboarded company misses their first pay date, the pay schedule may be automatically adjusted.
+     * If an onboarded company misses their first pay date, Gusto will automatically adjust the pay
+     * schedule to the next available pay date.
      * 
      * <p>### Webhooks
      * - `pay_schedule.updated`: Fires when a pay schedule is successfully updated.
@@ -568,6 +580,8 @@ public class AsyncPaySchedules {
      * 
      * <p>scope: `payrolls:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @return The async call builder
      */
     public GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsRequestBuilder getUnprocessedTerminationPeriods() {
@@ -585,11 +599,13 @@ public class AsyncPaySchedules {
      * 
      * <p>scope: `payrolls:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param companyId The UUID of the company
      * @return {@code CompletableFuture<GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsResponse>} - The async response
      */
     public CompletableFuture<GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsResponse> getUnprocessedTerminationPeriods(String companyId) {
-        return getUnprocessedTerminationPeriods(companyId, Optional.empty());
+        return getUnprocessedTerminationPeriods(Optional.empty(), companyId);
     }
 
     /**
@@ -603,16 +619,18 @@ public class AsyncPaySchedules {
      * 
      * <p>scope: `payrolls:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param companyId The UUID of the company
-     * @param xGustoAPIVersion 
      * @return {@code CompletableFuture<GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsResponse>} - The async response
      */
-    public CompletableFuture<GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsResponse> getUnprocessedTerminationPeriods(String companyId, Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public CompletableFuture<GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsResponse> getUnprocessedTerminationPeriods(Optional<? extends GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsHeaderXGustoAPIVersion> xGustoAPIVersion, String companyId) {
         GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsRequest request =
             GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsRequest
                 .builder()
-                .companyId(companyId)
                 .xGustoAPIVersion(xGustoAPIVersion)
+                .companyId(companyId)
                 .build();
         AsyncRequestOperation<GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsRequest, GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsResponse> operation
               = new GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriods.Async(sdkConfiguration, _headers);
@@ -629,6 +647,8 @@ public class AsyncPaySchedules {
      * 
      * <p>scope: `pay_schedules:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @return The async call builder
      */
     public GetV1CompaniesCompanyIdPaySchedulesAssignmentsRequestBuilder getAssignments() {
@@ -643,11 +663,13 @@ public class AsyncPaySchedules {
      * 
      * <p>scope: `pay_schedules:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param companyId The UUID of the company
      * @return {@code CompletableFuture<GetV1CompaniesCompanyIdPaySchedulesAssignmentsResponse>} - The async response
      */
     public CompletableFuture<GetV1CompaniesCompanyIdPaySchedulesAssignmentsResponse> getAssignments(String companyId) {
-        return getAssignments(companyId, Optional.empty());
+        return getAssignments(Optional.empty(), companyId);
     }
 
     /**
@@ -658,16 +680,18 @@ public class AsyncPaySchedules {
      * 
      * <p>scope: `pay_schedules:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param companyId The UUID of the company
-     * @param xGustoAPIVersion 
      * @return {@code CompletableFuture<GetV1CompaniesCompanyIdPaySchedulesAssignmentsResponse>} - The async response
      */
-    public CompletableFuture<GetV1CompaniesCompanyIdPaySchedulesAssignmentsResponse> getAssignments(String companyId, Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public CompletableFuture<GetV1CompaniesCompanyIdPaySchedulesAssignmentsResponse> getAssignments(Optional<? extends GetV1CompaniesCompanyIdPaySchedulesAssignmentsHeaderXGustoAPIVersion> xGustoAPIVersion, String companyId) {
         GetV1CompaniesCompanyIdPaySchedulesAssignmentsRequest request =
             GetV1CompaniesCompanyIdPaySchedulesAssignmentsRequest
                 .builder()
-                .companyId(companyId)
                 .xGustoAPIVersion(xGustoAPIVersion)
+                .companyId(companyId)
                 .build();
         AsyncRequestOperation<GetV1CompaniesCompanyIdPaySchedulesAssignmentsRequest, GetV1CompaniesCompanyIdPaySchedulesAssignmentsResponse> operation
               = new GetV1CompaniesCompanyIdPaySchedulesAssignments.Async(sdkConfiguration, _headers);
@@ -684,6 +708,8 @@ public class AsyncPaySchedules {
      * 
      * <p>scope: `pay_schedules:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @return The async call builder
      */
     public PostV1CompaniesCompanyIdPaySchedulesAssignmentPreviewRequestBuilder previewAssignment() {
@@ -698,12 +724,14 @@ public class AsyncPaySchedules {
      * 
      * <p>scope: `pay_schedules:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param companyId The UUID of the company
      * @param payScheduleAssignmentBody 
      * @return {@code CompletableFuture<PostV1CompaniesCompanyIdPaySchedulesAssignmentPreviewResponse>} - The async response
      */
     public CompletableFuture<PostV1CompaniesCompanyIdPaySchedulesAssignmentPreviewResponse> previewAssignment(String companyId, PayScheduleAssignmentBody payScheduleAssignmentBody) {
-        return previewAssignment(companyId, Optional.empty(), payScheduleAssignmentBody);
+        return previewAssignment(Optional.empty(), companyId, payScheduleAssignmentBody);
     }
 
     /**
@@ -714,19 +742,21 @@ public class AsyncPaySchedules {
      * 
      * <p>scope: `pay_schedules:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param companyId The UUID of the company
-     * @param xGustoAPIVersion 
      * @param payScheduleAssignmentBody 
      * @return {@code CompletableFuture<PostV1CompaniesCompanyIdPaySchedulesAssignmentPreviewResponse>} - The async response
      */
     public CompletableFuture<PostV1CompaniesCompanyIdPaySchedulesAssignmentPreviewResponse> previewAssignment(
-            String companyId, Optional<? extends VersionHeader> xGustoAPIVersion,
+            Optional<? extends PostV1CompaniesCompanyIdPaySchedulesAssignmentPreviewHeaderXGustoAPIVersion> xGustoAPIVersion, String companyId,
             PayScheduleAssignmentBody payScheduleAssignmentBody) {
         PostV1CompaniesCompanyIdPaySchedulesAssignmentPreviewRequest request =
             PostV1CompaniesCompanyIdPaySchedulesAssignmentPreviewRequest
                 .builder()
-                .companyId(companyId)
                 .xGustoAPIVersion(xGustoAPIVersion)
+                .companyId(companyId)
                 .payScheduleAssignmentBody(payScheduleAssignmentBody)
                 .build();
         AsyncRequestOperation<PostV1CompaniesCompanyIdPaySchedulesAssignmentPreviewRequest, PostV1CompaniesCompanyIdPaySchedulesAssignmentPreviewResponse> operation
@@ -746,6 +776,8 @@ public class AsyncPaySchedules {
      * 
      * <p>scope: `pay_schedules:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @return The async call builder
      */
     public PostV1CompaniesCompanyIdPaySchedulesAssignRequestBuilder assign() {
@@ -762,12 +794,14 @@ public class AsyncPaySchedules {
      * 
      * <p>scope: `pay_schedules:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param companyId The UUID of the company
      * @param payScheduleAssignmentBody 
      * @return {@code CompletableFuture<PostV1CompaniesCompanyIdPaySchedulesAssignResponse>} - The async response
      */
     public CompletableFuture<PostV1CompaniesCompanyIdPaySchedulesAssignResponse> assign(String companyId, PayScheduleAssignmentBody payScheduleAssignmentBody) {
-        return assign(companyId, Optional.empty(), payScheduleAssignmentBody);
+        return assign(Optional.empty(), companyId, payScheduleAssignmentBody);
     }
 
     /**
@@ -780,19 +814,21 @@ public class AsyncPaySchedules {
      * 
      * <p>scope: `pay_schedules:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param companyId The UUID of the company
-     * @param xGustoAPIVersion 
      * @param payScheduleAssignmentBody 
      * @return {@code CompletableFuture<PostV1CompaniesCompanyIdPaySchedulesAssignResponse>} - The async response
      */
     public CompletableFuture<PostV1CompaniesCompanyIdPaySchedulesAssignResponse> assign(
-            String companyId, Optional<? extends VersionHeader> xGustoAPIVersion,
+            Optional<? extends PostV1CompaniesCompanyIdPaySchedulesAssignHeaderXGustoAPIVersion> xGustoAPIVersion, String companyId,
             PayScheduleAssignmentBody payScheduleAssignmentBody) {
         PostV1CompaniesCompanyIdPaySchedulesAssignRequest request =
             PostV1CompaniesCompanyIdPaySchedulesAssignRequest
                 .builder()
-                .companyId(companyId)
                 .xGustoAPIVersion(xGustoAPIVersion)
+                .companyId(companyId)
                 .payScheduleAssignmentBody(payScheduleAssignmentBody)
                 .build();
         AsyncRequestOperation<PostV1CompaniesCompanyIdPaySchedulesAssignRequest, PostV1CompaniesCompanyIdPaySchedulesAssignResponse> operation

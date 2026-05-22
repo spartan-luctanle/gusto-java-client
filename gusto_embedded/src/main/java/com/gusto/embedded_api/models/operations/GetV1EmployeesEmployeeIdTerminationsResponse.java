@@ -35,24 +35,24 @@ public class GetV1EmployeesEmployeeIdTerminationsResponse implements Response {
     private HttpResponse<InputStream> rawResponse;
 
     /**
-     * Example response
+     * Successful
      */
-    private Optional<? extends List<Termination>> terminationList;
+    private Optional<? extends List<Termination>> terminations;
 
     @JsonCreator
     public GetV1EmployeesEmployeeIdTerminationsResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends List<Termination>> terminationList) {
+            Optional<? extends List<Termination>> terminations) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
-        Utils.checkNotNull(terminationList, "terminationList");
+        Utils.checkNotNull(terminations, "terminations");
         this.contentType = contentType;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
-        this.terminationList = terminationList;
+        this.terminations = terminations;
     }
     
     public GetV1EmployeesEmployeeIdTerminationsResponse(
@@ -88,12 +88,12 @@ public class GetV1EmployeesEmployeeIdTerminationsResponse implements Response {
     }
 
     /**
-     * Example response
+     * Successful
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<List<Termination>> terminationList() {
-        return (Optional<List<Termination>>) terminationList;
+    public Optional<List<Termination>> terminations() {
+        return (Optional<List<Termination>>) terminations;
     }
 
     public static Builder builder() {
@@ -129,21 +129,21 @@ public class GetV1EmployeesEmployeeIdTerminationsResponse implements Response {
     }
 
     /**
-     * Example response
+     * Successful
      */
-    public GetV1EmployeesEmployeeIdTerminationsResponse withTerminationList(List<Termination> terminationList) {
-        Utils.checkNotNull(terminationList, "terminationList");
-        this.terminationList = Optional.ofNullable(terminationList);
+    public GetV1EmployeesEmployeeIdTerminationsResponse withTerminations(List<Termination> terminations) {
+        Utils.checkNotNull(terminations, "terminations");
+        this.terminations = Optional.ofNullable(terminations);
         return this;
     }
 
 
     /**
-     * Example response
+     * Successful
      */
-    public GetV1EmployeesEmployeeIdTerminationsResponse withTerminationList(Optional<? extends List<Termination>> terminationList) {
-        Utils.checkNotNull(terminationList, "terminationList");
-        this.terminationList = terminationList;
+    public GetV1EmployeesEmployeeIdTerminationsResponse withTerminations(Optional<? extends List<Termination>> terminations) {
+        Utils.checkNotNull(terminations, "terminations");
+        this.terminations = terminations;
         return this;
     }
 
@@ -160,14 +160,14 @@ public class GetV1EmployeesEmployeeIdTerminationsResponse implements Response {
             Utils.enhancedDeepEquals(this.contentType, other.contentType) &&
             Utils.enhancedDeepEquals(this.statusCode, other.statusCode) &&
             Utils.enhancedDeepEquals(this.rawResponse, other.rawResponse) &&
-            Utils.enhancedDeepEquals(this.terminationList, other.terminationList);
+            Utils.enhancedDeepEquals(this.terminations, other.terminations);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             contentType, statusCode, rawResponse,
-            terminationList);
+            terminations);
     }
     
     @Override
@@ -176,7 +176,7 @@ public class GetV1EmployeesEmployeeIdTerminationsResponse implements Response {
                 "contentType", contentType,
                 "statusCode", statusCode,
                 "rawResponse", rawResponse,
-                "terminationList", terminationList);
+                "terminations", terminations);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -188,7 +188,7 @@ public class GetV1EmployeesEmployeeIdTerminationsResponse implements Response {
 
         private HttpResponse<InputStream> rawResponse;
 
-        private Optional<? extends List<Termination>> terminationList = Optional.empty();
+        private Optional<? extends List<Termination>> terminations = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -226,20 +226,20 @@ public class GetV1EmployeesEmployeeIdTerminationsResponse implements Response {
 
 
         /**
-         * Example response
+         * Successful
          */
-        public Builder terminationList(List<Termination> terminationList) {
-            Utils.checkNotNull(terminationList, "terminationList");
-            this.terminationList = Optional.ofNullable(terminationList);
+        public Builder terminations(List<Termination> terminations) {
+            Utils.checkNotNull(terminations, "terminations");
+            this.terminations = Optional.ofNullable(terminations);
             return this;
         }
 
         /**
-         * Example response
+         * Successful
          */
-        public Builder terminationList(Optional<? extends List<Termination>> terminationList) {
-            Utils.checkNotNull(terminationList, "terminationList");
-            this.terminationList = terminationList;
+        public Builder terminations(Optional<? extends List<Termination>> terminations) {
+            Utils.checkNotNull(terminations, "terminations");
+            this.terminations = terminations;
             return this;
         }
 
@@ -247,7 +247,7 @@ public class GetV1EmployeesEmployeeIdTerminationsResponse implements Response {
 
             return new GetV1EmployeesEmployeeIdTerminationsResponse(
                 contentType, statusCode, rawResponse,
-                terminationList);
+                terminations);
         }
 
     }

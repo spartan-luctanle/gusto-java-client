@@ -26,5 +26,7 @@ PutV1WebhookSubscriptionUuidSubscriptionTypes value = PutV1WebhookSubscriptionUu
 | `LOCATION`                  | Location                    |
 | `NOTIFICATION`              | Notification                |
 | `PAYROLL`                   | Payroll                     |
+| `PAYROLL_SYNC`              | PayrollSync                 |
 | `PAY_SCHEDULE`              | PaySchedule                 |
+| `PEOPLE_BATCH`              | PeopleBatch                 |
 | `SIGNATORY`                 | Signatory                   |

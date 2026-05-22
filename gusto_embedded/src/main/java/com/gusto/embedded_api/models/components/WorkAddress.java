@@ -5,39 +5,35 @@ package com.gusto.embedded_api.models.components;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.gusto.embedded_api.utils.Utils;
 import java.lang.Override;
 import java.lang.String;
-import java.util.Optional;
 
-
+/**
+ * WorkAddress
+ * 
+ * <p>Primary work location for this historical employment row.
+ */
 public class WorkAddress {
     /**
-     * Reference to a company location
+     * UUID of a company work location from the company locations response.
      */
-    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("location_uuid")
-    private Optional<String> locationUuid;
+    private String locationUuid;
 
     @JsonCreator
     public WorkAddress(
-            @JsonProperty("location_uuid") Optional<String> locationUuid) {
+            @JsonProperty("location_uuid") String locationUuid) {
         Utils.checkNotNull(locationUuid, "locationUuid");
         this.locationUuid = locationUuid;
     }
-    
-    public WorkAddress() {
-        this(Optional.empty());
-    }
 
     /**
-     * Reference to a company location
+     * UUID of a company work location from the company locations response.
      */
     @JsonIgnore
-    public Optional<String> locationUuid() {
+    public String locationUuid() {
         return locationUuid;
     }
 
@@ -47,19 +43,9 @@ public class WorkAddress {
 
 
     /**
-     * Reference to a company location
+     * UUID of a company work location from the company locations response.
      */
     public WorkAddress withLocationUuid(String locationUuid) {
-        Utils.checkNotNull(locationUuid, "locationUuid");
-        this.locationUuid = Optional.ofNullable(locationUuid);
-        return this;
-    }
-
-
-    /**
-     * Reference to a company location
-     */
-    public WorkAddress withLocationUuid(Optional<String> locationUuid) {
         Utils.checkNotNull(locationUuid, "locationUuid");
         this.locationUuid = locationUuid;
         return this;
@@ -93,7 +79,7 @@ public class WorkAddress {
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private Optional<String> locationUuid = Optional.empty();
+        private String locationUuid;
 
         private Builder() {
           // force use of static builder() method
@@ -101,18 +87,9 @@ public class WorkAddress {
 
 
         /**
-         * Reference to a company location
+         * UUID of a company work location from the company locations response.
          */
         public Builder locationUuid(String locationUuid) {
-            Utils.checkNotNull(locationUuid, "locationUuid");
-            this.locationUuid = Optional.ofNullable(locationUuid);
-            return this;
-        }
-
-        /**
-         * Reference to a company location
-         */
-        public Builder locationUuid(Optional<String> locationUuid) {
             Utils.checkNotNull(locationUuid, "locationUuid");
             this.locationUuid = locationUuid;
             return this;

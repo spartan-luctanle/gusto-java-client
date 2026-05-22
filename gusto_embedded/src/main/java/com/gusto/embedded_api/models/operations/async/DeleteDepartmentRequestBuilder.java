@@ -7,7 +7,7 @@ import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.operations.DeleteDepartmentHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.DeleteDepartmentRequest;
 import com.gusto.embedded_api.operations.DeleteDepartment;
 import com.gusto.embedded_api.utils.Headers;
@@ -20,10 +20,10 @@ import java.util.concurrent.CompletableFuture;
 public class DeleteDepartmentRequestBuilder {
 
     private String departmentUuid;
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
+    private Optional<? extends DeleteDepartmentHeaderXGustoAPIVersion> xGustoAPIVersion = Utils.readDefaultOrConstValue(
                             "xGustoAPIVersion",
                             "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
+                            new TypeReference<Optional<? extends DeleteDepartmentHeaderXGustoAPIVersion>>() {});
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
@@ -37,13 +37,13 @@ public class DeleteDepartmentRequestBuilder {
         return this;
     }
                 
-    public DeleteDepartmentRequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+    public DeleteDepartmentRequestBuilder xGustoAPIVersion(DeleteDepartmentHeaderXGustoAPIVersion xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
         return this;
     }
 
-    public DeleteDepartmentRequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public DeleteDepartmentRequestBuilder xGustoAPIVersion(Optional<? extends DeleteDepartmentHeaderXGustoAPIVersion> xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = xGustoAPIVersion;
         return this;
@@ -71,9 +71,9 @@ public class DeleteDepartmentRequestBuilder {
             .thenCompose(operation::handleResponse);
     }
 
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+    private static final LazySingletonValue<Optional<? extends DeleteDepartmentHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
             new LazySingletonValue<>(
                     "xGustoAPIVersion",
                     "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
+                    new TypeReference<Optional<? extends DeleteDepartmentHeaderXGustoAPIVersion>>() {});
 }

@@ -5,7 +5,7 @@ package com.gusto.embedded_api.models.operations.async;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.gusto.embedded_api.models.operations.GetV1PartnerManagedCompaniesCompanyUuidMigrationReadinessResponseBody;
+import com.gusto.embedded_api.models.components.PartnerManagedCompanyMigrationReadinessResponse;
 import com.gusto.embedded_api.utils.AsyncResponse;
 import com.gusto.embedded_api.utils.Blob;
 import com.gusto.embedded_api.utils.Utils;
@@ -36,22 +36,22 @@ public class GetV1PartnerManagedCompaniesCompanyUuidMigrationReadinessResponse i
     /**
      * Example response
      */
-    private Optional<? extends GetV1PartnerManagedCompaniesCompanyUuidMigrationReadinessResponseBody> object;
+    private Optional<? extends PartnerManagedCompanyMigrationReadinessResponse> partnerManagedCompanyMigrationReadinessResponse;
 
     @JsonCreator
     public GetV1PartnerManagedCompaniesCompanyUuidMigrationReadinessResponse(
             String contentType,
             int statusCode,
             HttpResponse<Blob> rawResponse,
-            Optional<? extends GetV1PartnerManagedCompaniesCompanyUuidMigrationReadinessResponseBody> object) {
+            Optional<? extends PartnerManagedCompanyMigrationReadinessResponse> partnerManagedCompanyMigrationReadinessResponse) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
-        Utils.checkNotNull(object, "object");
+        Utils.checkNotNull(partnerManagedCompanyMigrationReadinessResponse, "partnerManagedCompanyMigrationReadinessResponse");
         this.contentType = contentType;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
-        this.object = object;
+        this.partnerManagedCompanyMigrationReadinessResponse = partnerManagedCompanyMigrationReadinessResponse;
     }
     
     public GetV1PartnerManagedCompaniesCompanyUuidMigrationReadinessResponse(
@@ -91,8 +91,8 @@ public class GetV1PartnerManagedCompaniesCompanyUuidMigrationReadinessResponse i
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<GetV1PartnerManagedCompaniesCompanyUuidMigrationReadinessResponseBody> object() {
-        return (Optional<GetV1PartnerManagedCompaniesCompanyUuidMigrationReadinessResponseBody>) object;
+    public Optional<PartnerManagedCompanyMigrationReadinessResponse> partnerManagedCompanyMigrationReadinessResponse() {
+        return (Optional<PartnerManagedCompanyMigrationReadinessResponse>) partnerManagedCompanyMigrationReadinessResponse;
     }
 
     public static Builder builder() {
@@ -130,9 +130,9 @@ public class GetV1PartnerManagedCompaniesCompanyUuidMigrationReadinessResponse i
     /**
      * Example response
      */
-    public GetV1PartnerManagedCompaniesCompanyUuidMigrationReadinessResponse withObject(GetV1PartnerManagedCompaniesCompanyUuidMigrationReadinessResponseBody object) {
-        Utils.checkNotNull(object, "object");
-        this.object = Optional.ofNullable(object);
+    public GetV1PartnerManagedCompaniesCompanyUuidMigrationReadinessResponse withPartnerManagedCompanyMigrationReadinessResponse(PartnerManagedCompanyMigrationReadinessResponse partnerManagedCompanyMigrationReadinessResponse) {
+        Utils.checkNotNull(partnerManagedCompanyMigrationReadinessResponse, "partnerManagedCompanyMigrationReadinessResponse");
+        this.partnerManagedCompanyMigrationReadinessResponse = Optional.ofNullable(partnerManagedCompanyMigrationReadinessResponse);
         return this;
     }
 
@@ -140,9 +140,9 @@ public class GetV1PartnerManagedCompaniesCompanyUuidMigrationReadinessResponse i
     /**
      * Example response
      */
-    public GetV1PartnerManagedCompaniesCompanyUuidMigrationReadinessResponse withObject(Optional<? extends GetV1PartnerManagedCompaniesCompanyUuidMigrationReadinessResponseBody> object) {
-        Utils.checkNotNull(object, "object");
-        this.object = object;
+    public GetV1PartnerManagedCompaniesCompanyUuidMigrationReadinessResponse withPartnerManagedCompanyMigrationReadinessResponse(Optional<? extends PartnerManagedCompanyMigrationReadinessResponse> partnerManagedCompanyMigrationReadinessResponse) {
+        Utils.checkNotNull(partnerManagedCompanyMigrationReadinessResponse, "partnerManagedCompanyMigrationReadinessResponse");
+        this.partnerManagedCompanyMigrationReadinessResponse = partnerManagedCompanyMigrationReadinessResponse;
         return this;
     }
 
@@ -159,14 +159,14 @@ public class GetV1PartnerManagedCompaniesCompanyUuidMigrationReadinessResponse i
             Utils.enhancedDeepEquals(this.contentType, other.contentType) &&
             Utils.enhancedDeepEquals(this.statusCode, other.statusCode) &&
             Utils.enhancedDeepEquals(this.rawResponse, other.rawResponse) &&
-            Utils.enhancedDeepEquals(this.object, other.object);
+            Utils.enhancedDeepEquals(this.partnerManagedCompanyMigrationReadinessResponse, other.partnerManagedCompanyMigrationReadinessResponse);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             contentType, statusCode, rawResponse,
-            object);
+            partnerManagedCompanyMigrationReadinessResponse);
     }
     
     @Override
@@ -175,7 +175,7 @@ public class GetV1PartnerManagedCompaniesCompanyUuidMigrationReadinessResponse i
                 "contentType", contentType,
                 "statusCode", statusCode,
                 "rawResponse", rawResponse,
-                "object", object);
+                "partnerManagedCompanyMigrationReadinessResponse", partnerManagedCompanyMigrationReadinessResponse);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -187,7 +187,7 @@ public class GetV1PartnerManagedCompaniesCompanyUuidMigrationReadinessResponse i
 
         private HttpResponse<Blob> rawResponse;
 
-        private Optional<? extends GetV1PartnerManagedCompaniesCompanyUuidMigrationReadinessResponseBody> object = Optional.empty();
+        private Optional<? extends PartnerManagedCompanyMigrationReadinessResponse> partnerManagedCompanyMigrationReadinessResponse = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -227,18 +227,18 @@ public class GetV1PartnerManagedCompaniesCompanyUuidMigrationReadinessResponse i
         /**
          * Example response
          */
-        public Builder object(GetV1PartnerManagedCompaniesCompanyUuidMigrationReadinessResponseBody object) {
-            Utils.checkNotNull(object, "object");
-            this.object = Optional.ofNullable(object);
+        public Builder partnerManagedCompanyMigrationReadinessResponse(PartnerManagedCompanyMigrationReadinessResponse partnerManagedCompanyMigrationReadinessResponse) {
+            Utils.checkNotNull(partnerManagedCompanyMigrationReadinessResponse, "partnerManagedCompanyMigrationReadinessResponse");
+            this.partnerManagedCompanyMigrationReadinessResponse = Optional.ofNullable(partnerManagedCompanyMigrationReadinessResponse);
             return this;
         }
 
         /**
          * Example response
          */
-        public Builder object(Optional<? extends GetV1PartnerManagedCompaniesCompanyUuidMigrationReadinessResponseBody> object) {
-            Utils.checkNotNull(object, "object");
-            this.object = object;
+        public Builder partnerManagedCompanyMigrationReadinessResponse(Optional<? extends PartnerManagedCompanyMigrationReadinessResponse> partnerManagedCompanyMigrationReadinessResponse) {
+            Utils.checkNotNull(partnerManagedCompanyMigrationReadinessResponse, "partnerManagedCompanyMigrationReadinessResponse");
+            this.partnerManagedCompanyMigrationReadinessResponse = partnerManagedCompanyMigrationReadinessResponse;
             return this;
         }
 
@@ -246,7 +246,7 @@ public class GetV1PartnerManagedCompaniesCompanyUuidMigrationReadinessResponse i
 
             return new GetV1PartnerManagedCompaniesCompanyUuidMigrationReadinessResponse(
                 contentType, statusCode, rawResponse,
-                object);
+                partnerManagedCompanyMigrationReadinessResponse);
         }
 
     }

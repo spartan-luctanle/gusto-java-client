@@ -34,7 +34,7 @@ public class GetV1CompaniesCompanyIdEarningTypesResponse implements Response {
     private HttpResponse<InputStream> rawResponse;
 
     /**
-     * Example response
+     * Success
      */
     private Optional<? extends EarningTypeList> earningTypeList;
 
@@ -87,7 +87,7 @@ public class GetV1CompaniesCompanyIdEarningTypesResponse implements Response {
     }
 
     /**
-     * Example response
+     * Success
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -128,7 +128,7 @@ public class GetV1CompaniesCompanyIdEarningTypesResponse implements Response {
     }
 
     /**
-     * Example response
+     * Success
      */
     public GetV1CompaniesCompanyIdEarningTypesResponse withEarningTypeList(EarningTypeList earningTypeList) {
         Utils.checkNotNull(earningTypeList, "earningTypeList");
@@ -138,7 +138,7 @@ public class GetV1CompaniesCompanyIdEarningTypesResponse implements Response {
 
 
     /**
-     * Example response
+     * Success
      */
     public GetV1CompaniesCompanyIdEarningTypesResponse withEarningTypeList(Optional<? extends EarningTypeList> earningTypeList) {
         Utils.checkNotNull(earningTypeList, "earningTypeList");
@@ -225,7 +225,7 @@ public class GetV1CompaniesCompanyIdEarningTypesResponse implements Response {
 
 
         /**
-         * Example response
+         * Success
          */
         public Builder earningTypeList(EarningTypeList earningTypeList) {
             Utils.checkNotNull(earningTypeList, "earningTypeList");
@@ -234,7 +234,7 @@ public class GetV1CompaniesCompanyIdEarningTypesResponse implements Response {
         }
 
         /**
-         * Example response
+         * Success
          */
         public Builder earningTypeList(Optional<? extends EarningTypeList> earningTypeList) {
             Utils.checkNotNull(earningTypeList, "earningTypeList");

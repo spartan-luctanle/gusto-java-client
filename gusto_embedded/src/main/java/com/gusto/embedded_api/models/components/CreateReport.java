@@ -14,11 +14,7 @@ import java.lang.String;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-/**
- * CreateReport
- * 
- * <p>Example response
- */
+
 public class CreateReport {
     /**
      * A unique identifier of the report request

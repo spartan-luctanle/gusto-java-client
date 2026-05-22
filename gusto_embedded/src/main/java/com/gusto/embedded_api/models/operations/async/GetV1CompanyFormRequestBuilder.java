@@ -7,7 +7,7 @@ import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.operations.GetV1CompanyFormHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1CompanyFormRequest;
 import com.gusto.embedded_api.operations.GetV1CompanyForm;
 import com.gusto.embedded_api.utils.Headers;
@@ -19,33 +19,33 @@ import java.util.concurrent.CompletableFuture;
 
 public class GetV1CompanyFormRequestBuilder {
 
-    private String formId;
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
+    private Optional<? extends GetV1CompanyFormHeaderXGustoAPIVersion> xGustoAPIVersion = Utils.readDefaultOrConstValue(
                             "xGustoAPIVersion",
                             "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
+                            new TypeReference<Optional<? extends GetV1CompanyFormHeaderXGustoAPIVersion>>() {});
+    private String formId;
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
     public GetV1CompanyFormRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
-
-    public GetV1CompanyFormRequestBuilder formId(String formId) {
-        Utils.checkNotNull(formId, "formId");
-        this.formId = formId;
-        return this;
-    }
                 
-    public GetV1CompanyFormRequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+    public GetV1CompanyFormRequestBuilder xGustoAPIVersion(GetV1CompanyFormHeaderXGustoAPIVersion xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
         return this;
     }
 
-    public GetV1CompanyFormRequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public GetV1CompanyFormRequestBuilder xGustoAPIVersion(Optional<? extends GetV1CompanyFormHeaderXGustoAPIVersion> xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = xGustoAPIVersion;
+        return this;
+    }
+
+    public GetV1CompanyFormRequestBuilder formId(String formId) {
+        Utils.checkNotNull(formId, "formId");
+        this.formId = formId;
         return this;
     }
 
@@ -55,8 +55,8 @@ public class GetV1CompanyFormRequestBuilder {
             xGustoAPIVersion = _SINGLETON_VALUE_XGustoAPIVersion.value();
         }
 
-        GetV1CompanyFormRequest request = new GetV1CompanyFormRequest(formId,
-            xGustoAPIVersion);
+        GetV1CompanyFormRequest request = new GetV1CompanyFormRequest(xGustoAPIVersion,
+            formId);
 
         return request;
     }
@@ -71,9 +71,9 @@ public class GetV1CompanyFormRequestBuilder {
             .thenCompose(operation::handleResponse);
     }
 
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+    private static final LazySingletonValue<Optional<? extends GetV1CompanyFormHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
             new LazySingletonValue<>(
                     "xGustoAPIVersion",
                     "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
+                    new TypeReference<Optional<? extends GetV1CompanyFormHeaderXGustoAPIVersion>>() {});
 }

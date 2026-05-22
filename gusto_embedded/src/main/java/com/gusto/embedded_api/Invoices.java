@@ -44,9 +44,9 @@ public class Invoices {
      * <p>You can learn more about our pagination here: [pagination
      * guide](https://docs.gusto.com/embedded-payroll/docs/pagination)
      * 
-     * <p>&gt; 📘 System Access Authentication
-     * &gt;
-     * &gt; This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP
+     * <p>📘 System Access Authentication
+     * 
+     * <p>This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP
      * Authorization header](https://docs.gusto.com/embedded-payroll/docs/system-access)
      * 
      * <p>scope: `invoices:read`
@@ -69,9 +69,9 @@ public class Invoices {
      * <p>You can learn more about our pagination here: [pagination
      * guide](https://docs.gusto.com/embedded-payroll/docs/pagination)
      * 
-     * <p>&gt; 📘 System Access Authentication
-     * &gt;
-     * &gt; This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP
+     * <p>📘 System Access Authentication
+     * 
+     * <p>This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP
      * Authorization header](https://docs.gusto.com/embedded-payroll/docs/system-access)
      * 
      * <p>scope: `invoices:read`

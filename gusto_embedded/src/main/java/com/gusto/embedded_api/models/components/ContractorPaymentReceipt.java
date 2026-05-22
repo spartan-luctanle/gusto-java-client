@@ -16,11 +16,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * ContractorPaymentReceipt
- * 
- * <p>Example response
- */
+
 public class ContractorPaymentReceipt {
     /**
      * A unique identifier of the contractor payment receipt.

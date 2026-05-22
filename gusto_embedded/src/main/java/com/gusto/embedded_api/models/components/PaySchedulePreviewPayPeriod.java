@@ -19,7 +19,7 @@ import java.time.LocalDate;
  */
 public class PaySchedulePreviewPayPeriod {
     /**
-     * The date employees will be paid (check date).
+     * The payment date, "Check date", for the pay period.
      */
     @JsonProperty("check_date")
     private LocalDate checkDate;
@@ -31,7 +31,7 @@ public class PaySchedulePreviewPayPeriod {
     private LocalDate startDate;
 
     /**
-     * The deadline by which payroll must be run for this period to be paid on check_date.
+     * The deadline to run payroll for direct deposit on the check date.
      */
     @JsonProperty("run_payroll_by")
     private LocalDate runPayrollBy;
@@ -59,7 +59,7 @@ public class PaySchedulePreviewPayPeriod {
     }
 
     /**
-     * The date employees will be paid (check date).
+     * The payment date, "Check date", for the pay period.
      */
     @JsonIgnore
     public LocalDate checkDate() {
@@ -75,7 +75,7 @@ public class PaySchedulePreviewPayPeriod {
     }
 
     /**
-     * The deadline by which payroll must be run for this period to be paid on check_date.
+     * The deadline to run payroll for direct deposit on the check date.
      */
     @JsonIgnore
     public LocalDate runPayrollBy() {
@@ -96,7 +96,7 @@ public class PaySchedulePreviewPayPeriod {
 
 
     /**
-     * The date employees will be paid (check date).
+     * The payment date, "Check date", for the pay period.
      */
     public PaySchedulePreviewPayPeriod withCheckDate(LocalDate checkDate) {
         Utils.checkNotNull(checkDate, "checkDate");
@@ -114,7 +114,7 @@ public class PaySchedulePreviewPayPeriod {
     }
 
     /**
-     * The deadline by which payroll must be run for this period to be paid on check_date.
+     * The deadline to run payroll for direct deposit on the check date.
      */
     public PaySchedulePreviewPayPeriod withRunPayrollBy(LocalDate runPayrollBy) {
         Utils.checkNotNull(runPayrollBy, "runPayrollBy");
@@ -180,7 +180,7 @@ public class PaySchedulePreviewPayPeriod {
 
 
         /**
-         * The date employees will be paid (check date).
+         * The payment date, "Check date", for the pay period.
          */
         public Builder checkDate(LocalDate checkDate) {
             Utils.checkNotNull(checkDate, "checkDate");
@@ -200,7 +200,7 @@ public class PaySchedulePreviewPayPeriod {
 
 
         /**
-         * The deadline by which payroll must be run for this period to be paid on check_date.
+         * The deadline to run payroll for direct deposit on the check date.
          */
         public Builder runPayrollBy(LocalDate runPayrollBy) {
             Utils.checkNotNull(runPayrollBy, "runPayrollBy");

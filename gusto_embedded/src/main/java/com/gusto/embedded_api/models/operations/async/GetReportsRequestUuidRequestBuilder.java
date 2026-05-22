@@ -7,7 +7,7 @@ import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.operations.GetReportsRequestUuidHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetReportsRequestUuidRequest;
 import com.gusto.embedded_api.operations.GetReportsRequestUuid;
 import com.gusto.embedded_api.utils.Headers;
@@ -19,33 +19,33 @@ import java.util.concurrent.CompletableFuture;
 
 public class GetReportsRequestUuidRequestBuilder {
 
-    private String requestUuid;
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
+    private Optional<? extends GetReportsRequestUuidHeaderXGustoAPIVersion> xGustoAPIVersion = Utils.readDefaultOrConstValue(
                             "xGustoAPIVersion",
                             "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
+                            new TypeReference<Optional<? extends GetReportsRequestUuidHeaderXGustoAPIVersion>>() {});
+    private String requestUuid;
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
     public GetReportsRequestUuidRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
-
-    public GetReportsRequestUuidRequestBuilder requestUuid(String requestUuid) {
-        Utils.checkNotNull(requestUuid, "requestUuid");
-        this.requestUuid = requestUuid;
-        return this;
-    }
                 
-    public GetReportsRequestUuidRequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+    public GetReportsRequestUuidRequestBuilder xGustoAPIVersion(GetReportsRequestUuidHeaderXGustoAPIVersion xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
         return this;
     }
 
-    public GetReportsRequestUuidRequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public GetReportsRequestUuidRequestBuilder xGustoAPIVersion(Optional<? extends GetReportsRequestUuidHeaderXGustoAPIVersion> xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = xGustoAPIVersion;
+        return this;
+    }
+
+    public GetReportsRequestUuidRequestBuilder requestUuid(String requestUuid) {
+        Utils.checkNotNull(requestUuid, "requestUuid");
+        this.requestUuid = requestUuid;
         return this;
     }
 
@@ -55,8 +55,8 @@ public class GetReportsRequestUuidRequestBuilder {
             xGustoAPIVersion = _SINGLETON_VALUE_XGustoAPIVersion.value();
         }
 
-        GetReportsRequestUuidRequest request = new GetReportsRequestUuidRequest(requestUuid,
-            xGustoAPIVersion);
+        GetReportsRequestUuidRequest request = new GetReportsRequestUuidRequest(xGustoAPIVersion,
+            requestUuid);
 
         return request;
     }
@@ -71,9 +71,9 @@ public class GetReportsRequestUuidRequestBuilder {
             .thenCompose(operation::handleResponse);
     }
 
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+    private static final LazySingletonValue<Optional<? extends GetReportsRequestUuidHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
             new LazySingletonValue<>(
                     "xGustoAPIVersion",
                     "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
+                    new TypeReference<Optional<? extends GetReportsRequestUuidHeaderXGustoAPIVersion>>() {});
 }

@@ -14,6 +14,7 @@ import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
+import java.util.List;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
@@ -53,6 +54,20 @@ public class DocumentSigned {
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("recipient_uuid")
     private Optional<String> recipientUuid;
+
+    /**
+     * List of the document's pages and associated image URLs.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("pages")
+    private Optional<? extends List<DocumentSignedPages>> pages;
+
+    /**
+     * List of the document's fields and associated data. Values reflect the data provided at signing.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("fields")
+    private Optional<? extends List<DocumentSignedFields>> fields;
 
     /**
      * When the document was signed (will be `null` if unsigned)
@@ -104,6 +119,8 @@ public class DocumentSigned {
             @JsonProperty("name") Optional<String> name,
             @JsonProperty("recipient_type") Optional<? extends DocumentSignedRecipientType> recipientType,
             @JsonProperty("recipient_uuid") Optional<String> recipientUuid,
+            @JsonProperty("pages") Optional<? extends List<DocumentSignedPages>> pages,
+            @JsonProperty("fields") Optional<? extends List<DocumentSignedFields>> fields,
             @JsonProperty("signed_at") JsonNullable<String> signedAt,
             @JsonProperty("description") Optional<String> description,
             @JsonProperty("requires_signing") Optional<Boolean> requiresSigning,
@@ -115,6 +132,8 @@ public class DocumentSigned {
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(recipientType, "recipientType");
         Utils.checkNotNull(recipientUuid, "recipientUuid");
+        Utils.checkNotNull(pages, "pages");
+        Utils.checkNotNull(fields, "fields");
         Utils.checkNotNull(signedAt, "signedAt");
         Utils.checkNotNull(description, "description");
         Utils.checkNotNull(requiresSigning, "requiresSigning");
@@ -126,6 +145,8 @@ public class DocumentSigned {
         this.name = name;
         this.recipientType = recipientType;
         this.recipientUuid = recipientUuid;
+        this.pages = pages;
+        this.fields = fields;
         this.signedAt = signedAt;
         this.description = description;
         this.requiresSigning = requiresSigning;
@@ -136,9 +157,10 @@ public class DocumentSigned {
     
     public DocumentSigned() {
         this(Optional.empty(), Optional.empty(), Optional.empty(),
-            Optional.empty(), Optional.empty(), JsonNullable.undefined(),
             Optional.empty(), Optional.empty(), Optional.empty(),
-            JsonNullable.undefined(), JsonNullable.undefined());
+            Optional.empty(), JsonNullable.undefined(), Optional.empty(),
+            Optional.empty(), Optional.empty(), JsonNullable.undefined(),
+            JsonNullable.undefined());
     }
 
     /**
@@ -180,6 +202,24 @@ public class DocumentSigned {
     @JsonIgnore
     public Optional<String> recipientUuid() {
         return recipientUuid;
+    }
+
+    /**
+     * List of the document's pages and associated image URLs.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<List<DocumentSignedPages>> pages() {
+        return (Optional<List<DocumentSignedPages>>) pages;
+    }
+
+    /**
+     * List of the document's fields and associated data. Values reflect the data provided at signing.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<List<DocumentSignedFields>> fields() {
+        return (Optional<List<DocumentSignedFields>>) fields;
     }
 
     /**
@@ -332,6 +372,44 @@ public class DocumentSigned {
     }
 
     /**
+     * List of the document's pages and associated image URLs.
+     */
+    public DocumentSigned withPages(List<DocumentSignedPages> pages) {
+        Utils.checkNotNull(pages, "pages");
+        this.pages = Optional.ofNullable(pages);
+        return this;
+    }
+
+
+    /**
+     * List of the document's pages and associated image URLs.
+     */
+    public DocumentSigned withPages(Optional<? extends List<DocumentSignedPages>> pages) {
+        Utils.checkNotNull(pages, "pages");
+        this.pages = pages;
+        return this;
+    }
+
+    /**
+     * List of the document's fields and associated data. Values reflect the data provided at signing.
+     */
+    public DocumentSigned withFields(List<DocumentSignedFields> fields) {
+        Utils.checkNotNull(fields, "fields");
+        this.fields = Optional.ofNullable(fields);
+        return this;
+    }
+
+
+    /**
+     * List of the document's fields and associated data. Values reflect the data provided at signing.
+     */
+    public DocumentSigned withFields(Optional<? extends List<DocumentSignedFields>> fields) {
+        Utils.checkNotNull(fields, "fields");
+        this.fields = fields;
+        return this;
+    }
+
+    /**
      * When the document was signed (will be `null` if unsigned)
      */
     public DocumentSigned withSignedAt(String signedAt) {
@@ -459,6 +537,8 @@ public class DocumentSigned {
             Utils.enhancedDeepEquals(this.name, other.name) &&
             Utils.enhancedDeepEquals(this.recipientType, other.recipientType) &&
             Utils.enhancedDeepEquals(this.recipientUuid, other.recipientUuid) &&
+            Utils.enhancedDeepEquals(this.pages, other.pages) &&
+            Utils.enhancedDeepEquals(this.fields, other.fields) &&
             Utils.enhancedDeepEquals(this.signedAt, other.signedAt) &&
             Utils.enhancedDeepEquals(this.description, other.description) &&
             Utils.enhancedDeepEquals(this.requiresSigning, other.requiresSigning) &&
@@ -471,9 +551,10 @@ public class DocumentSigned {
     public int hashCode() {
         return Utils.enhancedHash(
             uuid, title, name,
-            recipientType, recipientUuid, signedAt,
-            description, requiresSigning, draft,
-            year, quarter);
+            recipientType, recipientUuid, pages,
+            fields, signedAt, description,
+            requiresSigning, draft, year,
+            quarter);
     }
     
     @Override
@@ -484,6 +565,8 @@ public class DocumentSigned {
                 "name", name,
                 "recipientType", recipientType,
                 "recipientUuid", recipientUuid,
+                "pages", pages,
+                "fields", fields,
                 "signedAt", signedAt,
                 "description", description,
                 "requiresSigning", requiresSigning,
@@ -504,6 +587,10 @@ public class DocumentSigned {
         private Optional<? extends DocumentSignedRecipientType> recipientType = Optional.empty();
 
         private Optional<String> recipientUuid = Optional.empty();
+
+        private Optional<? extends List<DocumentSignedPages>> pages = Optional.empty();
+
+        private Optional<? extends List<DocumentSignedFields>> fields = Optional.empty();
 
         private JsonNullable<String> signedAt = JsonNullable.undefined();
 
@@ -613,6 +700,44 @@ public class DocumentSigned {
         public Builder recipientUuid(Optional<String> recipientUuid) {
             Utils.checkNotNull(recipientUuid, "recipientUuid");
             this.recipientUuid = recipientUuid;
+            return this;
+        }
+
+
+        /**
+         * List of the document's pages and associated image URLs.
+         */
+        public Builder pages(List<DocumentSignedPages> pages) {
+            Utils.checkNotNull(pages, "pages");
+            this.pages = Optional.ofNullable(pages);
+            return this;
+        }
+
+        /**
+         * List of the document's pages and associated image URLs.
+         */
+        public Builder pages(Optional<? extends List<DocumentSignedPages>> pages) {
+            Utils.checkNotNull(pages, "pages");
+            this.pages = pages;
+            return this;
+        }
+
+
+        /**
+         * List of the document's fields and associated data. Values reflect the data provided at signing.
+         */
+        public Builder fields(List<DocumentSignedFields> fields) {
+            Utils.checkNotNull(fields, "fields");
+            this.fields = Optional.ofNullable(fields);
+            return this;
+        }
+
+        /**
+         * List of the document's fields and associated data. Values reflect the data provided at signing.
+         */
+        public Builder fields(Optional<? extends List<DocumentSignedFields>> fields) {
+            Utils.checkNotNull(fields, "fields");
+            this.fields = fields;
             return this;
         }
 
@@ -736,9 +861,10 @@ public class DocumentSigned {
 
             return new DocumentSigned(
                 uuid, title, name,
-                recipientType, recipientUuid, signedAt,
-                description, requiresSigning, draft,
-                year, quarter);
+                recipientType, recipientUuid, pages,
+                fields, signedAt, description,
+                requiresSigning, draft, year,
+                quarter);
         }
 
     }

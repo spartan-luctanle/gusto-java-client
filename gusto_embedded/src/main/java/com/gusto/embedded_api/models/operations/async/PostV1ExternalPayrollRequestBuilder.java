@@ -7,9 +7,9 @@ import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.components.ExternalPayrollCreateRequest;
+import com.gusto.embedded_api.models.operations.PostV1ExternalPayrollHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostV1ExternalPayrollRequest;
-import com.gusto.embedded_api.models.operations.PostV1ExternalPayrollRequestBody;
 import com.gusto.embedded_api.operations.PostV1ExternalPayroll;
 import com.gusto.embedded_api.utils.Headers;
 import com.gusto.embedded_api.utils.LazySingletonValue;
@@ -20,17 +20,29 @@ import java.util.concurrent.CompletableFuture;
 
 public class PostV1ExternalPayrollRequestBuilder {
 
-    private String companyUuid;
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
+    private Optional<? extends PostV1ExternalPayrollHeaderXGustoAPIVersion> xGustoAPIVersion = Utils.readDefaultOrConstValue(
                             "xGustoAPIVersion",
                             "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
-    private PostV1ExternalPayrollRequestBody requestBody;
+                            new TypeReference<Optional<? extends PostV1ExternalPayrollHeaderXGustoAPIVersion>>() {});
+    private String companyUuid;
+    private ExternalPayrollCreateRequest externalPayrollCreateRequest;
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
     public PostV1ExternalPayrollRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
+    }
+                
+    public PostV1ExternalPayrollRequestBuilder xGustoAPIVersion(PostV1ExternalPayrollHeaderXGustoAPIVersion xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
+        return this;
+    }
+
+    public PostV1ExternalPayrollRequestBuilder xGustoAPIVersion(Optional<? extends PostV1ExternalPayrollHeaderXGustoAPIVersion> xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = xGustoAPIVersion;
+        return this;
     }
 
     public PostV1ExternalPayrollRequestBuilder companyUuid(String companyUuid) {
@@ -38,22 +50,10 @@ public class PostV1ExternalPayrollRequestBuilder {
         this.companyUuid = companyUuid;
         return this;
     }
-                
-    public PostV1ExternalPayrollRequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
-        return this;
-    }
 
-    public PostV1ExternalPayrollRequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = xGustoAPIVersion;
-        return this;
-    }
-
-    public PostV1ExternalPayrollRequestBuilder requestBody(PostV1ExternalPayrollRequestBody requestBody) {
-        Utils.checkNotNull(requestBody, "requestBody");
-        this.requestBody = requestBody;
+    public PostV1ExternalPayrollRequestBuilder externalPayrollCreateRequest(ExternalPayrollCreateRequest externalPayrollCreateRequest) {
+        Utils.checkNotNull(externalPayrollCreateRequest, "externalPayrollCreateRequest");
+        this.externalPayrollCreateRequest = externalPayrollCreateRequest;
         return this;
     }
 
@@ -63,9 +63,9 @@ public class PostV1ExternalPayrollRequestBuilder {
             xGustoAPIVersion = _SINGLETON_VALUE_XGustoAPIVersion.value();
         }
 
-        PostV1ExternalPayrollRequest request = new PostV1ExternalPayrollRequest(companyUuid,
-            xGustoAPIVersion,
-            requestBody);
+        PostV1ExternalPayrollRequest request = new PostV1ExternalPayrollRequest(xGustoAPIVersion,
+            companyUuid,
+            externalPayrollCreateRequest);
 
         return request;
     }
@@ -80,9 +80,9 @@ public class PostV1ExternalPayrollRequestBuilder {
             .thenCompose(operation::handleResponse);
     }
 
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+    private static final LazySingletonValue<Optional<? extends PostV1ExternalPayrollHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
             new LazySingletonValue<>(
                     "xGustoAPIVersion",
                     "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
+                    new TypeReference<Optional<? extends PostV1ExternalPayrollHeaderXGustoAPIVersion>>() {});
 }

@@ -71,7 +71,7 @@ public class RecoveryCase {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("payroll_uuid")
-    private Optional<String> payrollUuid;
+    private JsonNullable<String> payrollUuid;
 
     /**
      * The uuids of the associated contractor payments for which the recovery case was created. If the
@@ -103,7 +103,7 @@ public class RecoveryCase {
             @JsonProperty("latest_error_code") JsonNullable<String> latestErrorCode,
             @JsonProperty("original_debit_date") JsonNullable<String> originalDebitDate,
             @JsonProperty("check_date") Optional<String> checkDate,
-            @JsonProperty("payroll_uuid") Optional<String> payrollUuid,
+            @JsonProperty("payroll_uuid") JsonNullable<String> payrollUuid,
             @JsonProperty("contractor_payment_uuids") JsonNullable<? extends List<String>> contractorPaymentUuids,
             @JsonProperty("amount_outstanding") Optional<String> amountOutstanding,
             @JsonProperty("event_total_amount") Optional<String> eventTotalAmount) {
@@ -133,7 +133,7 @@ public class RecoveryCase {
             String uuid) {
         this(uuid, Optional.empty(), Optional.empty(),
             JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(),
-            Optional.empty(), JsonNullable.undefined(), Optional.empty(),
+            JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(),
             Optional.empty());
     }
 
@@ -193,7 +193,7 @@ public class RecoveryCase {
      * created for a contractor payment, this field will be null.
      */
     @JsonIgnore
-    public Optional<String> payrollUuid() {
+    public JsonNullable<String> payrollUuid() {
         return payrollUuid;
     }
 
@@ -340,16 +340,15 @@ public class RecoveryCase {
      */
     public RecoveryCase withPayrollUuid(String payrollUuid) {
         Utils.checkNotNull(payrollUuid, "payrollUuid");
-        this.payrollUuid = Optional.ofNullable(payrollUuid);
+        this.payrollUuid = JsonNullable.of(payrollUuid);
         return this;
     }
-
 
     /**
      * The uuid of the associated payroll for which the recovery case was created. If the recovery case was
      * created for a contractor payment, this field will be null.
      */
-    public RecoveryCase withPayrollUuid(Optional<String> payrollUuid) {
+    public RecoveryCase withPayrollUuid(JsonNullable<String> payrollUuid) {
         Utils.checkNotNull(payrollUuid, "payrollUuid");
         this.payrollUuid = payrollUuid;
         return this;
@@ -474,7 +473,7 @@ public class RecoveryCase {
 
         private Optional<String> checkDate = Optional.empty();
 
-        private Optional<String> payrollUuid = Optional.empty();
+        private JsonNullable<String> payrollUuid = JsonNullable.undefined();
 
         private JsonNullable<? extends List<String>> contractorPaymentUuids = JsonNullable.undefined();
 
@@ -602,7 +601,7 @@ public class RecoveryCase {
          */
         public Builder payrollUuid(String payrollUuid) {
             Utils.checkNotNull(payrollUuid, "payrollUuid");
-            this.payrollUuid = Optional.ofNullable(payrollUuid);
+            this.payrollUuid = JsonNullable.of(payrollUuid);
             return this;
         }
 
@@ -610,7 +609,7 @@ public class RecoveryCase {
          * The uuid of the associated payroll for which the recovery case was created. If the recovery case was
          * created for a contractor payment, this field will be null.
          */
-        public Builder payrollUuid(Optional<String> payrollUuid) {
+        public Builder payrollUuid(JsonNullable<String> payrollUuid) {
             Utils.checkNotNull(payrollUuid, "payrollUuid");
             this.payrollUuid = payrollUuid;
             return this;

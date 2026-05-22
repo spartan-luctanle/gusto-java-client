@@ -7,9 +7,9 @@ import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.components.PartnerManagedCompanyCreateRequest;
+import com.gusto.embedded_api.models.operations.PostV1PartnerManagedCompaniesHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostV1PartnerManagedCompaniesRequest;
-import com.gusto.embedded_api.models.operations.PostV1PartnerManagedCompaniesRequestBody;
 import com.gusto.embedded_api.models.operations.PostV1PartnerManagedCompaniesSecurity;
 import com.gusto.embedded_api.operations.PostV1PartnerManagedCompanies;
 import com.gusto.embedded_api.utils.Headers;
@@ -21,11 +21,11 @@ import java.util.concurrent.CompletableFuture;
 public class PostV1PartnerManagedCompaniesRequestBuilder {
 
     private PostV1PartnerManagedCompaniesSecurity security;
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
+    private Optional<? extends PostV1PartnerManagedCompaniesHeaderXGustoAPIVersion> xGustoAPIVersion = Utils.readDefaultOrConstValue(
                             "xGustoAPIVersion",
                             "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
-    private PostV1PartnerManagedCompaniesRequestBody requestBody;
+                            new TypeReference<Optional<? extends PostV1PartnerManagedCompaniesHeaderXGustoAPIVersion>>() {});
+    private PartnerManagedCompanyCreateRequest partnerManagedCompanyCreateRequest;
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
@@ -39,21 +39,21 @@ public class PostV1PartnerManagedCompaniesRequestBuilder {
         return this;
     }
                 
-    public PostV1PartnerManagedCompaniesRequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+    public PostV1PartnerManagedCompaniesRequestBuilder xGustoAPIVersion(PostV1PartnerManagedCompaniesHeaderXGustoAPIVersion xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
         return this;
     }
 
-    public PostV1PartnerManagedCompaniesRequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public PostV1PartnerManagedCompaniesRequestBuilder xGustoAPIVersion(Optional<? extends PostV1PartnerManagedCompaniesHeaderXGustoAPIVersion> xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = xGustoAPIVersion;
         return this;
     }
 
-    public PostV1PartnerManagedCompaniesRequestBuilder requestBody(PostV1PartnerManagedCompaniesRequestBody requestBody) {
-        Utils.checkNotNull(requestBody, "requestBody");
-        this.requestBody = requestBody;
+    public PostV1PartnerManagedCompaniesRequestBuilder partnerManagedCompanyCreateRequest(PartnerManagedCompanyCreateRequest partnerManagedCompanyCreateRequest) {
+        Utils.checkNotNull(partnerManagedCompanyCreateRequest, "partnerManagedCompanyCreateRequest");
+        this.partnerManagedCompanyCreateRequest = partnerManagedCompanyCreateRequest;
         return this;
     }
 
@@ -64,7 +64,7 @@ public class PostV1PartnerManagedCompaniesRequestBuilder {
         }
 
         PostV1PartnerManagedCompaniesRequest request = new PostV1PartnerManagedCompaniesRequest(xGustoAPIVersion,
-            requestBody);
+            partnerManagedCompanyCreateRequest);
 
         return request;
     }
@@ -79,9 +79,9 @@ public class PostV1PartnerManagedCompaniesRequestBuilder {
             .thenCompose(operation::handleResponse);
     }
 
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+    private static final LazySingletonValue<Optional<? extends PostV1PartnerManagedCompaniesHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
             new LazySingletonValue<>(
                     "xGustoAPIVersion",
                     "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
+                    new TypeReference<Optional<? extends PostV1PartnerManagedCompaniesHeaderXGustoAPIVersion>>() {});
 }

@@ -5,7 +5,7 @@ package com.gusto.embedded_api.models.operations.async;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.gusto.embedded_api.models.components.EmployeePaymentDetail;
+import com.gusto.embedded_api.models.components.EmployeePaymentDetailsList;
 import com.gusto.embedded_api.utils.AsyncResponse;
 import com.gusto.embedded_api.utils.Blob;
 import com.gusto.embedded_api.utils.Utils;
@@ -37,14 +37,14 @@ public class GetV1CompaniesCompanyIdEmployeesPaymentDetailsResponse implements A
     /**
      * A list of employee payment details.
      */
-    private Optional<? extends List<EmployeePaymentDetail>> employeePaymentDetailsList;
+    private Optional<? extends List<EmployeePaymentDetailsList>> employeePaymentDetailsList;
 
     @JsonCreator
     public GetV1CompaniesCompanyIdEmployeesPaymentDetailsResponse(
             String contentType,
             int statusCode,
             HttpResponse<Blob> rawResponse,
-            Optional<? extends List<EmployeePaymentDetail>> employeePaymentDetailsList) {
+            Optional<? extends List<EmployeePaymentDetailsList>> employeePaymentDetailsList) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
@@ -92,8 +92,8 @@ public class GetV1CompaniesCompanyIdEmployeesPaymentDetailsResponse implements A
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<List<EmployeePaymentDetail>> employeePaymentDetailsList() {
-        return (Optional<List<EmployeePaymentDetail>>) employeePaymentDetailsList;
+    public Optional<List<EmployeePaymentDetailsList>> employeePaymentDetailsList() {
+        return (Optional<List<EmployeePaymentDetailsList>>) employeePaymentDetailsList;
     }
 
     public static Builder builder() {
@@ -131,7 +131,7 @@ public class GetV1CompaniesCompanyIdEmployeesPaymentDetailsResponse implements A
     /**
      * A list of employee payment details.
      */
-    public GetV1CompaniesCompanyIdEmployeesPaymentDetailsResponse withEmployeePaymentDetailsList(List<EmployeePaymentDetail> employeePaymentDetailsList) {
+    public GetV1CompaniesCompanyIdEmployeesPaymentDetailsResponse withEmployeePaymentDetailsList(List<EmployeePaymentDetailsList> employeePaymentDetailsList) {
         Utils.checkNotNull(employeePaymentDetailsList, "employeePaymentDetailsList");
         this.employeePaymentDetailsList = Optional.ofNullable(employeePaymentDetailsList);
         return this;
@@ -141,7 +141,7 @@ public class GetV1CompaniesCompanyIdEmployeesPaymentDetailsResponse implements A
     /**
      * A list of employee payment details.
      */
-    public GetV1CompaniesCompanyIdEmployeesPaymentDetailsResponse withEmployeePaymentDetailsList(Optional<? extends List<EmployeePaymentDetail>> employeePaymentDetailsList) {
+    public GetV1CompaniesCompanyIdEmployeesPaymentDetailsResponse withEmployeePaymentDetailsList(Optional<? extends List<EmployeePaymentDetailsList>> employeePaymentDetailsList) {
         Utils.checkNotNull(employeePaymentDetailsList, "employeePaymentDetailsList");
         this.employeePaymentDetailsList = employeePaymentDetailsList;
         return this;
@@ -188,7 +188,7 @@ public class GetV1CompaniesCompanyIdEmployeesPaymentDetailsResponse implements A
 
         private HttpResponse<Blob> rawResponse;
 
-        private Optional<? extends List<EmployeePaymentDetail>> employeePaymentDetailsList = Optional.empty();
+        private Optional<? extends List<EmployeePaymentDetailsList>> employeePaymentDetailsList = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -228,7 +228,7 @@ public class GetV1CompaniesCompanyIdEmployeesPaymentDetailsResponse implements A
         /**
          * A list of employee payment details.
          */
-        public Builder employeePaymentDetailsList(List<EmployeePaymentDetail> employeePaymentDetailsList) {
+        public Builder employeePaymentDetailsList(List<EmployeePaymentDetailsList> employeePaymentDetailsList) {
             Utils.checkNotNull(employeePaymentDetailsList, "employeePaymentDetailsList");
             this.employeePaymentDetailsList = Optional.ofNullable(employeePaymentDetailsList);
             return this;
@@ -237,7 +237,7 @@ public class GetV1CompaniesCompanyIdEmployeesPaymentDetailsResponse implements A
         /**
          * A list of employee payment details.
          */
-        public Builder employeePaymentDetailsList(Optional<? extends List<EmployeePaymentDetail>> employeePaymentDetailsList) {
+        public Builder employeePaymentDetailsList(Optional<? extends List<EmployeePaymentDetailsList>> employeePaymentDetailsList) {
             Utils.checkNotNull(employeePaymentDetailsList, "employeePaymentDetailsList");
             this.employeePaymentDetailsList = employeePaymentDetailsList;
             return this;

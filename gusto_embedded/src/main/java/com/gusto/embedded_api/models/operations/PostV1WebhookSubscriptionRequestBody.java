@@ -13,11 +13,15 @@ import java.util.List;
 
 
 public class PostV1WebhookSubscriptionRequestBody {
-
+    /**
+     * The URL where webhook events will be POSTed.
+     */
     @JsonProperty("url")
     private String url;
 
-
+    /**
+     * The types of events to subscribe to.
+     */
     @JsonProperty("subscription_types")
     private List<SubscriptionTypes> subscriptionTypes;
 
@@ -31,11 +35,17 @@ public class PostV1WebhookSubscriptionRequestBody {
         this.subscriptionTypes = subscriptionTypes;
     }
 
+    /**
+     * The URL where webhook events will be POSTed.
+     */
     @JsonIgnore
     public String url() {
         return url;
     }
 
+    /**
+     * The types of events to subscribe to.
+     */
     @JsonIgnore
     public List<SubscriptionTypes> subscriptionTypes() {
         return subscriptionTypes;
@@ -46,12 +56,18 @@ public class PostV1WebhookSubscriptionRequestBody {
     }
 
 
+    /**
+     * The URL where webhook events will be POSTed.
+     */
     public PostV1WebhookSubscriptionRequestBody withUrl(String url) {
         Utils.checkNotNull(url, "url");
         this.url = url;
         return this;
     }
 
+    /**
+     * The types of events to subscribe to.
+     */
     public PostV1WebhookSubscriptionRequestBody withSubscriptionTypes(List<SubscriptionTypes> subscriptionTypes) {
         Utils.checkNotNull(subscriptionTypes, "subscriptionTypes");
         this.subscriptionTypes = subscriptionTypes;
@@ -97,6 +113,9 @@ public class PostV1WebhookSubscriptionRequestBody {
         }
 
 
+        /**
+         * The URL where webhook events will be POSTed.
+         */
         public Builder url(String url) {
             Utils.checkNotNull(url, "url");
             this.url = url;
@@ -104,6 +123,9 @@ public class PostV1WebhookSubscriptionRequestBody {
         }
 
 
+        /**
+         * The types of events to subscribe to.
+         */
         public Builder subscriptionTypes(List<SubscriptionTypes> subscriptionTypes) {
             Utils.checkNotNull(subscriptionTypes, "subscriptionTypes");
             this.subscriptionTypes = subscriptionTypes;

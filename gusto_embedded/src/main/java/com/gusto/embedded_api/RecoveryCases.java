@@ -5,16 +5,18 @@ package com.gusto.embedded_api;
 
 import static com.gusto.embedded_api.operations.Operations.RequestOperation;
 
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.operations.GetRecoveryCasesHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetRecoveryCasesRequest;
 import com.gusto.embedded_api.models.operations.GetRecoveryCasesRequestBuilder;
 import com.gusto.embedded_api.models.operations.GetRecoveryCasesResponse;
+import com.gusto.embedded_api.models.operations.RedebitRecoveryCaseHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.RedebitRecoveryCaseRequest;
 import com.gusto.embedded_api.models.operations.RedebitRecoveryCaseRequestBuilder;
 import com.gusto.embedded_api.models.operations.RedebitRecoveryCaseResponse;
 import com.gusto.embedded_api.operations.GetRecoveryCases;
 import com.gusto.embedded_api.operations.RedebitRecoveryCase;
 import com.gusto.embedded_api.utils.Headers;
+import java.lang.Long;
 import java.lang.String;
 import java.util.Optional;
 
@@ -45,6 +47,8 @@ public class RecoveryCases {
      * 
      * <p>scope: `recovery_cases:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @return The call builder
      */
     public GetRecoveryCasesRequestBuilder get() {
@@ -58,12 +62,15 @@ public class RecoveryCases {
      * 
      * <p>scope: `recovery_cases:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param companyUuid The UUID of the company
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
     public GetRecoveryCasesResponse get(String companyUuid) {
-        return get(companyUuid, Optional.empty());
+        return get(Optional.empty(), companyUuid, Optional.empty(),
+            Optional.empty());
     }
 
     /**
@@ -73,17 +80,25 @@ public class RecoveryCases {
      * 
      * <p>scope: `recovery_cases:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param companyUuid The UUID of the company
-     * @param xGustoAPIVersion 
+     * @param page The page that is requested. When unspecified, will load all objects unless endpoint forces pagination.
+     * @param per Number of objects per page. For majority of endpoints will default to 25
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
-    public GetRecoveryCasesResponse get(String companyUuid, Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public GetRecoveryCasesResponse get(
+            Optional<? extends GetRecoveryCasesHeaderXGustoAPIVersion> xGustoAPIVersion, String companyUuid,
+            Optional<Long> page, Optional<Long> per) {
         GetRecoveryCasesRequest request =
             GetRecoveryCasesRequest
                 .builder()
-                .companyUuid(companyUuid)
                 .xGustoAPIVersion(xGustoAPIVersion)
+                .companyUuid(companyUuid)
+                .page(page)
+                .per(per)
                 .build();
         RequestOperation<GetRecoveryCasesRequest, GetRecoveryCasesResponse> operation
               = new GetRecoveryCases.Sync(sdkConfiguration, _headers);
@@ -104,6 +119,8 @@ public class RecoveryCases {
      * redebitable state, the response will be 422 Unprocessable Entity.
      * 
      * <p>scope: `recovery_cases:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @return The call builder
      */
@@ -126,12 +143,14 @@ public class RecoveryCases {
      * 
      * <p>scope: `recovery_cases:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param recoveryCaseUuid The UUID of the recovery case
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
     public RedebitRecoveryCaseResponse redebit(String recoveryCaseUuid) {
-        return redebit(recoveryCaseUuid, Optional.empty());
+        return redebit(Optional.empty(), recoveryCaseUuid);
     }
 
     /**
@@ -149,17 +168,19 @@ public class RecoveryCases {
      * 
      * <p>scope: `recovery_cases:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param recoveryCaseUuid The UUID of the recovery case
-     * @param xGustoAPIVersion 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
-    public RedebitRecoveryCaseResponse redebit(String recoveryCaseUuid, Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public RedebitRecoveryCaseResponse redebit(Optional<? extends RedebitRecoveryCaseHeaderXGustoAPIVersion> xGustoAPIVersion, String recoveryCaseUuid) {
         RedebitRecoveryCaseRequest request =
             RedebitRecoveryCaseRequest
                 .builder()
-                .recoveryCaseUuid(recoveryCaseUuid)
                 .xGustoAPIVersion(xGustoAPIVersion)
+                .recoveryCaseUuid(recoveryCaseUuid)
                 .build();
         RequestOperation<RedebitRecoveryCaseRequest, RedebitRecoveryCaseResponse> operation
               = new RedebitRecoveryCase.Sync(sdkConfiguration, _headers);

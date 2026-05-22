@@ -35,24 +35,24 @@ public class GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsResponse imp
     private HttpResponse<InputStream> rawResponse;
 
     /**
-     * Example response
+     * Successful
      */
-    private Optional<? extends List<UnprocessedTerminationPayPeriod>> unprocessedTerminationPayPeriodList;
+    private Optional<? extends List<UnprocessedTerminationPayPeriod>> unprocessedTerminationPayPeriods;
 
     @JsonCreator
     public GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends List<UnprocessedTerminationPayPeriod>> unprocessedTerminationPayPeriodList) {
+            Optional<? extends List<UnprocessedTerminationPayPeriod>> unprocessedTerminationPayPeriods) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
-        Utils.checkNotNull(unprocessedTerminationPayPeriodList, "unprocessedTerminationPayPeriodList");
+        Utils.checkNotNull(unprocessedTerminationPayPeriods, "unprocessedTerminationPayPeriods");
         this.contentType = contentType;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
-        this.unprocessedTerminationPayPeriodList = unprocessedTerminationPayPeriodList;
+        this.unprocessedTerminationPayPeriods = unprocessedTerminationPayPeriods;
     }
     
     public GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsResponse(
@@ -88,12 +88,12 @@ public class GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsResponse imp
     }
 
     /**
-     * Example response
+     * Successful
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<List<UnprocessedTerminationPayPeriod>> unprocessedTerminationPayPeriodList() {
-        return (Optional<List<UnprocessedTerminationPayPeriod>>) unprocessedTerminationPayPeriodList;
+    public Optional<List<UnprocessedTerminationPayPeriod>> unprocessedTerminationPayPeriods() {
+        return (Optional<List<UnprocessedTerminationPayPeriod>>) unprocessedTerminationPayPeriods;
     }
 
     public static Builder builder() {
@@ -129,21 +129,21 @@ public class GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsResponse imp
     }
 
     /**
-     * Example response
+     * Successful
      */
-    public GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsResponse withUnprocessedTerminationPayPeriodList(List<UnprocessedTerminationPayPeriod> unprocessedTerminationPayPeriodList) {
-        Utils.checkNotNull(unprocessedTerminationPayPeriodList, "unprocessedTerminationPayPeriodList");
-        this.unprocessedTerminationPayPeriodList = Optional.ofNullable(unprocessedTerminationPayPeriodList);
+    public GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsResponse withUnprocessedTerminationPayPeriods(List<UnprocessedTerminationPayPeriod> unprocessedTerminationPayPeriods) {
+        Utils.checkNotNull(unprocessedTerminationPayPeriods, "unprocessedTerminationPayPeriods");
+        this.unprocessedTerminationPayPeriods = Optional.ofNullable(unprocessedTerminationPayPeriods);
         return this;
     }
 
 
     /**
-     * Example response
+     * Successful
      */
-    public GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsResponse withUnprocessedTerminationPayPeriodList(Optional<? extends List<UnprocessedTerminationPayPeriod>> unprocessedTerminationPayPeriodList) {
-        Utils.checkNotNull(unprocessedTerminationPayPeriodList, "unprocessedTerminationPayPeriodList");
-        this.unprocessedTerminationPayPeriodList = unprocessedTerminationPayPeriodList;
+    public GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsResponse withUnprocessedTerminationPayPeriods(Optional<? extends List<UnprocessedTerminationPayPeriod>> unprocessedTerminationPayPeriods) {
+        Utils.checkNotNull(unprocessedTerminationPayPeriods, "unprocessedTerminationPayPeriods");
+        this.unprocessedTerminationPayPeriods = unprocessedTerminationPayPeriods;
         return this;
     }
 
@@ -160,14 +160,14 @@ public class GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsResponse imp
             Utils.enhancedDeepEquals(this.contentType, other.contentType) &&
             Utils.enhancedDeepEquals(this.statusCode, other.statusCode) &&
             Utils.enhancedDeepEquals(this.rawResponse, other.rawResponse) &&
-            Utils.enhancedDeepEquals(this.unprocessedTerminationPayPeriodList, other.unprocessedTerminationPayPeriodList);
+            Utils.enhancedDeepEquals(this.unprocessedTerminationPayPeriods, other.unprocessedTerminationPayPeriods);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             contentType, statusCode, rawResponse,
-            unprocessedTerminationPayPeriodList);
+            unprocessedTerminationPayPeriods);
     }
     
     @Override
@@ -176,7 +176,7 @@ public class GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsResponse imp
                 "contentType", contentType,
                 "statusCode", statusCode,
                 "rawResponse", rawResponse,
-                "unprocessedTerminationPayPeriodList", unprocessedTerminationPayPeriodList);
+                "unprocessedTerminationPayPeriods", unprocessedTerminationPayPeriods);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -188,7 +188,7 @@ public class GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsResponse imp
 
         private HttpResponse<InputStream> rawResponse;
 
-        private Optional<? extends List<UnprocessedTerminationPayPeriod>> unprocessedTerminationPayPeriodList = Optional.empty();
+        private Optional<? extends List<UnprocessedTerminationPayPeriod>> unprocessedTerminationPayPeriods = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -226,20 +226,20 @@ public class GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsResponse imp
 
 
         /**
-         * Example response
+         * Successful
          */
-        public Builder unprocessedTerminationPayPeriodList(List<UnprocessedTerminationPayPeriod> unprocessedTerminationPayPeriodList) {
-            Utils.checkNotNull(unprocessedTerminationPayPeriodList, "unprocessedTerminationPayPeriodList");
-            this.unprocessedTerminationPayPeriodList = Optional.ofNullable(unprocessedTerminationPayPeriodList);
+        public Builder unprocessedTerminationPayPeriods(List<UnprocessedTerminationPayPeriod> unprocessedTerminationPayPeriods) {
+            Utils.checkNotNull(unprocessedTerminationPayPeriods, "unprocessedTerminationPayPeriods");
+            this.unprocessedTerminationPayPeriods = Optional.ofNullable(unprocessedTerminationPayPeriods);
             return this;
         }
 
         /**
-         * Example response
+         * Successful
          */
-        public Builder unprocessedTerminationPayPeriodList(Optional<? extends List<UnprocessedTerminationPayPeriod>> unprocessedTerminationPayPeriodList) {
-            Utils.checkNotNull(unprocessedTerminationPayPeriodList, "unprocessedTerminationPayPeriodList");
-            this.unprocessedTerminationPayPeriodList = unprocessedTerminationPayPeriodList;
+        public Builder unprocessedTerminationPayPeriods(Optional<? extends List<UnprocessedTerminationPayPeriod>> unprocessedTerminationPayPeriods) {
+            Utils.checkNotNull(unprocessedTerminationPayPeriods, "unprocessedTerminationPayPeriods");
+            this.unprocessedTerminationPayPeriods = unprocessedTerminationPayPeriods;
             return this;
         }
 
@@ -247,7 +247,7 @@ public class GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsResponse imp
 
             return new GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsResponse(
                 contentType, statusCode, rawResponse,
-                unprocessedTerminationPayPeriodList);
+                unprocessedTerminationPayPeriods);
         }
 
     }

@@ -12,6 +12,7 @@ import com.gusto.embedded_api.SDKConfiguration;
 import com.gusto.embedded_api.SecuritySource;
 import com.gusto.embedded_api.models.components.EmployeeBankAccount;
 import com.gusto.embedded_api.models.errors.APIException;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
 import com.gusto.embedded_api.models.operations.GetV1EmployeesEmployeeIdBankAccountsRequest;
 import com.gusto.embedded_api.models.operations.GetV1EmployeesEmployeeIdBankAccountsResponse;
 import com.gusto.embedded_api.utils.Blob;
@@ -97,7 +98,7 @@ public class GetV1EmployeesEmployeeIdBankAccounts {
                     request,
                     null));
             req.addHeaders(Utils.getHeadersFromMetadata(request, null));
-            Utils.configureSecurity(req, this.sdkConfiguration.securitySource().getSecurity());
+            Utils.configureSecurity(req, this.sdkConfiguration.securitySource().getSecurity(), "companyAccessAuth");
 
             return req.build();
         }
@@ -131,7 +132,7 @@ public class GetV1EmployeesEmployeeIdBankAccounts {
             HttpResponse<InputStream> httpRes;
             try {
                 httpRes = client.send(r);
-                if (Utils.statusCodeMatches(httpRes.statusCode(), "404", "4XX", "5XX")) {
+                if (Utils.statusCodeMatches(httpRes.statusCode(), "4XX", "5XX")) {
                     httpRes = onError(httpRes, null);
                 } else {
                     httpRes = onSuccess(httpRes);
@@ -161,12 +162,19 @@ public class GetV1EmployeesEmployeeIdBankAccounts {
             
             if (Utils.statusCodeMatches(response.statusCode(), "200")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
-                    return res.withEmployeeBankAccountList(Utils.unmarshal(response, new TypeReference<List<EmployeeBankAccount>>() {}));
+                    return res.withEmployeeBankAccounts(Utils.unmarshal(response, new TypeReference<List<EmployeeBankAccount>>() {}));
                 } else {
                     throw APIException.from("Unexpected content-type received: " + contentType, response);
                 }
             }
-            if (Utils.statusCodeMatches(response.statusCode(), "404", "4XX")) {
+            if (Utils.statusCodeMatches(response.statusCode(), "404")) {
+                if (Utils.contentTypeMatches(contentType, "application/json")) {
+                    throw NotFoundErrorObject.from(response);
+                } else {
+                    throw APIException.from("Unexpected content-type received: " + contentType, response);
+                }
+            }
+            if (Utils.statusCodeMatches(response.statusCode(), "4XX")) {
                 // no content
                 throw APIException.from("API error occurred", response);
             }
@@ -204,7 +212,7 @@ public class GetV1EmployeesEmployeeIdBankAccounts {
                         if (err != null) {
                             return onError(null, err);
                         }
-                        if (Utils.statusCodeMatches(resp.statusCode(), "404", "4XX", "5XX")) {
+                        if (Utils.statusCodeMatches(resp.statusCode(), "4XX", "5XX")) {
                             return onError(resp, null);
                         }
                         return CompletableFuture.completedFuture(resp);
@@ -232,12 +240,20 @@ public class GetV1EmployeesEmployeeIdBankAccounts {
             if (Utils.statusCodeMatches(response.statusCode(), "200")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
                     return Utils.unmarshalAsync(response, new TypeReference<List<EmployeeBankAccount>>() {})
-                            .thenApply(res::withEmployeeBankAccountList);
+                            .thenApply(res::withEmployeeBankAccounts);
                 } else {
                     return Utils.createAsyncApiError(response, "Unexpected content-type received: " + contentType);
                 }
             }
-            if (Utils.statusCodeMatches(response.statusCode(), "404", "4XX")) {
+            if (Utils.statusCodeMatches(response.statusCode(), "404")) {
+                if (Utils.contentTypeMatches(contentType, "application/json")) {
+                    return NotFoundErrorObject.fromAsync(response)
+                            .thenCompose(CompletableFuture::failedFuture);
+                } else {
+                    return Utils.createAsyncApiError(response, "Unexpected content-type received: " + contentType);
+                }
+            }
+            if (Utils.statusCodeMatches(response.statusCode(), "4XX")) {
                 // no content
                 return Utils.createAsyncApiError(response, "API error occurred");
             }

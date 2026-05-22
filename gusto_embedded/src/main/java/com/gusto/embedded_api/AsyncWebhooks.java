@@ -5,24 +5,30 @@ package com.gusto.embedded_api;
 
 import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation;
 
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.operations.DeleteV1WebhookSubscriptionUuidHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.DeleteV1WebhookSubscriptionUuidRequest;
 import com.gusto.embedded_api.models.operations.DeleteV1WebhookSubscriptionUuidSecurity;
+import com.gusto.embedded_api.models.operations.GetV1WebhookSubscriptionUuidHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1WebhookSubscriptionUuidRequest;
 import com.gusto.embedded_api.models.operations.GetV1WebhookSubscriptionUuidSecurity;
+import com.gusto.embedded_api.models.operations.GetV1WebhookSubscriptionVerificationTokenUuidHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1WebhookSubscriptionVerificationTokenUuidRequest;
 import com.gusto.embedded_api.models.operations.GetV1WebhookSubscriptionVerificationTokenUuidSecurity;
+import com.gusto.embedded_api.models.operations.GetV1WebhookSubscriptionsHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1WebhookSubscriptionsRequest;
 import com.gusto.embedded_api.models.operations.GetV1WebhookSubscriptionsSecurity;
 import com.gusto.embedded_api.models.operations.GetV1WebhooksHealthCheckHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1WebhooksHealthCheckRequest;
 import com.gusto.embedded_api.models.operations.GetV1WebhooksHealthCheckSecurity;
+import com.gusto.embedded_api.models.operations.PostV1WebhookSubscriptionHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostV1WebhookSubscriptionRequest;
 import com.gusto.embedded_api.models.operations.PostV1WebhookSubscriptionRequestBody;
 import com.gusto.embedded_api.models.operations.PostV1WebhookSubscriptionSecurity;
+import com.gusto.embedded_api.models.operations.PutV1VerifyWebhookSubscriptionUuidHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PutV1VerifyWebhookSubscriptionUuidRequest;
 import com.gusto.embedded_api.models.operations.PutV1VerifyWebhookSubscriptionUuidRequestBody;
 import com.gusto.embedded_api.models.operations.PutV1VerifyWebhookSubscriptionUuidSecurity;
+import com.gusto.embedded_api.models.operations.PutV1WebhookSubscriptionUuidHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PutV1WebhookSubscriptionUuidRequest;
 import com.gusto.embedded_api.models.operations.PutV1WebhookSubscriptionUuidRequestBody;
 import com.gusto.embedded_api.models.operations.PutV1WebhookSubscriptionUuidSecurity;
@@ -77,15 +83,81 @@ public class AsyncWebhooks {
 
 
     /**
+     * List webhook subscriptions
+     * 
+     * <p>Returns all webhook subscriptions associated with the provided Partner API token.
+     * 
+     * <p>📘 System Access Authentication
+     * 
+     * <p>This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP
+     * Authorization header](https://docs.gusto.com/embedded-payroll/docs/system-access)
+     * 
+     * <p>scope: `webhook_subscriptions:read`
+     * 
+     * @return The async call builder
+     */
+    public GetV1WebhookSubscriptionsRequestBuilder listSubscriptions() {
+        return new GetV1WebhookSubscriptionsRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * List webhook subscriptions
+     * 
+     * <p>Returns all webhook subscriptions associated with the provided Partner API token.
+     * 
+     * <p>📘 System Access Authentication
+     * 
+     * <p>This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP
+     * Authorization header](https://docs.gusto.com/embedded-payroll/docs/system-access)
+     * 
+     * <p>scope: `webhook_subscriptions:read`
+     * 
+     * @param security The security details to use for authentication.
+     * @return {@code CompletableFuture<GetV1WebhookSubscriptionsResponse>} - The async response
+     */
+    public CompletableFuture<GetV1WebhookSubscriptionsResponse> listSubscriptions(GetV1WebhookSubscriptionsSecurity security) {
+        return listSubscriptions(security, Optional.empty());
+    }
+
+    /**
+     * List webhook subscriptions
+     * 
+     * <p>Returns all webhook subscriptions associated with the provided Partner API token.
+     * 
+     * <p>📘 System Access Authentication
+     * 
+     * <p>This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP
+     * Authorization header](https://docs.gusto.com/embedded-payroll/docs/system-access)
+     * 
+     * <p>scope: `webhook_subscriptions:read`
+     * 
+     * @param security The security details to use for authentication.
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     * @return {@code CompletableFuture<GetV1WebhookSubscriptionsResponse>} - The async response
+     */
+    public CompletableFuture<GetV1WebhookSubscriptionsResponse> listSubscriptions(GetV1WebhookSubscriptionsSecurity security, Optional<? extends GetV1WebhookSubscriptionsHeaderXGustoAPIVersion> xGustoAPIVersion) {
+        GetV1WebhookSubscriptionsRequest request =
+            GetV1WebhookSubscriptionsRequest
+                .builder()
+                .xGustoAPIVersion(xGustoAPIVersion)
+                .build();
+        AsyncRequestOperation<GetV1WebhookSubscriptionsRequest, GetV1WebhookSubscriptionsResponse> operation
+              = new GetV1WebhookSubscriptions.Async(sdkConfiguration, security, _headers);
+        return operation.doRequest(request)
+            .thenCompose(operation::handleResponse);
+    }
+
+
+    /**
      * Create a webhook subscription
      * 
      * <p>Create a webhook subscription to receive events of the specified subscription_types whenever there
      * is a state change.
      * 
-     * <p>&gt; 📘 System Access Authentication
-     * &gt;
-     * &gt; This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP
-     * Authorization header](https://docs.gusto.com/embedded-payroll/docs/system-access).
+     * <p>📘 System Access Authentication
+     * 
+     * <p>This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP
+     * Authorization header](https://docs.gusto.com/embedded-payroll/docs/system-access)
      * 
      * <p>scope: `webhook_subscriptions:write`
      * 
@@ -101,10 +173,10 @@ public class AsyncWebhooks {
      * <p>Create a webhook subscription to receive events of the specified subscription_types whenever there
      * is a state change.
      * 
-     * <p>&gt; 📘 System Access Authentication
-     * &gt;
-     * &gt; This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP
-     * Authorization header](https://docs.gusto.com/embedded-payroll/docs/system-access).
+     * <p>📘 System Access Authentication
+     * 
+     * <p>This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP
+     * Authorization header](https://docs.gusto.com/embedded-payroll/docs/system-access)
      * 
      * <p>scope: `webhook_subscriptions:write`
      * 
@@ -122,20 +194,20 @@ public class AsyncWebhooks {
      * <p>Create a webhook subscription to receive events of the specified subscription_types whenever there
      * is a state change.
      * 
-     * <p>&gt; 📘 System Access Authentication
-     * &gt;
-     * &gt; This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP
-     * Authorization header](https://docs.gusto.com/embedded-payroll/docs/system-access).
+     * <p>📘 System Access Authentication
+     * 
+     * <p>This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP
+     * Authorization header](https://docs.gusto.com/embedded-payroll/docs/system-access)
      * 
      * <p>scope: `webhook_subscriptions:write`
      * 
      * @param security The security details to use for authentication.
-     * @param xGustoAPIVersion 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param requestBody 
      * @return {@code CompletableFuture<PostV1WebhookSubscriptionResponse>} - The async response
      */
     public CompletableFuture<PostV1WebhookSubscriptionResponse> createSubscription(
-            PostV1WebhookSubscriptionSecurity security, Optional<? extends VersionHeader> xGustoAPIVersion,
+            PostV1WebhookSubscriptionSecurity security, Optional<? extends PostV1WebhookSubscriptionHeaderXGustoAPIVersion> xGustoAPIVersion,
             PostV1WebhookSubscriptionRequestBody requestBody) {
         PostV1WebhookSubscriptionRequest request =
             PostV1WebhookSubscriptionRequest
@@ -151,66 +223,71 @@ public class AsyncWebhooks {
 
 
     /**
-     * List webhook subscriptions
+     * Get a webhook subscription
      * 
-     * <p>Returns all webhook subscriptions associated with the provided Partner API token.
+     * <p>Returns the Webhook Subscription associated with the provided UUID.
      * 
-     * <p>&gt; 📘 System Access Authentication
-     * &gt;
-     * &gt; This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP
-     * Authorization header](https://docs.gusto.com/embedded-payroll/docs/system-access).
+     * <p>📘 System Access Authentication
+     * 
+     * <p>This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP
+     * Authorization header](https://docs.gusto.com/embedded-payroll/docs/system-access)
      * 
      * <p>scope: `webhook_subscriptions:read`
      * 
      * @return The async call builder
      */
-    public GetV1WebhookSubscriptionsRequestBuilder listSubscriptions() {
-        return new GetV1WebhookSubscriptionsRequestBuilder(sdkConfiguration);
+    public GetV1WebhookSubscriptionUuidRequestBuilder getSubscription() {
+        return new GetV1WebhookSubscriptionUuidRequestBuilder(sdkConfiguration);
     }
 
     /**
-     * List webhook subscriptions
+     * Get a webhook subscription
      * 
-     * <p>Returns all webhook subscriptions associated with the provided Partner API token.
+     * <p>Returns the Webhook Subscription associated with the provided UUID.
      * 
-     * <p>&gt; 📘 System Access Authentication
-     * &gt;
-     * &gt; This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP
-     * Authorization header](https://docs.gusto.com/embedded-payroll/docs/system-access).
+     * <p>📘 System Access Authentication
+     * 
+     * <p>This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP
+     * Authorization header](https://docs.gusto.com/embedded-payroll/docs/system-access)
      * 
      * <p>scope: `webhook_subscriptions:read`
      * 
      * @param security The security details to use for authentication.
-     * @return {@code CompletableFuture<GetV1WebhookSubscriptionsResponse>} - The async response
+     * @param webhookSubscriptionUuid The webhook subscription UUID.
+     * @return {@code CompletableFuture<GetV1WebhookSubscriptionUuidResponse>} - The async response
      */
-    public CompletableFuture<GetV1WebhookSubscriptionsResponse> listSubscriptions(GetV1WebhookSubscriptionsSecurity security) {
-        return listSubscriptions(security, Optional.empty());
+    public CompletableFuture<GetV1WebhookSubscriptionUuidResponse> getSubscription(GetV1WebhookSubscriptionUuidSecurity security, String webhookSubscriptionUuid) {
+        return getSubscription(security, webhookSubscriptionUuid, Optional.empty());
     }
 
     /**
-     * List webhook subscriptions
+     * Get a webhook subscription
      * 
-     * <p>Returns all webhook subscriptions associated with the provided Partner API token.
+     * <p>Returns the Webhook Subscription associated with the provided UUID.
      * 
-     * <p>&gt; 📘 System Access Authentication
-     * &gt;
-     * &gt; This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP
-     * Authorization header](https://docs.gusto.com/embedded-payroll/docs/system-access).
+     * <p>📘 System Access Authentication
+     * 
+     * <p>This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP
+     * Authorization header](https://docs.gusto.com/embedded-payroll/docs/system-access)
      * 
      * <p>scope: `webhook_subscriptions:read`
      * 
      * @param security The security details to use for authentication.
-     * @param xGustoAPIVersion 
-     * @return {@code CompletableFuture<GetV1WebhookSubscriptionsResponse>} - The async response
+     * @param webhookSubscriptionUuid The webhook subscription UUID.
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     * @return {@code CompletableFuture<GetV1WebhookSubscriptionUuidResponse>} - The async response
      */
-    public CompletableFuture<GetV1WebhookSubscriptionsResponse> listSubscriptions(GetV1WebhookSubscriptionsSecurity security, Optional<? extends VersionHeader> xGustoAPIVersion) {
-        GetV1WebhookSubscriptionsRequest request =
-            GetV1WebhookSubscriptionsRequest
+    public CompletableFuture<GetV1WebhookSubscriptionUuidResponse> getSubscription(
+            GetV1WebhookSubscriptionUuidSecurity security, String webhookSubscriptionUuid,
+            Optional<? extends GetV1WebhookSubscriptionUuidHeaderXGustoAPIVersion> xGustoAPIVersion) {
+        GetV1WebhookSubscriptionUuidRequest request =
+            GetV1WebhookSubscriptionUuidRequest
                 .builder()
+                .webhookSubscriptionUuid(webhookSubscriptionUuid)
                 .xGustoAPIVersion(xGustoAPIVersion)
                 .build();
-        AsyncRequestOperation<GetV1WebhookSubscriptionsRequest, GetV1WebhookSubscriptionsResponse> operation
-              = new GetV1WebhookSubscriptions.Async(sdkConfiguration, security, _headers);
+        AsyncRequestOperation<GetV1WebhookSubscriptionUuidRequest, GetV1WebhookSubscriptionUuidResponse> operation
+              = new GetV1WebhookSubscriptionUuid.Async(sdkConfiguration, security, _headers);
         return operation.doRequest(request)
             .thenCompose(operation::handleResponse);
     }
@@ -221,10 +298,10 @@ public class AsyncWebhooks {
      * 
      * <p>Updates the Webhook Subscription associated with the provided UUID.
      * 
-     * <p>&gt; 📘 System Access Authentication
-     * &gt;
-     * &gt; This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP
-     * Authorization header](https://docs.gusto.com/embedded-payroll/docs/system-access).
+     * <p>📘 System Access Authentication
+     * 
+     * <p>This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP
+     * Authorization header](https://docs.gusto.com/embedded-payroll/docs/system-access)
      * 
      * <p>scope: `webhook_subscriptions:write`
      * 
@@ -239,10 +316,10 @@ public class AsyncWebhooks {
      * 
      * <p>Updates the Webhook Subscription associated with the provided UUID.
      * 
-     * <p>&gt; 📘 System Access Authentication
-     * &gt;
-     * &gt; This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP
-     * Authorization header](https://docs.gusto.com/embedded-payroll/docs/system-access).
+     * <p>📘 System Access Authentication
+     * 
+     * <p>This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP
+     * Authorization header](https://docs.gusto.com/embedded-payroll/docs/system-access)
      * 
      * <p>scope: `webhook_subscriptions:write`
      * 
@@ -264,22 +341,22 @@ public class AsyncWebhooks {
      * 
      * <p>Updates the Webhook Subscription associated with the provided UUID.
      * 
-     * <p>&gt; 📘 System Access Authentication
-     * &gt;
-     * &gt; This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP
-     * Authorization header](https://docs.gusto.com/embedded-payroll/docs/system-access).
+     * <p>📘 System Access Authentication
+     * 
+     * <p>This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP
+     * Authorization header](https://docs.gusto.com/embedded-payroll/docs/system-access)
      * 
      * <p>scope: `webhook_subscriptions:write`
      * 
      * @param security The security details to use for authentication.
      * @param webhookSubscriptionUuid The webhook subscription UUID.
-     * @param xGustoAPIVersion 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param requestBody 
      * @return {@code CompletableFuture<PutV1WebhookSubscriptionUuidResponse>} - The async response
      */
     public CompletableFuture<PutV1WebhookSubscriptionUuidResponse> updateSubscription(
             PutV1WebhookSubscriptionUuidSecurity security, String webhookSubscriptionUuid,
-            Optional<? extends VersionHeader> xGustoAPIVersion, PutV1WebhookSubscriptionUuidRequestBody requestBody) {
+            Optional<? extends PutV1WebhookSubscriptionUuidHeaderXGustoAPIVersion> xGustoAPIVersion, PutV1WebhookSubscriptionUuidRequestBody requestBody) {
         PutV1WebhookSubscriptionUuidRequest request =
             PutV1WebhookSubscriptionUuidRequest
                 .builder()
@@ -295,85 +372,14 @@ public class AsyncWebhooks {
 
 
     /**
-     * Get a webhook subscription
-     * 
-     * <p>Returns the Webhook Subscription associated with the provided UUID.
-     * 
-     * <p>&gt; 📘 System Access Authentication
-     * &gt;
-     * &gt; This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP
-     * Authorization header](https://docs.gusto.com/embedded-payroll/docs/system-access).
-     * 
-     * <p>scope: `webhook_subscriptions:read`
-     * 
-     * @return The async call builder
-     */
-    public GetV1WebhookSubscriptionUuidRequestBuilder getSubscription() {
-        return new GetV1WebhookSubscriptionUuidRequestBuilder(sdkConfiguration);
-    }
-
-    /**
-     * Get a webhook subscription
-     * 
-     * <p>Returns the Webhook Subscription associated with the provided UUID.
-     * 
-     * <p>&gt; 📘 System Access Authentication
-     * &gt;
-     * &gt; This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP
-     * Authorization header](https://docs.gusto.com/embedded-payroll/docs/system-access).
-     * 
-     * <p>scope: `webhook_subscriptions:read`
-     * 
-     * @param security The security details to use for authentication.
-     * @param webhookSubscriptionUuid The webhook subscription UUID.
-     * @return {@code CompletableFuture<GetV1WebhookSubscriptionUuidResponse>} - The async response
-     */
-    public CompletableFuture<GetV1WebhookSubscriptionUuidResponse> getSubscription(GetV1WebhookSubscriptionUuidSecurity security, String webhookSubscriptionUuid) {
-        return getSubscription(security, webhookSubscriptionUuid, Optional.empty());
-    }
-
-    /**
-     * Get a webhook subscription
-     * 
-     * <p>Returns the Webhook Subscription associated with the provided UUID.
-     * 
-     * <p>&gt; 📘 System Access Authentication
-     * &gt;
-     * &gt; This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP
-     * Authorization header](https://docs.gusto.com/embedded-payroll/docs/system-access).
-     * 
-     * <p>scope: `webhook_subscriptions:read`
-     * 
-     * @param security The security details to use for authentication.
-     * @param webhookSubscriptionUuid The webhook subscription UUID.
-     * @param xGustoAPIVersion 
-     * @return {@code CompletableFuture<GetV1WebhookSubscriptionUuidResponse>} - The async response
-     */
-    public CompletableFuture<GetV1WebhookSubscriptionUuidResponse> getSubscription(
-            GetV1WebhookSubscriptionUuidSecurity security, String webhookSubscriptionUuid,
-            Optional<? extends VersionHeader> xGustoAPIVersion) {
-        GetV1WebhookSubscriptionUuidRequest request =
-            GetV1WebhookSubscriptionUuidRequest
-                .builder()
-                .webhookSubscriptionUuid(webhookSubscriptionUuid)
-                .xGustoAPIVersion(xGustoAPIVersion)
-                .build();
-        AsyncRequestOperation<GetV1WebhookSubscriptionUuidRequest, GetV1WebhookSubscriptionUuidResponse> operation
-              = new GetV1WebhookSubscriptionUuid.Async(sdkConfiguration, security, _headers);
-        return operation.doRequest(request)
-            .thenCompose(operation::handleResponse);
-    }
-
-
-    /**
      * Delete a webhook subscription
      * 
      * <p>Deletes the Webhook Subscription associated with the provided UUID.
      * 
-     * <p>&gt; 📘 System Access Authentication
-     * &gt;
-     * &gt; This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP
-     * Authorization header](https://docs.gusto.com/embedded-payroll/docs/system-access).
+     * <p>📘 System Access Authentication
+     * 
+     * <p>This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP
+     * Authorization header](https://docs.gusto.com/embedded-payroll/docs/system-access)
      * 
      * <p>scope: `webhook_subscriptions:write`
      * 
@@ -388,10 +394,10 @@ public class AsyncWebhooks {
      * 
      * <p>Deletes the Webhook Subscription associated with the provided UUID.
      * 
-     * <p>&gt; 📘 System Access Authentication
-     * &gt;
-     * &gt; This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP
-     * Authorization header](https://docs.gusto.com/embedded-payroll/docs/system-access).
+     * <p>📘 System Access Authentication
+     * 
+     * <p>This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP
+     * Authorization header](https://docs.gusto.com/embedded-payroll/docs/system-access)
      * 
      * <p>scope: `webhook_subscriptions:write`
      * 
@@ -408,21 +414,21 @@ public class AsyncWebhooks {
      * 
      * <p>Deletes the Webhook Subscription associated with the provided UUID.
      * 
-     * <p>&gt; 📘 System Access Authentication
-     * &gt;
-     * &gt; This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP
-     * Authorization header](https://docs.gusto.com/embedded-payroll/docs/system-access).
+     * <p>📘 System Access Authentication
+     * 
+     * <p>This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP
+     * Authorization header](https://docs.gusto.com/embedded-payroll/docs/system-access)
      * 
      * <p>scope: `webhook_subscriptions:write`
      * 
      * @param security The security details to use for authentication.
      * @param webhookSubscriptionUuid The webhook subscription UUID.
-     * @param xGustoAPIVersion 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @return {@code CompletableFuture<DeleteV1WebhookSubscriptionUuidResponse>} - The async response
      */
     public CompletableFuture<DeleteV1WebhookSubscriptionUuidResponse> deleteSubscription(
             DeleteV1WebhookSubscriptionUuidSecurity security, String webhookSubscriptionUuid,
-            Optional<? extends VersionHeader> xGustoAPIVersion) {
+            Optional<? extends DeleteV1WebhookSubscriptionUuidHeaderXGustoAPIVersion> xGustoAPIVersion) {
         DeleteV1WebhookSubscriptionUuidRequest request =
             DeleteV1WebhookSubscriptionUuidRequest
                 .builder()
@@ -437,7 +443,7 @@ public class AsyncWebhooks {
 
 
     /**
-     * Verify the webhook subscription
+     * Verify a webhook subscription
      * 
      * <p>When a webhook subscription is created, a `verification_token` is POSTed to the registered webhook
      * subscription URL. This `verify` endpoint needs to be called with `verification_token` before webhook
@@ -446,10 +452,10 @@ public class AsyncWebhooks {
      * <p>Use the /v1/webhook_subscriptions/{webhook_subscription_uuid}/request_verification_token API to
      * resend the `verification_token` to the Subscriber.
      * 
-     * <p>&gt; 📘 System Access Authentication
-     * &gt;
-     * &gt; This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP
-     * Authorization header](https://docs.gusto.com/embedded-payroll/docs/system-access).
+     * <p>📘 System Access Authentication
+     * 
+     * <p>This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP
+     * Authorization header](https://docs.gusto.com/embedded-payroll/docs/system-access)
      * 
      * <p>scope: `webhook_subscriptions:write`
      * 
@@ -460,7 +466,7 @@ public class AsyncWebhooks {
     }
 
     /**
-     * Verify the webhook subscription
+     * Verify a webhook subscription
      * 
      * <p>When a webhook subscription is created, a `verification_token` is POSTed to the registered webhook
      * subscription URL. This `verify` endpoint needs to be called with `verification_token` before webhook
@@ -469,10 +475,10 @@ public class AsyncWebhooks {
      * <p>Use the /v1/webhook_subscriptions/{webhook_subscription_uuid}/request_verification_token API to
      * resend the `verification_token` to the Subscriber.
      * 
-     * <p>&gt; 📘 System Access Authentication
-     * &gt;
-     * &gt; This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP
-     * Authorization header](https://docs.gusto.com/embedded-payroll/docs/system-access).
+     * <p>📘 System Access Authentication
+     * 
+     * <p>This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP
+     * Authorization header](https://docs.gusto.com/embedded-payroll/docs/system-access)
      * 
      * <p>scope: `webhook_subscriptions:write`
      * 
@@ -490,7 +496,7 @@ public class AsyncWebhooks {
     }
 
     /**
-     * Verify the webhook subscription
+     * Verify a webhook subscription
      * 
      * <p>When a webhook subscription is created, a `verification_token` is POSTed to the registered webhook
      * subscription URL. This `verify` endpoint needs to be called with `verification_token` before webhook
@@ -499,22 +505,22 @@ public class AsyncWebhooks {
      * <p>Use the /v1/webhook_subscriptions/{webhook_subscription_uuid}/request_verification_token API to
      * resend the `verification_token` to the Subscriber.
      * 
-     * <p>&gt; 📘 System Access Authentication
-     * &gt;
-     * &gt; This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP
-     * Authorization header](https://docs.gusto.com/embedded-payroll/docs/system-access).
+     * <p>📘 System Access Authentication
+     * 
+     * <p>This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP
+     * Authorization header](https://docs.gusto.com/embedded-payroll/docs/system-access)
      * 
      * <p>scope: `webhook_subscriptions:write`
      * 
      * @param security The security details to use for authentication.
      * @param webhookSubscriptionUuid The webhook subscription UUID.
-     * @param xGustoAPIVersion 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param requestBody 
      * @return {@code CompletableFuture<PutV1VerifyWebhookSubscriptionUuidResponse>} - The async response
      */
     public CompletableFuture<PutV1VerifyWebhookSubscriptionUuidResponse> verify(
             PutV1VerifyWebhookSubscriptionUuidSecurity security, String webhookSubscriptionUuid,
-            Optional<? extends VersionHeader> xGustoAPIVersion, PutV1VerifyWebhookSubscriptionUuidRequestBody requestBody) {
+            Optional<? extends PutV1VerifyWebhookSubscriptionUuidHeaderXGustoAPIVersion> xGustoAPIVersion, PutV1VerifyWebhookSubscriptionUuidRequestBody requestBody) {
         PutV1VerifyWebhookSubscriptionUuidRequest request =
             PutV1VerifyWebhookSubscriptionUuidRequest
                 .builder()
@@ -530,14 +536,14 @@ public class AsyncWebhooks {
 
 
     /**
-     * Request the webhook subscription verification_token
+     * Request a verification token for a webhook subscription
      * 
      * <p>Request that the webhook subscription `verification_token` be POSTed to the Subscription URL.
      * 
-     * <p>&gt; 📘 System Access Authentication
-     * &gt;
-     * &gt; This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP
-     * Authorization header](https://docs.gusto.com/embedded-payroll/docs/system-access).
+     * <p>📘 System Access Authentication
+     * 
+     * <p>This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP
+     * Authorization header](https://docs.gusto.com/embedded-payroll/docs/system-access)
      * 
      * <p>scope: `webhook_subscriptions:read`
      * 
@@ -548,14 +554,14 @@ public class AsyncWebhooks {
     }
 
     /**
-     * Request the webhook subscription verification_token
+     * Request a verification token for a webhook subscription
      * 
      * <p>Request that the webhook subscription `verification_token` be POSTed to the Subscription URL.
      * 
-     * <p>&gt; 📘 System Access Authentication
-     * &gt;
-     * &gt; This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP
-     * Authorization header](https://docs.gusto.com/embedded-payroll/docs/system-access).
+     * <p>📘 System Access Authentication
+     * 
+     * <p>This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP
+     * Authorization header](https://docs.gusto.com/embedded-payroll/docs/system-access)
      * 
      * <p>scope: `webhook_subscriptions:read`
      * 
@@ -568,25 +574,25 @@ public class AsyncWebhooks {
     }
 
     /**
-     * Request the webhook subscription verification_token
+     * Request a verification token for a webhook subscription
      * 
      * <p>Request that the webhook subscription `verification_token` be POSTed to the Subscription URL.
      * 
-     * <p>&gt; 📘 System Access Authentication
-     * &gt;
-     * &gt; This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP
-     * Authorization header](https://docs.gusto.com/embedded-payroll/docs/system-access).
+     * <p>📘 System Access Authentication
+     * 
+     * <p>This endpoint uses the [Bearer Auth scheme with the system-level access token in the HTTP
+     * Authorization header](https://docs.gusto.com/embedded-payroll/docs/system-access)
      * 
      * <p>scope: `webhook_subscriptions:read`
      * 
      * @param security The security details to use for authentication.
      * @param webhookSubscriptionUuid The webhook subscription UUID.
-     * @param xGustoAPIVersion 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @return {@code CompletableFuture<GetV1WebhookSubscriptionVerificationTokenUuidResponse>} - The async response
      */
     public CompletableFuture<GetV1WebhookSubscriptionVerificationTokenUuidResponse> requestVerificationToken(
             GetV1WebhookSubscriptionVerificationTokenUuidSecurity security, String webhookSubscriptionUuid,
-            Optional<? extends VersionHeader> xGustoAPIVersion) {
+            Optional<? extends GetV1WebhookSubscriptionVerificationTokenUuidHeaderXGustoAPIVersion> xGustoAPIVersion) {
         GetV1WebhookSubscriptionVerificationTokenUuidRequest request =
             GetV1WebhookSubscriptionVerificationTokenUuidRequest
                 .builder()

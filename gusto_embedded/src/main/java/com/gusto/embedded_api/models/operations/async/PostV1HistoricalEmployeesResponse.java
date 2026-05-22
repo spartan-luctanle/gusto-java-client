@@ -34,7 +34,7 @@ public class PostV1HistoricalEmployeesResponse implements AsyncResponse {
     private HttpResponse<Blob> rawResponse;
 
     /**
-     * Example response
+     * Created
      */
     private Optional<? extends Employee> employee;
 
@@ -87,7 +87,7 @@ public class PostV1HistoricalEmployeesResponse implements AsyncResponse {
     }
 
     /**
-     * Example response
+     * Created
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -128,7 +128,7 @@ public class PostV1HistoricalEmployeesResponse implements AsyncResponse {
     }
 
     /**
-     * Example response
+     * Created
      */
     public PostV1HistoricalEmployeesResponse withEmployee(Employee employee) {
         Utils.checkNotNull(employee, "employee");
@@ -138,7 +138,7 @@ public class PostV1HistoricalEmployeesResponse implements AsyncResponse {
 
 
     /**
-     * Example response
+     * Created
      */
     public PostV1HistoricalEmployeesResponse withEmployee(Optional<? extends Employee> employee) {
         Utils.checkNotNull(employee, "employee");
@@ -225,7 +225,7 @@ public class PostV1HistoricalEmployeesResponse implements AsyncResponse {
 
 
         /**
-         * Example response
+         * Created
          */
         public Builder employee(Employee employee) {
             Utils.checkNotNull(employee, "employee");
@@ -234,7 +234,7 @@ public class PostV1HistoricalEmployeesResponse implements AsyncResponse {
         }
 
         /**
-         * Example response
+         * Created
          */
         public Builder employee(Optional<? extends Employee> employee) {
             Utils.checkNotNull(employee, "employee");

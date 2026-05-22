@@ -6,7 +6,6 @@ package com.gusto.embedded_api.models.operations;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.gusto.embedded_api.models.components.VersionHeader;
 import com.gusto.embedded_api.utils.LazySingletonValue;
 import com.gusto.embedded_api.utils.SpeakeasyMetadata;
 import com.gusto.embedded_api.utils.Utils;
@@ -17,6 +16,14 @@ import java.util.Optional;
 
 
 public class PutV1ContractorDocumentSignRequest {
+    /**
+     * Determines the date-based API version associated with your API call. If none is provided, your
+     * application's [minimum API
+     * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     */
+    @SpeakeasyMetadata("header:style=simple,explode=false,name=X-Gusto-API-Version")
+    private Optional<? extends PutV1ContractorDocumentSignHeaderXGustoAPIVersion> xGustoAPIVersion;
+
     /**
      * The UUID of the document
      */
@@ -30,39 +37,42 @@ public class PutV1ContractorDocumentSignRequest {
     @SpeakeasyMetadata("header:style=simple,explode=false,name=x-gusto-client-ip")
     private Optional<String> xGustoClientIp;
 
-    /**
-     * Determines the date-based API version associated with your API call. If none is provided, your
-     * application's [minimum API
-     * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
-     */
-    @SpeakeasyMetadata("header:style=simple,explode=false,name=X-Gusto-API-Version")
-    private Optional<? extends VersionHeader> xGustoAPIVersion;
-
 
     @SpeakeasyMetadata("request:mediaType=application/json")
     private PutV1ContractorDocumentSignRequestBody requestBody;
 
     @JsonCreator
     public PutV1ContractorDocumentSignRequest(
+            Optional<? extends PutV1ContractorDocumentSignHeaderXGustoAPIVersion> xGustoAPIVersion,
             String documentUuid,
             Optional<String> xGustoClientIp,
-            Optional<? extends VersionHeader> xGustoAPIVersion,
             PutV1ContractorDocumentSignRequestBody requestBody) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         Utils.checkNotNull(documentUuid, "documentUuid");
         Utils.checkNotNull(xGustoClientIp, "xGustoClientIp");
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         Utils.checkNotNull(requestBody, "requestBody");
+        this.xGustoAPIVersion = xGustoAPIVersion;
         this.documentUuid = documentUuid;
         this.xGustoClientIp = xGustoClientIp;
-        this.xGustoAPIVersion = xGustoAPIVersion;
         this.requestBody = requestBody;
     }
     
     public PutV1ContractorDocumentSignRequest(
             String documentUuid,
             PutV1ContractorDocumentSignRequestBody requestBody) {
-        this(documentUuid, Optional.empty(), Optional.empty(),
+        this(Optional.empty(), documentUuid, Optional.empty(),
             requestBody);
+    }
+
+    /**
+     * Determines the date-based API version associated with your API call. If none is provided, your
+     * application's [minimum API
+     * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<PutV1ContractorDocumentSignHeaderXGustoAPIVersion> xGustoAPIVersion() {
+        return (Optional<PutV1ContractorDocumentSignHeaderXGustoAPIVersion>) xGustoAPIVersion;
     }
 
     /**
@@ -82,17 +92,6 @@ public class PutV1ContractorDocumentSignRequest {
         return xGustoClientIp;
     }
 
-    /**
-     * Determines the date-based API version associated with your API call. If none is provided, your
-     * application's [minimum API
-     * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
-     */
-    @SuppressWarnings("unchecked")
-    @JsonIgnore
-    public Optional<VersionHeader> xGustoAPIVersion() {
-        return (Optional<VersionHeader>) xGustoAPIVersion;
-    }
-
     @JsonIgnore
     public PutV1ContractorDocumentSignRequestBody requestBody() {
         return requestBody;
@@ -102,6 +101,29 @@ public class PutV1ContractorDocumentSignRequest {
         return new Builder();
     }
 
+
+    /**
+     * Determines the date-based API version associated with your API call. If none is provided, your
+     * application's [minimum API
+     * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     */
+    public PutV1ContractorDocumentSignRequest withXGustoAPIVersion(PutV1ContractorDocumentSignHeaderXGustoAPIVersion xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
+        return this;
+    }
+
+
+    /**
+     * Determines the date-based API version associated with your API call. If none is provided, your
+     * application's [minimum API
+     * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     */
+    public PutV1ContractorDocumentSignRequest withXGustoAPIVersion(Optional<? extends PutV1ContractorDocumentSignHeaderXGustoAPIVersion> xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = xGustoAPIVersion;
+        return this;
+    }
 
     /**
      * The UUID of the document
@@ -133,29 +155,6 @@ public class PutV1ContractorDocumentSignRequest {
         return this;
     }
 
-    /**
-     * Determines the date-based API version associated with your API call. If none is provided, your
-     * application's [minimum API
-     * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
-     */
-    public PutV1ContractorDocumentSignRequest withXGustoAPIVersion(VersionHeader xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
-        return this;
-    }
-
-
-    /**
-     * Determines the date-based API version associated with your API call. If none is provided, your
-     * application's [minimum API
-     * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
-     */
-    public PutV1ContractorDocumentSignRequest withXGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = xGustoAPIVersion;
-        return this;
-    }
-
     public PutV1ContractorDocumentSignRequest withRequestBody(PutV1ContractorDocumentSignRequestBody requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
@@ -172,41 +171,64 @@ public class PutV1ContractorDocumentSignRequest {
         }
         PutV1ContractorDocumentSignRequest other = (PutV1ContractorDocumentSignRequest) o;
         return 
+            Utils.enhancedDeepEquals(this.xGustoAPIVersion, other.xGustoAPIVersion) &&
             Utils.enhancedDeepEquals(this.documentUuid, other.documentUuid) &&
             Utils.enhancedDeepEquals(this.xGustoClientIp, other.xGustoClientIp) &&
-            Utils.enhancedDeepEquals(this.xGustoAPIVersion, other.xGustoAPIVersion) &&
             Utils.enhancedDeepEquals(this.requestBody, other.requestBody);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            documentUuid, xGustoClientIp, xGustoAPIVersion,
+            xGustoAPIVersion, documentUuid, xGustoClientIp,
             requestBody);
     }
     
     @Override
     public String toString() {
         return Utils.toString(PutV1ContractorDocumentSignRequest.class,
+                "xGustoAPIVersion", xGustoAPIVersion,
                 "documentUuid", documentUuid,
                 "xGustoClientIp", xGustoClientIp,
-                "xGustoAPIVersion", xGustoAPIVersion,
                 "requestBody", requestBody);
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
+        private Optional<? extends PutV1ContractorDocumentSignHeaderXGustoAPIVersion> xGustoAPIVersion;
+
         private String documentUuid;
 
         private Optional<String> xGustoClientIp = Optional.empty();
-
-        private Optional<? extends VersionHeader> xGustoAPIVersion;
 
         private PutV1ContractorDocumentSignRequestBody requestBody;
 
         private Builder() {
           // force use of static builder() method
+        }
+
+
+        /**
+         * Determines the date-based API version associated with your API call. If none is provided, your
+         * application's [minimum API
+         * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+         */
+        public Builder xGustoAPIVersion(PutV1ContractorDocumentSignHeaderXGustoAPIVersion xGustoAPIVersion) {
+            Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+            this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
+            return this;
+        }
+
+        /**
+         * Determines the date-based API version associated with your API call. If none is provided, your
+         * application's [minimum API
+         * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+         */
+        public Builder xGustoAPIVersion(Optional<? extends PutV1ContractorDocumentSignHeaderXGustoAPIVersion> xGustoAPIVersion) {
+            Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+            this.xGustoAPIVersion = xGustoAPIVersion;
+            return this;
         }
 
 
@@ -241,29 +263,6 @@ public class PutV1ContractorDocumentSignRequest {
         }
 
 
-        /**
-         * Determines the date-based API version associated with your API call. If none is provided, your
-         * application's [minimum API
-         * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
-         */
-        public Builder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
-            Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-            this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
-            return this;
-        }
-
-        /**
-         * Determines the date-based API version associated with your API call. If none is provided, your
-         * application's [minimum API
-         * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
-         */
-        public Builder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
-            Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-            this.xGustoAPIVersion = xGustoAPIVersion;
-            return this;
-        }
-
-
         public Builder requestBody(PutV1ContractorDocumentSignRequestBody requestBody) {
             Utils.checkNotNull(requestBody, "requestBody");
             this.requestBody = requestBody;
@@ -276,15 +275,15 @@ public class PutV1ContractorDocumentSignRequest {
             }
 
             return new PutV1ContractorDocumentSignRequest(
-                documentUuid, xGustoClientIp, xGustoAPIVersion,
+                xGustoAPIVersion, documentUuid, xGustoClientIp,
                 requestBody);
         }
 
 
-        private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+        private static final LazySingletonValue<Optional<? extends PutV1ContractorDocumentSignHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
                 new LazySingletonValue<>(
                         "X-Gusto-API-Version",
                         "\"2025-06-15\"",
-                        new TypeReference<Optional<? extends VersionHeader>>() {});
+                        new TypeReference<Optional<? extends PutV1ContractorDocumentSignHeaderXGustoAPIVersion>>() {});
     }
 }

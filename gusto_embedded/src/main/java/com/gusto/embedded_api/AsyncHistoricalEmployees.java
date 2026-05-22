@@ -5,7 +5,7 @@ package com.gusto.embedded_api;
 
 import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation;
 
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.operations.PutV1HistoricalEmployeesHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PutV1HistoricalEmployeesRequest;
 import com.gusto.embedded_api.models.operations.PutV1HistoricalEmployeesRequestBody;
 import com.gusto.embedded_api.models.operations.async.PutV1HistoricalEmployeesRequestBuilder;
@@ -43,7 +43,9 @@ public class AsyncHistoricalEmployees {
      * <p>Update a historical employee, an employee that was previously dismissed from the company in the
      * current year.
      * 
-     * <p>scope: `employees:manage`
+     * <p>scope: `employees:manage employees:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @return The async call builder
      */
@@ -57,18 +59,23 @@ public class AsyncHistoricalEmployees {
      * <p>Update a historical employee, an employee that was previously dismissed from the company in the
      * current year.
      * 
-     * <p>scope: `employees:manage`
+     * <p>scope: `employees:manage employees:write`
      * 
-     * @param companyUuid The UUID of the company
-     * @param historicalEmployeeUuid The UUID of the historical employee
-     * @param requestBody Update a historical employee.
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param companyUuid The UUID of the company that will employ this historical record.
+     * @param historicalEmployeeUuid The UUID of the historical employee returned from create or list responses.
+     * @param requestBody Request body for creating or updating a **historical employee**—someone who already separated from the company and must appear on year-to-date or tax filings without receiving ongoing payroll.
+     *         
+     *         Send this object under the JSON root key `employee`. All dates are ISO 8601 (`YYYY-MM-DD`). Use a `work_address.location_uuid` returned from your company locations API for an active work site.
+     *         
      * @return {@code CompletableFuture<PutV1HistoricalEmployeesResponse>} - The async response
      */
     public CompletableFuture<PutV1HistoricalEmployeesResponse> update(
             String companyUuid, String historicalEmployeeUuid,
             PutV1HistoricalEmployeesRequestBody requestBody) {
         return update(
-                companyUuid, historicalEmployeeUuid, Optional.empty(),
+                Optional.empty(), companyUuid, historicalEmployeeUuid,
                 requestBody);
     }
 
@@ -78,23 +85,28 @@ public class AsyncHistoricalEmployees {
      * <p>Update a historical employee, an employee that was previously dismissed from the company in the
      * current year.
      * 
-     * <p>scope: `employees:manage`
+     * <p>scope: `employees:manage employees:write`
      * 
-     * @param companyUuid The UUID of the company
-     * @param historicalEmployeeUuid The UUID of the historical employee
-     * @param xGustoAPIVersion 
-     * @param requestBody Update a historical employee.
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     * @param companyUuid The UUID of the company that will employ this historical record.
+     * @param historicalEmployeeUuid The UUID of the historical employee returned from create or list responses.
+     * @param requestBody Request body for creating or updating a **historical employee**—someone who already separated from the company and must appear on year-to-date or tax filings without receiving ongoing payroll.
+     *         
+     *         Send this object under the JSON root key `employee`. All dates are ISO 8601 (`YYYY-MM-DD`). Use a `work_address.location_uuid` returned from your company locations API for an active work site.
+     *         
      * @return {@code CompletableFuture<PutV1HistoricalEmployeesResponse>} - The async response
      */
     public CompletableFuture<PutV1HistoricalEmployeesResponse> update(
-            String companyUuid, String historicalEmployeeUuid,
-            Optional<? extends VersionHeader> xGustoAPIVersion, PutV1HistoricalEmployeesRequestBody requestBody) {
+            Optional<? extends PutV1HistoricalEmployeesHeaderXGustoAPIVersion> xGustoAPIVersion, String companyUuid,
+            String historicalEmployeeUuid, PutV1HistoricalEmployeesRequestBody requestBody) {
         PutV1HistoricalEmployeesRequest request =
             PutV1HistoricalEmployeesRequest
                 .builder()
+                .xGustoAPIVersion(xGustoAPIVersion)
                 .companyUuid(companyUuid)
                 .historicalEmployeeUuid(historicalEmployeeUuid)
-                .xGustoAPIVersion(xGustoAPIVersion)
                 .requestBody(requestBody)
                 .build();
         AsyncRequestOperation<PutV1HistoricalEmployeesRequest, PutV1HistoricalEmployeesResponse> operation

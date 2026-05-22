@@ -15,17 +15,17 @@ import java.util.List;
 public class PutV1TimeOffPoliciesTimeOffPolicyUuidAddEmployeesRequestBody {
 
     @JsonProperty("employees")
-    private List<PutV1TimeOffPoliciesTimeOffPolicyUuidAddEmployeesEmployees> employees;
+    private List<Employees> employees;
 
     @JsonCreator
     public PutV1TimeOffPoliciesTimeOffPolicyUuidAddEmployeesRequestBody(
-            @JsonProperty("employees") List<PutV1TimeOffPoliciesTimeOffPolicyUuidAddEmployeesEmployees> employees) {
+            @JsonProperty("employees") List<Employees> employees) {
         Utils.checkNotNull(employees, "employees");
         this.employees = employees;
     }
 
     @JsonIgnore
-    public List<PutV1TimeOffPoliciesTimeOffPolicyUuidAddEmployeesEmployees> employees() {
+    public List<Employees> employees() {
         return employees;
     }
 
@@ -34,7 +34,7 @@ public class PutV1TimeOffPoliciesTimeOffPolicyUuidAddEmployeesRequestBody {
     }
 
 
-    public PutV1TimeOffPoliciesTimeOffPolicyUuidAddEmployeesRequestBody withEmployees(List<PutV1TimeOffPoliciesTimeOffPolicyUuidAddEmployeesEmployees> employees) {
+    public PutV1TimeOffPoliciesTimeOffPolicyUuidAddEmployeesRequestBody withEmployees(List<Employees> employees) {
         Utils.checkNotNull(employees, "employees");
         this.employees = employees;
         return this;
@@ -68,14 +68,14 @@ public class PutV1TimeOffPoliciesTimeOffPolicyUuidAddEmployeesRequestBody {
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private List<PutV1TimeOffPoliciesTimeOffPolicyUuidAddEmployeesEmployees> employees;
+        private List<Employees> employees;
 
         private Builder() {
           // force use of static builder() method
         }
 
 
-        public Builder employees(List<PutV1TimeOffPoliciesTimeOffPolicyUuidAddEmployeesEmployees> employees) {
+        public Builder employees(List<Employees> employees) {
             Utils.checkNotNull(employees, "employees");
             this.employees = employees;
             return this;

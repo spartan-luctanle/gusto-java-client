@@ -7,7 +7,7 @@ import static com.gusto.embedded_api.operations.Operations.RequestOperation;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.components.WireInRequestUpdateRequestBody;
 import com.gusto.embedded_api.operations.PutWireInRequestsWireInRequestUuid;
 import com.gusto.embedded_api.utils.Headers;
 import com.gusto.embedded_api.utils.LazySingletonValue;
@@ -18,11 +18,11 @@ import java.util.Optional;
 public class PutWireInRequestsWireInRequestUuidRequestBuilder {
 
     private String wireInRequestUuid;
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
+    private Optional<? extends PutWireInRequestsWireInRequestUuidHeaderXGustoAPIVersion> xGustoAPIVersion = Utils.readDefaultOrConstValue(
                             "xGustoAPIVersion",
                             "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
-    private PutWireInRequestsWireInRequestUuidRequestBody requestBody;
+                            new TypeReference<Optional<? extends PutWireInRequestsWireInRequestUuidHeaderXGustoAPIVersion>>() {});
+    private WireInRequestUpdateRequestBody wireInRequestUpdateRequestBody;
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
@@ -36,21 +36,21 @@ public class PutWireInRequestsWireInRequestUuidRequestBuilder {
         return this;
     }
                 
-    public PutWireInRequestsWireInRequestUuidRequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+    public PutWireInRequestsWireInRequestUuidRequestBuilder xGustoAPIVersion(PutWireInRequestsWireInRequestUuidHeaderXGustoAPIVersion xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
         return this;
     }
 
-    public PutWireInRequestsWireInRequestUuidRequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public PutWireInRequestsWireInRequestUuidRequestBuilder xGustoAPIVersion(Optional<? extends PutWireInRequestsWireInRequestUuidHeaderXGustoAPIVersion> xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = xGustoAPIVersion;
         return this;
     }
 
-    public PutWireInRequestsWireInRequestUuidRequestBuilder requestBody(PutWireInRequestsWireInRequestUuidRequestBody requestBody) {
-        Utils.checkNotNull(requestBody, "requestBody");
-        this.requestBody = requestBody;
+    public PutWireInRequestsWireInRequestUuidRequestBuilder wireInRequestUpdateRequestBody(WireInRequestUpdateRequestBody wireInRequestUpdateRequestBody) {
+        Utils.checkNotNull(wireInRequestUpdateRequestBody, "wireInRequestUpdateRequestBody");
+        this.wireInRequestUpdateRequestBody = wireInRequestUpdateRequestBody;
         return this;
     }
 
@@ -62,7 +62,7 @@ public class PutWireInRequestsWireInRequestUuidRequestBuilder {
 
         PutWireInRequestsWireInRequestUuidRequest request = new PutWireInRequestsWireInRequestUuidRequest(wireInRequestUuid,
             xGustoAPIVersion,
-            requestBody);
+            wireInRequestUpdateRequestBody);
 
         return request;
     }
@@ -76,9 +76,9 @@ public class PutWireInRequestsWireInRequestUuidRequestBuilder {
         return operation.handleResponse(operation.doRequest(request));
     }
 
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+    private static final LazySingletonValue<Optional<? extends PutWireInRequestsWireInRequestUuidHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
             new LazySingletonValue<>(
                     "xGustoAPIVersion",
                     "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
+                    new TypeReference<Optional<? extends PutWireInRequestsWireInRequestUuidHeaderXGustoAPIVersion>>() {});
 }

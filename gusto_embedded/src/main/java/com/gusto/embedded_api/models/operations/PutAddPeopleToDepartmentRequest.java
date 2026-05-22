@@ -6,7 +6,7 @@ package com.gusto.embedded_api.models.operations;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.components.DepartmentPeopleRequestBody;
 import com.gusto.embedded_api.utils.LazySingletonValue;
 import com.gusto.embedded_api.utils.SpeakeasyMetadata;
 import com.gusto.embedded_api.utils.Utils;
@@ -29,29 +29,29 @@ public class PutAddPeopleToDepartmentRequest {
      * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      */
     @SpeakeasyMetadata("header:style=simple,explode=false,name=X-Gusto-API-Version")
-    private Optional<? extends VersionHeader> xGustoAPIVersion;
+    private Optional<? extends PutAddPeopleToDepartmentHeaderXGustoAPIVersion> xGustoAPIVersion;
 
 
     @SpeakeasyMetadata("request:mediaType=application/json")
-    private PutAddPeopleToDepartmentRequestBody requestBody;
+    private DepartmentPeopleRequestBody departmentPeopleRequestBody;
 
     @JsonCreator
     public PutAddPeopleToDepartmentRequest(
             String departmentUuid,
-            Optional<? extends VersionHeader> xGustoAPIVersion,
-            PutAddPeopleToDepartmentRequestBody requestBody) {
+            Optional<? extends PutAddPeopleToDepartmentHeaderXGustoAPIVersion> xGustoAPIVersion,
+            DepartmentPeopleRequestBody departmentPeopleRequestBody) {
         Utils.checkNotNull(departmentUuid, "departmentUuid");
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        Utils.checkNotNull(requestBody, "requestBody");
+        Utils.checkNotNull(departmentPeopleRequestBody, "departmentPeopleRequestBody");
         this.departmentUuid = departmentUuid;
         this.xGustoAPIVersion = xGustoAPIVersion;
-        this.requestBody = requestBody;
+        this.departmentPeopleRequestBody = departmentPeopleRequestBody;
     }
     
     public PutAddPeopleToDepartmentRequest(
             String departmentUuid,
-            PutAddPeopleToDepartmentRequestBody requestBody) {
-        this(departmentUuid, Optional.empty(), requestBody);
+            DepartmentPeopleRequestBody departmentPeopleRequestBody) {
+        this(departmentUuid, Optional.empty(), departmentPeopleRequestBody);
     }
 
     /**
@@ -69,13 +69,13 @@ public class PutAddPeopleToDepartmentRequest {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<VersionHeader> xGustoAPIVersion() {
-        return (Optional<VersionHeader>) xGustoAPIVersion;
+    public Optional<PutAddPeopleToDepartmentHeaderXGustoAPIVersion> xGustoAPIVersion() {
+        return (Optional<PutAddPeopleToDepartmentHeaderXGustoAPIVersion>) xGustoAPIVersion;
     }
 
     @JsonIgnore
-    public PutAddPeopleToDepartmentRequestBody requestBody() {
-        return requestBody;
+    public DepartmentPeopleRequestBody departmentPeopleRequestBody() {
+        return departmentPeopleRequestBody;
     }
 
     public static Builder builder() {
@@ -97,7 +97,7 @@ public class PutAddPeopleToDepartmentRequest {
      * application's [minimum API
      * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      */
-    public PutAddPeopleToDepartmentRequest withXGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+    public PutAddPeopleToDepartmentRequest withXGustoAPIVersion(PutAddPeopleToDepartmentHeaderXGustoAPIVersion xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
         return this;
@@ -109,15 +109,15 @@ public class PutAddPeopleToDepartmentRequest {
      * application's [minimum API
      * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      */
-    public PutAddPeopleToDepartmentRequest withXGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public PutAddPeopleToDepartmentRequest withXGustoAPIVersion(Optional<? extends PutAddPeopleToDepartmentHeaderXGustoAPIVersion> xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = xGustoAPIVersion;
         return this;
     }
 
-    public PutAddPeopleToDepartmentRequest withRequestBody(PutAddPeopleToDepartmentRequestBody requestBody) {
-        Utils.checkNotNull(requestBody, "requestBody");
-        this.requestBody = requestBody;
+    public PutAddPeopleToDepartmentRequest withDepartmentPeopleRequestBody(DepartmentPeopleRequestBody departmentPeopleRequestBody) {
+        Utils.checkNotNull(departmentPeopleRequestBody, "departmentPeopleRequestBody");
+        this.departmentPeopleRequestBody = departmentPeopleRequestBody;
         return this;
     }
 
@@ -133,13 +133,13 @@ public class PutAddPeopleToDepartmentRequest {
         return 
             Utils.enhancedDeepEquals(this.departmentUuid, other.departmentUuid) &&
             Utils.enhancedDeepEquals(this.xGustoAPIVersion, other.xGustoAPIVersion) &&
-            Utils.enhancedDeepEquals(this.requestBody, other.requestBody);
+            Utils.enhancedDeepEquals(this.departmentPeopleRequestBody, other.departmentPeopleRequestBody);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            departmentUuid, xGustoAPIVersion, requestBody);
+            departmentUuid, xGustoAPIVersion, departmentPeopleRequestBody);
     }
     
     @Override
@@ -147,7 +147,7 @@ public class PutAddPeopleToDepartmentRequest {
         return Utils.toString(PutAddPeopleToDepartmentRequest.class,
                 "departmentUuid", departmentUuid,
                 "xGustoAPIVersion", xGustoAPIVersion,
-                "requestBody", requestBody);
+                "departmentPeopleRequestBody", departmentPeopleRequestBody);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -155,9 +155,9 @@ public class PutAddPeopleToDepartmentRequest {
 
         private String departmentUuid;
 
-        private Optional<? extends VersionHeader> xGustoAPIVersion;
+        private Optional<? extends PutAddPeopleToDepartmentHeaderXGustoAPIVersion> xGustoAPIVersion;
 
-        private PutAddPeopleToDepartmentRequestBody requestBody;
+        private DepartmentPeopleRequestBody departmentPeopleRequestBody;
 
         private Builder() {
           // force use of static builder() method
@@ -179,7 +179,7 @@ public class PutAddPeopleToDepartmentRequest {
          * application's [minimum API
          * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
          */
-        public Builder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+        public Builder xGustoAPIVersion(PutAddPeopleToDepartmentHeaderXGustoAPIVersion xGustoAPIVersion) {
             Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
             this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
             return this;
@@ -190,16 +190,16 @@ public class PutAddPeopleToDepartmentRequest {
          * application's [minimum API
          * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
          */
-        public Builder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+        public Builder xGustoAPIVersion(Optional<? extends PutAddPeopleToDepartmentHeaderXGustoAPIVersion> xGustoAPIVersion) {
             Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
             this.xGustoAPIVersion = xGustoAPIVersion;
             return this;
         }
 
 
-        public Builder requestBody(PutAddPeopleToDepartmentRequestBody requestBody) {
-            Utils.checkNotNull(requestBody, "requestBody");
-            this.requestBody = requestBody;
+        public Builder departmentPeopleRequestBody(DepartmentPeopleRequestBody departmentPeopleRequestBody) {
+            Utils.checkNotNull(departmentPeopleRequestBody, "departmentPeopleRequestBody");
+            this.departmentPeopleRequestBody = departmentPeopleRequestBody;
             return this;
         }
 
@@ -209,14 +209,14 @@ public class PutAddPeopleToDepartmentRequest {
             }
 
             return new PutAddPeopleToDepartmentRequest(
-                departmentUuid, xGustoAPIVersion, requestBody);
+                departmentUuid, xGustoAPIVersion, departmentPeopleRequestBody);
         }
 
 
-        private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+        private static final LazySingletonValue<Optional<? extends PutAddPeopleToDepartmentHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
                 new LazySingletonValue<>(
                         "X-Gusto-API-Version",
                         "\"2025-06-15\"",
-                        new TypeReference<Optional<? extends VersionHeader>>() {});
+                        new TypeReference<Optional<? extends PutAddPeopleToDepartmentHeaderXGustoAPIVersion>>() {});
     }
 }

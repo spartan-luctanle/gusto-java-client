@@ -8,6 +8,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.gusto.embedded_api.utils.LazySingletonValue;
 import com.gusto.embedded_api.utils.Utils;
 import java.lang.Boolean;
 import java.lang.Override;
@@ -166,7 +168,7 @@ public class PutV1TerminationsEmployeeIdRequestBody {
 
         private String effectiveDate;
 
-        private Optional<Boolean> runTerminationPayroll = Optional.empty();
+        private Optional<Boolean> runTerminationPayroll;
 
         private Builder() {
           // force use of static builder() method
@@ -216,10 +218,19 @@ public class PutV1TerminationsEmployeeIdRequestBody {
         }
 
         public PutV1TerminationsEmployeeIdRequestBody build() {
+            if (runTerminationPayroll == null) {
+                runTerminationPayroll = _SINGLETON_VALUE_RunTerminationPayroll.value();
+            }
 
             return new PutV1TerminationsEmployeeIdRequestBody(
                 version, effectiveDate, runTerminationPayroll);
         }
 
+
+        private static final LazySingletonValue<Optional<Boolean>> _SINGLETON_VALUE_RunTerminationPayroll =
+                new LazySingletonValue<>(
+                        "run_termination_payroll",
+                        "false",
+                        new TypeReference<Optional<Boolean>>() {});
     }
 }

@@ -8,7 +8,7 @@ import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
 import com.gusto.embedded_api.models.components.HistoricalEmployeeBody;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.operations.PostV1HistoricalEmployeesHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostV1HistoricalEmployeesRequest;
 import com.gusto.embedded_api.operations.PostV1HistoricalEmployees;
 import com.gusto.embedded_api.utils.Headers;
@@ -20,11 +20,11 @@ import java.util.concurrent.CompletableFuture;
 
 public class PostV1HistoricalEmployeesRequestBuilder {
 
-    private String companyUuid;
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
+    private Optional<? extends PostV1HistoricalEmployeesHeaderXGustoAPIVersion> xGustoAPIVersion = Utils.readDefaultOrConstValue(
                             "xGustoAPIVersion",
                             "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
+                            new TypeReference<Optional<? extends PostV1HistoricalEmployeesHeaderXGustoAPIVersion>>() {});
+    private String companyUuid;
     private HistoricalEmployeeBody historicalEmployeeBody;
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
@@ -32,22 +32,22 @@ public class PostV1HistoricalEmployeesRequestBuilder {
     public PostV1HistoricalEmployeesRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
-
-    public PostV1HistoricalEmployeesRequestBuilder companyUuid(String companyUuid) {
-        Utils.checkNotNull(companyUuid, "companyUuid");
-        this.companyUuid = companyUuid;
-        return this;
-    }
                 
-    public PostV1HistoricalEmployeesRequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+    public PostV1HistoricalEmployeesRequestBuilder xGustoAPIVersion(PostV1HistoricalEmployeesHeaderXGustoAPIVersion xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
         return this;
     }
 
-    public PostV1HistoricalEmployeesRequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public PostV1HistoricalEmployeesRequestBuilder xGustoAPIVersion(Optional<? extends PostV1HistoricalEmployeesHeaderXGustoAPIVersion> xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = xGustoAPIVersion;
+        return this;
+    }
+
+    public PostV1HistoricalEmployeesRequestBuilder companyUuid(String companyUuid) {
+        Utils.checkNotNull(companyUuid, "companyUuid");
+        this.companyUuid = companyUuid;
         return this;
     }
 
@@ -63,8 +63,8 @@ public class PostV1HistoricalEmployeesRequestBuilder {
             xGustoAPIVersion = _SINGLETON_VALUE_XGustoAPIVersion.value();
         }
 
-        PostV1HistoricalEmployeesRequest request = new PostV1HistoricalEmployeesRequest(companyUuid,
-            xGustoAPIVersion,
+        PostV1HistoricalEmployeesRequest request = new PostV1HistoricalEmployeesRequest(xGustoAPIVersion,
+            companyUuid,
             historicalEmployeeBody);
 
         return request;
@@ -80,9 +80,9 @@ public class PostV1HistoricalEmployeesRequestBuilder {
             .thenCompose(operation::handleResponse);
     }
 
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+    private static final LazySingletonValue<Optional<? extends PostV1HistoricalEmployeesHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
             new LazySingletonValue<>(
                     "xGustoAPIVersion",
                     "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
+                    new TypeReference<Optional<? extends PostV1HistoricalEmployeesHeaderXGustoAPIVersion>>() {});
 }

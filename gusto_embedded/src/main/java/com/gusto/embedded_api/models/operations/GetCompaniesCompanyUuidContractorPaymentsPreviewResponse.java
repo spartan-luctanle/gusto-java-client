@@ -5,6 +5,7 @@ package com.gusto.embedded_api.models.operations;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.gusto.embedded_api.models.components.ContractorPaymentsPreview;
 import com.gusto.embedded_api.utils.Response;
 import com.gusto.embedded_api.utils.Utils;
 import java.io.InputStream;
@@ -35,22 +36,22 @@ public class GetCompaniesCompanyUuidContractorPaymentsPreviewResponse implements
     /**
      * OK
      */
-    private Optional<? extends GetCompaniesCompanyUuidContractorPaymentsPreviewResponseBody> object;
+    private Optional<? extends ContractorPaymentsPreview> contractorPaymentsPreview;
 
     @JsonCreator
     public GetCompaniesCompanyUuidContractorPaymentsPreviewResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends GetCompaniesCompanyUuidContractorPaymentsPreviewResponseBody> object) {
+            Optional<? extends ContractorPaymentsPreview> contractorPaymentsPreview) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
-        Utils.checkNotNull(object, "object");
+        Utils.checkNotNull(contractorPaymentsPreview, "contractorPaymentsPreview");
         this.contentType = contentType;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
-        this.object = object;
+        this.contractorPaymentsPreview = contractorPaymentsPreview;
     }
     
     public GetCompaniesCompanyUuidContractorPaymentsPreviewResponse(
@@ -90,8 +91,8 @@ public class GetCompaniesCompanyUuidContractorPaymentsPreviewResponse implements
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<GetCompaniesCompanyUuidContractorPaymentsPreviewResponseBody> object() {
-        return (Optional<GetCompaniesCompanyUuidContractorPaymentsPreviewResponseBody>) object;
+    public Optional<ContractorPaymentsPreview> contractorPaymentsPreview() {
+        return (Optional<ContractorPaymentsPreview>) contractorPaymentsPreview;
     }
 
     public static Builder builder() {
@@ -129,9 +130,9 @@ public class GetCompaniesCompanyUuidContractorPaymentsPreviewResponse implements
     /**
      * OK
      */
-    public GetCompaniesCompanyUuidContractorPaymentsPreviewResponse withObject(GetCompaniesCompanyUuidContractorPaymentsPreviewResponseBody object) {
-        Utils.checkNotNull(object, "object");
-        this.object = Optional.ofNullable(object);
+    public GetCompaniesCompanyUuidContractorPaymentsPreviewResponse withContractorPaymentsPreview(ContractorPaymentsPreview contractorPaymentsPreview) {
+        Utils.checkNotNull(contractorPaymentsPreview, "contractorPaymentsPreview");
+        this.contractorPaymentsPreview = Optional.ofNullable(contractorPaymentsPreview);
         return this;
     }
 
@@ -139,9 +140,9 @@ public class GetCompaniesCompanyUuidContractorPaymentsPreviewResponse implements
     /**
      * OK
      */
-    public GetCompaniesCompanyUuidContractorPaymentsPreviewResponse withObject(Optional<? extends GetCompaniesCompanyUuidContractorPaymentsPreviewResponseBody> object) {
-        Utils.checkNotNull(object, "object");
-        this.object = object;
+    public GetCompaniesCompanyUuidContractorPaymentsPreviewResponse withContractorPaymentsPreview(Optional<? extends ContractorPaymentsPreview> contractorPaymentsPreview) {
+        Utils.checkNotNull(contractorPaymentsPreview, "contractorPaymentsPreview");
+        this.contractorPaymentsPreview = contractorPaymentsPreview;
         return this;
     }
 
@@ -158,14 +159,14 @@ public class GetCompaniesCompanyUuidContractorPaymentsPreviewResponse implements
             Utils.enhancedDeepEquals(this.contentType, other.contentType) &&
             Utils.enhancedDeepEquals(this.statusCode, other.statusCode) &&
             Utils.enhancedDeepEquals(this.rawResponse, other.rawResponse) &&
-            Utils.enhancedDeepEquals(this.object, other.object);
+            Utils.enhancedDeepEquals(this.contractorPaymentsPreview, other.contractorPaymentsPreview);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             contentType, statusCode, rawResponse,
-            object);
+            contractorPaymentsPreview);
     }
     
     @Override
@@ -174,7 +175,7 @@ public class GetCompaniesCompanyUuidContractorPaymentsPreviewResponse implements
                 "contentType", contentType,
                 "statusCode", statusCode,
                 "rawResponse", rawResponse,
-                "object", object);
+                "contractorPaymentsPreview", contractorPaymentsPreview);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -186,7 +187,7 @@ public class GetCompaniesCompanyUuidContractorPaymentsPreviewResponse implements
 
         private HttpResponse<InputStream> rawResponse;
 
-        private Optional<? extends GetCompaniesCompanyUuidContractorPaymentsPreviewResponseBody> object = Optional.empty();
+        private Optional<? extends ContractorPaymentsPreview> contractorPaymentsPreview = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -226,18 +227,18 @@ public class GetCompaniesCompanyUuidContractorPaymentsPreviewResponse implements
         /**
          * OK
          */
-        public Builder object(GetCompaniesCompanyUuidContractorPaymentsPreviewResponseBody object) {
-            Utils.checkNotNull(object, "object");
-            this.object = Optional.ofNullable(object);
+        public Builder contractorPaymentsPreview(ContractorPaymentsPreview contractorPaymentsPreview) {
+            Utils.checkNotNull(contractorPaymentsPreview, "contractorPaymentsPreview");
+            this.contractorPaymentsPreview = Optional.ofNullable(contractorPaymentsPreview);
             return this;
         }
 
         /**
          * OK
          */
-        public Builder object(Optional<? extends GetCompaniesCompanyUuidContractorPaymentsPreviewResponseBody> object) {
-            Utils.checkNotNull(object, "object");
-            this.object = object;
+        public Builder contractorPaymentsPreview(Optional<? extends ContractorPaymentsPreview> contractorPaymentsPreview) {
+            Utils.checkNotNull(contractorPaymentsPreview, "contractorPaymentsPreview");
+            this.contractorPaymentsPreview = contractorPaymentsPreview;
             return this;
         }
 
@@ -245,7 +246,7 @@ public class GetCompaniesCompanyUuidContractorPaymentsPreviewResponse implements
 
             return new GetCompaniesCompanyUuidContractorPaymentsPreviewResponse(
                 contentType, statusCode, rawResponse,
-                object);
+                contractorPaymentsPreview);
         }
 
     }

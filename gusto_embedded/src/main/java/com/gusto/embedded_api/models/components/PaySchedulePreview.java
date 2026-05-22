@@ -31,14 +31,15 @@ import java.util.Optional;
  */
 public class PaySchedulePreview {
     /**
-     * Pay periods in the preview range (default 18 months from today, or up to end_date if provided).
+     * A list of pay periods for the previewed pay schedule (default range is 18 months from today, or up
+     * to end_date when provided).
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("pay_periods")
     private Optional<? extends List<PaySchedulePreviewPayPeriod>> payPeriods;
 
     /**
-     * Observed bank holidays (ISO date strings) in the preview range; may affect payroll processing.
+     * A list of dates for bank closures (ISO date strings); may affect payroll processing.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("holidays")
@@ -59,7 +60,8 @@ public class PaySchedulePreview {
     }
 
     /**
-     * Pay periods in the preview range (default 18 months from today, or up to end_date if provided).
+     * A list of pay periods for the previewed pay schedule (default range is 18 months from today, or up
+     * to end_date when provided).
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -68,7 +70,7 @@ public class PaySchedulePreview {
     }
 
     /**
-     * Observed bank holidays (ISO date strings) in the preview range; may affect payroll processing.
+     * A list of dates for bank closures (ISO date strings); may affect payroll processing.
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -82,7 +84,8 @@ public class PaySchedulePreview {
 
 
     /**
-     * Pay periods in the preview range (default 18 months from today, or up to end_date if provided).
+     * A list of pay periods for the previewed pay schedule (default range is 18 months from today, or up
+     * to end_date when provided).
      */
     public PaySchedulePreview withPayPeriods(List<PaySchedulePreviewPayPeriod> payPeriods) {
         Utils.checkNotNull(payPeriods, "payPeriods");
@@ -92,7 +95,8 @@ public class PaySchedulePreview {
 
 
     /**
-     * Pay periods in the preview range (default 18 months from today, or up to end_date if provided).
+     * A list of pay periods for the previewed pay schedule (default range is 18 months from today, or up
+     * to end_date when provided).
      */
     public PaySchedulePreview withPayPeriods(Optional<? extends List<PaySchedulePreviewPayPeriod>> payPeriods) {
         Utils.checkNotNull(payPeriods, "payPeriods");
@@ -101,7 +105,7 @@ public class PaySchedulePreview {
     }
 
     /**
-     * Observed bank holidays (ISO date strings) in the preview range; may affect payroll processing.
+     * A list of dates for bank closures (ISO date strings); may affect payroll processing.
      */
     public PaySchedulePreview withHolidays(List<LocalDate> holidays) {
         Utils.checkNotNull(holidays, "holidays");
@@ -111,7 +115,7 @@ public class PaySchedulePreview {
 
 
     /**
-     * Observed bank holidays (ISO date strings) in the preview range; may affect payroll processing.
+     * A list of dates for bank closures (ISO date strings); may affect payroll processing.
      */
     public PaySchedulePreview withHolidays(Optional<? extends List<LocalDate>> holidays) {
         Utils.checkNotNull(holidays, "holidays");
@@ -159,7 +163,8 @@ public class PaySchedulePreview {
 
 
         /**
-         * Pay periods in the preview range (default 18 months from today, or up to end_date if provided).
+         * A list of pay periods for the previewed pay schedule (default range is 18 months from today, or up
+         * to end_date when provided).
          */
         public Builder payPeriods(List<PaySchedulePreviewPayPeriod> payPeriods) {
             Utils.checkNotNull(payPeriods, "payPeriods");
@@ -168,7 +173,8 @@ public class PaySchedulePreview {
         }
 
         /**
-         * Pay periods in the preview range (default 18 months from today, or up to end_date if provided).
+         * A list of pay periods for the previewed pay schedule (default range is 18 months from today, or up
+         * to end_date when provided).
          */
         public Builder payPeriods(Optional<? extends List<PaySchedulePreviewPayPeriod>> payPeriods) {
             Utils.checkNotNull(payPeriods, "payPeriods");
@@ -178,7 +184,7 @@ public class PaySchedulePreview {
 
 
         /**
-         * Observed bank holidays (ISO date strings) in the preview range; may affect payroll processing.
+         * A list of dates for bank closures (ISO date strings); may affect payroll processing.
          */
         public Builder holidays(List<LocalDate> holidays) {
             Utils.checkNotNull(holidays, "holidays");
@@ -187,7 +193,7 @@ public class PaySchedulePreview {
         }
 
         /**
-         * Observed bank holidays (ISO date strings) in the preview range; may affect payroll processing.
+         * A list of dates for bank closures (ISO date strings); may affect payroll processing.
          */
         public Builder holidays(Optional<? extends List<LocalDate>> holidays) {
             Utils.checkNotNull(holidays, "holidays");

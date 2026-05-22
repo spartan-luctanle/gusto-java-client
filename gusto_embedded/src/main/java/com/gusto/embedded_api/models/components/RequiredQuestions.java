@@ -5,43 +5,36 @@ package com.gusto.embedded_api.models.components;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.gusto.embedded_api.utils.Utils;
 import java.lang.Override;
 import java.lang.String;
-import java.lang.SuppressWarnings;
-import java.util.Optional;
 
 
 public class RequiredQuestions {
     /**
      * The UUID of the question
      */
-    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("question_uuid")
-    private Optional<String> questionUuid;
+    private String questionUuid;
 
     /**
      * The text of the question
      */
-    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("question_text")
-    private Optional<String> questionText;
+    private String questionText;
 
     /**
      * The type of response to the question
      */
-    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("response_type")
-    private Optional<? extends ResponseType> responseType;
+    private ResponseType responseType;
 
     @JsonCreator
     public RequiredQuestions(
-            @JsonProperty("question_uuid") Optional<String> questionUuid,
-            @JsonProperty("question_text") Optional<String> questionText,
-            @JsonProperty("response_type") Optional<? extends ResponseType> responseType) {
+            @JsonProperty("question_uuid") String questionUuid,
+            @JsonProperty("question_text") String questionText,
+            @JsonProperty("response_type") ResponseType responseType) {
         Utils.checkNotNull(questionUuid, "questionUuid");
         Utils.checkNotNull(questionText, "questionText");
         Utils.checkNotNull(responseType, "responseType");
@@ -49,16 +42,12 @@ public class RequiredQuestions {
         this.questionText = questionText;
         this.responseType = responseType;
     }
-    
-    public RequiredQuestions() {
-        this(Optional.empty(), Optional.empty(), Optional.empty());
-    }
 
     /**
      * The UUID of the question
      */
     @JsonIgnore
-    public Optional<String> questionUuid() {
+    public String questionUuid() {
         return questionUuid;
     }
 
@@ -66,17 +55,16 @@ public class RequiredQuestions {
      * The text of the question
      */
     @JsonIgnore
-    public Optional<String> questionText() {
+    public String questionText() {
         return questionText;
     }
 
     /**
      * The type of response to the question
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<ResponseType> responseType() {
-        return (Optional<ResponseType>) responseType;
+    public ResponseType responseType() {
+        return responseType;
     }
 
     public static Builder builder() {
@@ -89,16 +77,6 @@ public class RequiredQuestions {
      */
     public RequiredQuestions withQuestionUuid(String questionUuid) {
         Utils.checkNotNull(questionUuid, "questionUuid");
-        this.questionUuid = Optional.ofNullable(questionUuid);
-        return this;
-    }
-
-
-    /**
-     * The UUID of the question
-     */
-    public RequiredQuestions withQuestionUuid(Optional<String> questionUuid) {
-        Utils.checkNotNull(questionUuid, "questionUuid");
         this.questionUuid = questionUuid;
         return this;
     }
@@ -108,16 +86,6 @@ public class RequiredQuestions {
      */
     public RequiredQuestions withQuestionText(String questionText) {
         Utils.checkNotNull(questionText, "questionText");
-        this.questionText = Optional.ofNullable(questionText);
-        return this;
-    }
-
-
-    /**
-     * The text of the question
-     */
-    public RequiredQuestions withQuestionText(Optional<String> questionText) {
-        Utils.checkNotNull(questionText, "questionText");
         this.questionText = questionText;
         return this;
     }
@@ -126,16 +94,6 @@ public class RequiredQuestions {
      * The type of response to the question
      */
     public RequiredQuestions withResponseType(ResponseType responseType) {
-        Utils.checkNotNull(responseType, "responseType");
-        this.responseType = Optional.ofNullable(responseType);
-        return this;
-    }
-
-
-    /**
-     * The type of response to the question
-     */
-    public RequiredQuestions withResponseType(Optional<? extends ResponseType> responseType) {
         Utils.checkNotNull(responseType, "responseType");
         this.responseType = responseType;
         return this;
@@ -173,11 +131,11 @@ public class RequiredQuestions {
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private Optional<String> questionUuid = Optional.empty();
+        private String questionUuid;
 
-        private Optional<String> questionText = Optional.empty();
+        private String questionText;
 
-        private Optional<? extends ResponseType> responseType = Optional.empty();
+        private ResponseType responseType;
 
         private Builder() {
           // force use of static builder() method
@@ -189,15 +147,6 @@ public class RequiredQuestions {
          */
         public Builder questionUuid(String questionUuid) {
             Utils.checkNotNull(questionUuid, "questionUuid");
-            this.questionUuid = Optional.ofNullable(questionUuid);
-            return this;
-        }
-
-        /**
-         * The UUID of the question
-         */
-        public Builder questionUuid(Optional<String> questionUuid) {
-            Utils.checkNotNull(questionUuid, "questionUuid");
             this.questionUuid = questionUuid;
             return this;
         }
@@ -208,15 +157,6 @@ public class RequiredQuestions {
          */
         public Builder questionText(String questionText) {
             Utils.checkNotNull(questionText, "questionText");
-            this.questionText = Optional.ofNullable(questionText);
-            return this;
-        }
-
-        /**
-         * The text of the question
-         */
-        public Builder questionText(Optional<String> questionText) {
-            Utils.checkNotNull(questionText, "questionText");
             this.questionText = questionText;
             return this;
         }
@@ -226,15 +166,6 @@ public class RequiredQuestions {
          * The type of response to the question
          */
         public Builder responseType(ResponseType responseType) {
-            Utils.checkNotNull(responseType, "responseType");
-            this.responseType = Optional.ofNullable(responseType);
-            return this;
-        }
-
-        /**
-         * The type of response to the question
-         */
-        public Builder responseType(Optional<? extends ResponseType> responseType) {
             Utils.checkNotNull(responseType, "responseType");
             this.responseType = responseType;
             return this;

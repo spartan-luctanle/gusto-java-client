@@ -9,8 +9,8 @@ import java.util.Objects;
 import java.util.Optional;
 
 public enum SplitBy {
-    PERCENTAGE("Percentage"),
-    AMOUNT("Amount");
+    AMOUNT("Amount"),
+    PERCENTAGE("Percentage");
 
     @JsonValue
     private final String value;

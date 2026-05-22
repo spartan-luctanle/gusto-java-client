@@ -41,7 +41,7 @@ public class RehireBody {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("employment_status")
-    private Optional<? extends EmploymentStatus> employmentStatus;
+    private Optional<? extends RehireBodyEmploymentStatus> employmentStatus;
 
     /**
      * Whether the employee is a two percent shareholder of the company. This field only applies to
@@ -56,7 +56,7 @@ public class RehireBody {
             @JsonProperty("effective_date") String effectiveDate,
             @JsonProperty("file_new_hire_report") boolean fileNewHireReport,
             @JsonProperty("work_location_uuid") String workLocationUuid,
-            @JsonProperty("employment_status") Optional<? extends EmploymentStatus> employmentStatus,
+            @JsonProperty("employment_status") Optional<? extends RehireBodyEmploymentStatus> employmentStatus,
             @JsonProperty("two_percent_shareholder") Optional<Boolean> twoPercentShareholder) {
         Utils.checkNotNull(effectiveDate, "effectiveDate");
         Utils.checkNotNull(fileNewHireReport, "fileNewHireReport");
@@ -108,8 +108,8 @@ public class RehireBody {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<EmploymentStatus> employmentStatus() {
-        return (Optional<EmploymentStatus>) employmentStatus;
+    public Optional<RehireBodyEmploymentStatus> employmentStatus() {
+        return (Optional<RehireBodyEmploymentStatus>) employmentStatus;
     }
 
     /**
@@ -157,7 +157,7 @@ public class RehireBody {
      * The employee's employment status. Supplying an invalid option will set the employment_status to
      * *not_set*.
      */
-    public RehireBody withEmploymentStatus(EmploymentStatus employmentStatus) {
+    public RehireBody withEmploymentStatus(RehireBodyEmploymentStatus employmentStatus) {
         Utils.checkNotNull(employmentStatus, "employmentStatus");
         this.employmentStatus = Optional.ofNullable(employmentStatus);
         return this;
@@ -168,7 +168,7 @@ public class RehireBody {
      * The employee's employment status. Supplying an invalid option will set the employment_status to
      * *not_set*.
      */
-    public RehireBody withEmploymentStatus(Optional<? extends EmploymentStatus> employmentStatus) {
+    public RehireBody withEmploymentStatus(Optional<? extends RehireBodyEmploymentStatus> employmentStatus) {
         Utils.checkNotNull(employmentStatus, "employmentStatus");
         this.employmentStatus = employmentStatus;
         return this;
@@ -238,7 +238,7 @@ public class RehireBody {
 
         private String workLocationUuid;
 
-        private Optional<? extends EmploymentStatus> employmentStatus = Optional.empty();
+        private Optional<? extends RehireBodyEmploymentStatus> employmentStatus = Optional.empty();
 
         private Optional<Boolean> twoPercentShareholder = Optional.empty();
 
@@ -281,7 +281,7 @@ public class RehireBody {
          * The employee's employment status. Supplying an invalid option will set the employment_status to
          * *not_set*.
          */
-        public Builder employmentStatus(EmploymentStatus employmentStatus) {
+        public Builder employmentStatus(RehireBodyEmploymentStatus employmentStatus) {
             Utils.checkNotNull(employmentStatus, "employmentStatus");
             this.employmentStatus = Optional.ofNullable(employmentStatus);
             return this;
@@ -291,7 +291,7 @@ public class RehireBody {
          * The employee's employment status. Supplying an invalid option will set the employment_status to
          * *not_set*.
          */
-        public Builder employmentStatus(Optional<? extends EmploymentStatus> employmentStatus) {
+        public Builder employmentStatus(Optional<? extends RehireBodyEmploymentStatus> employmentStatus) {
             Utils.checkNotNull(employmentStatus, "employmentStatus");
             this.employmentStatus = employmentStatus;
             return this;

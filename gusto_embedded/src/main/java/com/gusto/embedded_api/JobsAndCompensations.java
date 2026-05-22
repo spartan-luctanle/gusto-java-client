@@ -83,6 +83,52 @@ public class JobsAndCompensations {
     }
 
     /**
+     * Get jobs for an employee
+     * 
+     * <p>Get all of the jobs that an employee holds.
+     * Note: Compensation data (pay rate, payment unit, and related fields) represents sensitive employee
+     * pay information. When retrieving employee job data, these fields (`rate`, `payment_unit`,
+     * `current_compensation_uuid`, `compensations`) are only returned when the `compensations:read` scope
+     * is included. This allows you to access employee and job metadata without exposing pay rates.
+     * 
+     * <p>Compensation data in the response requires the `compensations:read` scope.
+     * 
+     * <p>scope: `jobs:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @return The call builder
+     */
+    public GetV1EmployeesEmployeeIdJobsRequestBuilder getJobs() {
+        return new GetV1EmployeesEmployeeIdJobsRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Get jobs for an employee
+     * 
+     * <p>Get all of the jobs that an employee holds.
+     * Note: Compensation data (pay rate, payment unit, and related fields) represents sensitive employee
+     * pay information. When retrieving employee job data, these fields (`rate`, `payment_unit`,
+     * `current_compensation_uuid`, `compensations`) are only returned when the `compensations:read` scope
+     * is included. This allows you to access employee and job metadata without exposing pay rates.
+     * 
+     * <p>Compensation data in the response requires the `compensations:read` scope.
+     * 
+     * <p>scope: `jobs:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param request The request object containing all the parameters for the API call.
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public GetV1EmployeesEmployeeIdJobsResponse getJobs(GetV1EmployeesEmployeeIdJobsRequest request) {
+        RequestOperation<GetV1EmployeesEmployeeIdJobsRequest, GetV1EmployeesEmployeeIdJobsResponse> operation
+              = new GetV1EmployeesEmployeeIdJobs.Sync(sdkConfiguration, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
      * Create a job
      * 
      * <p>Create a job.
@@ -142,52 +188,6 @@ public class JobsAndCompensations {
                 .build();
         RequestOperation<PostV1EmployeesEmployeeIdJobsRequest, PostV1EmployeesEmployeeIdJobsResponse> operation
               = new PostV1EmployeesEmployeeIdJobs.Sync(sdkConfiguration, _headers);
-        return operation.handleResponse(operation.doRequest(request));
-    }
-
-    /**
-     * Get jobs for an employee
-     * 
-     * <p>Get all of the jobs that an employee holds.
-     * Note: Compensation data (pay rate, payment unit, and related fields) represents sensitive employee
-     * pay information. When retrieving employee job data, these fields (`rate`, `payment_unit`,
-     * `current_compensation_uuid`, `compensations`) are only returned when the `compensations:read` scope
-     * is included. This allows you to access employee and job metadata without exposing pay rates.
-     * 
-     * <p>Compensation data in the response requires the `compensations:read` scope.
-     * 
-     * <p>scope: `jobs:read`
-     * 
-     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
-     * 
-     * @return The call builder
-     */
-    public GetV1EmployeesEmployeeIdJobsRequestBuilder getJobs() {
-        return new GetV1EmployeesEmployeeIdJobsRequestBuilder(sdkConfiguration);
-    }
-
-    /**
-     * Get jobs for an employee
-     * 
-     * <p>Get all of the jobs that an employee holds.
-     * Note: Compensation data (pay rate, payment unit, and related fields) represents sensitive employee
-     * pay information. When retrieving employee job data, these fields (`rate`, `payment_unit`,
-     * `current_compensation_uuid`, `compensations`) are only returned when the `compensations:read` scope
-     * is included. This allows you to access employee and job metadata without exposing pay rates.
-     * 
-     * <p>Compensation data in the response requires the `compensations:read` scope.
-     * 
-     * <p>scope: `jobs:read`
-     * 
-     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
-     * 
-     * @param request The request object containing all the parameters for the API call.
-     * @return The response from the API call
-     * @throws RuntimeException subclass if the API call fails
-     */
-    public GetV1EmployeesEmployeeIdJobsResponse getJobs(GetV1EmployeesEmployeeIdJobsRequest request) {
-        RequestOperation<GetV1EmployeesEmployeeIdJobsRequest, GetV1EmployeesEmployeeIdJobsResponse> operation
-              = new GetV1EmployeesEmployeeIdJobs.Sync(sdkConfiguration, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

@@ -34,7 +34,7 @@ public class GetV1WebhookSubscriptionUuidResponse implements AsyncResponse {
     private HttpResponse<Blob> rawResponse;
 
     /**
-     * Example response
+     * successful
      */
     private Optional<? extends WebhookSubscription> webhookSubscription;
 
@@ -87,7 +87,7 @@ public class GetV1WebhookSubscriptionUuidResponse implements AsyncResponse {
     }
 
     /**
-     * Example response
+     * successful
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -128,7 +128,7 @@ public class GetV1WebhookSubscriptionUuidResponse implements AsyncResponse {
     }
 
     /**
-     * Example response
+     * successful
      */
     public GetV1WebhookSubscriptionUuidResponse withWebhookSubscription(WebhookSubscription webhookSubscription) {
         Utils.checkNotNull(webhookSubscription, "webhookSubscription");
@@ -138,7 +138,7 @@ public class GetV1WebhookSubscriptionUuidResponse implements AsyncResponse {
 
 
     /**
-     * Example response
+     * successful
      */
     public GetV1WebhookSubscriptionUuidResponse withWebhookSubscription(Optional<? extends WebhookSubscription> webhookSubscription) {
         Utils.checkNotNull(webhookSubscription, "webhookSubscription");
@@ -225,7 +225,7 @@ public class GetV1WebhookSubscriptionUuidResponse implements AsyncResponse {
 
 
         /**
-         * Example response
+         * successful
          */
         public Builder webhookSubscription(WebhookSubscription webhookSubscription) {
             Utils.checkNotNull(webhookSubscription, "webhookSubscription");
@@ -234,7 +234,7 @@ public class GetV1WebhookSubscriptionUuidResponse implements AsyncResponse {
         }
 
         /**
-         * Example response
+         * successful
          */
         public Builder webhookSubscription(Optional<? extends WebhookSubscription> webhookSubscription) {
             Utils.checkNotNull(webhookSubscription, "webhookSubscription");

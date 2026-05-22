@@ -6,11 +6,12 @@
 
 * [getReceipt](#getreceipt) - Get a single contractor payment receipt
 * [fund](#fund) - Fund a contractor payment [DEMO]
-* [create](#create) - Create a contractor payment
 * [list](#list) - Get contractor payments for a company
+* [create](#create) - Create a contractor payment
 * [get](#get) - Get a single contractor payment
 * [delete](#delete) - Cancel a contractor payment
 * [preview](#preview) - Preview contractor payment debit date
+* [getV1ContractorPaymentsContractorPaymentIdPdf](#getv1contractorpaymentscontractorpaymentidpdf) - Get a contractor payment PDF
 
 ## getReceipt
 
@@ -32,21 +33,22 @@ scope: `payrolls:read`
 package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.operations.GetV1ContractorPaymentsContractorPaymentUuidReceiptHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1ContractorPaymentsContractorPaymentUuidReceiptResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
             .build();
 
         GetV1ContractorPaymentsContractorPaymentUuidReceiptResponse res = sdk.contractorPayments().getReceipt()
+                .xGustoAPIVersion(GetV1ContractorPaymentsContractorPaymentUuidReceiptHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
                 .contractorPaymentUuid("<id>")
-                .xGustoAPIVersion(VersionHeader.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
                 .call();
 
         if (res.contractorPaymentReceipt().isPresent()) {
@@ -60,8 +62,8 @@ public class Application {
 
 | Parameter                                                                                                                                                                                                                    | Type                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                  |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `xGustoAPIVersion`                                                                                                                                                                                                           | [Optional\<GetV1ContractorPaymentsContractorPaymentUuidReceiptHeaderXGustoAPIVersion>](../../models/operations/GetV1ContractorPaymentsContractorPaymentUuidReceiptHeaderXGustoAPIVersion.md)                                 | :heavy_minus_sign:                                                                                                                                                                                                           | Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used. |
 | `contractorPaymentUuid`                                                                                                                                                                                                      | *String*                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                           | The UUID of the contractor payment                                                                                                                                                                                           |
-| `xGustoAPIVersion`                                                                                                                                                                                                           | [Optional\<VersionHeader>](../../models/components/VersionHeader.md)                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                           | Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used. |
 
 ### Response
 
@@ -69,9 +71,10 @@ public class Application {
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| models/errors/APIException | 4XX, 5XX                   | \*/\*                      |
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/NotFoundErrorObject | 404                               | application/json                  |
+| models/errors/APIException        | 4XX, 5XX                          | \*/\*                             |
 
 ## fund
 
@@ -90,22 +93,23 @@ scope: `payrolls:run`
 package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.VersionHeader;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
+import com.gusto.embedded_api.models.operations.GetV1ContractorPaymentsContractorPaymentUuidFundHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1ContractorPaymentsContractorPaymentUuidFundResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
             .build();
 
         GetV1ContractorPaymentsContractorPaymentUuidFundResponse res = sdk.contractorPayments().fund()
+                .xGustoAPIVersion(GetV1ContractorPaymentsContractorPaymentUuidFundHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
                 .contractorPaymentUuid("<id>")
-                .xGustoAPIVersion(VersionHeader.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
                 .call();
 
         if (res.contractorPayment().isPresent()) {
@@ -119,8 +123,8 @@ public class Application {
 
 | Parameter                                                                                                                                                                                                                    | Type                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                  |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `xGustoAPIVersion`                                                                                                                                                                                                           | [Optional\<GetV1ContractorPaymentsContractorPaymentUuidFundHeaderXGustoAPIVersion>](../../models/operations/GetV1ContractorPaymentsContractorPaymentUuidFundHeaderXGustoAPIVersion.md)                                       | :heavy_minus_sign:                                                                                                                                                                                                           | Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used. |
 | `contractorPaymentUuid`                                                                                                                                                                                                      | *String*                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                           | The UUID of the contractor payment                                                                                                                                                                                           |
-| `xGustoAPIVersion`                                                                                                                                                                                                           | [Optional\<VersionHeader>](../../models/components/VersionHeader.md)                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                           | Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used. |
 
 ### Response
 
@@ -128,209 +132,17 @@ public class Application {
 
 ### Errors
 
-| Error Type                                   | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| models/errors/UnprocessableEntityErrorObject | 422                                          | application/json                             |
-| models/errors/APIException                   | 4XX, 5XX                                     | \*/\*                                        |
-
-## create
-
-Pay a contractor. Information needed depends on the contractor's wage type (hourly vs fixed)
-
-scope: `payrolls:run`
-
-### Example Usage: Basic
-
-<!-- UsageSnippet language="java" operationID="post-v1-companies-company_id-contractor_payments" method="post" path="/v1/companies/{company_id}/contractor_payments" example="Basic" -->
-```java
-package hello.world;
-
-import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.ContractorPaymentBody;
-import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
-import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdContractorPaymentsHeaderXGustoAPIVersion;
-import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdContractorPaymentsResponse;
-import java.lang.Exception;
-import java.time.LocalDate;
-
-public class Application {
-
-    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityErrorObject, Exception {
-
-        GustoEmbedded sdk = GustoEmbedded.builder()
-                .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
-            .build();
-
-        PostV1CompaniesCompanyIdContractorPaymentsResponse res = sdk.contractorPayments().create()
-                .xGustoAPIVersion(PostV1CompaniesCompanyIdContractorPaymentsHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
-                .companyId("<id>")
-                .contractorPaymentBody(ContractorPaymentBody.builder()
-                    .contractorUuid("<id>")
-                    .date(LocalDate.parse("2020-01-01"))
-                    .wage("5000")
-                    .hours("40")
-                    .bonus("500")
-                    .reimbursement("20")
-                    .build())
-                .call();
-
-        if (res.contractorPayment().isPresent()) {
-            System.out.println(res.contractorPayment().get());
-        }
-    }
-}
-```
-### Example Usage: Example
-
-<!-- UsageSnippet language="java" operationID="post-v1-companies-company_id-contractor_payments" method="post" path="/v1/companies/{company_id}/contractor_payments" example="Example" -->
-```java
-package hello.world;
-
-import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.ContractorPaymentBody;
-import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
-import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdContractorPaymentsHeaderXGustoAPIVersion;
-import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdContractorPaymentsResponse;
-import java.lang.Exception;
-import java.time.LocalDate;
-
-public class Application {
-
-    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityErrorObject, Exception {
-
-        GustoEmbedded sdk = GustoEmbedded.builder()
-                .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
-            .build();
-
-        PostV1CompaniesCompanyIdContractorPaymentsResponse res = sdk.contractorPayments().create()
-                .xGustoAPIVersion(PostV1CompaniesCompanyIdContractorPaymentsHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
-                .companyId("<id>")
-                .contractorPaymentBody(ContractorPaymentBody.builder()
-                    .contractorUuid("<id>")
-                    .date(LocalDate.parse("2020-01-01"))
-                    .wage("5000")
-                    .hours("40")
-                    .bonus("500")
-                    .reimbursement("20")
-                    .build())
-                .call();
-
-        if (res.contractorPayment().isPresent()) {
-            System.out.println(res.contractorPayment().get());
-        }
-    }
-}
-```
-### Example Usage: Nested
-
-<!-- UsageSnippet language="java" operationID="post-v1-companies-company_id-contractor_payments" method="post" path="/v1/companies/{company_id}/contractor_payments" example="Nested" -->
-```java
-package hello.world;
-
-import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.ContractorPaymentBody;
-import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
-import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdContractorPaymentsHeaderXGustoAPIVersion;
-import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdContractorPaymentsResponse;
-import java.lang.Exception;
-import java.time.LocalDate;
-
-public class Application {
-
-    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityErrorObject, Exception {
-
-        GustoEmbedded sdk = GustoEmbedded.builder()
-                .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
-            .build();
-
-        PostV1CompaniesCompanyIdContractorPaymentsResponse res = sdk.contractorPayments().create()
-                .xGustoAPIVersion(PostV1CompaniesCompanyIdContractorPaymentsHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
-                .companyId("<id>")
-                .contractorPaymentBody(ContractorPaymentBody.builder()
-                    .contractorUuid("<id>")
-                    .date(LocalDate.parse("2020-01-01"))
-                    .wage("5000")
-                    .hours("40")
-                    .bonus("500")
-                    .reimbursement("20")
-                    .build())
-                .call();
-
-        if (res.contractorPayment().isPresent()) {
-            System.out.println(res.contractorPayment().get());
-        }
-    }
-}
-```
-### Example Usage: Resource
-
-<!-- UsageSnippet language="java" operationID="post-v1-companies-company_id-contractor_payments" method="post" path="/v1/companies/{company_id}/contractor_payments" example="Resource" -->
-```java
-package hello.world;
-
-import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.ContractorPaymentBody;
-import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
-import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdContractorPaymentsHeaderXGustoAPIVersion;
-import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdContractorPaymentsResponse;
-import java.lang.Exception;
-import java.time.LocalDate;
-
-public class Application {
-
-    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityErrorObject, Exception {
-
-        GustoEmbedded sdk = GustoEmbedded.builder()
-                .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
-            .build();
-
-        PostV1CompaniesCompanyIdContractorPaymentsResponse res = sdk.contractorPayments().create()
-                .xGustoAPIVersion(PostV1CompaniesCompanyIdContractorPaymentsHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
-                .companyId("<id>")
-                .contractorPaymentBody(ContractorPaymentBody.builder()
-                    .contractorUuid("<id>")
-                    .date(LocalDate.parse("2020-01-01"))
-                    .wage("5000")
-                    .hours("40")
-                    .bonus("500")
-                    .reimbursement("20")
-                    .build())
-                .call();
-
-        if (res.contractorPayment().isPresent()) {
-            System.out.println(res.contractorPayment().get());
-        }
-    }
-}
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                                                                    | Type                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                  |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `xGustoAPIVersion`                                                                                                                                                                                                           | [Optional\<PostV1CompaniesCompanyIdContractorPaymentsHeaderXGustoAPIVersion>](../../models/operations/PostV1CompaniesCompanyIdContractorPaymentsHeaderXGustoAPIVersion.md)                                                   | :heavy_minus_sign:                                                                                                                                                                                                           | Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used. |
-| `companyId`                                                                                                                                                                                                                  | *String*                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                           | The UUID of the company                                                                                                                                                                                                      |
-| `contractorPaymentBody`                                                                                                                                                                                                      | [ContractorPaymentBody](../../models/components/ContractorPaymentBody.md)                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                          |
-
-### Response
-
-**[PostV1CompaniesCompanyIdContractorPaymentsResponse](../../models/operations/PostV1CompaniesCompanyIdContractorPaymentsResponse.md)**
-
-### Errors
-
-| Error Type                                   | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| models/errors/NotFoundErrorObject            | 404                                          | application/json                             |
-| models/errors/UnprocessableEntityErrorObject | 422                                          | application/json                             |
-| models/errors/APIException                   | 4XX, 5XX                                     | \*/\*                                        |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/NotFoundErrorObject      | 404                                    | application/json                       |
+| models/errors/UnprocessableEntityError | 422                                    | application/json                       |
+| models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
 
 ## list
 
 Returns an object containing individual contractor payments, within a given time period, including totals.
+
+Results are returned in reverse chronological order (newest first).
 
 scope: `payrolls:read`
 
@@ -399,6 +211,201 @@ public class Application {
 | --------------------------------- | --------------------------------- | --------------------------------- |
 | models/errors/NotFoundErrorObject | 404                               | application/json                  |
 | models/errors/APIException        | 4XX, 5XX                          | \*/\*                             |
+
+## create
+
+Pay a contractor. Information needed depends on the contractor's wage type (hourly vs fixed)
+
+scope: `payrolls:run`
+
+### Example Usage: Basic
+
+<!-- UsageSnippet language="java" operationID="post-v1-companies-company_id-contractor_payments" method="post" path="/v1/companies/{company_id}/contractor_payments" example="Basic" -->
+```java
+package hello.world;
+
+import com.gusto.embedded_api.GustoEmbedded;
+import com.gusto.embedded_api.models.components.ContractorPaymentBody;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
+import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdContractorPaymentsHeaderXGustoAPIVersion;
+import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdContractorPaymentsResponse;
+import java.lang.Exception;
+import java.time.LocalDate;
+
+public class Application {
+
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
+
+        GustoEmbedded sdk = GustoEmbedded.builder()
+                .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
+            .build();
+
+        PostV1CompaniesCompanyIdContractorPaymentsResponse res = sdk.contractorPayments().create()
+                .xGustoAPIVersion(PostV1CompaniesCompanyIdContractorPaymentsHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
+                .companyId("<id>")
+                .contractorPaymentBody(ContractorPaymentBody.builder()
+                    .contractorUuid("<id>")
+                    .date(LocalDate.parse("2020-01-01"))
+                    .wage("5000")
+                    .hours("40")
+                    .bonus("500")
+                    .reimbursement("20")
+                    .build())
+                .call();
+
+        if (res.contractorPayment().isPresent()) {
+            System.out.println(res.contractorPayment().get());
+        }
+    }
+}
+```
+### Example Usage: Example
+
+<!-- UsageSnippet language="java" operationID="post-v1-companies-company_id-contractor_payments" method="post" path="/v1/companies/{company_id}/contractor_payments" example="Example" -->
+```java
+package hello.world;
+
+import com.gusto.embedded_api.GustoEmbedded;
+import com.gusto.embedded_api.models.components.ContractorPaymentBody;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
+import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdContractorPaymentsHeaderXGustoAPIVersion;
+import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdContractorPaymentsResponse;
+import java.lang.Exception;
+import java.time.LocalDate;
+
+public class Application {
+
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
+
+        GustoEmbedded sdk = GustoEmbedded.builder()
+                .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
+            .build();
+
+        PostV1CompaniesCompanyIdContractorPaymentsResponse res = sdk.contractorPayments().create()
+                .xGustoAPIVersion(PostV1CompaniesCompanyIdContractorPaymentsHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
+                .companyId("<id>")
+                .contractorPaymentBody(ContractorPaymentBody.builder()
+                    .contractorUuid("<id>")
+                    .date(LocalDate.parse("2020-01-01"))
+                    .wage("5000")
+                    .hours("40")
+                    .bonus("500")
+                    .reimbursement("20")
+                    .build())
+                .call();
+
+        if (res.contractorPayment().isPresent()) {
+            System.out.println(res.contractorPayment().get());
+        }
+    }
+}
+```
+### Example Usage: Nested
+
+<!-- UsageSnippet language="java" operationID="post-v1-companies-company_id-contractor_payments" method="post" path="/v1/companies/{company_id}/contractor_payments" example="Nested" -->
+```java
+package hello.world;
+
+import com.gusto.embedded_api.GustoEmbedded;
+import com.gusto.embedded_api.models.components.ContractorPaymentBody;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
+import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdContractorPaymentsHeaderXGustoAPIVersion;
+import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdContractorPaymentsResponse;
+import java.lang.Exception;
+import java.time.LocalDate;
+
+public class Application {
+
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
+
+        GustoEmbedded sdk = GustoEmbedded.builder()
+                .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
+            .build();
+
+        PostV1CompaniesCompanyIdContractorPaymentsResponse res = sdk.contractorPayments().create()
+                .xGustoAPIVersion(PostV1CompaniesCompanyIdContractorPaymentsHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
+                .companyId("<id>")
+                .contractorPaymentBody(ContractorPaymentBody.builder()
+                    .contractorUuid("<id>")
+                    .date(LocalDate.parse("2020-01-01"))
+                    .wage("5000")
+                    .hours("40")
+                    .bonus("500")
+                    .reimbursement("20")
+                    .build())
+                .call();
+
+        if (res.contractorPayment().isPresent()) {
+            System.out.println(res.contractorPayment().get());
+        }
+    }
+}
+```
+### Example Usage: Resource
+
+<!-- UsageSnippet language="java" operationID="post-v1-companies-company_id-contractor_payments" method="post" path="/v1/companies/{company_id}/contractor_payments" example="Resource" -->
+```java
+package hello.world;
+
+import com.gusto.embedded_api.GustoEmbedded;
+import com.gusto.embedded_api.models.components.ContractorPaymentBody;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
+import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdContractorPaymentsHeaderXGustoAPIVersion;
+import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdContractorPaymentsResponse;
+import java.lang.Exception;
+import java.time.LocalDate;
+
+public class Application {
+
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
+
+        GustoEmbedded sdk = GustoEmbedded.builder()
+                .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
+            .build();
+
+        PostV1CompaniesCompanyIdContractorPaymentsResponse res = sdk.contractorPayments().create()
+                .xGustoAPIVersion(PostV1CompaniesCompanyIdContractorPaymentsHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
+                .companyId("<id>")
+                .contractorPaymentBody(ContractorPaymentBody.builder()
+                    .contractorUuid("<id>")
+                    .date(LocalDate.parse("2020-01-01"))
+                    .wage("5000")
+                    .hours("40")
+                    .bonus("500")
+                    .reimbursement("20")
+                    .build())
+                .call();
+
+        if (res.contractorPayment().isPresent()) {
+            System.out.println(res.contractorPayment().get());
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                                                                    | Type                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                  |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `xGustoAPIVersion`                                                                                                                                                                                                           | [Optional\<PostV1CompaniesCompanyIdContractorPaymentsHeaderXGustoAPIVersion>](../../models/operations/PostV1CompaniesCompanyIdContractorPaymentsHeaderXGustoAPIVersion.md)                                                   | :heavy_minus_sign:                                                                                                                                                                                                           | Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used. |
+| `companyId`                                                                                                                                                                                                                  | *String*                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                           | The UUID of the company                                                                                                                                                                                                      |
+| `contractorPaymentBody`                                                                                                                                                                                                      | [ContractorPaymentBody](../../models/components/ContractorPaymentBody.md)                                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                          |
+
+### Response
+
+**[PostV1CompaniesCompanyIdContractorPaymentsResponse](../../models/operations/PostV1CompaniesCompanyIdContractorPaymentsResponse.md)**
+
+### Errors
+
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/NotFoundErrorObject      | 404                                    | application/json                       |
+| models/errors/UnprocessableEntityError | 422                                    | application/json                       |
+| models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
 
 ## get
 
@@ -472,14 +479,14 @@ package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
 import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
 import com.gusto.embedded_api.models.operations.DeleteV1CompaniesCompanyIdContractorPaymentContractorPaymentHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.DeleteV1CompaniesCompanyIdContractorPaymentContractorPaymentResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
@@ -510,11 +517,11 @@ public class Application {
 
 ### Errors
 
-| Error Type                                   | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| models/errors/NotFoundErrorObject            | 404                                          | application/json                             |
-| models/errors/UnprocessableEntityErrorObject | 422                                          | application/json                             |
-| models/errors/APIException                   | 4XX, 5XX                                     | \*/\*                                        |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/NotFoundErrorObject      | 404                                    | application/json                       |
+| models/errors/UnprocessableEntityError | 422                                    | application/json                       |
+| models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
 
 ## preview
 
@@ -531,31 +538,32 @@ scope: `payrolls:read`
 package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.VersionHeader;
-import com.gusto.embedded_api.models.errors.GetCompaniesCompanyUuidContractorPaymentsPreviewResponseBody;
-import com.gusto.embedded_api.models.operations.GetCompaniesCompanyUuidContractorPaymentsPreviewRequestBody;
+import com.gusto.embedded_api.models.components.ContractorPaymentsPreviewBody;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
+import com.gusto.embedded_api.models.operations.GetCompaniesCompanyUuidContractorPaymentsPreviewHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetCompaniesCompanyUuidContractorPaymentsPreviewResponse;
 import java.lang.Exception;
 import java.util.List;
 
 public class Application {
 
-    public static void main(String[] args) throws GetCompaniesCompanyUuidContractorPaymentsPreviewResponseBody, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
             .build();
 
         GetCompaniesCompanyUuidContractorPaymentsPreviewResponse res = sdk.contractorPayments().preview()
+                .xGustoAPIVersion(GetCompaniesCompanyUuidContractorPaymentsPreviewHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
                 .companyUuid("<id>")
-                .xGustoAPIVersion(VersionHeader.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
-                .requestBody(GetCompaniesCompanyUuidContractorPaymentsPreviewRequestBody.builder()
+                .contractorPaymentsPreviewBody(ContractorPaymentsPreviewBody.builder()
                     .contractorPayments(List.of())
                     .build())
                 .call();
 
-        if (res.object().isPresent()) {
-            System.out.println(res.object().get());
+        if (res.contractorPaymentsPreview().isPresent()) {
+            System.out.println(res.contractorPaymentsPreview().get());
         }
     }
 }
@@ -565,9 +573,9 @@ public class Application {
 
 | Parameter                                                                                                                                                                                                                    | Type                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                  |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `xGustoAPIVersion`                                                                                                                                                                                                           | [Optional\<GetCompaniesCompanyUuidContractorPaymentsPreviewHeaderXGustoAPIVersion>](../../models/operations/GetCompaniesCompanyUuidContractorPaymentsPreviewHeaderXGustoAPIVersion.md)                                       | :heavy_minus_sign:                                                                                                                                                                                                           | Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used. |
 | `companyUuid`                                                                                                                                                                                                                | *String*                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                           | The UUID of the company                                                                                                                                                                                                      |
-| `xGustoAPIVersion`                                                                                                                                                                                                           | [Optional\<VersionHeader>](../../models/components/VersionHeader.md)                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                           | Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used. |
-| `requestBody`                                                                                                                                                                                                                | [GetCompaniesCompanyUuidContractorPaymentsPreviewRequestBody](../../models/operations/GetCompaniesCompanyUuidContractorPaymentsPreviewRequestBody.md)                                                                        | :heavy_check_mark:                                                                                                                                                                                                           | a list of contractor payments.                                                                                                                                                                                               |
+| `contractorPaymentsPreviewBody`                                                                                                                                                                                              | [ContractorPaymentsPreviewBody](../../models/components/ContractorPaymentsPreviewBody.md)                                                                                                                                    | :heavy_check_mark:                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                          |
 
 ### Response
 
@@ -575,7 +583,60 @@ public class Application {
 
 ### Errors
 
-| Error Type                                                                 | Status Code                                                                | Content Type                                                               |
-| -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
-| models/errors/GetCompaniesCompanyUuidContractorPaymentsPreviewResponseBody | 422                                                                        | application/json                                                           |
-| models/errors/APIException                                                 | 4XX, 5XX                                                                   | \*/\*                                                                      |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/NotFoundErrorObject      | 404                                    | application/json                       |
+| models/errors/UnprocessableEntityError | 422                                    | application/json                       |
+| models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
+
+## getV1ContractorPaymentsContractorPaymentIdPdf
+
+Get a PDF document for a single contractor payment.
+
+scope: `payrolls:read`
+
+### Example Usage
+
+<!-- UsageSnippet language="java" operationID="get-v1-contractor_payments-contractor_payment_id-pdf" method="get" path="/v1/contractor_payments/{contractor_payment_id}/pdf" -->
+```java
+package hello.world;
+
+import com.gusto.embedded_api.GustoEmbedded;
+import com.gusto.embedded_api.models.operations.GetV1ContractorPaymentsContractorPaymentIdPdfHeaderXGustoAPIVersion;
+import com.gusto.embedded_api.models.operations.GetV1ContractorPaymentsContractorPaymentIdPdfResponse;
+import java.lang.Exception;
+
+public class Application {
+
+    public static void main(String[] args) throws Exception {
+
+        GustoEmbedded sdk = GustoEmbedded.builder()
+                .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
+            .build();
+
+        GetV1ContractorPaymentsContractorPaymentIdPdfResponse res = sdk.contractorPayments().getV1ContractorPaymentsContractorPaymentIdPdf()
+                .xGustoAPIVersion(GetV1ContractorPaymentsContractorPaymentIdPdfHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
+                .contractorPaymentId("<id>")
+                .call();
+
+        // handle response
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                                                                    | Type                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                  |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `xGustoAPIVersion`                                                                                                                                                                                                           | [Optional\<GetV1ContractorPaymentsContractorPaymentIdPdfHeaderXGustoAPIVersion>](../../models/operations/GetV1ContractorPaymentsContractorPaymentIdPdfHeaderXGustoAPIVersion.md)                                             | :heavy_minus_sign:                                                                                                                                                                                                           | Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used. |
+| `contractorPaymentId`                                                                                                                                                                                                        | *String*                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                           | The UUID of the contractor payment                                                                                                                                                                                           |
+
+### Response
+
+**[GetV1ContractorPaymentsContractorPaymentIdPdfResponse](../../models/operations/GetV1ContractorPaymentsContractorPaymentIdPdfResponse.md)**
+
+### Errors
+
+| Error Type                 | Status Code                | Content Type               |
+| -------------------------- | -------------------------- | -------------------------- |
+| models/errors/APIException | 4XX, 5XX                   | \*/\*                      |

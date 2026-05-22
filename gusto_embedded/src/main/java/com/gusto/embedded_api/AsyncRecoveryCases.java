@@ -5,8 +5,9 @@ package com.gusto.embedded_api;
 
 import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation;
 
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.operations.GetRecoveryCasesHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetRecoveryCasesRequest;
+import com.gusto.embedded_api.models.operations.RedebitRecoveryCaseHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.RedebitRecoveryCaseRequest;
 import com.gusto.embedded_api.models.operations.async.GetRecoveryCasesRequestBuilder;
 import com.gusto.embedded_api.models.operations.async.GetRecoveryCasesResponse;
@@ -15,6 +16,7 @@ import com.gusto.embedded_api.models.operations.async.RedebitRecoveryCaseRespons
 import com.gusto.embedded_api.operations.GetRecoveryCases;
 import com.gusto.embedded_api.operations.RedebitRecoveryCase;
 import com.gusto.embedded_api.utils.Headers;
+import java.lang.Long;
 import java.lang.String;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -47,6 +49,8 @@ public class AsyncRecoveryCases {
      * 
      * <p>scope: `recovery_cases:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @return The async call builder
      */
     public GetRecoveryCasesRequestBuilder get() {
@@ -60,11 +64,15 @@ public class AsyncRecoveryCases {
      * 
      * <p>scope: `recovery_cases:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param companyUuid The UUID of the company
      * @return {@code CompletableFuture<GetRecoveryCasesResponse>} - The async response
      */
     public CompletableFuture<GetRecoveryCasesResponse> get(String companyUuid) {
-        return get(companyUuid, Optional.empty());
+        return get(
+                Optional.empty(), companyUuid, Optional.empty(),
+                Optional.empty());
     }
 
     /**
@@ -74,16 +82,24 @@ public class AsyncRecoveryCases {
      * 
      * <p>scope: `recovery_cases:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param companyUuid The UUID of the company
-     * @param xGustoAPIVersion 
+     * @param page The page that is requested. When unspecified, will load all objects unless endpoint forces pagination.
+     * @param per Number of objects per page. For majority of endpoints will default to 25
      * @return {@code CompletableFuture<GetRecoveryCasesResponse>} - The async response
      */
-    public CompletableFuture<GetRecoveryCasesResponse> get(String companyUuid, Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public CompletableFuture<GetRecoveryCasesResponse> get(
+            Optional<? extends GetRecoveryCasesHeaderXGustoAPIVersion> xGustoAPIVersion, String companyUuid,
+            Optional<Long> page, Optional<Long> per) {
         GetRecoveryCasesRequest request =
             GetRecoveryCasesRequest
                 .builder()
-                .companyUuid(companyUuid)
                 .xGustoAPIVersion(xGustoAPIVersion)
+                .companyUuid(companyUuid)
+                .page(page)
+                .per(per)
                 .build();
         AsyncRequestOperation<GetRecoveryCasesRequest, GetRecoveryCasesResponse> operation
               = new GetRecoveryCases.Async(sdkConfiguration, _headers);
@@ -107,6 +123,8 @@ public class AsyncRecoveryCases {
      * 
      * <p>scope: `recovery_cases:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @return The async call builder
      */
     public RedebitRecoveryCaseRequestBuilder redebit() {
@@ -128,11 +146,13 @@ public class AsyncRecoveryCases {
      * 
      * <p>scope: `recovery_cases:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param recoveryCaseUuid The UUID of the recovery case
      * @return {@code CompletableFuture<RedebitRecoveryCaseResponse>} - The async response
      */
     public CompletableFuture<RedebitRecoveryCaseResponse> redebit(String recoveryCaseUuid) {
-        return redebit(recoveryCaseUuid, Optional.empty());
+        return redebit(Optional.empty(), recoveryCaseUuid);
     }
 
     /**
@@ -150,16 +170,18 @@ public class AsyncRecoveryCases {
      * 
      * <p>scope: `recovery_cases:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param recoveryCaseUuid The UUID of the recovery case
-     * @param xGustoAPIVersion 
      * @return {@code CompletableFuture<RedebitRecoveryCaseResponse>} - The async response
      */
-    public CompletableFuture<RedebitRecoveryCaseResponse> redebit(String recoveryCaseUuid, Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public CompletableFuture<RedebitRecoveryCaseResponse> redebit(Optional<? extends RedebitRecoveryCaseHeaderXGustoAPIVersion> xGustoAPIVersion, String recoveryCaseUuid) {
         RedebitRecoveryCaseRequest request =
             RedebitRecoveryCaseRequest
                 .builder()
-                .recoveryCaseUuid(recoveryCaseUuid)
                 .xGustoAPIVersion(xGustoAPIVersion)
+                .recoveryCaseUuid(recoveryCaseUuid)
                 .build();
         AsyncRequestOperation<RedebitRecoveryCaseRequest, RedebitRecoveryCaseResponse> operation
               = new RedebitRecoveryCase.Async(sdkConfiguration, _headers);

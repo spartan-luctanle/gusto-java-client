@@ -64,7 +64,8 @@ public class PutV1TimeOffPoliciesTimeOffPolicyUuidRequestBody {
     private JsonNullable<String> accrualRateUnit;
 
     /**
-     * Boolean representing if an employee's accrued time off hours will be paid out on termination
+     * Boolean representing if an employee's accrued time off hours will be paid out on termination. If
+     * accrual_method is unlimited, then paid_out_on_termination must be `false`.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("paid_out_on_termination")
@@ -226,7 +227,8 @@ public class PutV1TimeOffPoliciesTimeOffPolicyUuidRequestBody {
     }
 
     /**
-     * Boolean representing if an employee's accrued time off hours will be paid out on termination
+     * Boolean representing if an employee's accrued time off hours will be paid out on termination. If
+     * accrual_method is unlimited, then paid_out_on_termination must be `false`.
      */
     @JsonIgnore
     public Optional<Boolean> paidOutOnTermination() {
@@ -406,7 +408,8 @@ public class PutV1TimeOffPoliciesTimeOffPolicyUuidRequestBody {
     }
 
     /**
-     * Boolean representing if an employee's accrued time off hours will be paid out on termination
+     * Boolean representing if an employee's accrued time off hours will be paid out on termination. If
+     * accrual_method is unlimited, then paid_out_on_termination must be `false`.
      */
     public PutV1TimeOffPoliciesTimeOffPolicyUuidRequestBody withPaidOutOnTermination(boolean paidOutOnTermination) {
         Utils.checkNotNull(paidOutOnTermination, "paidOutOnTermination");
@@ -416,7 +419,8 @@ public class PutV1TimeOffPoliciesTimeOffPolicyUuidRequestBody {
 
 
     /**
-     * Boolean representing if an employee's accrued time off hours will be paid out on termination
+     * Boolean representing if an employee's accrued time off hours will be paid out on termination. If
+     * accrual_method is unlimited, then paid_out_on_termination must be `false`.
      */
     public PutV1TimeOffPoliciesTimeOffPolicyUuidRequestBody withPaidOutOnTermination(Optional<Boolean> paidOutOnTermination) {
         Utils.checkNotNull(paidOutOnTermination, "paidOutOnTermination");
@@ -749,7 +753,8 @@ public class PutV1TimeOffPoliciesTimeOffPolicyUuidRequestBody {
 
 
         /**
-         * Boolean representing if an employee's accrued time off hours will be paid out on termination
+         * Boolean representing if an employee's accrued time off hours will be paid out on termination. If
+         * accrual_method is unlimited, then paid_out_on_termination must be `false`.
          */
         public Builder paidOutOnTermination(boolean paidOutOnTermination) {
             Utils.checkNotNull(paidOutOnTermination, "paidOutOnTermination");
@@ -758,7 +763,8 @@ public class PutV1TimeOffPoliciesTimeOffPolicyUuidRequestBody {
         }
 
         /**
-         * Boolean representing if an employee's accrued time off hours will be paid out on termination
+         * Boolean representing if an employee's accrued time off hours will be paid out on termination. If
+         * accrual_method is unlimited, then paid_out_on_termination must be `false`.
          */
         public Builder paidOutOnTermination(Optional<Boolean> paidOutOnTermination) {
             Utils.checkNotNull(paidOutOnTermination, "paidOutOnTermination");

@@ -1,0 +1,11 @@
+# ContractorPaymentSummary
+
+The representation of the summary of contractor payments for a given company in a given time period.
+
+
+## Fields
+
+| Field                                                                                                                      | Type                                                                                                                       | Required                                                                                                                   | Description                                                                                                                |
+| -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `total`                                                                                                                    | [Optional\<Total>](../../models/components/Total.md)                                                                       | :heavy_minus_sign:                                                                                                         | The wage and reimbursement totals for all contractor payments within a given time period.                                  |
+| `contractorPayments`                                                                                                       | List\<[ContractorPaymentSummaryContractorPayments](../../models/components/ContractorPaymentSummaryContractorPayments.md)> | :heavy_minus_sign:                                                                                                         | The individual contractor payments, within a given time period, grouped by contractor.                                     |

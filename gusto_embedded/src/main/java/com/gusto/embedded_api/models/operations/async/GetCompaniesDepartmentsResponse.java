@@ -35,7 +35,7 @@ public class GetCompaniesDepartmentsResponse implements AsyncResponse {
     private HttpResponse<Blob> rawResponse;
 
     /**
-     * List of departments
+     * Success
      */
     private Optional<? extends List<Department>> departmentList;
 
@@ -88,7 +88,7 @@ public class GetCompaniesDepartmentsResponse implements AsyncResponse {
     }
 
     /**
-     * List of departments
+     * Success
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -129,7 +129,7 @@ public class GetCompaniesDepartmentsResponse implements AsyncResponse {
     }
 
     /**
-     * List of departments
+     * Success
      */
     public GetCompaniesDepartmentsResponse withDepartmentList(List<Department> departmentList) {
         Utils.checkNotNull(departmentList, "departmentList");
@@ -139,7 +139,7 @@ public class GetCompaniesDepartmentsResponse implements AsyncResponse {
 
 
     /**
-     * List of departments
+     * Success
      */
     public GetCompaniesDepartmentsResponse withDepartmentList(Optional<? extends List<Department>> departmentList) {
         Utils.checkNotNull(departmentList, "departmentList");
@@ -226,7 +226,7 @@ public class GetCompaniesDepartmentsResponse implements AsyncResponse {
 
 
         /**
-         * List of departments
+         * Success
          */
         public Builder departmentList(List<Department> departmentList) {
             Utils.checkNotNull(departmentList, "departmentList");
@@ -235,7 +235,7 @@ public class GetCompaniesDepartmentsResponse implements AsyncResponse {
         }
 
         /**
-         * List of departments
+         * Success
          */
         public Builder departmentList(Optional<? extends List<Department>> departmentList) {
             Utils.checkNotNull(departmentList, "departmentList");

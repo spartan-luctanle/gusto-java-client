@@ -7,9 +7,9 @@ import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.components.ContractorPaymentsPreviewBody;
+import com.gusto.embedded_api.models.operations.GetCompaniesCompanyUuidContractorPaymentsPreviewHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetCompaniesCompanyUuidContractorPaymentsPreviewRequest;
-import com.gusto.embedded_api.models.operations.GetCompaniesCompanyUuidContractorPaymentsPreviewRequestBody;
 import com.gusto.embedded_api.operations.GetCompaniesCompanyUuidContractorPaymentsPreview;
 import com.gusto.embedded_api.utils.Headers;
 import com.gusto.embedded_api.utils.LazySingletonValue;
@@ -20,17 +20,29 @@ import java.util.concurrent.CompletableFuture;
 
 public class GetCompaniesCompanyUuidContractorPaymentsPreviewRequestBuilder {
 
-    private String companyUuid;
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
+    private Optional<? extends GetCompaniesCompanyUuidContractorPaymentsPreviewHeaderXGustoAPIVersion> xGustoAPIVersion = Utils.readDefaultOrConstValue(
                             "xGustoAPIVersion",
                             "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
-    private GetCompaniesCompanyUuidContractorPaymentsPreviewRequestBody requestBody;
+                            new TypeReference<Optional<? extends GetCompaniesCompanyUuidContractorPaymentsPreviewHeaderXGustoAPIVersion>>() {});
+    private String companyUuid;
+    private ContractorPaymentsPreviewBody contractorPaymentsPreviewBody;
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
     public GetCompaniesCompanyUuidContractorPaymentsPreviewRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
+    }
+                
+    public GetCompaniesCompanyUuidContractorPaymentsPreviewRequestBuilder xGustoAPIVersion(GetCompaniesCompanyUuidContractorPaymentsPreviewHeaderXGustoAPIVersion xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
+        return this;
+    }
+
+    public GetCompaniesCompanyUuidContractorPaymentsPreviewRequestBuilder xGustoAPIVersion(Optional<? extends GetCompaniesCompanyUuidContractorPaymentsPreviewHeaderXGustoAPIVersion> xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = xGustoAPIVersion;
+        return this;
     }
 
     public GetCompaniesCompanyUuidContractorPaymentsPreviewRequestBuilder companyUuid(String companyUuid) {
@@ -38,22 +50,10 @@ public class GetCompaniesCompanyUuidContractorPaymentsPreviewRequestBuilder {
         this.companyUuid = companyUuid;
         return this;
     }
-                
-    public GetCompaniesCompanyUuidContractorPaymentsPreviewRequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
-        return this;
-    }
 
-    public GetCompaniesCompanyUuidContractorPaymentsPreviewRequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = xGustoAPIVersion;
-        return this;
-    }
-
-    public GetCompaniesCompanyUuidContractorPaymentsPreviewRequestBuilder requestBody(GetCompaniesCompanyUuidContractorPaymentsPreviewRequestBody requestBody) {
-        Utils.checkNotNull(requestBody, "requestBody");
-        this.requestBody = requestBody;
+    public GetCompaniesCompanyUuidContractorPaymentsPreviewRequestBuilder contractorPaymentsPreviewBody(ContractorPaymentsPreviewBody contractorPaymentsPreviewBody) {
+        Utils.checkNotNull(contractorPaymentsPreviewBody, "contractorPaymentsPreviewBody");
+        this.contractorPaymentsPreviewBody = contractorPaymentsPreviewBody;
         return this;
     }
 
@@ -63,9 +63,9 @@ public class GetCompaniesCompanyUuidContractorPaymentsPreviewRequestBuilder {
             xGustoAPIVersion = _SINGLETON_VALUE_XGustoAPIVersion.value();
         }
 
-        GetCompaniesCompanyUuidContractorPaymentsPreviewRequest request = new GetCompaniesCompanyUuidContractorPaymentsPreviewRequest(companyUuid,
-            xGustoAPIVersion,
-            requestBody);
+        GetCompaniesCompanyUuidContractorPaymentsPreviewRequest request = new GetCompaniesCompanyUuidContractorPaymentsPreviewRequest(xGustoAPIVersion,
+            companyUuid,
+            contractorPaymentsPreviewBody);
 
         return request;
     }
@@ -80,9 +80,9 @@ public class GetCompaniesCompanyUuidContractorPaymentsPreviewRequestBuilder {
             .thenCompose(operation::handleResponse);
     }
 
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+    private static final LazySingletonValue<Optional<? extends GetCompaniesCompanyUuidContractorPaymentsPreviewHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
             new LazySingletonValue<>(
                     "xGustoAPIVersion",
                     "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
+                    new TypeReference<Optional<? extends GetCompaniesCompanyUuidContractorPaymentsPreviewHeaderXGustoAPIVersion>>() {});
 }

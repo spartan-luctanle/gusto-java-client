@@ -6,10 +6,10 @@ package com.gusto.embedded_api.models.operations;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.gusto.embedded_api.models.components.VersionHeader;
 import com.gusto.embedded_api.utils.LazySingletonValue;
 import com.gusto.embedded_api.utils.SpeakeasyMetadata;
 import com.gusto.embedded_api.utils.Utils;
+import java.lang.Long;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
@@ -18,42 +18,73 @@ import java.util.Optional;
 
 public class GetV1CompanyFormsRequest {
     /**
+     * Determines the date-based API version associated with your API call. If none is provided, your
+     * application's [minimum API
+     * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     */
+    @SpeakeasyMetadata("header:style=simple,explode=false,name=X-Gusto-API-Version")
+    private Optional<? extends GetV1CompanyFormsHeaderXGustoAPIVersion> xGustoAPIVersion;
+
+    /**
      * The UUID of the company
      */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=company_id")
     private String companyId;
 
     /**
-     * Sort company forms. Options: name, year, quarter, draft, document_content_type, created_at
-     * (optionally with :asc or :desc suffix)
+     * Sort company forms by a given field. Append `:asc` or `:desc` to specify direction (e.g.,
+     * `name:asc`). Defaults to ascending.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=sort_by")
-    private Optional<String> sortBy;
+    private Optional<? extends GetV1CompanyFormsQueryParamSortBy> sortBy;
+
+    /**
+     * The page that is requested. When unspecified, will load all objects unless endpoint forces
+     * pagination.
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=page")
+    private Optional<Long> page;
+
+    /**
+     * Number of objects per page. For majority of endpoints will default to 25
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=per")
+    private Optional<Long> per;
+
+    @JsonCreator
+    public GetV1CompanyFormsRequest(
+            Optional<? extends GetV1CompanyFormsHeaderXGustoAPIVersion> xGustoAPIVersion,
+            String companyId,
+            Optional<? extends GetV1CompanyFormsQueryParamSortBy> sortBy,
+            Optional<Long> page,
+            Optional<Long> per) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        Utils.checkNotNull(companyId, "companyId");
+        Utils.checkNotNull(sortBy, "sortBy");
+        Utils.checkNotNull(page, "page");
+        Utils.checkNotNull(per, "per");
+        this.xGustoAPIVersion = xGustoAPIVersion;
+        this.companyId = companyId;
+        this.sortBy = sortBy;
+        this.page = page;
+        this.per = per;
+    }
+    
+    public GetV1CompanyFormsRequest(
+            String companyId) {
+        this(Optional.empty(), companyId, Optional.empty(),
+            Optional.empty(), Optional.empty());
+    }
 
     /**
      * Determines the date-based API version associated with your API call. If none is provided, your
      * application's [minimum API
      * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      */
-    @SpeakeasyMetadata("header:style=simple,explode=false,name=X-Gusto-API-Version")
-    private Optional<? extends VersionHeader> xGustoAPIVersion;
-
-    @JsonCreator
-    public GetV1CompanyFormsRequest(
-            String companyId,
-            Optional<String> sortBy,
-            Optional<? extends VersionHeader> xGustoAPIVersion) {
-        Utils.checkNotNull(companyId, "companyId");
-        Utils.checkNotNull(sortBy, "sortBy");
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.companyId = companyId;
-        this.sortBy = sortBy;
-        this.xGustoAPIVersion = xGustoAPIVersion;
-    }
-    
-    public GetV1CompanyFormsRequest(
-            String companyId) {
-        this(companyId, Optional.empty(), Optional.empty());
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<GetV1CompanyFormsHeaderXGustoAPIVersion> xGustoAPIVersion() {
+        return (Optional<GetV1CompanyFormsHeaderXGustoAPIVersion>) xGustoAPIVersion;
     }
 
     /**
@@ -65,23 +96,30 @@ public class GetV1CompanyFormsRequest {
     }
 
     /**
-     * Sort company forms. Options: name, year, quarter, draft, document_content_type, created_at
-     * (optionally with :asc or :desc suffix)
-     */
-    @JsonIgnore
-    public Optional<String> sortBy() {
-        return sortBy;
-    }
-
-    /**
-     * Determines the date-based API version associated with your API call. If none is provided, your
-     * application's [minimum API
-     * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     * Sort company forms by a given field. Append `:asc` or `:desc` to specify direction (e.g.,
+     * `name:asc`). Defaults to ascending.
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<VersionHeader> xGustoAPIVersion() {
-        return (Optional<VersionHeader>) xGustoAPIVersion;
+    public Optional<GetV1CompanyFormsQueryParamSortBy> sortBy() {
+        return (Optional<GetV1CompanyFormsQueryParamSortBy>) sortBy;
+    }
+
+    /**
+     * The page that is requested. When unspecified, will load all objects unless endpoint forces
+     * pagination.
+     */
+    @JsonIgnore
+    public Optional<Long> page() {
+        return page;
+    }
+
+    /**
+     * Number of objects per page. For majority of endpoints will default to 25
+     */
+    @JsonIgnore
+    public Optional<Long> per() {
+        return per;
     }
 
     public static Builder builder() {
@@ -90,41 +128,11 @@ public class GetV1CompanyFormsRequest {
 
 
     /**
-     * The UUID of the company
-     */
-    public GetV1CompanyFormsRequest withCompanyId(String companyId) {
-        Utils.checkNotNull(companyId, "companyId");
-        this.companyId = companyId;
-        return this;
-    }
-
-    /**
-     * Sort company forms. Options: name, year, quarter, draft, document_content_type, created_at
-     * (optionally with :asc or :desc suffix)
-     */
-    public GetV1CompanyFormsRequest withSortBy(String sortBy) {
-        Utils.checkNotNull(sortBy, "sortBy");
-        this.sortBy = Optional.ofNullable(sortBy);
-        return this;
-    }
-
-
-    /**
-     * Sort company forms. Options: name, year, quarter, draft, document_content_type, created_at
-     * (optionally with :asc or :desc suffix)
-     */
-    public GetV1CompanyFormsRequest withSortBy(Optional<String> sortBy) {
-        Utils.checkNotNull(sortBy, "sortBy");
-        this.sortBy = sortBy;
-        return this;
-    }
-
-    /**
      * Determines the date-based API version associated with your API call. If none is provided, your
      * application's [minimum API
      * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      */
-    public GetV1CompanyFormsRequest withXGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+    public GetV1CompanyFormsRequest withXGustoAPIVersion(GetV1CompanyFormsHeaderXGustoAPIVersion xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
         return this;
@@ -136,9 +144,79 @@ public class GetV1CompanyFormsRequest {
      * application's [minimum API
      * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      */
-    public GetV1CompanyFormsRequest withXGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public GetV1CompanyFormsRequest withXGustoAPIVersion(Optional<? extends GetV1CompanyFormsHeaderXGustoAPIVersion> xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = xGustoAPIVersion;
+        return this;
+    }
+
+    /**
+     * The UUID of the company
+     */
+    public GetV1CompanyFormsRequest withCompanyId(String companyId) {
+        Utils.checkNotNull(companyId, "companyId");
+        this.companyId = companyId;
+        return this;
+    }
+
+    /**
+     * Sort company forms by a given field. Append `:asc` or `:desc` to specify direction (e.g.,
+     * `name:asc`). Defaults to ascending.
+     */
+    public GetV1CompanyFormsRequest withSortBy(GetV1CompanyFormsQueryParamSortBy sortBy) {
+        Utils.checkNotNull(sortBy, "sortBy");
+        this.sortBy = Optional.ofNullable(sortBy);
+        return this;
+    }
+
+
+    /**
+     * Sort company forms by a given field. Append `:asc` or `:desc` to specify direction (e.g.,
+     * `name:asc`). Defaults to ascending.
+     */
+    public GetV1CompanyFormsRequest withSortBy(Optional<? extends GetV1CompanyFormsQueryParamSortBy> sortBy) {
+        Utils.checkNotNull(sortBy, "sortBy");
+        this.sortBy = sortBy;
+        return this;
+    }
+
+    /**
+     * The page that is requested. When unspecified, will load all objects unless endpoint forces
+     * pagination.
+     */
+    public GetV1CompanyFormsRequest withPage(long page) {
+        Utils.checkNotNull(page, "page");
+        this.page = Optional.ofNullable(page);
+        return this;
+    }
+
+
+    /**
+     * The page that is requested. When unspecified, will load all objects unless endpoint forces
+     * pagination.
+     */
+    public GetV1CompanyFormsRequest withPage(Optional<Long> page) {
+        Utils.checkNotNull(page, "page");
+        this.page = page;
+        return this;
+    }
+
+    /**
+     * Number of objects per page. For majority of endpoints will default to 25
+     */
+    public GetV1CompanyFormsRequest withPer(long per) {
+        Utils.checkNotNull(per, "per");
+        this.per = Optional.ofNullable(per);
+        return this;
+    }
+
+
+    /**
+     * Number of objects per page. For majority of endpoints will default to 25
+     */
+    public GetV1CompanyFormsRequest withPer(Optional<Long> per) {
+        Utils.checkNotNull(per, "per");
+        this.per = per;
         return this;
     }
 
@@ -152,36 +230,68 @@ public class GetV1CompanyFormsRequest {
         }
         GetV1CompanyFormsRequest other = (GetV1CompanyFormsRequest) o;
         return 
+            Utils.enhancedDeepEquals(this.xGustoAPIVersion, other.xGustoAPIVersion) &&
             Utils.enhancedDeepEquals(this.companyId, other.companyId) &&
             Utils.enhancedDeepEquals(this.sortBy, other.sortBy) &&
-            Utils.enhancedDeepEquals(this.xGustoAPIVersion, other.xGustoAPIVersion);
+            Utils.enhancedDeepEquals(this.page, other.page) &&
+            Utils.enhancedDeepEquals(this.per, other.per);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            companyId, sortBy, xGustoAPIVersion);
+            xGustoAPIVersion, companyId, sortBy,
+            page, per);
     }
     
     @Override
     public String toString() {
         return Utils.toString(GetV1CompanyFormsRequest.class,
+                "xGustoAPIVersion", xGustoAPIVersion,
                 "companyId", companyId,
                 "sortBy", sortBy,
-                "xGustoAPIVersion", xGustoAPIVersion);
+                "page", page,
+                "per", per);
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
+        private Optional<? extends GetV1CompanyFormsHeaderXGustoAPIVersion> xGustoAPIVersion;
+
         private String companyId;
 
-        private Optional<String> sortBy = Optional.empty();
+        private Optional<? extends GetV1CompanyFormsQueryParamSortBy> sortBy = Optional.empty();
 
-        private Optional<? extends VersionHeader> xGustoAPIVersion;
+        private Optional<Long> page = Optional.empty();
+
+        private Optional<Long> per = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
+        }
+
+
+        /**
+         * Determines the date-based API version associated with your API call. If none is provided, your
+         * application's [minimum API
+         * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+         */
+        public Builder xGustoAPIVersion(GetV1CompanyFormsHeaderXGustoAPIVersion xGustoAPIVersion) {
+            Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+            this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
+            return this;
+        }
+
+        /**
+         * Determines the date-based API version associated with your API call. If none is provided, your
+         * application's [minimum API
+         * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+         */
+        public Builder xGustoAPIVersion(Optional<? extends GetV1CompanyFormsHeaderXGustoAPIVersion> xGustoAPIVersion) {
+            Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+            this.xGustoAPIVersion = xGustoAPIVersion;
+            return this;
         }
 
 
@@ -196,20 +306,20 @@ public class GetV1CompanyFormsRequest {
 
 
         /**
-         * Sort company forms. Options: name, year, quarter, draft, document_content_type, created_at
-         * (optionally with :asc or :desc suffix)
+         * Sort company forms by a given field. Append `:asc` or `:desc` to specify direction (e.g.,
+         * `name:asc`). Defaults to ascending.
          */
-        public Builder sortBy(String sortBy) {
+        public Builder sortBy(GetV1CompanyFormsQueryParamSortBy sortBy) {
             Utils.checkNotNull(sortBy, "sortBy");
             this.sortBy = Optional.ofNullable(sortBy);
             return this;
         }
 
         /**
-         * Sort company forms. Options: name, year, quarter, draft, document_content_type, created_at
-         * (optionally with :asc or :desc suffix)
+         * Sort company forms by a given field. Append `:asc` or `:desc` to specify direction (e.g.,
+         * `name:asc`). Defaults to ascending.
          */
-        public Builder sortBy(Optional<String> sortBy) {
+        public Builder sortBy(Optional<? extends GetV1CompanyFormsQueryParamSortBy> sortBy) {
             Utils.checkNotNull(sortBy, "sortBy");
             this.sortBy = sortBy;
             return this;
@@ -217,24 +327,41 @@ public class GetV1CompanyFormsRequest {
 
 
         /**
-         * Determines the date-based API version associated with your API call. If none is provided, your
-         * application's [minimum API
-         * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+         * The page that is requested. When unspecified, will load all objects unless endpoint forces
+         * pagination.
          */
-        public Builder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
-            Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-            this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
+        public Builder page(long page) {
+            Utils.checkNotNull(page, "page");
+            this.page = Optional.ofNullable(page);
             return this;
         }
 
         /**
-         * Determines the date-based API version associated with your API call. If none is provided, your
-         * application's [minimum API
-         * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+         * The page that is requested. When unspecified, will load all objects unless endpoint forces
+         * pagination.
          */
-        public Builder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
-            Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-            this.xGustoAPIVersion = xGustoAPIVersion;
+        public Builder page(Optional<Long> page) {
+            Utils.checkNotNull(page, "page");
+            this.page = page;
+            return this;
+        }
+
+
+        /**
+         * Number of objects per page. For majority of endpoints will default to 25
+         */
+        public Builder per(long per) {
+            Utils.checkNotNull(per, "per");
+            this.per = Optional.ofNullable(per);
+            return this;
+        }
+
+        /**
+         * Number of objects per page. For majority of endpoints will default to 25
+         */
+        public Builder per(Optional<Long> per) {
+            Utils.checkNotNull(per, "per");
+            this.per = per;
             return this;
         }
 
@@ -244,14 +371,15 @@ public class GetV1CompanyFormsRequest {
             }
 
             return new GetV1CompanyFormsRequest(
-                companyId, sortBy, xGustoAPIVersion);
+                xGustoAPIVersion, companyId, sortBy,
+                page, per);
         }
 
 
-        private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+        private static final LazySingletonValue<Optional<? extends GetV1CompanyFormsHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
                 new LazySingletonValue<>(
                         "X-Gusto-API-Version",
                         "\"2025-06-15\"",
-                        new TypeReference<Optional<? extends VersionHeader>>() {});
+                        new TypeReference<Optional<? extends GetV1CompanyFormsHeaderXGustoAPIVersion>>() {});
     }
 }

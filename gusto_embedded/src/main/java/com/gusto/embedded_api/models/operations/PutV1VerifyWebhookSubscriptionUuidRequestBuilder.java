@@ -7,7 +7,6 @@ import static com.gusto.embedded_api.operations.Operations.RequestOperation;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.VersionHeader;
 import com.gusto.embedded_api.operations.PutV1VerifyWebhookSubscriptionUuid;
 import com.gusto.embedded_api.utils.Headers;
 import com.gusto.embedded_api.utils.LazySingletonValue;
@@ -19,10 +18,10 @@ public class PutV1VerifyWebhookSubscriptionUuidRequestBuilder {
 
     private PutV1VerifyWebhookSubscriptionUuidSecurity security;
     private String webhookSubscriptionUuid;
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
+    private Optional<? extends PutV1VerifyWebhookSubscriptionUuidHeaderXGustoAPIVersion> xGustoAPIVersion = Utils.readDefaultOrConstValue(
                             "xGustoAPIVersion",
                             "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
+                            new TypeReference<Optional<? extends PutV1VerifyWebhookSubscriptionUuidHeaderXGustoAPIVersion>>() {});
     private PutV1VerifyWebhookSubscriptionUuidRequestBody requestBody;
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
@@ -43,13 +42,13 @@ public class PutV1VerifyWebhookSubscriptionUuidRequestBuilder {
         return this;
     }
                 
-    public PutV1VerifyWebhookSubscriptionUuidRequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+    public PutV1VerifyWebhookSubscriptionUuidRequestBuilder xGustoAPIVersion(PutV1VerifyWebhookSubscriptionUuidHeaderXGustoAPIVersion xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
         return this;
     }
 
-    public PutV1VerifyWebhookSubscriptionUuidRequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public PutV1VerifyWebhookSubscriptionUuidRequestBuilder xGustoAPIVersion(Optional<? extends PutV1VerifyWebhookSubscriptionUuidHeaderXGustoAPIVersion> xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = xGustoAPIVersion;
         return this;
@@ -83,9 +82,9 @@ public class PutV1VerifyWebhookSubscriptionUuidRequestBuilder {
         return operation.handleResponse(operation.doRequest(request));
     }
 
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+    private static final LazySingletonValue<Optional<? extends PutV1VerifyWebhookSubscriptionUuidHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
             new LazySingletonValue<>(
                     "xGustoAPIVersion",
                     "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
+                    new TypeReference<Optional<? extends PutV1VerifyWebhookSubscriptionUuidHeaderXGustoAPIVersion>>() {});
 }

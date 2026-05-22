@@ -15,11 +15,7 @@ import java.lang.SuppressWarnings;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * CompanyCustomFieldList
- * 
- * <p>Example response
- */
+
 public class CompanyCustomFieldList {
 
     @JsonInclude(Include.NON_ABSENT)

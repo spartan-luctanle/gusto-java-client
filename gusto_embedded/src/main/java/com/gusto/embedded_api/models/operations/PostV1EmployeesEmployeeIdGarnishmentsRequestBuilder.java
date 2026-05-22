@@ -7,7 +7,7 @@ import static com.gusto.embedded_api.operations.Operations.RequestOperation;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.components.GarnishmentRequest;
 import com.gusto.embedded_api.operations.PostV1EmployeesEmployeeIdGarnishments;
 import com.gusto.embedded_api.utils.Headers;
 import com.gusto.embedded_api.utils.LazySingletonValue;
@@ -17,17 +17,29 @@ import java.util.Optional;
 
 public class PostV1EmployeesEmployeeIdGarnishmentsRequestBuilder {
 
-    private String employeeId;
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
+    private Optional<? extends PostV1EmployeesEmployeeIdGarnishmentsHeaderXGustoAPIVersion> xGustoAPIVersion = Utils.readDefaultOrConstValue(
                             "xGustoAPIVersion",
                             "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
-    private PostV1EmployeesEmployeeIdGarnishmentsRequestBody requestBody;
+                            new TypeReference<Optional<? extends PostV1EmployeesEmployeeIdGarnishmentsHeaderXGustoAPIVersion>>() {});
+    private String employeeId;
+    private GarnishmentRequest garnishmentRequest;
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
     public PostV1EmployeesEmployeeIdGarnishmentsRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
+    }
+                
+    public PostV1EmployeesEmployeeIdGarnishmentsRequestBuilder xGustoAPIVersion(PostV1EmployeesEmployeeIdGarnishmentsHeaderXGustoAPIVersion xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
+        return this;
+    }
+
+    public PostV1EmployeesEmployeeIdGarnishmentsRequestBuilder xGustoAPIVersion(Optional<? extends PostV1EmployeesEmployeeIdGarnishmentsHeaderXGustoAPIVersion> xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = xGustoAPIVersion;
+        return this;
     }
 
     public PostV1EmployeesEmployeeIdGarnishmentsRequestBuilder employeeId(String employeeId) {
@@ -35,22 +47,10 @@ public class PostV1EmployeesEmployeeIdGarnishmentsRequestBuilder {
         this.employeeId = employeeId;
         return this;
     }
-                
-    public PostV1EmployeesEmployeeIdGarnishmentsRequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
-        return this;
-    }
 
-    public PostV1EmployeesEmployeeIdGarnishmentsRequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = xGustoAPIVersion;
-        return this;
-    }
-
-    public PostV1EmployeesEmployeeIdGarnishmentsRequestBuilder requestBody(PostV1EmployeesEmployeeIdGarnishmentsRequestBody requestBody) {
-        Utils.checkNotNull(requestBody, "requestBody");
-        this.requestBody = requestBody;
+    public PostV1EmployeesEmployeeIdGarnishmentsRequestBuilder garnishmentRequest(GarnishmentRequest garnishmentRequest) {
+        Utils.checkNotNull(garnishmentRequest, "garnishmentRequest");
+        this.garnishmentRequest = garnishmentRequest;
         return this;
     }
 
@@ -60,9 +60,9 @@ public class PostV1EmployeesEmployeeIdGarnishmentsRequestBuilder {
             xGustoAPIVersion = _SINGLETON_VALUE_XGustoAPIVersion.value();
         }
 
-        PostV1EmployeesEmployeeIdGarnishmentsRequest request = new PostV1EmployeesEmployeeIdGarnishmentsRequest(employeeId,
-            xGustoAPIVersion,
-            requestBody);
+        PostV1EmployeesEmployeeIdGarnishmentsRequest request = new PostV1EmployeesEmployeeIdGarnishmentsRequest(xGustoAPIVersion,
+            employeeId,
+            garnishmentRequest);
 
         return request;
     }
@@ -76,9 +76,9 @@ public class PostV1EmployeesEmployeeIdGarnishmentsRequestBuilder {
         return operation.handleResponse(operation.doRequest(request));
     }
 
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+    private static final LazySingletonValue<Optional<? extends PostV1EmployeesEmployeeIdGarnishmentsHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
             new LazySingletonValue<>(
                     "xGustoAPIVersion",
                     "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
+                    new TypeReference<Optional<? extends PostV1EmployeesEmployeeIdGarnishmentsHeaderXGustoAPIVersion>>() {});
 }

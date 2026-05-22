@@ -18,12 +18,16 @@ import org.openapitools.jackson.nullable.JsonNullable;
 
 
 public class Splits {
-
+    /**
+     * The UUID of the bank account.
+     */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("bank_account_uuid")
     private Optional<String> bankAccountUuid;
 
-
+    /**
+     * The name of the bank account.
+     */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("name")
     private Optional<String> name;
@@ -37,16 +41,25 @@ public class Splits {
 
     /**
      * Ciphertext containing the full bank account number, which must be decrypted using a key provided by
-     * Gusto. Only visible with the `contractor_payment_methods:read:account_number` scope.
+     * Gusto. Only visible with the `employee_payment_methods:read:account_number` scope.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("encrypted_account_number")
     private JsonNullable<String> encryptedAccountNumber;
 
-
+    /**
+     * The routing number of the bank account.
+     */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("routing_number")
     private Optional<String> routingNumber;
+
+    /**
+     * The bank account type (e.g., "Checking" or "Savings").
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("account_type")
+    private Optional<String> accountType;
 
     /**
      * The order of priority for each payment split, with priority 1 being the first bank account paid.
@@ -65,11 +78,6 @@ public class Splits {
     @JsonProperty("split_amount")
     private JsonNullable<Double> splitAmount;
 
-
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("account_type")
-    private Optional<String> accountType;
-
     @JsonCreator
     public Splits(
             @JsonProperty("bank_account_uuid") Optional<String> bankAccountUuid,
@@ -77,38 +85,44 @@ public class Splits {
             @JsonProperty("hidden_account_number") Optional<String> hiddenAccountNumber,
             @JsonProperty("encrypted_account_number") JsonNullable<String> encryptedAccountNumber,
             @JsonProperty("routing_number") Optional<String> routingNumber,
+            @JsonProperty("account_type") Optional<String> accountType,
             @JsonProperty("priority") Optional<Long> priority,
-            @JsonProperty("split_amount") JsonNullable<Double> splitAmount,
-            @JsonProperty("account_type") Optional<String> accountType) {
+            @JsonProperty("split_amount") JsonNullable<Double> splitAmount) {
         Utils.checkNotNull(bankAccountUuid, "bankAccountUuid");
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(hiddenAccountNumber, "hiddenAccountNumber");
         Utils.checkNotNull(encryptedAccountNumber, "encryptedAccountNumber");
         Utils.checkNotNull(routingNumber, "routingNumber");
+        Utils.checkNotNull(accountType, "accountType");
         Utils.checkNotNull(priority, "priority");
         Utils.checkNotNull(splitAmount, "splitAmount");
-        Utils.checkNotNull(accountType, "accountType");
         this.bankAccountUuid = bankAccountUuid;
         this.name = name;
         this.hiddenAccountNumber = hiddenAccountNumber;
         this.encryptedAccountNumber = encryptedAccountNumber;
         this.routingNumber = routingNumber;
+        this.accountType = accountType;
         this.priority = priority;
         this.splitAmount = splitAmount;
-        this.accountType = accountType;
     }
     
     public Splits() {
         this(Optional.empty(), Optional.empty(), Optional.empty(),
             JsonNullable.undefined(), Optional.empty(), Optional.empty(),
-            JsonNullable.undefined(), Optional.empty());
+            Optional.empty(), JsonNullable.undefined());
     }
 
+    /**
+     * The UUID of the bank account.
+     */
     @JsonIgnore
     public Optional<String> bankAccountUuid() {
         return bankAccountUuid;
     }
 
+    /**
+     * The name of the bank account.
+     */
     @JsonIgnore
     public Optional<String> name() {
         return name;
@@ -124,16 +138,27 @@ public class Splits {
 
     /**
      * Ciphertext containing the full bank account number, which must be decrypted using a key provided by
-     * Gusto. Only visible with the `contractor_payment_methods:read:account_number` scope.
+     * Gusto. Only visible with the `employee_payment_methods:read:account_number` scope.
      */
     @JsonIgnore
     public JsonNullable<String> encryptedAccountNumber() {
         return encryptedAccountNumber;
     }
 
+    /**
+     * The routing number of the bank account.
+     */
     @JsonIgnore
     public Optional<String> routingNumber() {
         return routingNumber;
+    }
+
+    /**
+     * The bank account type (e.g., "Checking" or "Savings").
+     */
+    @JsonIgnore
+    public Optional<String> accountType() {
+        return accountType;
     }
 
     /**
@@ -155,16 +180,14 @@ public class Splits {
         return splitAmount;
     }
 
-    @JsonIgnore
-    public Optional<String> accountType() {
-        return accountType;
-    }
-
     public static Builder builder() {
         return new Builder();
     }
 
 
+    /**
+     * The UUID of the bank account.
+     */
     public Splits withBankAccountUuid(String bankAccountUuid) {
         Utils.checkNotNull(bankAccountUuid, "bankAccountUuid");
         this.bankAccountUuid = Optional.ofNullable(bankAccountUuid);
@@ -172,12 +195,18 @@ public class Splits {
     }
 
 
+    /**
+     * The UUID of the bank account.
+     */
     public Splits withBankAccountUuid(Optional<String> bankAccountUuid) {
         Utils.checkNotNull(bankAccountUuid, "bankAccountUuid");
         this.bankAccountUuid = bankAccountUuid;
         return this;
     }
 
+    /**
+     * The name of the bank account.
+     */
     public Splits withName(String name) {
         Utils.checkNotNull(name, "name");
         this.name = Optional.ofNullable(name);
@@ -185,6 +214,9 @@ public class Splits {
     }
 
 
+    /**
+     * The name of the bank account.
+     */
     public Splits withName(Optional<String> name) {
         Utils.checkNotNull(name, "name");
         this.name = name;
@@ -212,7 +244,7 @@ public class Splits {
 
     /**
      * Ciphertext containing the full bank account number, which must be decrypted using a key provided by
-     * Gusto. Only visible with the `contractor_payment_methods:read:account_number` scope.
+     * Gusto. Only visible with the `employee_payment_methods:read:account_number` scope.
      */
     public Splits withEncryptedAccountNumber(String encryptedAccountNumber) {
         Utils.checkNotNull(encryptedAccountNumber, "encryptedAccountNumber");
@@ -222,7 +254,7 @@ public class Splits {
 
     /**
      * Ciphertext containing the full bank account number, which must be decrypted using a key provided by
-     * Gusto. Only visible with the `contractor_payment_methods:read:account_number` scope.
+     * Gusto. Only visible with the `employee_payment_methods:read:account_number` scope.
      */
     public Splits withEncryptedAccountNumber(JsonNullable<String> encryptedAccountNumber) {
         Utils.checkNotNull(encryptedAccountNumber, "encryptedAccountNumber");
@@ -230,6 +262,9 @@ public class Splits {
         return this;
     }
 
+    /**
+     * The routing number of the bank account.
+     */
     public Splits withRoutingNumber(String routingNumber) {
         Utils.checkNotNull(routingNumber, "routingNumber");
         this.routingNumber = Optional.ofNullable(routingNumber);
@@ -237,9 +272,31 @@ public class Splits {
     }
 
 
+    /**
+     * The routing number of the bank account.
+     */
     public Splits withRoutingNumber(Optional<String> routingNumber) {
         Utils.checkNotNull(routingNumber, "routingNumber");
         this.routingNumber = routingNumber;
+        return this;
+    }
+
+    /**
+     * The bank account type (e.g., "Checking" or "Savings").
+     */
+    public Splits withAccountType(String accountType) {
+        Utils.checkNotNull(accountType, "accountType");
+        this.accountType = Optional.ofNullable(accountType);
+        return this;
+    }
+
+
+    /**
+     * The bank account type (e.g., "Checking" or "Savings").
+     */
+    public Splits withAccountType(Optional<String> accountType) {
+        Utils.checkNotNull(accountType, "accountType");
+        this.accountType = accountType;
         return this;
     }
 
@@ -286,19 +343,6 @@ public class Splits {
         return this;
     }
 
-    public Splits withAccountType(String accountType) {
-        Utils.checkNotNull(accountType, "accountType");
-        this.accountType = Optional.ofNullable(accountType);
-        return this;
-    }
-
-
-    public Splits withAccountType(Optional<String> accountType) {
-        Utils.checkNotNull(accountType, "accountType");
-        this.accountType = accountType;
-        return this;
-    }
-
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -314,17 +358,17 @@ public class Splits {
             Utils.enhancedDeepEquals(this.hiddenAccountNumber, other.hiddenAccountNumber) &&
             Utils.enhancedDeepEquals(this.encryptedAccountNumber, other.encryptedAccountNumber) &&
             Utils.enhancedDeepEquals(this.routingNumber, other.routingNumber) &&
+            Utils.enhancedDeepEquals(this.accountType, other.accountType) &&
             Utils.enhancedDeepEquals(this.priority, other.priority) &&
-            Utils.enhancedDeepEquals(this.splitAmount, other.splitAmount) &&
-            Utils.enhancedDeepEquals(this.accountType, other.accountType);
+            Utils.enhancedDeepEquals(this.splitAmount, other.splitAmount);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             bankAccountUuid, name, hiddenAccountNumber,
-            encryptedAccountNumber, routingNumber, priority,
-            splitAmount, accountType);
+            encryptedAccountNumber, routingNumber, accountType,
+            priority, splitAmount);
     }
     
     @Override
@@ -335,9 +379,9 @@ public class Splits {
                 "hiddenAccountNumber", hiddenAccountNumber,
                 "encryptedAccountNumber", encryptedAccountNumber,
                 "routingNumber", routingNumber,
+                "accountType", accountType,
                 "priority", priority,
-                "splitAmount", splitAmount,
-                "accountType", accountType);
+                "splitAmount", splitAmount);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -353,23 +397,29 @@ public class Splits {
 
         private Optional<String> routingNumber = Optional.empty();
 
+        private Optional<String> accountType = Optional.empty();
+
         private Optional<Long> priority = Optional.empty();
 
         private JsonNullable<Double> splitAmount = JsonNullable.undefined();
-
-        private Optional<String> accountType = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
         }
 
 
+        /**
+         * The UUID of the bank account.
+         */
         public Builder bankAccountUuid(String bankAccountUuid) {
             Utils.checkNotNull(bankAccountUuid, "bankAccountUuid");
             this.bankAccountUuid = Optional.ofNullable(bankAccountUuid);
             return this;
         }
 
+        /**
+         * The UUID of the bank account.
+         */
         public Builder bankAccountUuid(Optional<String> bankAccountUuid) {
             Utils.checkNotNull(bankAccountUuid, "bankAccountUuid");
             this.bankAccountUuid = bankAccountUuid;
@@ -377,12 +427,18 @@ public class Splits {
         }
 
 
+        /**
+         * The name of the bank account.
+         */
         public Builder name(String name) {
             Utils.checkNotNull(name, "name");
             this.name = Optional.ofNullable(name);
             return this;
         }
 
+        /**
+         * The name of the bank account.
+         */
         public Builder name(Optional<String> name) {
             Utils.checkNotNull(name, "name");
             this.name = name;
@@ -411,7 +467,7 @@ public class Splits {
 
         /**
          * Ciphertext containing the full bank account number, which must be decrypted using a key provided by
-         * Gusto. Only visible with the `contractor_payment_methods:read:account_number` scope.
+         * Gusto. Only visible with the `employee_payment_methods:read:account_number` scope.
          */
         public Builder encryptedAccountNumber(String encryptedAccountNumber) {
             Utils.checkNotNull(encryptedAccountNumber, "encryptedAccountNumber");
@@ -421,7 +477,7 @@ public class Splits {
 
         /**
          * Ciphertext containing the full bank account number, which must be decrypted using a key provided by
-         * Gusto. Only visible with the `contractor_payment_methods:read:account_number` scope.
+         * Gusto. Only visible with the `employee_payment_methods:read:account_number` scope.
          */
         public Builder encryptedAccountNumber(JsonNullable<String> encryptedAccountNumber) {
             Utils.checkNotNull(encryptedAccountNumber, "encryptedAccountNumber");
@@ -430,15 +486,40 @@ public class Splits {
         }
 
 
+        /**
+         * The routing number of the bank account.
+         */
         public Builder routingNumber(String routingNumber) {
             Utils.checkNotNull(routingNumber, "routingNumber");
             this.routingNumber = Optional.ofNullable(routingNumber);
             return this;
         }
 
+        /**
+         * The routing number of the bank account.
+         */
         public Builder routingNumber(Optional<String> routingNumber) {
             Utils.checkNotNull(routingNumber, "routingNumber");
             this.routingNumber = routingNumber;
+            return this;
+        }
+
+
+        /**
+         * The bank account type (e.g., "Checking" or "Savings").
+         */
+        public Builder accountType(String accountType) {
+            Utils.checkNotNull(accountType, "accountType");
+            this.accountType = Optional.ofNullable(accountType);
+            return this;
+        }
+
+        /**
+         * The bank account type (e.g., "Checking" or "Savings").
+         */
+        public Builder accountType(Optional<String> accountType) {
+            Utils.checkNotNull(accountType, "accountType");
+            this.accountType = accountType;
             return this;
         }
 
@@ -486,25 +567,12 @@ public class Splits {
             return this;
         }
 
-
-        public Builder accountType(String accountType) {
-            Utils.checkNotNull(accountType, "accountType");
-            this.accountType = Optional.ofNullable(accountType);
-            return this;
-        }
-
-        public Builder accountType(Optional<String> accountType) {
-            Utils.checkNotNull(accountType, "accountType");
-            this.accountType = accountType;
-            return this;
-        }
-
         public Splits build() {
 
             return new Splits(
                 bankAccountUuid, name, hiddenAccountNumber,
-                encryptedAccountNumber, routingNumber, priority,
-                splitAmount, accountType);
+                encryptedAccountNumber, routingNumber, accountType,
+                priority, splitAmount);
         }
 
     }

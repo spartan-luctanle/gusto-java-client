@@ -5,20 +5,12 @@ package com.gusto.embedded_api.models.components;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.gusto.embedded_api.utils.Utils;
 import java.lang.Override;
 import java.lang.String;
-import java.lang.SuppressWarnings;
-import java.util.Optional;
 
-/**
- * ContractorBankAccount
- * 
- * <p>Example response
- */
+
 public class ContractorBankAccount {
     /**
      * UUID of the bank account
@@ -27,48 +19,43 @@ public class ContractorBankAccount {
     private String uuid;
 
     /**
-     * UUID of the employee
+     * UUID of the contractor
      */
-    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("contractor_uuid")
-    private Optional<String> contractorUuid;
+    private String contractorUuid;
 
     /**
      * Bank account type
      */
-    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("account_type")
-    private Optional<? extends ContractorBankAccountAccountType> accountType;
+    private ContractorBankAccountAccountType accountType;
 
     /**
      * Name for the bank account
      */
-    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("name")
-    private Optional<String> name;
+    private String name;
 
     /**
      * The bank account's routing number
      */
-    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("routing_number")
-    private Optional<String> routingNumber;
+    private String routingNumber;
 
     /**
      * Masked bank account number
      */
-    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("hidden_account_number")
-    private Optional<String> hiddenAccountNumber;
+    private String hiddenAccountNumber;
 
     @JsonCreator
     public ContractorBankAccount(
             @JsonProperty("uuid") String uuid,
-            @JsonProperty("contractor_uuid") Optional<String> contractorUuid,
-            @JsonProperty("account_type") Optional<? extends ContractorBankAccountAccountType> accountType,
-            @JsonProperty("name") Optional<String> name,
-            @JsonProperty("routing_number") Optional<String> routingNumber,
-            @JsonProperty("hidden_account_number") Optional<String> hiddenAccountNumber) {
+            @JsonProperty("contractor_uuid") String contractorUuid,
+            @JsonProperty("account_type") ContractorBankAccountAccountType accountType,
+            @JsonProperty("name") String name,
+            @JsonProperty("routing_number") String routingNumber,
+            @JsonProperty("hidden_account_number") String hiddenAccountNumber) {
         Utils.checkNotNull(uuid, "uuid");
         Utils.checkNotNull(contractorUuid, "contractorUuid");
         Utils.checkNotNull(accountType, "accountType");
@@ -82,12 +69,6 @@ public class ContractorBankAccount {
         this.routingNumber = routingNumber;
         this.hiddenAccountNumber = hiddenAccountNumber;
     }
-    
-    public ContractorBankAccount(
-            String uuid) {
-        this(uuid, Optional.empty(), Optional.empty(),
-            Optional.empty(), Optional.empty(), Optional.empty());
-    }
 
     /**
      * UUID of the bank account
@@ -98,27 +79,26 @@ public class ContractorBankAccount {
     }
 
     /**
-     * UUID of the employee
+     * UUID of the contractor
      */
     @JsonIgnore
-    public Optional<String> contractorUuid() {
+    public String contractorUuid() {
         return contractorUuid;
     }
 
     /**
      * Bank account type
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<ContractorBankAccountAccountType> accountType() {
-        return (Optional<ContractorBankAccountAccountType>) accountType;
+    public ContractorBankAccountAccountType accountType() {
+        return accountType;
     }
 
     /**
      * Name for the bank account
      */
     @JsonIgnore
-    public Optional<String> name() {
+    public String name() {
         return name;
     }
 
@@ -126,7 +106,7 @@ public class ContractorBankAccount {
      * The bank account's routing number
      */
     @JsonIgnore
-    public Optional<String> routingNumber() {
+    public String routingNumber() {
         return routingNumber;
     }
 
@@ -134,7 +114,7 @@ public class ContractorBankAccount {
      * Masked bank account number
      */
     @JsonIgnore
-    public Optional<String> hiddenAccountNumber() {
+    public String hiddenAccountNumber() {
         return hiddenAccountNumber;
     }
 
@@ -153,19 +133,9 @@ public class ContractorBankAccount {
     }
 
     /**
-     * UUID of the employee
+     * UUID of the contractor
      */
     public ContractorBankAccount withContractorUuid(String contractorUuid) {
-        Utils.checkNotNull(contractorUuid, "contractorUuid");
-        this.contractorUuid = Optional.ofNullable(contractorUuid);
-        return this;
-    }
-
-
-    /**
-     * UUID of the employee
-     */
-    public ContractorBankAccount withContractorUuid(Optional<String> contractorUuid) {
         Utils.checkNotNull(contractorUuid, "contractorUuid");
         this.contractorUuid = contractorUuid;
         return this;
@@ -176,16 +146,6 @@ public class ContractorBankAccount {
      */
     public ContractorBankAccount withAccountType(ContractorBankAccountAccountType accountType) {
         Utils.checkNotNull(accountType, "accountType");
-        this.accountType = Optional.ofNullable(accountType);
-        return this;
-    }
-
-
-    /**
-     * Bank account type
-     */
-    public ContractorBankAccount withAccountType(Optional<? extends ContractorBankAccountAccountType> accountType) {
-        Utils.checkNotNull(accountType, "accountType");
         this.accountType = accountType;
         return this;
     }
@@ -194,16 +154,6 @@ public class ContractorBankAccount {
      * Name for the bank account
      */
     public ContractorBankAccount withName(String name) {
-        Utils.checkNotNull(name, "name");
-        this.name = Optional.ofNullable(name);
-        return this;
-    }
-
-
-    /**
-     * Name for the bank account
-     */
-    public ContractorBankAccount withName(Optional<String> name) {
         Utils.checkNotNull(name, "name");
         this.name = name;
         return this;
@@ -214,16 +164,6 @@ public class ContractorBankAccount {
      */
     public ContractorBankAccount withRoutingNumber(String routingNumber) {
         Utils.checkNotNull(routingNumber, "routingNumber");
-        this.routingNumber = Optional.ofNullable(routingNumber);
-        return this;
-    }
-
-
-    /**
-     * The bank account's routing number
-     */
-    public ContractorBankAccount withRoutingNumber(Optional<String> routingNumber) {
-        Utils.checkNotNull(routingNumber, "routingNumber");
         this.routingNumber = routingNumber;
         return this;
     }
@@ -232,16 +172,6 @@ public class ContractorBankAccount {
      * Masked bank account number
      */
     public ContractorBankAccount withHiddenAccountNumber(String hiddenAccountNumber) {
-        Utils.checkNotNull(hiddenAccountNumber, "hiddenAccountNumber");
-        this.hiddenAccountNumber = Optional.ofNullable(hiddenAccountNumber);
-        return this;
-    }
-
-
-    /**
-     * Masked bank account number
-     */
-    public ContractorBankAccount withHiddenAccountNumber(Optional<String> hiddenAccountNumber) {
         Utils.checkNotNull(hiddenAccountNumber, "hiddenAccountNumber");
         this.hiddenAccountNumber = hiddenAccountNumber;
         return this;
@@ -288,15 +218,15 @@ public class ContractorBankAccount {
 
         private String uuid;
 
-        private Optional<String> contractorUuid = Optional.empty();
+        private String contractorUuid;
 
-        private Optional<? extends ContractorBankAccountAccountType> accountType = Optional.empty();
+        private ContractorBankAccountAccountType accountType;
 
-        private Optional<String> name = Optional.empty();
+        private String name;
 
-        private Optional<String> routingNumber = Optional.empty();
+        private String routingNumber;
 
-        private Optional<String> hiddenAccountNumber = Optional.empty();
+        private String hiddenAccountNumber;
 
         private Builder() {
           // force use of static builder() method
@@ -314,18 +244,9 @@ public class ContractorBankAccount {
 
 
         /**
-         * UUID of the employee
+         * UUID of the contractor
          */
         public Builder contractorUuid(String contractorUuid) {
-            Utils.checkNotNull(contractorUuid, "contractorUuid");
-            this.contractorUuid = Optional.ofNullable(contractorUuid);
-            return this;
-        }
-
-        /**
-         * UUID of the employee
-         */
-        public Builder contractorUuid(Optional<String> contractorUuid) {
             Utils.checkNotNull(contractorUuid, "contractorUuid");
             this.contractorUuid = contractorUuid;
             return this;
@@ -337,15 +258,6 @@ public class ContractorBankAccount {
          */
         public Builder accountType(ContractorBankAccountAccountType accountType) {
             Utils.checkNotNull(accountType, "accountType");
-            this.accountType = Optional.ofNullable(accountType);
-            return this;
-        }
-
-        /**
-         * Bank account type
-         */
-        public Builder accountType(Optional<? extends ContractorBankAccountAccountType> accountType) {
-            Utils.checkNotNull(accountType, "accountType");
             this.accountType = accountType;
             return this;
         }
@@ -355,15 +267,6 @@ public class ContractorBankAccount {
          * Name for the bank account
          */
         public Builder name(String name) {
-            Utils.checkNotNull(name, "name");
-            this.name = Optional.ofNullable(name);
-            return this;
-        }
-
-        /**
-         * Name for the bank account
-         */
-        public Builder name(Optional<String> name) {
             Utils.checkNotNull(name, "name");
             this.name = name;
             return this;
@@ -375,15 +278,6 @@ public class ContractorBankAccount {
          */
         public Builder routingNumber(String routingNumber) {
             Utils.checkNotNull(routingNumber, "routingNumber");
-            this.routingNumber = Optional.ofNullable(routingNumber);
-            return this;
-        }
-
-        /**
-         * The bank account's routing number
-         */
-        public Builder routingNumber(Optional<String> routingNumber) {
-            Utils.checkNotNull(routingNumber, "routingNumber");
             this.routingNumber = routingNumber;
             return this;
         }
@@ -393,15 +287,6 @@ public class ContractorBankAccount {
          * Masked bank account number
          */
         public Builder hiddenAccountNumber(String hiddenAccountNumber) {
-            Utils.checkNotNull(hiddenAccountNumber, "hiddenAccountNumber");
-            this.hiddenAccountNumber = Optional.ofNullable(hiddenAccountNumber);
-            return this;
-        }
-
-        /**
-         * Masked bank account number
-         */
-        public Builder hiddenAccountNumber(Optional<String> hiddenAccountNumber) {
             Utils.checkNotNull(hiddenAccountNumber, "hiddenAccountNumber");
             this.hiddenAccountNumber = hiddenAccountNumber;
             return this;

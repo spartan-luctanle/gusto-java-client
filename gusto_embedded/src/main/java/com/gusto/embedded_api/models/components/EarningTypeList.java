@@ -18,7 +18,7 @@ import java.util.Optional;
 /**
  * EarningTypeList
  * 
- * <p>Example response
+ * <p>Lists of default and custom earning types for a company.
  */
 public class EarningTypeList {
     /**

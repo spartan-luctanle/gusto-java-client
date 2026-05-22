@@ -20,13 +20,11 @@ import org.openapitools.jackson.nullable.JsonNullable;
 
 public class ContractorAddress {
     /**
-     * The current version of the object. See the [versioning
-     * guide](https://docs.gusto.com/embedded-payroll/docs/idempotency) for information on how to use this
-     * field.
+     * The UUID of the contractor
      */
     @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("version")
-    private Optional<String> version;
+    @JsonProperty("contractor_uuid")
+    private Optional<String> contractorUuid;
 
 
     @JsonInclude(Include.NON_ABSENT)
@@ -67,15 +65,17 @@ public class ContractorAddress {
     private Optional<Boolean> active;
 
     /**
-     * The UUID of the contractor
+     * The current version of the object. See the [versioning
+     * guide](https://docs.gusto.com/embedded-payroll/docs/idempotency) for information on how to use this
+     * field.
      */
     @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("contractor_uuid")
-    private Optional<String> contractorUuid;
+    @JsonProperty("version")
+    private Optional<String> version;
 
     @JsonCreator
     public ContractorAddress(
-            @JsonProperty("version") Optional<String> version,
+            @JsonProperty("contractor_uuid") Optional<String> contractorUuid,
             @JsonProperty("street_1") JsonNullable<String> street1,
             @JsonProperty("street_2") JsonNullable<String> street2,
             @JsonProperty("city") JsonNullable<String> city,
@@ -83,8 +83,8 @@ public class ContractorAddress {
             @JsonProperty("zip") JsonNullable<String> zip,
             @JsonProperty("country") JsonNullable<String> country,
             @JsonProperty("active") Optional<Boolean> active,
-            @JsonProperty("contractor_uuid") Optional<String> contractorUuid) {
-        Utils.checkNotNull(version, "version");
+            @JsonProperty("version") Optional<String> version) {
+        Utils.checkNotNull(contractorUuid, "contractorUuid");
         Utils.checkNotNull(street1, "street1");
         Utils.checkNotNull(street2, "street2");
         Utils.checkNotNull(city, "city");
@@ -92,8 +92,8 @@ public class ContractorAddress {
         Utils.checkNotNull(zip, "zip");
         Utils.checkNotNull(country, "country");
         Utils.checkNotNull(active, "active");
-        Utils.checkNotNull(contractorUuid, "contractorUuid");
-        this.version = version;
+        Utils.checkNotNull(version, "version");
+        this.contractorUuid = contractorUuid;
         this.street1 = street1;
         this.street2 = street2;
         this.city = city;
@@ -101,7 +101,7 @@ public class ContractorAddress {
         this.zip = zip;
         this.country = country;
         this.active = active;
-        this.contractorUuid = contractorUuid;
+        this.version = version;
     }
     
     public ContractorAddress() {
@@ -111,13 +111,11 @@ public class ContractorAddress {
     }
 
     /**
-     * The current version of the object. See the [versioning
-     * guide](https://docs.gusto.com/embedded-payroll/docs/idempotency) for information on how to use this
-     * field.
+     * The UUID of the contractor
      */
     @JsonIgnore
-    public Optional<String> version() {
-        return version;
+    public Optional<String> contractorUuid() {
+        return contractorUuid;
     }
 
     @JsonIgnore
@@ -160,11 +158,13 @@ public class ContractorAddress {
     }
 
     /**
-     * The UUID of the contractor
+     * The current version of the object. See the [versioning
+     * guide](https://docs.gusto.com/embedded-payroll/docs/idempotency) for information on how to use this
+     * field.
      */
     @JsonIgnore
-    public Optional<String> contractorUuid() {
-        return contractorUuid;
+    public Optional<String> version() {
+        return version;
     }
 
     public static Builder builder() {
@@ -173,25 +173,21 @@ public class ContractorAddress {
 
 
     /**
-     * The current version of the object. See the [versioning
-     * guide](https://docs.gusto.com/embedded-payroll/docs/idempotency) for information on how to use this
-     * field.
+     * The UUID of the contractor
      */
-    public ContractorAddress withVersion(String version) {
-        Utils.checkNotNull(version, "version");
-        this.version = Optional.ofNullable(version);
+    public ContractorAddress withContractorUuid(String contractorUuid) {
+        Utils.checkNotNull(contractorUuid, "contractorUuid");
+        this.contractorUuid = Optional.ofNullable(contractorUuid);
         return this;
     }
 
 
     /**
-     * The current version of the object. See the [versioning
-     * guide](https://docs.gusto.com/embedded-payroll/docs/idempotency) for information on how to use this
-     * field.
+     * The UUID of the contractor
      */
-    public ContractorAddress withVersion(Optional<String> version) {
-        Utils.checkNotNull(version, "version");
-        this.version = version;
+    public ContractorAddress withContractorUuid(Optional<String> contractorUuid) {
+        Utils.checkNotNull(contractorUuid, "contractorUuid");
+        this.contractorUuid = contractorUuid;
         return this;
     }
 
@@ -289,21 +285,25 @@ public class ContractorAddress {
     }
 
     /**
-     * The UUID of the contractor
+     * The current version of the object. See the [versioning
+     * guide](https://docs.gusto.com/embedded-payroll/docs/idempotency) for information on how to use this
+     * field.
      */
-    public ContractorAddress withContractorUuid(String contractorUuid) {
-        Utils.checkNotNull(contractorUuid, "contractorUuid");
-        this.contractorUuid = Optional.ofNullable(contractorUuid);
+    public ContractorAddress withVersion(String version) {
+        Utils.checkNotNull(version, "version");
+        this.version = Optional.ofNullable(version);
         return this;
     }
 
 
     /**
-     * The UUID of the contractor
+     * The current version of the object. See the [versioning
+     * guide](https://docs.gusto.com/embedded-payroll/docs/idempotency) for information on how to use this
+     * field.
      */
-    public ContractorAddress withContractorUuid(Optional<String> contractorUuid) {
-        Utils.checkNotNull(contractorUuid, "contractorUuid");
-        this.contractorUuid = contractorUuid;
+    public ContractorAddress withVersion(Optional<String> version) {
+        Utils.checkNotNull(version, "version");
+        this.version = version;
         return this;
     }
 
@@ -317,7 +317,7 @@ public class ContractorAddress {
         }
         ContractorAddress other = (ContractorAddress) o;
         return 
-            Utils.enhancedDeepEquals(this.version, other.version) &&
+            Utils.enhancedDeepEquals(this.contractorUuid, other.contractorUuid) &&
             Utils.enhancedDeepEquals(this.street1, other.street1) &&
             Utils.enhancedDeepEquals(this.street2, other.street2) &&
             Utils.enhancedDeepEquals(this.city, other.city) &&
@@ -325,21 +325,21 @@ public class ContractorAddress {
             Utils.enhancedDeepEquals(this.zip, other.zip) &&
             Utils.enhancedDeepEquals(this.country, other.country) &&
             Utils.enhancedDeepEquals(this.active, other.active) &&
-            Utils.enhancedDeepEquals(this.contractorUuid, other.contractorUuid);
+            Utils.enhancedDeepEquals(this.version, other.version);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            version, street1, street2,
+            contractorUuid, street1, street2,
             city, state, zip,
-            country, active, contractorUuid);
+            country, active, version);
     }
     
     @Override
     public String toString() {
         return Utils.toString(ContractorAddress.class,
-                "version", version,
+                "contractorUuid", contractorUuid,
                 "street1", street1,
                 "street2", street2,
                 "city", city,
@@ -347,13 +347,13 @@ public class ContractorAddress {
                 "zip", zip,
                 "country", country,
                 "active", active,
-                "contractorUuid", contractorUuid);
+                "version", version);
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private Optional<String> version = Optional.empty();
+        private Optional<String> contractorUuid = Optional.empty();
 
         private JsonNullable<String> street1 = JsonNullable.undefined();
 
@@ -369,7 +369,7 @@ public class ContractorAddress {
 
         private Optional<Boolean> active = Optional.empty();
 
-        private Optional<String> contractorUuid = Optional.empty();
+        private Optional<String> version = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -377,24 +377,20 @@ public class ContractorAddress {
 
 
         /**
-         * The current version of the object. See the [versioning
-         * guide](https://docs.gusto.com/embedded-payroll/docs/idempotency) for information on how to use this
-         * field.
+         * The UUID of the contractor
          */
-        public Builder version(String version) {
-            Utils.checkNotNull(version, "version");
-            this.version = Optional.ofNullable(version);
+        public Builder contractorUuid(String contractorUuid) {
+            Utils.checkNotNull(contractorUuid, "contractorUuid");
+            this.contractorUuid = Optional.ofNullable(contractorUuid);
             return this;
         }
 
         /**
-         * The current version of the object. See the [versioning
-         * guide](https://docs.gusto.com/embedded-payroll/docs/idempotency) for information on how to use this
-         * field.
+         * The UUID of the contractor
          */
-        public Builder version(Optional<String> version) {
-            Utils.checkNotNull(version, "version");
-            this.version = version;
+        public Builder contractorUuid(Optional<String> contractorUuid) {
+            Utils.checkNotNull(contractorUuid, "contractorUuid");
+            this.contractorUuid = contractorUuid;
             return this;
         }
 
@@ -499,20 +495,24 @@ public class ContractorAddress {
 
 
         /**
-         * The UUID of the contractor
+         * The current version of the object. See the [versioning
+         * guide](https://docs.gusto.com/embedded-payroll/docs/idempotency) for information on how to use this
+         * field.
          */
-        public Builder contractorUuid(String contractorUuid) {
-            Utils.checkNotNull(contractorUuid, "contractorUuid");
-            this.contractorUuid = Optional.ofNullable(contractorUuid);
+        public Builder version(String version) {
+            Utils.checkNotNull(version, "version");
+            this.version = Optional.ofNullable(version);
             return this;
         }
 
         /**
-         * The UUID of the contractor
+         * The current version of the object. See the [versioning
+         * guide](https://docs.gusto.com/embedded-payroll/docs/idempotency) for information on how to use this
+         * field.
          */
-        public Builder contractorUuid(Optional<String> contractorUuid) {
-            Utils.checkNotNull(contractorUuid, "contractorUuid");
-            this.contractorUuid = contractorUuid;
+        public Builder version(Optional<String> version) {
+            Utils.checkNotNull(version, "version");
+            this.version = version;
             return this;
         }
 
@@ -522,9 +522,9 @@ public class ContractorAddress {
             }
 
             return new ContractorAddress(
-                version, street1, street2,
+                contractorUuid, street1, street2,
                 city, state, zip,
-                country, active, contractorUuid);
+                country, active, version);
         }
 
 

@@ -7,7 +7,7 @@ import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.operations.RedebitRecoveryCaseHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.RedebitRecoveryCaseRequest;
 import com.gusto.embedded_api.operations.RedebitRecoveryCase;
 import com.gusto.embedded_api.utils.Headers;
@@ -19,33 +19,33 @@ import java.util.concurrent.CompletableFuture;
 
 public class RedebitRecoveryCaseRequestBuilder {
 
-    private String recoveryCaseUuid;
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
+    private Optional<? extends RedebitRecoveryCaseHeaderXGustoAPIVersion> xGustoAPIVersion = Utils.readDefaultOrConstValue(
                             "xGustoAPIVersion",
                             "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
+                            new TypeReference<Optional<? extends RedebitRecoveryCaseHeaderXGustoAPIVersion>>() {});
+    private String recoveryCaseUuid;
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
     public RedebitRecoveryCaseRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
-
-    public RedebitRecoveryCaseRequestBuilder recoveryCaseUuid(String recoveryCaseUuid) {
-        Utils.checkNotNull(recoveryCaseUuid, "recoveryCaseUuid");
-        this.recoveryCaseUuid = recoveryCaseUuid;
-        return this;
-    }
                 
-    public RedebitRecoveryCaseRequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+    public RedebitRecoveryCaseRequestBuilder xGustoAPIVersion(RedebitRecoveryCaseHeaderXGustoAPIVersion xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
         return this;
     }
 
-    public RedebitRecoveryCaseRequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public RedebitRecoveryCaseRequestBuilder xGustoAPIVersion(Optional<? extends RedebitRecoveryCaseHeaderXGustoAPIVersion> xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = xGustoAPIVersion;
+        return this;
+    }
+
+    public RedebitRecoveryCaseRequestBuilder recoveryCaseUuid(String recoveryCaseUuid) {
+        Utils.checkNotNull(recoveryCaseUuid, "recoveryCaseUuid");
+        this.recoveryCaseUuid = recoveryCaseUuid;
         return this;
     }
 
@@ -55,8 +55,8 @@ public class RedebitRecoveryCaseRequestBuilder {
             xGustoAPIVersion = _SINGLETON_VALUE_XGustoAPIVersion.value();
         }
 
-        RedebitRecoveryCaseRequest request = new RedebitRecoveryCaseRequest(recoveryCaseUuid,
-            xGustoAPIVersion);
+        RedebitRecoveryCaseRequest request = new RedebitRecoveryCaseRequest(xGustoAPIVersion,
+            recoveryCaseUuid);
 
         return request;
     }
@@ -71,9 +71,9 @@ public class RedebitRecoveryCaseRequestBuilder {
             .thenCompose(operation::handleResponse);
     }
 
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+    private static final LazySingletonValue<Optional<? extends RedebitRecoveryCaseHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
             new LazySingletonValue<>(
                     "xGustoAPIVersion",
                     "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
+                    new TypeReference<Optional<? extends RedebitRecoveryCaseHeaderXGustoAPIVersion>>() {});
 }

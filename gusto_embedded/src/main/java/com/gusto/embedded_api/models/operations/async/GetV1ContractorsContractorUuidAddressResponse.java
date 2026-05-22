@@ -34,7 +34,7 @@ public class GetV1ContractorsContractorUuidAddressResponse implements AsyncRespo
     private HttpResponse<Blob> rawResponse;
 
     /**
-     * Example response
+     * Successful
      */
     private Optional<? extends ContractorAddress> contractorAddress;
 
@@ -87,7 +87,7 @@ public class GetV1ContractorsContractorUuidAddressResponse implements AsyncRespo
     }
 
     /**
-     * Example response
+     * Successful
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -128,7 +128,7 @@ public class GetV1ContractorsContractorUuidAddressResponse implements AsyncRespo
     }
 
     /**
-     * Example response
+     * Successful
      */
     public GetV1ContractorsContractorUuidAddressResponse withContractorAddress(ContractorAddress contractorAddress) {
         Utils.checkNotNull(contractorAddress, "contractorAddress");
@@ -138,7 +138,7 @@ public class GetV1ContractorsContractorUuidAddressResponse implements AsyncRespo
 
 
     /**
-     * Example response
+     * Successful
      */
     public GetV1ContractorsContractorUuidAddressResponse withContractorAddress(Optional<? extends ContractorAddress> contractorAddress) {
         Utils.checkNotNull(contractorAddress, "contractorAddress");
@@ -225,7 +225,7 @@ public class GetV1ContractorsContractorUuidAddressResponse implements AsyncRespo
 
 
         /**
-         * Example response
+         * Successful
          */
         public Builder contractorAddress(ContractorAddress contractorAddress) {
             Utils.checkNotNull(contractorAddress, "contractorAddress");
@@ -234,7 +234,7 @@ public class GetV1ContractorsContractorUuidAddressResponse implements AsyncRespo
         }
 
         /**
-         * Example response
+         * Successful
          */
         public Builder contractorAddress(Optional<? extends ContractorAddress> contractorAddress) {
             Utils.checkNotNull(contractorAddress, "contractorAddress");

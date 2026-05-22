@@ -50,7 +50,7 @@ public class ContractorPaymentDetailsList {
 
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("splits")
-    private JsonNullable<? extends List<Splits>> splits;
+    private JsonNullable<? extends List<ContractorPaymentDetailsListSplits>> splits;
 
     @JsonCreator
     public ContractorPaymentDetailsList(
@@ -59,7 +59,7 @@ public class ContractorPaymentDetailsList {
             @JsonProperty("first_name") Optional<String> firstName,
             @JsonProperty("last_name") Optional<String> lastName,
             @JsonProperty("split_by") JsonNullable<? extends ContractorPaymentDetailsListSplitBy> splitBy,
-            @JsonProperty("splits") JsonNullable<? extends List<Splits>> splits) {
+            @JsonProperty("splits") JsonNullable<? extends List<ContractorPaymentDetailsListSplits>> splits) {
         Utils.checkNotNull(contractorUuid, "contractorUuid");
         Utils.checkNotNull(paymentMethod, "paymentMethod");
         Utils.checkNotNull(firstName, "firstName");
@@ -113,8 +113,8 @@ public class ContractorPaymentDetailsList {
 
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public JsonNullable<List<Splits>> splits() {
-        return (JsonNullable<List<Splits>>) splits;
+    public JsonNullable<List<ContractorPaymentDetailsListSplits>> splits() {
+        return (JsonNullable<List<ContractorPaymentDetailsListSplits>>) splits;
     }
 
     public static Builder builder() {
@@ -196,13 +196,13 @@ public class ContractorPaymentDetailsList {
         return this;
     }
 
-    public ContractorPaymentDetailsList withSplits(List<Splits> splits) {
+    public ContractorPaymentDetailsList withSplits(List<ContractorPaymentDetailsListSplits> splits) {
         Utils.checkNotNull(splits, "splits");
         this.splits = JsonNullable.of(splits);
         return this;
     }
 
-    public ContractorPaymentDetailsList withSplits(JsonNullable<? extends List<Splits>> splits) {
+    public ContractorPaymentDetailsList withSplits(JsonNullable<? extends List<ContractorPaymentDetailsListSplits>> splits) {
         Utils.checkNotNull(splits, "splits");
         this.splits = splits;
         return this;
@@ -257,7 +257,7 @@ public class ContractorPaymentDetailsList {
 
         private JsonNullable<? extends ContractorPaymentDetailsListSplitBy> splitBy = JsonNullable.undefined();
 
-        private JsonNullable<? extends List<Splits>> splits = JsonNullable.undefined();
+        private JsonNullable<? extends List<ContractorPaymentDetailsListSplits>> splits = JsonNullable.undefined();
 
         private Builder() {
           // force use of static builder() method
@@ -339,13 +339,13 @@ public class ContractorPaymentDetailsList {
         }
 
 
-        public Builder splits(List<Splits> splits) {
+        public Builder splits(List<ContractorPaymentDetailsListSplits> splits) {
             Utils.checkNotNull(splits, "splits");
             this.splits = JsonNullable.of(splits);
             return this;
         }
 
-        public Builder splits(JsonNullable<? extends List<Splits>> splits) {
+        public Builder splits(JsonNullable<? extends List<ContractorPaymentDetailsListSplits>> splits) {
             Utils.checkNotNull(splits, "splits");
             this.splits = splits;
             return this;

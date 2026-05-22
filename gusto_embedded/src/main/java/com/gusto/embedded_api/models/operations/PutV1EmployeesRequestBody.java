@@ -47,6 +47,11 @@ public class PutV1EmployeesRequestBody {
 
 
     @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("work_email")
+    private Optional<String> workEmail;
+
+
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("date_of_birth")
     private Optional<String> dateOfBirth;
 
@@ -68,11 +73,6 @@ public class PutV1EmployeesRequestBody {
     @JsonProperty("two_percent_shareholder")
     private Optional<Boolean> twoPercentShareholder;
 
-
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("work_email")
-    private Optional<String> workEmail;
-
     @JsonCreator
     public PutV1EmployeesRequestBody(
             @JsonProperty("version") String version,
@@ -80,38 +80,38 @@ public class PutV1EmployeesRequestBody {
             @JsonProperty("middle_initial") JsonNullable<String> middleInitial,
             @JsonProperty("last_name") Optional<String> lastName,
             @JsonProperty("email") Optional<String> email,
+            @JsonProperty("work_email") Optional<String> workEmail,
             @JsonProperty("date_of_birth") Optional<String> dateOfBirth,
             @JsonProperty("ssn") Optional<String> ssn,
             @JsonProperty("preferred_first_name") JsonNullable<String> preferredFirstName,
-            @JsonProperty("two_percent_shareholder") Optional<Boolean> twoPercentShareholder,
-            @JsonProperty("work_email") Optional<String> workEmail) {
+            @JsonProperty("two_percent_shareholder") Optional<Boolean> twoPercentShareholder) {
         Utils.checkNotNull(version, "version");
         Utils.checkNotNull(firstName, "firstName");
         Utils.checkNotNull(middleInitial, "middleInitial");
         Utils.checkNotNull(lastName, "lastName");
         Utils.checkNotNull(email, "email");
+        Utils.checkNotNull(workEmail, "workEmail");
         Utils.checkNotNull(dateOfBirth, "dateOfBirth");
         Utils.checkNotNull(ssn, "ssn");
         Utils.checkNotNull(preferredFirstName, "preferredFirstName");
         Utils.checkNotNull(twoPercentShareholder, "twoPercentShareholder");
-        Utils.checkNotNull(workEmail, "workEmail");
         this.version = version;
         this.firstName = firstName;
         this.middleInitial = middleInitial;
         this.lastName = lastName;
         this.email = email;
+        this.workEmail = workEmail;
         this.dateOfBirth = dateOfBirth;
         this.ssn = ssn;
         this.preferredFirstName = preferredFirstName;
         this.twoPercentShareholder = twoPercentShareholder;
-        this.workEmail = workEmail;
     }
     
     public PutV1EmployeesRequestBody(
             String version) {
         this(version, Optional.empty(), JsonNullable.undefined(),
             Optional.empty(), Optional.empty(), Optional.empty(),
-            Optional.empty(), JsonNullable.undefined(), Optional.empty(),
+            Optional.empty(), Optional.empty(), JsonNullable.undefined(),
             Optional.empty());
     }
 
@@ -146,6 +146,11 @@ public class PutV1EmployeesRequestBody {
     }
 
     @JsonIgnore
+    public Optional<String> workEmail() {
+        return workEmail;
+    }
+
+    @JsonIgnore
     public Optional<String> dateOfBirth() {
         return dateOfBirth;
     }
@@ -167,11 +172,6 @@ public class PutV1EmployeesRequestBody {
     @JsonIgnore
     public Optional<Boolean> twoPercentShareholder() {
         return twoPercentShareholder;
-    }
-
-    @JsonIgnore
-    public Optional<String> workEmail() {
-        return workEmail;
     }
 
     public static Builder builder() {
@@ -241,6 +241,19 @@ public class PutV1EmployeesRequestBody {
         return this;
     }
 
+    public PutV1EmployeesRequestBody withWorkEmail(String workEmail) {
+        Utils.checkNotNull(workEmail, "workEmail");
+        this.workEmail = Optional.ofNullable(workEmail);
+        return this;
+    }
+
+
+    public PutV1EmployeesRequestBody withWorkEmail(Optional<String> workEmail) {
+        Utils.checkNotNull(workEmail, "workEmail");
+        this.workEmail = workEmail;
+        return this;
+    }
+
     public PutV1EmployeesRequestBody withDateOfBirth(String dateOfBirth) {
         Utils.checkNotNull(dateOfBirth, "dateOfBirth");
         this.dateOfBirth = Optional.ofNullable(dateOfBirth);
@@ -300,19 +313,6 @@ public class PutV1EmployeesRequestBody {
         return this;
     }
 
-    public PutV1EmployeesRequestBody withWorkEmail(String workEmail) {
-        Utils.checkNotNull(workEmail, "workEmail");
-        this.workEmail = Optional.ofNullable(workEmail);
-        return this;
-    }
-
-
-    public PutV1EmployeesRequestBody withWorkEmail(Optional<String> workEmail) {
-        Utils.checkNotNull(workEmail, "workEmail");
-        this.workEmail = workEmail;
-        return this;
-    }
-
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -328,20 +328,20 @@ public class PutV1EmployeesRequestBody {
             Utils.enhancedDeepEquals(this.middleInitial, other.middleInitial) &&
             Utils.enhancedDeepEquals(this.lastName, other.lastName) &&
             Utils.enhancedDeepEquals(this.email, other.email) &&
+            Utils.enhancedDeepEquals(this.workEmail, other.workEmail) &&
             Utils.enhancedDeepEquals(this.dateOfBirth, other.dateOfBirth) &&
             Utils.enhancedDeepEquals(this.ssn, other.ssn) &&
             Utils.enhancedDeepEquals(this.preferredFirstName, other.preferredFirstName) &&
-            Utils.enhancedDeepEquals(this.twoPercentShareholder, other.twoPercentShareholder) &&
-            Utils.enhancedDeepEquals(this.workEmail, other.workEmail);
+            Utils.enhancedDeepEquals(this.twoPercentShareholder, other.twoPercentShareholder);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             version, firstName, middleInitial,
-            lastName, email, dateOfBirth,
-            ssn, preferredFirstName, twoPercentShareholder,
-            workEmail);
+            lastName, email, workEmail,
+            dateOfBirth, ssn, preferredFirstName,
+            twoPercentShareholder);
     }
     
     @Override
@@ -352,11 +352,11 @@ public class PutV1EmployeesRequestBody {
                 "middleInitial", middleInitial,
                 "lastName", lastName,
                 "email", email,
+                "workEmail", workEmail,
                 "dateOfBirth", dateOfBirth,
                 "ssn", ssn,
                 "preferredFirstName", preferredFirstName,
-                "twoPercentShareholder", twoPercentShareholder,
-                "workEmail", workEmail);
+                "twoPercentShareholder", twoPercentShareholder);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -372,6 +372,8 @@ public class PutV1EmployeesRequestBody {
 
         private Optional<String> email = Optional.empty();
 
+        private Optional<String> workEmail = Optional.empty();
+
         private Optional<String> dateOfBirth = Optional.empty();
 
         private Optional<String> ssn = Optional.empty();
@@ -379,8 +381,6 @@ public class PutV1EmployeesRequestBody {
         private JsonNullable<String> preferredFirstName = JsonNullable.undefined();
 
         private Optional<Boolean> twoPercentShareholder = Optional.empty();
-
-        private Optional<String> workEmail = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -451,6 +451,19 @@ public class PutV1EmployeesRequestBody {
         }
 
 
+        public Builder workEmail(String workEmail) {
+            Utils.checkNotNull(workEmail, "workEmail");
+            this.workEmail = Optional.ofNullable(workEmail);
+            return this;
+        }
+
+        public Builder workEmail(Optional<String> workEmail) {
+            Utils.checkNotNull(workEmail, "workEmail");
+            this.workEmail = workEmail;
+            return this;
+        }
+
+
         public Builder dateOfBirth(String dateOfBirth) {
             Utils.checkNotNull(dateOfBirth, "dateOfBirth");
             this.dateOfBirth = Optional.ofNullable(dateOfBirth);
@@ -510,26 +523,13 @@ public class PutV1EmployeesRequestBody {
             return this;
         }
 
-
-        public Builder workEmail(String workEmail) {
-            Utils.checkNotNull(workEmail, "workEmail");
-            this.workEmail = Optional.ofNullable(workEmail);
-            return this;
-        }
-
-        public Builder workEmail(Optional<String> workEmail) {
-            Utils.checkNotNull(workEmail, "workEmail");
-            this.workEmail = workEmail;
-            return this;
-        }
-
         public PutV1EmployeesRequestBody build() {
 
             return new PutV1EmployeesRequestBody(
                 version, firstName, middleInitial,
-                lastName, email, dateOfBirth,
-                ssn, preferredFirstName, twoPercentShareholder,
-                workEmail);
+                lastName, email, workEmail,
+                dateOfBirth, ssn, preferredFirstName,
+                twoPercentShareholder);
         }
 
     }

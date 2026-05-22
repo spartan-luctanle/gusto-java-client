@@ -16,17 +16,20 @@ import java.lang.String;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-/**
- * Form
- * 
- * <p>Example response
- */
+
 public class Form {
     /**
      * The UUID of the form
      */
     @JsonProperty("uuid")
     private String uuid;
+
+    /**
+     * The UUID of the employee to which the form belongs, if applicable.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("employee_uuid")
+    private Optional<String> employeeUuid;
 
     /**
      * The type identifier of the form
@@ -100,6 +103,7 @@ public class Form {
     @JsonCreator
     public Form(
             @JsonProperty("uuid") String uuid,
+            @JsonProperty("employee_uuid") Optional<String> employeeUuid,
             @JsonProperty("name") Optional<String> name,
             @JsonProperty("title") Optional<String> title,
             @JsonProperty("description") Optional<String> description,
@@ -109,6 +113,7 @@ public class Form {
             @JsonProperty("requires_signing") Optional<Boolean> requiresSigning,
             @JsonProperty("document_content_type") JsonNullable<String> documentContentType) {
         Utils.checkNotNull(uuid, "uuid");
+        Utils.checkNotNull(employeeUuid, "employeeUuid");
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(title, "title");
         Utils.checkNotNull(description, "description");
@@ -118,6 +123,7 @@ public class Form {
         Utils.checkNotNull(requiresSigning, "requiresSigning");
         Utils.checkNotNull(documentContentType, "documentContentType");
         this.uuid = uuid;
+        this.employeeUuid = employeeUuid;
         this.name = name;
         this.title = title;
         this.description = description;
@@ -131,8 +137,9 @@ public class Form {
     public Form(
             String uuid) {
         this(uuid, Optional.empty(), Optional.empty(),
-            Optional.empty(), Optional.empty(), JsonNullable.undefined(),
-            JsonNullable.undefined(), Optional.empty(), JsonNullable.undefined());
+            Optional.empty(), Optional.empty(), Optional.empty(),
+            JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty(),
+            JsonNullable.undefined());
     }
 
     /**
@@ -141,6 +148,14 @@ public class Form {
     @JsonIgnore
     public String uuid() {
         return uuid;
+    }
+
+    /**
+     * The UUID of the employee to which the form belongs, if applicable.
+     */
+    @JsonIgnore
+    public Optional<String> employeeUuid() {
+        return employeeUuid;
     }
 
     /**
@@ -231,6 +246,25 @@ public class Form {
     public Form withUuid(String uuid) {
         Utils.checkNotNull(uuid, "uuid");
         this.uuid = uuid;
+        return this;
+    }
+
+    /**
+     * The UUID of the employee to which the form belongs, if applicable.
+     */
+    public Form withEmployeeUuid(String employeeUuid) {
+        Utils.checkNotNull(employeeUuid, "employeeUuid");
+        this.employeeUuid = Optional.ofNullable(employeeUuid);
+        return this;
+    }
+
+
+    /**
+     * The UUID of the employee to which the form belongs, if applicable.
+     */
+    public Form withEmployeeUuid(Optional<String> employeeUuid) {
+        Utils.checkNotNull(employeeUuid, "employeeUuid");
+        this.employeeUuid = employeeUuid;
         return this;
     }
 
@@ -420,6 +454,7 @@ public class Form {
         Form other = (Form) o;
         return 
             Utils.enhancedDeepEquals(this.uuid, other.uuid) &&
+            Utils.enhancedDeepEquals(this.employeeUuid, other.employeeUuid) &&
             Utils.enhancedDeepEquals(this.name, other.name) &&
             Utils.enhancedDeepEquals(this.title, other.title) &&
             Utils.enhancedDeepEquals(this.description, other.description) &&
@@ -433,15 +468,17 @@ public class Form {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            uuid, name, title,
-            description, draft, year,
-            quarter, requiresSigning, documentContentType);
+            uuid, employeeUuid, name,
+            title, description, draft,
+            year, quarter, requiresSigning,
+            documentContentType);
     }
     
     @Override
     public String toString() {
         return Utils.toString(Form.class,
                 "uuid", uuid,
+                "employeeUuid", employeeUuid,
                 "name", name,
                 "title", title,
                 "description", description,
@@ -456,6 +493,8 @@ public class Form {
     public final static class Builder {
 
         private String uuid;
+
+        private Optional<String> employeeUuid = Optional.empty();
 
         private Optional<String> name = Optional.empty();
 
@@ -484,6 +523,25 @@ public class Form {
         public Builder uuid(String uuid) {
             Utils.checkNotNull(uuid, "uuid");
             this.uuid = uuid;
+            return this;
+        }
+
+
+        /**
+         * The UUID of the employee to which the form belongs, if applicable.
+         */
+        public Builder employeeUuid(String employeeUuid) {
+            Utils.checkNotNull(employeeUuid, "employeeUuid");
+            this.employeeUuid = Optional.ofNullable(employeeUuid);
+            return this;
+        }
+
+        /**
+         * The UUID of the employee to which the form belongs, if applicable.
+         */
+        public Builder employeeUuid(Optional<String> employeeUuid) {
+            Utils.checkNotNull(employeeUuid, "employeeUuid");
+            this.employeeUuid = employeeUuid;
             return this;
         }
 
@@ -668,9 +726,10 @@ public class Form {
         public Form build() {
 
             return new Form(
-                uuid, name, title,
-                description, draft, year,
-                quarter, requiresSigning, documentContentType);
+                uuid, employeeUuid, name,
+                title, description, draft,
+                year, quarter, requiresSigning,
+                documentContentType);
         }
 
     }

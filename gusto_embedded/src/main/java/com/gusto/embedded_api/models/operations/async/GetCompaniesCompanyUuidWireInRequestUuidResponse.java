@@ -35,7 +35,7 @@ public class GetCompaniesCompanyUuidWireInRequestUuidResponse implements AsyncRe
     private HttpResponse<Blob> rawResponse;
 
     /**
-     * Example response
+     * Success
      */
     private Optional<? extends List<WireInRequest>> wireInRequestList;
 
@@ -88,7 +88,7 @@ public class GetCompaniesCompanyUuidWireInRequestUuidResponse implements AsyncRe
     }
 
     /**
-     * Example response
+     * Success
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -129,7 +129,7 @@ public class GetCompaniesCompanyUuidWireInRequestUuidResponse implements AsyncRe
     }
 
     /**
-     * Example response
+     * Success
      */
     public GetCompaniesCompanyUuidWireInRequestUuidResponse withWireInRequestList(List<WireInRequest> wireInRequestList) {
         Utils.checkNotNull(wireInRequestList, "wireInRequestList");
@@ -139,7 +139,7 @@ public class GetCompaniesCompanyUuidWireInRequestUuidResponse implements AsyncRe
 
 
     /**
-     * Example response
+     * Success
      */
     public GetCompaniesCompanyUuidWireInRequestUuidResponse withWireInRequestList(Optional<? extends List<WireInRequest>> wireInRequestList) {
         Utils.checkNotNull(wireInRequestList, "wireInRequestList");
@@ -226,7 +226,7 @@ public class GetCompaniesCompanyUuidWireInRequestUuidResponse implements AsyncRe
 
 
         /**
-         * Example response
+         * Success
          */
         public Builder wireInRequestList(List<WireInRequest> wireInRequestList) {
             Utils.checkNotNull(wireInRequestList, "wireInRequestList");
@@ -235,7 +235,7 @@ public class GetCompaniesCompanyUuidWireInRequestUuidResponse implements AsyncRe
         }
 
         /**
-         * Example response
+         * Success
          */
         public Builder wireInRequestList(Optional<? extends List<WireInRequest>> wireInRequestList) {
             Utils.checkNotNull(wireInRequestList, "wireInRequestList");

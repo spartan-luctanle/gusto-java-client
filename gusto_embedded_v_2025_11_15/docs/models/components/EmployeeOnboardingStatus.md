@@ -1,0 +1,12 @@
+# EmployeeOnboardingStatus
+
+The representation of an employee's onboarding status.
+
+
+## Fields
+
+| Field                                                                                                              | Type                                                                                                               | Required                                                                                                           | Description                                                                                                        |
+| ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
+| `uuid`                                                                                                             | *String*                                                                                                           | :heavy_check_mark:                                                                                                 | Unique identifier for this employee.                                                                               |
+| `onboardingStatus`                                                                                                 | *Optional\<String>*                                                                                                | :heavy_minus_sign:                                                                                                 | One of the "onboarding_status" enum values.                                                                        |
+| `onboardingSteps`                                                                                                  | List\<[EmployeeOnboardingStatusOnboardingStep](../../models/components/EmployeeOnboardingStatusOnboardingStep.md)> | :heavy_minus_sign:                                                                                                 | List of steps required to onboard an employee.                                                                     |

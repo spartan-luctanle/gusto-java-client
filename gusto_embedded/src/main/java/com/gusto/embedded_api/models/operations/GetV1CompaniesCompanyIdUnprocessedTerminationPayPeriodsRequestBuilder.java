@@ -7,7 +7,6 @@ import static com.gusto.embedded_api.operations.Operations.RequestOperation;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.VersionHeader;
 import com.gusto.embedded_api.operations.GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriods;
 import com.gusto.embedded_api.utils.Headers;
 import com.gusto.embedded_api.utils.LazySingletonValue;
@@ -17,33 +16,33 @@ import java.util.Optional;
 
 public class GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsRequestBuilder {
 
-    private String companyId;
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
+    private Optional<? extends GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsHeaderXGustoAPIVersion> xGustoAPIVersion = Utils.readDefaultOrConstValue(
                             "xGustoAPIVersion",
                             "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
+                            new TypeReference<Optional<? extends GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsHeaderXGustoAPIVersion>>() {});
+    private String companyId;
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
     public GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
-
-    public GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsRequestBuilder companyId(String companyId) {
-        Utils.checkNotNull(companyId, "companyId");
-        this.companyId = companyId;
-        return this;
-    }
                 
-    public GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsRequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+    public GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsRequestBuilder xGustoAPIVersion(GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsHeaderXGustoAPIVersion xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
         return this;
     }
 
-    public GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsRequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsRequestBuilder xGustoAPIVersion(Optional<? extends GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsHeaderXGustoAPIVersion> xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = xGustoAPIVersion;
+        return this;
+    }
+
+    public GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsRequestBuilder companyId(String companyId) {
+        Utils.checkNotNull(companyId, "companyId");
+        this.companyId = companyId;
         return this;
     }
 
@@ -53,8 +52,8 @@ public class GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsRequestBuild
             xGustoAPIVersion = _SINGLETON_VALUE_XGustoAPIVersion.value();
         }
 
-        GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsRequest request = new GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsRequest(companyId,
-            xGustoAPIVersion);
+        GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsRequest request = new GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsRequest(xGustoAPIVersion,
+            companyId);
 
         return request;
     }
@@ -68,9 +67,9 @@ public class GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsRequestBuild
         return operation.handleResponse(operation.doRequest(request));
     }
 
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+    private static final LazySingletonValue<Optional<? extends GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
             new LazySingletonValue<>(
                     "xGustoAPIVersion",
                     "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
+                    new TypeReference<Optional<? extends GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsHeaderXGustoAPIVersion>>() {});
 }

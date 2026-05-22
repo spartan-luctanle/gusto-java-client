@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.gusto.embedded_api.utils.Utils;
+import java.lang.Boolean;
 import java.lang.Double;
 import java.lang.Override;
 import java.lang.String;
@@ -45,25 +46,36 @@ public class PayrollShowDeductions {
     @JsonProperty("uuid")
     private Optional<String> uuid;
 
+    /**
+     * Whether the deduction can be updated via the payroll update endpoint. Only present for unprocessed
+     * payrolls.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("updatable_via_payroll")
+    private Optional<Boolean> updatableViaPayroll;
+
     @JsonCreator
     public PayrollShowDeductions(
             @JsonProperty("name") Optional<String> name,
             @JsonProperty("amount") Optional<Double> amount,
             @JsonProperty("amount_type") Optional<? extends PayrollShowAmountType> amountType,
-            @JsonProperty("uuid") Optional<String> uuid) {
+            @JsonProperty("uuid") Optional<String> uuid,
+            @JsonProperty("updatable_via_payroll") Optional<Boolean> updatableViaPayroll) {
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(amount, "amount");
         Utils.checkNotNull(amountType, "amountType");
         Utils.checkNotNull(uuid, "uuid");
+        Utils.checkNotNull(updatableViaPayroll, "updatableViaPayroll");
         this.name = name;
         this.amount = amount;
         this.amountType = amountType;
         this.uuid = uuid;
+        this.updatableViaPayroll = updatableViaPayroll;
     }
     
     public PayrollShowDeductions() {
         this(Optional.empty(), Optional.empty(), Optional.empty(),
-            Optional.empty());
+            Optional.empty(), Optional.empty());
     }
 
     /**
@@ -97,6 +109,15 @@ public class PayrollShowDeductions {
     @JsonIgnore
     public Optional<String> uuid() {
         return uuid;
+    }
+
+    /**
+     * Whether the deduction can be updated via the payroll update endpoint. Only present for unprocessed
+     * payrolls.
+     */
+    @JsonIgnore
+    public Optional<Boolean> updatableViaPayroll() {
+        return updatableViaPayroll;
     }
 
     public static Builder builder() {
@@ -180,6 +201,27 @@ public class PayrollShowDeductions {
         return this;
     }
 
+    /**
+     * Whether the deduction can be updated via the payroll update endpoint. Only present for unprocessed
+     * payrolls.
+     */
+    public PayrollShowDeductions withUpdatableViaPayroll(boolean updatableViaPayroll) {
+        Utils.checkNotNull(updatableViaPayroll, "updatableViaPayroll");
+        this.updatableViaPayroll = Optional.ofNullable(updatableViaPayroll);
+        return this;
+    }
+
+
+    /**
+     * Whether the deduction can be updated via the payroll update endpoint. Only present for unprocessed
+     * payrolls.
+     */
+    public PayrollShowDeductions withUpdatableViaPayroll(Optional<Boolean> updatableViaPayroll) {
+        Utils.checkNotNull(updatableViaPayroll, "updatableViaPayroll");
+        this.updatableViaPayroll = updatableViaPayroll;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -193,14 +235,15 @@ public class PayrollShowDeductions {
             Utils.enhancedDeepEquals(this.name, other.name) &&
             Utils.enhancedDeepEquals(this.amount, other.amount) &&
             Utils.enhancedDeepEquals(this.amountType, other.amountType) &&
-            Utils.enhancedDeepEquals(this.uuid, other.uuid);
+            Utils.enhancedDeepEquals(this.uuid, other.uuid) &&
+            Utils.enhancedDeepEquals(this.updatableViaPayroll, other.updatableViaPayroll);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             name, amount, amountType,
-            uuid);
+            uuid, updatableViaPayroll);
     }
     
     @Override
@@ -209,7 +252,8 @@ public class PayrollShowDeductions {
                 "name", name,
                 "amount", amount,
                 "amountType", amountType,
-                "uuid", uuid);
+                "uuid", uuid,
+                "updatableViaPayroll", updatableViaPayroll);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -222,6 +266,8 @@ public class PayrollShowDeductions {
         private Optional<? extends PayrollShowAmountType> amountType = Optional.empty();
 
         private Optional<String> uuid = Optional.empty();
+
+        private Optional<Boolean> updatableViaPayroll = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -303,11 +349,32 @@ public class PayrollShowDeductions {
             return this;
         }
 
+
+        /**
+         * Whether the deduction can be updated via the payroll update endpoint. Only present for unprocessed
+         * payrolls.
+         */
+        public Builder updatableViaPayroll(boolean updatableViaPayroll) {
+            Utils.checkNotNull(updatableViaPayroll, "updatableViaPayroll");
+            this.updatableViaPayroll = Optional.ofNullable(updatableViaPayroll);
+            return this;
+        }
+
+        /**
+         * Whether the deduction can be updated via the payroll update endpoint. Only present for unprocessed
+         * payrolls.
+         */
+        public Builder updatableViaPayroll(Optional<Boolean> updatableViaPayroll) {
+            Utils.checkNotNull(updatableViaPayroll, "updatableViaPayroll");
+            this.updatableViaPayroll = updatableViaPayroll;
+            return this;
+        }
+
         public PayrollShowDeductions build() {
 
             return new PayrollShowDeductions(
                 name, amount, amountType,
-                uuid);
+                uuid, updatableViaPayroll);
         }
 
     }

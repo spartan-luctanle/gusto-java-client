@@ -6,7 +6,6 @@ package com.gusto.embedded_api.models.operations;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.gusto.embedded_api.models.components.VersionHeader;
 import com.gusto.embedded_api.utils.LazySingletonValue;
 import com.gusto.embedded_api.utils.SpeakeasyMetadata;
 import com.gusto.embedded_api.utils.Utils;
@@ -17,6 +16,14 @@ import java.util.Optional;
 
 
 public class PutV1CompanyFormSignRequest {
+    /**
+     * Determines the date-based API version associated with your API call. If none is provided, your
+     * application's [minimum API
+     * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     */
+    @SpeakeasyMetadata("header:style=simple,explode=false,name=X-Gusto-API-Version")
+    private Optional<? extends PutV1CompanyFormSignHeaderXGustoAPIVersion> xGustoAPIVersion;
+
     /**
      * The UUID of the form
      */
@@ -30,39 +37,42 @@ public class PutV1CompanyFormSignRequest {
     @SpeakeasyMetadata("header:style=simple,explode=false,name=x-gusto-client-ip")
     private Optional<String> xGustoClientIp;
 
-    /**
-     * Determines the date-based API version associated with your API call. If none is provided, your
-     * application's [minimum API
-     * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
-     */
-    @SpeakeasyMetadata("header:style=simple,explode=false,name=X-Gusto-API-Version")
-    private Optional<? extends VersionHeader> xGustoAPIVersion;
-
 
     @SpeakeasyMetadata("request:mediaType=application/json")
     private PutV1CompanyFormSignRequestBody requestBody;
 
     @JsonCreator
     public PutV1CompanyFormSignRequest(
+            Optional<? extends PutV1CompanyFormSignHeaderXGustoAPIVersion> xGustoAPIVersion,
             String formId,
             Optional<String> xGustoClientIp,
-            Optional<? extends VersionHeader> xGustoAPIVersion,
             PutV1CompanyFormSignRequestBody requestBody) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         Utils.checkNotNull(formId, "formId");
         Utils.checkNotNull(xGustoClientIp, "xGustoClientIp");
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         Utils.checkNotNull(requestBody, "requestBody");
+        this.xGustoAPIVersion = xGustoAPIVersion;
         this.formId = formId;
         this.xGustoClientIp = xGustoClientIp;
-        this.xGustoAPIVersion = xGustoAPIVersion;
         this.requestBody = requestBody;
     }
     
     public PutV1CompanyFormSignRequest(
             String formId,
             PutV1CompanyFormSignRequestBody requestBody) {
-        this(formId, Optional.empty(), Optional.empty(),
+        this(Optional.empty(), formId, Optional.empty(),
             requestBody);
+    }
+
+    /**
+     * Determines the date-based API version associated with your API call. If none is provided, your
+     * application's [minimum API
+     * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<PutV1CompanyFormSignHeaderXGustoAPIVersion> xGustoAPIVersion() {
+        return (Optional<PutV1CompanyFormSignHeaderXGustoAPIVersion>) xGustoAPIVersion;
     }
 
     /**
@@ -82,17 +92,6 @@ public class PutV1CompanyFormSignRequest {
         return xGustoClientIp;
     }
 
-    /**
-     * Determines the date-based API version associated with your API call. If none is provided, your
-     * application's [minimum API
-     * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
-     */
-    @SuppressWarnings("unchecked")
-    @JsonIgnore
-    public Optional<VersionHeader> xGustoAPIVersion() {
-        return (Optional<VersionHeader>) xGustoAPIVersion;
-    }
-
     @JsonIgnore
     public PutV1CompanyFormSignRequestBody requestBody() {
         return requestBody;
@@ -102,6 +101,29 @@ public class PutV1CompanyFormSignRequest {
         return new Builder();
     }
 
+
+    /**
+     * Determines the date-based API version associated with your API call. If none is provided, your
+     * application's [minimum API
+     * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     */
+    public PutV1CompanyFormSignRequest withXGustoAPIVersion(PutV1CompanyFormSignHeaderXGustoAPIVersion xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
+        return this;
+    }
+
+
+    /**
+     * Determines the date-based API version associated with your API call. If none is provided, your
+     * application's [minimum API
+     * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     */
+    public PutV1CompanyFormSignRequest withXGustoAPIVersion(Optional<? extends PutV1CompanyFormSignHeaderXGustoAPIVersion> xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = xGustoAPIVersion;
+        return this;
+    }
 
     /**
      * The UUID of the form
@@ -133,29 +155,6 @@ public class PutV1CompanyFormSignRequest {
         return this;
     }
 
-    /**
-     * Determines the date-based API version associated with your API call. If none is provided, your
-     * application's [minimum API
-     * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
-     */
-    public PutV1CompanyFormSignRequest withXGustoAPIVersion(VersionHeader xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
-        return this;
-    }
-
-
-    /**
-     * Determines the date-based API version associated with your API call. If none is provided, your
-     * application's [minimum API
-     * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
-     */
-    public PutV1CompanyFormSignRequest withXGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = xGustoAPIVersion;
-        return this;
-    }
-
     public PutV1CompanyFormSignRequest withRequestBody(PutV1CompanyFormSignRequestBody requestBody) {
         Utils.checkNotNull(requestBody, "requestBody");
         this.requestBody = requestBody;
@@ -172,41 +171,64 @@ public class PutV1CompanyFormSignRequest {
         }
         PutV1CompanyFormSignRequest other = (PutV1CompanyFormSignRequest) o;
         return 
+            Utils.enhancedDeepEquals(this.xGustoAPIVersion, other.xGustoAPIVersion) &&
             Utils.enhancedDeepEquals(this.formId, other.formId) &&
             Utils.enhancedDeepEquals(this.xGustoClientIp, other.xGustoClientIp) &&
-            Utils.enhancedDeepEquals(this.xGustoAPIVersion, other.xGustoAPIVersion) &&
             Utils.enhancedDeepEquals(this.requestBody, other.requestBody);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            formId, xGustoClientIp, xGustoAPIVersion,
+            xGustoAPIVersion, formId, xGustoClientIp,
             requestBody);
     }
     
     @Override
     public String toString() {
         return Utils.toString(PutV1CompanyFormSignRequest.class,
+                "xGustoAPIVersion", xGustoAPIVersion,
                 "formId", formId,
                 "xGustoClientIp", xGustoClientIp,
-                "xGustoAPIVersion", xGustoAPIVersion,
                 "requestBody", requestBody);
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
+        private Optional<? extends PutV1CompanyFormSignHeaderXGustoAPIVersion> xGustoAPIVersion;
+
         private String formId;
 
         private Optional<String> xGustoClientIp = Optional.empty();
-
-        private Optional<? extends VersionHeader> xGustoAPIVersion;
 
         private PutV1CompanyFormSignRequestBody requestBody;
 
         private Builder() {
           // force use of static builder() method
+        }
+
+
+        /**
+         * Determines the date-based API version associated with your API call. If none is provided, your
+         * application's [minimum API
+         * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+         */
+        public Builder xGustoAPIVersion(PutV1CompanyFormSignHeaderXGustoAPIVersion xGustoAPIVersion) {
+            Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+            this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
+            return this;
+        }
+
+        /**
+         * Determines the date-based API version associated with your API call. If none is provided, your
+         * application's [minimum API
+         * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+         */
+        public Builder xGustoAPIVersion(Optional<? extends PutV1CompanyFormSignHeaderXGustoAPIVersion> xGustoAPIVersion) {
+            Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+            this.xGustoAPIVersion = xGustoAPIVersion;
+            return this;
         }
 
 
@@ -241,29 +263,6 @@ public class PutV1CompanyFormSignRequest {
         }
 
 
-        /**
-         * Determines the date-based API version associated with your API call. If none is provided, your
-         * application's [minimum API
-         * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
-         */
-        public Builder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
-            Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-            this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
-            return this;
-        }
-
-        /**
-         * Determines the date-based API version associated with your API call. If none is provided, your
-         * application's [minimum API
-         * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
-         */
-        public Builder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
-            Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-            this.xGustoAPIVersion = xGustoAPIVersion;
-            return this;
-        }
-
-
         public Builder requestBody(PutV1CompanyFormSignRequestBody requestBody) {
             Utils.checkNotNull(requestBody, "requestBody");
             this.requestBody = requestBody;
@@ -276,15 +275,15 @@ public class PutV1CompanyFormSignRequest {
             }
 
             return new PutV1CompanyFormSignRequest(
-                formId, xGustoClientIp, xGustoAPIVersion,
+                xGustoAPIVersion, formId, xGustoClientIp,
                 requestBody);
         }
 
 
-        private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+        private static final LazySingletonValue<Optional<? extends PutV1CompanyFormSignHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
                 new LazySingletonValue<>(
                         "X-Gusto-API-Version",
                         "\"2025-06-15\"",
-                        new TypeReference<Optional<? extends VersionHeader>>() {});
+                        new TypeReference<Optional<? extends PutV1CompanyFormSignHeaderXGustoAPIVersion>>() {});
     }
 }

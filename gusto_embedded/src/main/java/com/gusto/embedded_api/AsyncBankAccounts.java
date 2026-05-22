@@ -7,15 +7,15 @@ import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation
 
 import com.gusto.embedded_api.models.components.CompanyBankAccountRequest;
 import com.gusto.embedded_api.models.components.CompanyBankAccountVerifyRequest;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.components.PlaidProcessorTokenRequest;
 import com.gusto.embedded_api.models.operations.DeleteV1CompaniesCompanyIdBankAccountsBankAccountIdHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.DeleteV1CompaniesCompanyIdBankAccountsBankAccountIdRequest;
 import com.gusto.embedded_api.models.operations.GetV1CompaniesCompanyIdBankAccountsHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1CompaniesCompanyIdBankAccountsRequest;
 import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdBankAccountsHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdBankAccountsRequest;
+import com.gusto.embedded_api.models.operations.PostV1PlaidProcessorTokenHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostV1PlaidProcessorTokenRequest;
-import com.gusto.embedded_api.models.operations.PostV1PlaidProcessorTokenRequestBody;
 import com.gusto.embedded_api.models.operations.PutV1CompaniesCompanyIdBankAccountsVerifyHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PutV1CompaniesCompanyIdBankAccountsVerifyRequest;
 import com.gusto.embedded_api.models.operations.async.DeleteV1CompaniesCompanyIdBankAccountsBankAccountIdRequestBuilder;
@@ -343,8 +343,6 @@ public class AsyncBankAccounts {
      * <p>This endpoint creates a new **verified** bank account by using a plaid processor token to retrieve
      * its information.
      * 
-     * <p>scope: `plaid_processor:write`
-     * 
      * <p>&gt; 📘
      * &gt; To create a token please use the [plaid
      * api](https://plaid.com/docs/api/processors/#processortokencreate) and select "gusto" as processor.
@@ -353,6 +351,10 @@ public class AsyncBankAccounts {
      * &gt;
      * &gt; If a default company bank account exists, it will be disabled and the new bank account will
      * replace it as the company's default funding method.
+     * 
+     * <p>scope: `plaid_processor:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @return The async call builder
      */
@@ -366,8 +368,6 @@ public class AsyncBankAccounts {
      * <p>This endpoint creates a new **verified** bank account by using a plaid processor token to retrieve
      * its information.
      * 
-     * <p>scope: `plaid_processor:write`
-     * 
      * <p>&gt; 📘
      * &gt; To create a token please use the [plaid
      * api](https://plaid.com/docs/api/processors/#processortokencreate) and select "gusto" as processor.
@@ -377,11 +377,15 @@ public class AsyncBankAccounts {
      * &gt; If a default company bank account exists, it will be disabled and the new bank account will
      * replace it as the company's default funding method.
      * 
-     * @param requestBody 
+     * <p>scope: `plaid_processor:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param plaidProcessorTokenRequest Request body for creating a verified company bank account from a Plaid processor token.
      * @return {@code CompletableFuture<PostV1PlaidProcessorTokenResponse>} - The async response
      */
-    public CompletableFuture<PostV1PlaidProcessorTokenResponse> createFromPlaidToken(PostV1PlaidProcessorTokenRequestBody requestBody) {
-        return createFromPlaidToken(Optional.empty(), requestBody);
+    public CompletableFuture<PostV1PlaidProcessorTokenResponse> createFromPlaidToken(PlaidProcessorTokenRequest plaidProcessorTokenRequest) {
+        return createFromPlaidToken(Optional.empty(), plaidProcessorTokenRequest);
     }
 
     /**
@@ -390,8 +394,6 @@ public class AsyncBankAccounts {
      * <p>This endpoint creates a new **verified** bank account by using a plaid processor token to retrieve
      * its information.
      * 
-     * <p>scope: `plaid_processor:write`
-     * 
      * <p>&gt; 📘
      * &gt; To create a token please use the [plaid
      * api](https://plaid.com/docs/api/processors/#processortokencreate) and select "gusto" as processor.
@@ -401,16 +403,20 @@ public class AsyncBankAccounts {
      * &gt; If a default company bank account exists, it will be disabled and the new bank account will
      * replace it as the company's default funding method.
      * 
-     * @param xGustoAPIVersion 
-     * @param requestBody 
+     * <p>scope: `plaid_processor:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     * @param plaidProcessorTokenRequest Request body for creating a verified company bank account from a Plaid processor token.
      * @return {@code CompletableFuture<PostV1PlaidProcessorTokenResponse>} - The async response
      */
-    public CompletableFuture<PostV1PlaidProcessorTokenResponse> createFromPlaidToken(Optional<? extends VersionHeader> xGustoAPIVersion, PostV1PlaidProcessorTokenRequestBody requestBody) {
+    public CompletableFuture<PostV1PlaidProcessorTokenResponse> createFromPlaidToken(Optional<? extends PostV1PlaidProcessorTokenHeaderXGustoAPIVersion> xGustoAPIVersion, PlaidProcessorTokenRequest plaidProcessorTokenRequest) {
         PostV1PlaidProcessorTokenRequest request =
             PostV1PlaidProcessorTokenRequest
                 .builder()
                 .xGustoAPIVersion(xGustoAPIVersion)
-                .requestBody(requestBody)
+                .plaidProcessorTokenRequest(plaidProcessorTokenRequest)
                 .build();
         AsyncRequestOperation<PostV1PlaidProcessorTokenRequest, PostV1PlaidProcessorTokenResponse> operation
               = new PostV1PlaidProcessorToken.Async(sdkConfiguration, _headers);

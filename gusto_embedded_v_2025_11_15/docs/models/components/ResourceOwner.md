@@ -1,0 +1,13 @@
+# ResourceOwner
+
+The resource owner (user) who authorized this access token. Null for
+system-level tokens or when the owner cannot be determined.
+
+
+
+## Fields
+
+| Field                                                                                                                         | Type                                                                                                                          | Required                                                                                                                      | Description                                                                                                                   | Example                                                                                                                       |
+| ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `type`                                                                                                                        | [Optional\<TokenInfoType>](../../models/components/TokenInfoType.md)                                                          | :heavy_minus_sign:                                                                                                            | The type of resource owner:<br/>- `CompanyAdmin`: A company administrator<br/>- `Employee`: An employee<br/>- `Contractor`: A contractor<br/> | CompanyAdmin                                                                                                                  |
+| `uuid`                                                                                                                        | *Optional\<String>*                                                                                                           | :heavy_minus_sign:                                                                                                            | The UUID of the resource owner                                                                                                | 8fdc31f0-a8a7-4872-a9f1-dcb5e6f876e3                                                                                          |

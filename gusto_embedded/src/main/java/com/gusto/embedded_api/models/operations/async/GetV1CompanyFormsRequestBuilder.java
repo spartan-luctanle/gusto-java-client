@@ -5,26 +5,16 @@ package com.gusto.embedded_api.models.operations.async;
 
 import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.VersionHeader;
 import com.gusto.embedded_api.models.operations.GetV1CompanyFormsRequest;
 import com.gusto.embedded_api.operations.GetV1CompanyForms;
 import com.gusto.embedded_api.utils.Headers;
-import com.gusto.embedded_api.utils.LazySingletonValue;
 import com.gusto.embedded_api.utils.Utils;
-import java.lang.String;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 public class GetV1CompanyFormsRequestBuilder {
 
-    private String companyId;
-    private Optional<String> sortBy = Optional.empty();
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
-                            "xGustoAPIVersion",
-                            "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
+    private GetV1CompanyFormsRequest request;
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
@@ -32,62 +22,18 @@ public class GetV1CompanyFormsRequestBuilder {
         this.sdkConfiguration = sdkConfiguration;
     }
 
-    public GetV1CompanyFormsRequestBuilder companyId(String companyId) {
-        Utils.checkNotNull(companyId, "companyId");
-        this.companyId = companyId;
+    public GetV1CompanyFormsRequestBuilder request(GetV1CompanyFormsRequest request) {
+        Utils.checkNotNull(request, "request");
+        this.request = request;
         return this;
-    }
-                
-    public GetV1CompanyFormsRequestBuilder sortBy(String sortBy) {
-        Utils.checkNotNull(sortBy, "sortBy");
-        this.sortBy = Optional.of(sortBy);
-        return this;
-    }
-
-    public GetV1CompanyFormsRequestBuilder sortBy(Optional<String> sortBy) {
-        Utils.checkNotNull(sortBy, "sortBy");
-        this.sortBy = sortBy;
-        return this;
-    }
-                
-    public GetV1CompanyFormsRequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
-        return this;
-    }
-
-    public GetV1CompanyFormsRequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = xGustoAPIVersion;
-        return this;
-    }
-
-
-    private GetV1CompanyFormsRequest buildRequest() {
-        if (xGustoAPIVersion == null) {
-            xGustoAPIVersion = _SINGLETON_VALUE_XGustoAPIVersion.value();
-        }
-
-        GetV1CompanyFormsRequest request = new GetV1CompanyFormsRequest(companyId,
-            sortBy,
-            xGustoAPIVersion);
-
-        return request;
     }
 
     public CompletableFuture<GetV1CompanyFormsResponse> call() {
         
         AsyncRequestOperation<GetV1CompanyFormsRequest, GetV1CompanyFormsResponse> operation
               = new GetV1CompanyForms.Async(sdkConfiguration, _headers);
-        GetV1CompanyFormsRequest request = buildRequest();
 
         return operation.doRequest(request)
             .thenCompose(operation::handleResponse);
     }
-
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
-            new LazySingletonValue<>(
-                    "xGustoAPIVersion",
-                    "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
 }

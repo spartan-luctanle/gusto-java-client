@@ -34,7 +34,7 @@ public class PostPayrollsPayrollUuidReportsGeneralLedgerResponse implements Asyn
     private HttpResponse<Blob> rawResponse;
 
     /**
-     * Successful response for general ledger report generation
+     * OK
      */
     private Optional<? extends GeneralLedgerReport> generalLedgerReport;
 
@@ -87,7 +87,7 @@ public class PostPayrollsPayrollUuidReportsGeneralLedgerResponse implements Asyn
     }
 
     /**
-     * Successful response for general ledger report generation
+     * OK
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -128,7 +128,7 @@ public class PostPayrollsPayrollUuidReportsGeneralLedgerResponse implements Asyn
     }
 
     /**
-     * Successful response for general ledger report generation
+     * OK
      */
     public PostPayrollsPayrollUuidReportsGeneralLedgerResponse withGeneralLedgerReport(GeneralLedgerReport generalLedgerReport) {
         Utils.checkNotNull(generalLedgerReport, "generalLedgerReport");
@@ -138,7 +138,7 @@ public class PostPayrollsPayrollUuidReportsGeneralLedgerResponse implements Asyn
 
 
     /**
-     * Successful response for general ledger report generation
+     * OK
      */
     public PostPayrollsPayrollUuidReportsGeneralLedgerResponse withGeneralLedgerReport(Optional<? extends GeneralLedgerReport> generalLedgerReport) {
         Utils.checkNotNull(generalLedgerReport, "generalLedgerReport");
@@ -225,7 +225,7 @@ public class PostPayrollsPayrollUuidReportsGeneralLedgerResponse implements Asyn
 
 
         /**
-         * Successful response for general ledger report generation
+         * OK
          */
         public Builder generalLedgerReport(GeneralLedgerReport generalLedgerReport) {
             Utils.checkNotNull(generalLedgerReport, "generalLedgerReport");
@@ -234,7 +234,7 @@ public class PostPayrollsPayrollUuidReportsGeneralLedgerResponse implements Asyn
         }
 
         /**
-         * Successful response for general ledger report generation
+         * OK
          */
         public Builder generalLedgerReport(Optional<? extends GeneralLedgerReport> generalLedgerReport) {
             Utils.checkNotNull(generalLedgerReport, "generalLedgerReport");

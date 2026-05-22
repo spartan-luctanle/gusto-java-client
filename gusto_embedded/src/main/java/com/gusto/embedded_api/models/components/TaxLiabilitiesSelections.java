@@ -38,6 +38,13 @@ public class TaxLiabilitiesSelections {
     private Optional<String> taxName;
 
     /**
+     * A description of the tax, providing additional detail about the tax type.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("description")
+    private JsonNullable<String> description;
+
+    /**
      * The UUID of last unpaid external payroll.
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -55,21 +62,24 @@ public class TaxLiabilitiesSelections {
     public TaxLiabilitiesSelections(
             @JsonProperty("tax_id") Optional<Long> taxId,
             @JsonProperty("tax_name") Optional<String> taxName,
+            @JsonProperty("description") JsonNullable<String> description,
             @JsonProperty("last_unpaid_external_payroll_uuid") JsonNullable<String> lastUnpaidExternalPayrollUuid,
             @JsonProperty("possible_liabilities") Optional<? extends List<PossibleLiabilities>> possibleLiabilities) {
         Utils.checkNotNull(taxId, "taxId");
         Utils.checkNotNull(taxName, "taxName");
+        Utils.checkNotNull(description, "description");
         Utils.checkNotNull(lastUnpaidExternalPayrollUuid, "lastUnpaidExternalPayrollUuid");
         Utils.checkNotNull(possibleLiabilities, "possibleLiabilities");
         this.taxId = taxId;
         this.taxName = taxName;
+        this.description = description;
         this.lastUnpaidExternalPayrollUuid = lastUnpaidExternalPayrollUuid;
         this.possibleLiabilities = possibleLiabilities;
     }
     
     public TaxLiabilitiesSelections() {
         this(Optional.empty(), Optional.empty(), JsonNullable.undefined(),
-            Optional.empty());
+            JsonNullable.undefined(), Optional.empty());
     }
 
     /**
@@ -86,6 +96,14 @@ public class TaxLiabilitiesSelections {
     @JsonIgnore
     public Optional<String> taxName() {
         return taxName;
+    }
+
+    /**
+     * A description of the tax, providing additional detail about the tax type.
+     */
+    @JsonIgnore
+    public JsonNullable<String> description() {
+        return description;
     }
 
     /**
@@ -149,6 +167,24 @@ public class TaxLiabilitiesSelections {
     }
 
     /**
+     * A description of the tax, providing additional detail about the tax type.
+     */
+    public TaxLiabilitiesSelections withDescription(String description) {
+        Utils.checkNotNull(description, "description");
+        this.description = JsonNullable.of(description);
+        return this;
+    }
+
+    /**
+     * A description of the tax, providing additional detail about the tax type.
+     */
+    public TaxLiabilitiesSelections withDescription(JsonNullable<String> description) {
+        Utils.checkNotNull(description, "description");
+        this.description = description;
+        return this;
+    }
+
+    /**
      * The UUID of last unpaid external payroll.
      */
     public TaxLiabilitiesSelections withLastUnpaidExternalPayrollUuid(String lastUnpaidExternalPayrollUuid) {
@@ -197,6 +233,7 @@ public class TaxLiabilitiesSelections {
         return 
             Utils.enhancedDeepEquals(this.taxId, other.taxId) &&
             Utils.enhancedDeepEquals(this.taxName, other.taxName) &&
+            Utils.enhancedDeepEquals(this.description, other.description) &&
             Utils.enhancedDeepEquals(this.lastUnpaidExternalPayrollUuid, other.lastUnpaidExternalPayrollUuid) &&
             Utils.enhancedDeepEquals(this.possibleLiabilities, other.possibleLiabilities);
     }
@@ -204,8 +241,8 @@ public class TaxLiabilitiesSelections {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            taxId, taxName, lastUnpaidExternalPayrollUuid,
-            possibleLiabilities);
+            taxId, taxName, description,
+            lastUnpaidExternalPayrollUuid, possibleLiabilities);
     }
     
     @Override
@@ -213,6 +250,7 @@ public class TaxLiabilitiesSelections {
         return Utils.toString(TaxLiabilitiesSelections.class,
                 "taxId", taxId,
                 "taxName", taxName,
+                "description", description,
                 "lastUnpaidExternalPayrollUuid", lastUnpaidExternalPayrollUuid,
                 "possibleLiabilities", possibleLiabilities);
     }
@@ -223,6 +261,8 @@ public class TaxLiabilitiesSelections {
         private Optional<Long> taxId = Optional.empty();
 
         private Optional<String> taxName = Optional.empty();
+
+        private JsonNullable<String> description = JsonNullable.undefined();
 
         private JsonNullable<String> lastUnpaidExternalPayrollUuid = JsonNullable.undefined();
 
@@ -272,6 +312,25 @@ public class TaxLiabilitiesSelections {
 
 
         /**
+         * A description of the tax, providing additional detail about the tax type.
+         */
+        public Builder description(String description) {
+            Utils.checkNotNull(description, "description");
+            this.description = JsonNullable.of(description);
+            return this;
+        }
+
+        /**
+         * A description of the tax, providing additional detail about the tax type.
+         */
+        public Builder description(JsonNullable<String> description) {
+            Utils.checkNotNull(description, "description");
+            this.description = description;
+            return this;
+        }
+
+
+        /**
          * The UUID of last unpaid external payroll.
          */
         public Builder lastUnpaidExternalPayrollUuid(String lastUnpaidExternalPayrollUuid) {
@@ -311,8 +370,8 @@ public class TaxLiabilitiesSelections {
         public TaxLiabilitiesSelections build() {
 
             return new TaxLiabilitiesSelections(
-                taxId, taxName, lastUnpaidExternalPayrollUuid,
-                possibleLiabilities);
+                taxId, taxName, description,
+                lastUnpaidExternalPayrollUuid, possibleLiabilities);
         }
 
     }

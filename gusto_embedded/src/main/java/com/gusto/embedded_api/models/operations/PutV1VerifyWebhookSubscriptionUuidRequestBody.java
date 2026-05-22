@@ -13,7 +13,7 @@ import java.lang.String;
 
 public class PutV1VerifyWebhookSubscriptionUuidRequestBody {
     /**
-     * The token POSTed to the Subscription URL.
+     * The verification token received at the webhook subscription URL.
      */
     @JsonProperty("verification_token")
     private String verificationToken;
@@ -26,7 +26,7 @@ public class PutV1VerifyWebhookSubscriptionUuidRequestBody {
     }
 
     /**
-     * The token POSTed to the Subscription URL.
+     * The verification token received at the webhook subscription URL.
      */
     @JsonIgnore
     public String verificationToken() {
@@ -39,7 +39,7 @@ public class PutV1VerifyWebhookSubscriptionUuidRequestBody {
 
 
     /**
-     * The token POSTed to the Subscription URL.
+     * The verification token received at the webhook subscription URL.
      */
     public PutV1VerifyWebhookSubscriptionUuidRequestBody withVerificationToken(String verificationToken) {
         Utils.checkNotNull(verificationToken, "verificationToken");
@@ -83,7 +83,7 @@ public class PutV1VerifyWebhookSubscriptionUuidRequestBody {
 
 
         /**
-         * The token POSTed to the Subscription URL.
+         * The verification token received at the webhook subscription URL.
          */
         public Builder verificationToken(String verificationToken) {
             Utils.checkNotNull(verificationToken, "verificationToken");

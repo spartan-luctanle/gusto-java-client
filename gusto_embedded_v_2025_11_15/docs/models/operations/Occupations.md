@@ -1,0 +1,11 @@
+# Occupations
+
+
+## Fields
+
+| Field                                                                      | Type                                                                       | Required                                                                   | Description                                                                | Example                                                                    |
+| -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| `code`                                                                     | *String*                                                                   | :heavy_check_mark:                                                         | Bureau of Labor Statistics (BLS) occupation code                           | 151252                                                                     |
+| `experienceLevel`                                                          | [ExperienceLevel](../../models/operations/ExperienceLevel.md)              | :heavy_check_mark:                                                         | Experience level for this occupation                                       | skilled                                                                    |
+| `timePercentage`                                                           | *String*                                                                   | :heavy_check_mark:                                                         | Percentage of time spent in this occupation (as decimal, e.g., 1.0 = 100%) | 1                                                                          |
+| `primary`                                                                  | *Optional\<Boolean>*                                                       | :heavy_minus_sign:                                                         | Whether this is the primary occupation                                     | true                                                                       |

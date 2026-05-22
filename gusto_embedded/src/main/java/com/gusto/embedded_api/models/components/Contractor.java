@@ -42,7 +42,7 @@ public class Contractor {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("wage_type")
-    private Optional<? extends ContractorWageType> wageType;
+    private Optional<? extends WageType> wageType;
 
     /**
      * The status of the contractor with the company.
@@ -255,7 +255,7 @@ public class Contractor {
     public Contractor(
             @JsonProperty("uuid") String uuid,
             @JsonProperty("company_uuid") Optional<String> companyUuid,
-            @JsonProperty("wage_type") Optional<? extends ContractorWageType> wageType,
+            @JsonProperty("wage_type") Optional<? extends WageType> wageType,
             @JsonProperty("is_active") Optional<Boolean> isActive,
             @JsonProperty("version") Optional<String> version,
             @JsonProperty("type") Optional<? extends ContractorType> type,
@@ -384,8 +384,8 @@ public class Contractor {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<ContractorWageType> wageType() {
-        return (Optional<ContractorWageType>) wageType;
+    public Optional<WageType> wageType() {
+        return (Optional<WageType>) wageType;
     }
 
     /**
@@ -665,7 +665,7 @@ public class Contractor {
     /**
      * The contractor's wage type, either "Fixed" or "Hourly".
      */
-    public Contractor withWageType(ContractorWageType wageType) {
+    public Contractor withWageType(WageType wageType) {
         Utils.checkNotNull(wageType, "wageType");
         this.wageType = Optional.ofNullable(wageType);
         return this;
@@ -675,7 +675,7 @@ public class Contractor {
     /**
      * The contractor's wage type, either "Fixed" or "Hourly".
      */
-    public Contractor withWageType(Optional<? extends ContractorWageType> wageType) {
+    public Contractor withWageType(Optional<? extends WageType> wageType) {
         Utils.checkNotNull(wageType, "wageType");
         this.wageType = wageType;
         return this;
@@ -1319,7 +1319,7 @@ public class Contractor {
 
         private Optional<String> companyUuid = Optional.empty();
 
-        private Optional<? extends ContractorWageType> wageType = Optional.empty();
+        private Optional<? extends WageType> wageType = Optional.empty();
 
         private Optional<Boolean> isActive;
 
@@ -1414,7 +1414,7 @@ public class Contractor {
         /**
          * The contractor's wage type, either "Fixed" or "Hourly".
          */
-        public Builder wageType(ContractorWageType wageType) {
+        public Builder wageType(WageType wageType) {
             Utils.checkNotNull(wageType, "wageType");
             this.wageType = Optional.ofNullable(wageType);
             return this;
@@ -1423,7 +1423,7 @@ public class Contractor {
         /**
          * The contractor's wage type, either "Fixed" or "Hourly".
          */
-        public Builder wageType(Optional<? extends ContractorWageType> wageType) {
+        public Builder wageType(Optional<? extends WageType> wageType) {
             Utils.checkNotNull(wageType, "wageType");
             this.wageType = wageType;
             return this;

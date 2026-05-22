@@ -6,7 +6,6 @@ package com.gusto.embedded_api.models.operations;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.gusto.embedded_api.models.components.VersionHeader;
 import com.gusto.embedded_api.utils.LazySingletonValue;
 import com.gusto.embedded_api.utils.SpeakeasyMetadata;
 import com.gusto.embedded_api.utils.Utils;
@@ -29,7 +28,7 @@ public class PutV1VerifyWebhookSubscriptionUuidRequest {
      * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      */
     @SpeakeasyMetadata("header:style=simple,explode=false,name=X-Gusto-API-Version")
-    private Optional<? extends VersionHeader> xGustoAPIVersion;
+    private Optional<? extends PutV1VerifyWebhookSubscriptionUuidHeaderXGustoAPIVersion> xGustoAPIVersion;
 
 
     @SpeakeasyMetadata("request:mediaType=application/json")
@@ -38,7 +37,7 @@ public class PutV1VerifyWebhookSubscriptionUuidRequest {
     @JsonCreator
     public PutV1VerifyWebhookSubscriptionUuidRequest(
             String webhookSubscriptionUuid,
-            Optional<? extends VersionHeader> xGustoAPIVersion,
+            Optional<? extends PutV1VerifyWebhookSubscriptionUuidHeaderXGustoAPIVersion> xGustoAPIVersion,
             PutV1VerifyWebhookSubscriptionUuidRequestBody requestBody) {
         Utils.checkNotNull(webhookSubscriptionUuid, "webhookSubscriptionUuid");
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
@@ -69,8 +68,8 @@ public class PutV1VerifyWebhookSubscriptionUuidRequest {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<VersionHeader> xGustoAPIVersion() {
-        return (Optional<VersionHeader>) xGustoAPIVersion;
+    public Optional<PutV1VerifyWebhookSubscriptionUuidHeaderXGustoAPIVersion> xGustoAPIVersion() {
+        return (Optional<PutV1VerifyWebhookSubscriptionUuidHeaderXGustoAPIVersion>) xGustoAPIVersion;
     }
 
     @JsonIgnore
@@ -97,7 +96,7 @@ public class PutV1VerifyWebhookSubscriptionUuidRequest {
      * application's [minimum API
      * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      */
-    public PutV1VerifyWebhookSubscriptionUuidRequest withXGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+    public PutV1VerifyWebhookSubscriptionUuidRequest withXGustoAPIVersion(PutV1VerifyWebhookSubscriptionUuidHeaderXGustoAPIVersion xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
         return this;
@@ -109,7 +108,7 @@ public class PutV1VerifyWebhookSubscriptionUuidRequest {
      * application's [minimum API
      * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      */
-    public PutV1VerifyWebhookSubscriptionUuidRequest withXGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public PutV1VerifyWebhookSubscriptionUuidRequest withXGustoAPIVersion(Optional<? extends PutV1VerifyWebhookSubscriptionUuidHeaderXGustoAPIVersion> xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = xGustoAPIVersion;
         return this;
@@ -155,7 +154,7 @@ public class PutV1VerifyWebhookSubscriptionUuidRequest {
 
         private String webhookSubscriptionUuid;
 
-        private Optional<? extends VersionHeader> xGustoAPIVersion;
+        private Optional<? extends PutV1VerifyWebhookSubscriptionUuidHeaderXGustoAPIVersion> xGustoAPIVersion;
 
         private PutV1VerifyWebhookSubscriptionUuidRequestBody requestBody;
 
@@ -179,7 +178,7 @@ public class PutV1VerifyWebhookSubscriptionUuidRequest {
          * application's [minimum API
          * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
          */
-        public Builder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+        public Builder xGustoAPIVersion(PutV1VerifyWebhookSubscriptionUuidHeaderXGustoAPIVersion xGustoAPIVersion) {
             Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
             this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
             return this;
@@ -190,7 +189,7 @@ public class PutV1VerifyWebhookSubscriptionUuidRequest {
          * application's [minimum API
          * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
          */
-        public Builder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+        public Builder xGustoAPIVersion(Optional<? extends PutV1VerifyWebhookSubscriptionUuidHeaderXGustoAPIVersion> xGustoAPIVersion) {
             Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
             this.xGustoAPIVersion = xGustoAPIVersion;
             return this;
@@ -213,10 +212,10 @@ public class PutV1VerifyWebhookSubscriptionUuidRequest {
         }
 
 
-        private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+        private static final LazySingletonValue<Optional<? extends PutV1VerifyWebhookSubscriptionUuidHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
                 new LazySingletonValue<>(
                         "X-Gusto-API-Version",
                         "\"2025-06-15\"",
-                        new TypeReference<Optional<? extends VersionHeader>>() {});
+                        new TypeReference<Optional<? extends PutV1VerifyWebhookSubscriptionUuidHeaderXGustoAPIVersion>>() {});
     }
 }

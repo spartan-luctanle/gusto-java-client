@@ -1,6 +1,6 @@
 # Frequency
 
-The frequency that employees on this pay schedule are paid.
+The frequency that employees on this pay schedule are paid with Gusto.
 
 ## Example Usage
 

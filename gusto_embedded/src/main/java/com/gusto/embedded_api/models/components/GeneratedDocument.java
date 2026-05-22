@@ -15,11 +15,7 @@ import java.lang.SuppressWarnings;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * GeneratedDocument
- * 
- * <p>Example response
- */
+
 public class GeneratedDocument {
     /**
      * A unique identifier of the Generated Document request

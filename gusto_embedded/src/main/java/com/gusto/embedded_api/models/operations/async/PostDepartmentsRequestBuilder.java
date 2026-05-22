@@ -7,9 +7,9 @@ import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.components.DepartmentCreateRequestBody;
+import com.gusto.embedded_api.models.operations.PostDepartmentsHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostDepartmentsRequest;
-import com.gusto.embedded_api.models.operations.PostDepartmentsRequestBody;
 import com.gusto.embedded_api.operations.PostDepartments;
 import com.gusto.embedded_api.utils.Headers;
 import com.gusto.embedded_api.utils.LazySingletonValue;
@@ -21,11 +21,11 @@ import java.util.concurrent.CompletableFuture;
 public class PostDepartmentsRequestBuilder {
 
     private String companyUuid;
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
+    private Optional<? extends PostDepartmentsHeaderXGustoAPIVersion> xGustoAPIVersion = Utils.readDefaultOrConstValue(
                             "xGustoAPIVersion",
                             "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
-    private PostDepartmentsRequestBody requestBody;
+                            new TypeReference<Optional<? extends PostDepartmentsHeaderXGustoAPIVersion>>() {});
+    private DepartmentCreateRequestBody departmentCreateRequestBody;
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
@@ -39,21 +39,21 @@ public class PostDepartmentsRequestBuilder {
         return this;
     }
                 
-    public PostDepartmentsRequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+    public PostDepartmentsRequestBuilder xGustoAPIVersion(PostDepartmentsHeaderXGustoAPIVersion xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
         return this;
     }
 
-    public PostDepartmentsRequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public PostDepartmentsRequestBuilder xGustoAPIVersion(Optional<? extends PostDepartmentsHeaderXGustoAPIVersion> xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = xGustoAPIVersion;
         return this;
     }
 
-    public PostDepartmentsRequestBuilder requestBody(PostDepartmentsRequestBody requestBody) {
-        Utils.checkNotNull(requestBody, "requestBody");
-        this.requestBody = requestBody;
+    public PostDepartmentsRequestBuilder departmentCreateRequestBody(DepartmentCreateRequestBody departmentCreateRequestBody) {
+        Utils.checkNotNull(departmentCreateRequestBody, "departmentCreateRequestBody");
+        this.departmentCreateRequestBody = departmentCreateRequestBody;
         return this;
     }
 
@@ -65,7 +65,7 @@ public class PostDepartmentsRequestBuilder {
 
         PostDepartmentsRequest request = new PostDepartmentsRequest(companyUuid,
             xGustoAPIVersion,
-            requestBody);
+            departmentCreateRequestBody);
 
         return request;
     }
@@ -80,9 +80,9 @@ public class PostDepartmentsRequestBuilder {
             .thenCompose(operation::handleResponse);
     }
 
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+    private static final LazySingletonValue<Optional<? extends PostDepartmentsHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
             new LazySingletonValue<>(
                     "xGustoAPIVersion",
                     "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
+                    new TypeReference<Optional<? extends PostDepartmentsHeaderXGustoAPIVersion>>() {});
 }

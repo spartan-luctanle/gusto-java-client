@@ -38,6 +38,8 @@ public class AchTransactions {
      * 
      * <p>scope: `ach_transactions:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @return The call builder
      */
     public GetAchTransactionsRequestBuilder getAll() {
@@ -50,6 +52,8 @@ public class AchTransactions {
      * <p>Fetches all ACH transactions for a company.
      * 
      * <p>scope: `ach_transactions:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call

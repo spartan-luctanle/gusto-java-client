@@ -65,7 +65,7 @@ public class CompanyBenefitCreateRequest {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("catch_up_type")
-    private JsonNullable<? extends CatchUpType> catchUpType;
+    private JsonNullable<? extends CompanyBenefitCreateRequestCatchUpType> catchUpType;
 
     @JsonCreator
     public CompanyBenefitCreateRequest(
@@ -74,7 +74,7 @@ public class CompanyBenefitCreateRequest {
             @JsonProperty("description") String description,
             @JsonProperty("responsible_for_employer_taxes") Optional<Boolean> responsibleForEmployerTaxes,
             @JsonProperty("responsible_for_employee_w2") Optional<Boolean> responsibleForEmployeeW2,
-            @JsonProperty("catch_up_type") JsonNullable<? extends CatchUpType> catchUpType) {
+            @JsonProperty("catch_up_type") JsonNullable<? extends CompanyBenefitCreateRequestCatchUpType> catchUpType) {
         Utils.checkNotNull(benefitType, "benefitType");
         Utils.checkNotNull(active, "active");
         Utils.checkNotNull(description, "description");
@@ -145,8 +145,8 @@ public class CompanyBenefitCreateRequest {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public JsonNullable<CatchUpType> catchUpType() {
-        return (JsonNullable<CatchUpType>) catchUpType;
+    public JsonNullable<CompanyBenefitCreateRequestCatchUpType> catchUpType() {
+        return (JsonNullable<CompanyBenefitCreateRequestCatchUpType>) catchUpType;
     }
 
     public static Builder builder() {
@@ -249,7 +249,7 @@ public class CompanyBenefitCreateRequest {
      * The type of catch-up contribution for this benefit, as required by Section 603 of the SECURE 2.0
      * Act. Only applicable to pre-tax 401(k) and 403(b) benefits.
      */
-    public CompanyBenefitCreateRequest withCatchUpType(CatchUpType catchUpType) {
+    public CompanyBenefitCreateRequest withCatchUpType(CompanyBenefitCreateRequestCatchUpType catchUpType) {
         Utils.checkNotNull(catchUpType, "catchUpType");
         this.catchUpType = JsonNullable.of(catchUpType);
         return this;
@@ -259,7 +259,7 @@ public class CompanyBenefitCreateRequest {
      * The type of catch-up contribution for this benefit, as required by Section 603 of the SECURE 2.0
      * Act. Only applicable to pre-tax 401(k) and 403(b) benefits.
      */
-    public CompanyBenefitCreateRequest withCatchUpType(JsonNullable<? extends CatchUpType> catchUpType) {
+    public CompanyBenefitCreateRequest withCatchUpType(JsonNullable<? extends CompanyBenefitCreateRequestCatchUpType> catchUpType) {
         Utils.checkNotNull(catchUpType, "catchUpType");
         this.catchUpType = catchUpType;
         return this;
@@ -314,7 +314,7 @@ public class CompanyBenefitCreateRequest {
 
         private Optional<Boolean> responsibleForEmployeeW2 = Optional.empty();
 
-        private JsonNullable<? extends CatchUpType> catchUpType = JsonNullable.undefined();
+        private JsonNullable<? extends CompanyBenefitCreateRequestCatchUpType> catchUpType = JsonNullable.undefined();
 
         private Builder() {
           // force use of static builder() method
@@ -417,7 +417,7 @@ public class CompanyBenefitCreateRequest {
          * The type of catch-up contribution for this benefit, as required by Section 603 of the SECURE 2.0
          * Act. Only applicable to pre-tax 401(k) and 403(b) benefits.
          */
-        public Builder catchUpType(CatchUpType catchUpType) {
+        public Builder catchUpType(CompanyBenefitCreateRequestCatchUpType catchUpType) {
             Utils.checkNotNull(catchUpType, "catchUpType");
             this.catchUpType = JsonNullable.of(catchUpType);
             return this;
@@ -427,7 +427,7 @@ public class CompanyBenefitCreateRequest {
          * The type of catch-up contribution for this benefit, as required by Section 603 of the SECURE 2.0
          * Act. Only applicable to pre-tax 401(k) and 403(b) benefits.
          */
-        public Builder catchUpType(JsonNullable<? extends CatchUpType> catchUpType) {
+        public Builder catchUpType(JsonNullable<? extends CompanyBenefitCreateRequestCatchUpType> catchUpType) {
             Utils.checkNotNull(catchUpType, "catchUpType");
             this.catchUpType = catchUpType;
             return this;

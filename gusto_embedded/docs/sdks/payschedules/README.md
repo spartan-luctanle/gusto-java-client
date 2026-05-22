@@ -4,8 +4,8 @@
 
 ### Available Operations
 
-* [create](#create) - Create a new pay schedule
 * [getAll](#getall) - Get the pay schedules for a company
+* [create](#create) - Create a new pay schedule
 * [getPreview](#getpreview) - Preview pay schedule dates
 * [get](#get) - Get a pay schedule
 * [update](#update) - Update a pay schedule
@@ -14,208 +14,6 @@
 * [getAssignments](#getassignments) - Get pay schedule assignments for a company
 * [previewAssignment](#previewassignment) - Preview pay schedule assignments for a company
 * [assign](#assign) - Assign pay schedules for a company
-
-## create
-
-If a company does not have any pay schedules, this endpoint creates a single pay schedule and assigns it to all employees (common during company onboarding).
-
-If a company already has an active pay schedule and wants multiple pay schedules, this endpoint creates a pay schedule that is not assigned to any employee.
-
-Be sure to [check state laws](https://www.dol.gov/agencies/whd/state/payday) to know what schedule is right for your customers. If an onboarded company misses their first pay date, the pay schedule may be automatically adjusted.
-
-### Webhooks
-- `pay_schedule.created`: Fires when a pay schedule is successfully created.
-
-### Related guides
-- [Create a pay schedule](doc:create-a-pay-schedule)
-- [Pay Schedules](doc:pay-schedule-info)
-- [Manage Pay Schedules via API](doc:manage-pay-schedules-api)
-
-scope: `pay_schedules:write`
-
-### Example Usage: Basic
-
-<!-- UsageSnippet language="java" operationID="post-v1-companies-company_id-pay_schedules" method="post" path="/v1/companies/{company_id}/pay_schedules" example="Basic" -->
-```java
-package hello.world;
-
-import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.PayScheduleCreateRequest;
-import com.gusto.embedded_api.models.components.PayScheduleFrequencyCreateUpdate;
-import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
-import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdPaySchedulesHeaderXGustoAPIVersion;
-import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdPaySchedulesResponse;
-import java.lang.Exception;
-import java.time.LocalDate;
-
-public class Application {
-
-    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityErrorObject, Exception {
-
-        GustoEmbedded sdk = GustoEmbedded.builder()
-                .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
-            .build();
-
-        PostV1CompaniesCompanyIdPaySchedulesResponse res = sdk.paySchedules().create()
-                .xGustoAPIVersion(PostV1CompaniesCompanyIdPaySchedulesHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
-                .companyId("<id>")
-                .payScheduleCreateRequest(PayScheduleCreateRequest.builder()
-                    .frequency(PayScheduleFrequencyCreateUpdate.EVERY_WEEK)
-                    .anchorPayDate(LocalDate.parse("2020-05-15"))
-                    .anchorEndOfPayPeriod(LocalDate.parse("2020-05-08"))
-                    .build())
-                .call();
-
-        if (res.paySchedule().isPresent()) {
-            System.out.println(res.paySchedule().get());
-        }
-    }
-}
-```
-### Example Usage: Example
-
-<!-- UsageSnippet language="java" operationID="post-v1-companies-company_id-pay_schedules" method="post" path="/v1/companies/{company_id}/pay_schedules" example="Example" -->
-```java
-package hello.world;
-
-import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.PayScheduleCreateRequest;
-import com.gusto.embedded_api.models.components.PayScheduleFrequencyCreateUpdate;
-import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
-import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdPaySchedulesHeaderXGustoAPIVersion;
-import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdPaySchedulesResponse;
-import java.lang.Exception;
-import java.time.LocalDate;
-
-public class Application {
-
-    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityErrorObject, Exception {
-
-        GustoEmbedded sdk = GustoEmbedded.builder()
-                .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
-            .build();
-
-        PostV1CompaniesCompanyIdPaySchedulesResponse res = sdk.paySchedules().create()
-                .xGustoAPIVersion(PostV1CompaniesCompanyIdPaySchedulesHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
-                .companyId("<id>")
-                .payScheduleCreateRequest(PayScheduleCreateRequest.builder()
-                    .frequency(PayScheduleFrequencyCreateUpdate.TWICE_PER_MONTH)
-                    .anchorPayDate(LocalDate.parse("2021-10-15"))
-                    .anchorEndOfPayPeriod(LocalDate.parse("2021-10-15"))
-                    .day1(15L)
-                    .day2(31L)
-                    .customName("demo pay schedule")
-                    .build())
-                .call();
-
-        if (res.paySchedule().isPresent()) {
-            System.out.println(res.paySchedule().get());
-        }
-    }
-}
-```
-### Example Usage: Nested
-
-<!-- UsageSnippet language="java" operationID="post-v1-companies-company_id-pay_schedules" method="post" path="/v1/companies/{company_id}/pay_schedules" example="Nested" -->
-```java
-package hello.world;
-
-import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.PayScheduleCreateRequest;
-import com.gusto.embedded_api.models.components.PayScheduleFrequencyCreateUpdate;
-import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
-import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdPaySchedulesHeaderXGustoAPIVersion;
-import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdPaySchedulesResponse;
-import java.lang.Exception;
-import java.time.LocalDate;
-
-public class Application {
-
-    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityErrorObject, Exception {
-
-        GustoEmbedded sdk = GustoEmbedded.builder()
-                .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
-            .build();
-
-        PostV1CompaniesCompanyIdPaySchedulesResponse res = sdk.paySchedules().create()
-                .xGustoAPIVersion(PostV1CompaniesCompanyIdPaySchedulesHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
-                .companyId("<id>")
-                .payScheduleCreateRequest(PayScheduleCreateRequest.builder()
-                    .frequency(PayScheduleFrequencyCreateUpdate.EVERY_WEEK)
-                    .anchorPayDate(LocalDate.parse("2020-05-15"))
-                    .anchorEndOfPayPeriod(LocalDate.parse("2020-05-08"))
-                    .build())
-                .call();
-
-        if (res.paySchedule().isPresent()) {
-            System.out.println(res.paySchedule().get());
-        }
-    }
-}
-```
-### Example Usage: Resource
-
-<!-- UsageSnippet language="java" operationID="post-v1-companies-company_id-pay_schedules" method="post" path="/v1/companies/{company_id}/pay_schedules" example="Resource" -->
-```java
-package hello.world;
-
-import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.PayScheduleCreateRequest;
-import com.gusto.embedded_api.models.components.PayScheduleFrequencyCreateUpdate;
-import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
-import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdPaySchedulesHeaderXGustoAPIVersion;
-import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdPaySchedulesResponse;
-import java.lang.Exception;
-import java.time.LocalDate;
-
-public class Application {
-
-    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityErrorObject, Exception {
-
-        GustoEmbedded sdk = GustoEmbedded.builder()
-                .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
-            .build();
-
-        PostV1CompaniesCompanyIdPaySchedulesResponse res = sdk.paySchedules().create()
-                .xGustoAPIVersion(PostV1CompaniesCompanyIdPaySchedulesHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
-                .companyId("<id>")
-                .payScheduleCreateRequest(PayScheduleCreateRequest.builder()
-                    .frequency(PayScheduleFrequencyCreateUpdate.EVERY_WEEK)
-                    .anchorPayDate(LocalDate.parse("2020-05-15"))
-                    .anchorEndOfPayPeriod(LocalDate.parse("2020-05-08"))
-                    .build())
-                .call();
-
-        if (res.paySchedule().isPresent()) {
-            System.out.println(res.paySchedule().get());
-        }
-    }
-}
-```
-
-### Parameters
-
-| Parameter                                                                                                                                                                                                                    | Type                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                  |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `xGustoAPIVersion`                                                                                                                                                                                                           | [Optional\<PostV1CompaniesCompanyIdPaySchedulesHeaderXGustoAPIVersion>](../../models/operations/PostV1CompaniesCompanyIdPaySchedulesHeaderXGustoAPIVersion.md)                                                               | :heavy_minus_sign:                                                                                                                                                                                                           | Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used. |
-| `companyId`                                                                                                                                                                                                                  | *String*                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                           | The UUID of the company                                                                                                                                                                                                      |
-| `payScheduleCreateRequest`                                                                                                                                                                                                   | [PayScheduleCreateRequest](../../models/components/PayScheduleCreateRequest.md)                                                                                                                                              | :heavy_check_mark:                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                          |
-
-### Response
-
-**[PostV1CompaniesCompanyIdPaySchedulesResponse](../../models/operations/PostV1CompaniesCompanyIdPaySchedulesResponse.md)**
-
-### Errors
-
-| Error Type                                   | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| models/errors/NotFoundErrorObject            | 404                                          | application/json                             |
-| models/errors/UnprocessableEntityErrorObject | 422                                          | application/json                             |
-| models/errors/APIException                   | 4XX, 5XX                                     | \*/\*                                        |
 
 ## getAll
 
@@ -248,8 +46,8 @@ public class Application {
                 .companyId("<id>")
                 .call();
 
-        if (res.paySchedules().isPresent()) {
-            System.out.println(res.paySchedules().get());
+        if (res.payScheduleShowResponse().isPresent()) {
+            System.out.println(res.payScheduleShowResponse().get());
         }
     }
 }
@@ -275,9 +73,213 @@ public class Application {
 | models/errors/NotFoundErrorObject | 404                               | application/json                  |
 | models/errors/APIException        | 4XX, 5XX                          | \*/\*                             |
 
+## create
+
+If a company does not have any pay schedules, this endpoint will create a single pay schedule and assign it to all employees. This is a common use case during company onboarding.
+
+If a company has an existing active pay schedule and want to support multiple pay schedules, this endpoint will create a pay schedule that is not assigned to any employee.
+
+Be sure to **[check state laws](https://www.dol.gov/agencies/whd/state/payday)** to know what schedule is right for your customers.
+
+> If an onboarded company misses their first pay date, Gusto will automatically adjust the pay schedule to the next available pay date.
+
+### Webhooks
+- `pay_schedule.created`: Fires when a pay schedule is successfully created.
+
+### Related guides
+- [Create a pay schedule](doc:create-a-pay-schedule)
+- [Pay Schedules](doc:pay-schedule-info)
+- [Manage Pay Schedules via API](doc:manage-pay-schedules-api)
+
+scope: `pay_schedules:write`
+
+### Example Usage: Basic
+
+<!-- UsageSnippet language="java" operationID="post-v1-companies-company_id-pay_schedules" method="post" path="/v1/companies/{company_id}/pay_schedules" example="Basic" -->
+```java
+package hello.world;
+
+import com.gusto.embedded_api.GustoEmbedded;
+import com.gusto.embedded_api.models.components.Frequency;
+import com.gusto.embedded_api.models.components.PayScheduleCreateRequest;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
+import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdPaySchedulesHeaderXGustoAPIVersion;
+import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdPaySchedulesResponse;
+import java.lang.Exception;
+import java.time.LocalDate;
+
+public class Application {
+
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
+
+        GustoEmbedded sdk = GustoEmbedded.builder()
+                .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
+            .build();
+
+        PostV1CompaniesCompanyIdPaySchedulesResponse res = sdk.paySchedules().create()
+                .xGustoAPIVersion(PostV1CompaniesCompanyIdPaySchedulesHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
+                .companyId("<id>")
+                .payScheduleCreateRequest(PayScheduleCreateRequest.builder()
+                    .frequency(Frequency.EVERY_WEEK)
+                    .anchorPayDate(LocalDate.parse("2020-05-15"))
+                    .anchorEndOfPayPeriod(LocalDate.parse("2020-05-08"))
+                    .build())
+                .call();
+
+        if (res.payScheduleShow().isPresent()) {
+            System.out.println(res.payScheduleShow().get());
+        }
+    }
+}
+```
+### Example Usage: Example
+
+<!-- UsageSnippet language="java" operationID="post-v1-companies-company_id-pay_schedules" method="post" path="/v1/companies/{company_id}/pay_schedules" example="Example" -->
+```java
+package hello.world;
+
+import com.gusto.embedded_api.GustoEmbedded;
+import com.gusto.embedded_api.models.components.Frequency;
+import com.gusto.embedded_api.models.components.PayScheduleCreateRequest;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
+import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdPaySchedulesHeaderXGustoAPIVersion;
+import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdPaySchedulesResponse;
+import java.lang.Exception;
+import java.time.LocalDate;
+
+public class Application {
+
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
+
+        GustoEmbedded sdk = GustoEmbedded.builder()
+                .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
+            .build();
+
+        PostV1CompaniesCompanyIdPaySchedulesResponse res = sdk.paySchedules().create()
+                .xGustoAPIVersion(PostV1CompaniesCompanyIdPaySchedulesHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
+                .companyId("<id>")
+                .payScheduleCreateRequest(PayScheduleCreateRequest.builder()
+                    .frequency(Frequency.TWICE_PER_MONTH)
+                    .anchorPayDate(LocalDate.parse("2021-10-15"))
+                    .anchorEndOfPayPeriod(LocalDate.parse("2021-10-15"))
+                    .day1(15L)
+                    .day2(31L)
+                    .customName("demo pay schedule")
+                    .build())
+                .call();
+
+        if (res.payScheduleShow().isPresent()) {
+            System.out.println(res.payScheduleShow().get());
+        }
+    }
+}
+```
+### Example Usage: Nested
+
+<!-- UsageSnippet language="java" operationID="post-v1-companies-company_id-pay_schedules" method="post" path="/v1/companies/{company_id}/pay_schedules" example="Nested" -->
+```java
+package hello.world;
+
+import com.gusto.embedded_api.GustoEmbedded;
+import com.gusto.embedded_api.models.components.Frequency;
+import com.gusto.embedded_api.models.components.PayScheduleCreateRequest;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
+import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdPaySchedulesHeaderXGustoAPIVersion;
+import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdPaySchedulesResponse;
+import java.lang.Exception;
+import java.time.LocalDate;
+
+public class Application {
+
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
+
+        GustoEmbedded sdk = GustoEmbedded.builder()
+                .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
+            .build();
+
+        PostV1CompaniesCompanyIdPaySchedulesResponse res = sdk.paySchedules().create()
+                .xGustoAPIVersion(PostV1CompaniesCompanyIdPaySchedulesHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
+                .companyId("<id>")
+                .payScheduleCreateRequest(PayScheduleCreateRequest.builder()
+                    .frequency(Frequency.EVERY_WEEK)
+                    .anchorPayDate(LocalDate.parse("2020-05-15"))
+                    .anchorEndOfPayPeriod(LocalDate.parse("2020-05-08"))
+                    .build())
+                .call();
+
+        if (res.payScheduleShow().isPresent()) {
+            System.out.println(res.payScheduleShow().get());
+        }
+    }
+}
+```
+### Example Usage: Resource
+
+<!-- UsageSnippet language="java" operationID="post-v1-companies-company_id-pay_schedules" method="post" path="/v1/companies/{company_id}/pay_schedules" example="Resource" -->
+```java
+package hello.world;
+
+import com.gusto.embedded_api.GustoEmbedded;
+import com.gusto.embedded_api.models.components.Frequency;
+import com.gusto.embedded_api.models.components.PayScheduleCreateRequest;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
+import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdPaySchedulesHeaderXGustoAPIVersion;
+import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdPaySchedulesResponse;
+import java.lang.Exception;
+import java.time.LocalDate;
+
+public class Application {
+
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
+
+        GustoEmbedded sdk = GustoEmbedded.builder()
+                .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
+            .build();
+
+        PostV1CompaniesCompanyIdPaySchedulesResponse res = sdk.paySchedules().create()
+                .xGustoAPIVersion(PostV1CompaniesCompanyIdPaySchedulesHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
+                .companyId("<id>")
+                .payScheduleCreateRequest(PayScheduleCreateRequest.builder()
+                    .frequency(Frequency.EVERY_WEEK)
+                    .anchorPayDate(LocalDate.parse("2020-05-15"))
+                    .anchorEndOfPayPeriod(LocalDate.parse("2020-05-08"))
+                    .build())
+                .call();
+
+        if (res.payScheduleShow().isPresent()) {
+            System.out.println(res.payScheduleShow().get());
+        }
+    }
+}
+```
+
+### Parameters
+
+| Parameter                                                                                                                                                                                                                    | Type                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                  | Example                                                                                                                                                                                                                      |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `xGustoAPIVersion`                                                                                                                                                                                                           | [Optional\<PostV1CompaniesCompanyIdPaySchedulesHeaderXGustoAPIVersion>](../../models/operations/PostV1CompaniesCompanyIdPaySchedulesHeaderXGustoAPIVersion.md)                                                               | :heavy_minus_sign:                                                                                                                                                                                                           | Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used. |                                                                                                                                                                                                                              |
+| `companyId`                                                                                                                                                                                                                  | *String*                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                           | The UUID of the company                                                                                                                                                                                                      |                                                                                                                                                                                                                              |
+| `payScheduleCreateRequest`                                                                                                                                                                                                   | [PayScheduleCreateRequest](../../models/components/PayScheduleCreateRequest.md)                                                                                                                                              | :heavy_check_mark:                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                          | {<br/>"frequency": "Twice per month",<br/>"anchor_pay_date": "2020-05-15",<br/>"anchor_end_of_pay_period": "2020-05-08",<br/>"day_1": 15,<br/>"day_2": 31,<br/>"custom_name": "demo pay schedule"<br/>}                      |
+
+### Response
+
+**[PostV1CompaniesCompanyIdPaySchedulesResponse](../../models/operations/PostV1CompaniesCompanyIdPaySchedulesResponse.md)**
+
+### Errors
+
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/NotFoundErrorObject      | 404                                    | application/json                       |
+| models/errors/UnprocessableEntityError | 422                                    | application/json                       |
+| models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
+
 ## getPreview
 
-Returns a preview of pay period dates and holidays for the given parameters (e.g. frequency, anchor pay date) for the next 18 months. Use this before creating or updating a pay schedule to show expected check dates and payroll deadlines.
+Provides a preview of a pay schedule with the specified parameters for the next 18 months. Use this before creating or updating a pay schedule to show expected check dates, pay period boundaries, and payroll deadlines.
 
 ### Related guides
 - [Create a pay schedule](doc:create-a-pay-schedule)
@@ -293,14 +295,14 @@ package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
 import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
 import com.gusto.embedded_api.models.operations.*;
 import java.lang.Exception;
 import java.time.LocalDate;
 
 public class Application {
 
-    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
@@ -311,6 +313,8 @@ public class Application {
                 .frequency(Frequency.MONTHLY)
                 .anchorPayDate(LocalDate.parse("2020-05-15"))
                 .anchorEndOfPayPeriod(LocalDate.parse("2020-05-08"))
+                .day1(15L)
+                .day2(31L)
                 .build();
 
         GetV1CompaniesCompanyIdPaySchedulesPreviewResponse res = sdk.paySchedules().getPreview()
@@ -336,15 +340,15 @@ public class Application {
 
 ### Errors
 
-| Error Type                                   | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| models/errors/NotFoundErrorObject            | 404                                          | application/json                             |
-| models/errors/UnprocessableEntityErrorObject | 422                                          | application/json                             |
-| models/errors/APIException                   | 4XX, 5XX                                     | \*/\*                                        |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/NotFoundErrorObject      | 404                                    | application/json                       |
+| models/errors/UnprocessableEntityError | 422                                    | application/json                       |
+| models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
 
 ## get
 
-Returns a single pay schedule by UUID. The pay schedule object captures the details of when employees work and when they should be paid. A company can have multiple pay schedules.
+Returns a single pay schedule by UUID. The pay schedule object in Gusto captures the details of when employees work and when they should be paid. A company can have multiple pay schedules.
 
 scope: `pay_schedules:read`
 
@@ -374,8 +378,8 @@ public class Application {
                 .payScheduleId("<id>")
                 .call();
 
-        if (res.paySchedule().isPresent()) {
-            System.out.println(res.paySchedule().get());
+        if (res.payScheduleShow().isPresent()) {
+            System.out.println(res.payScheduleShow().get());
         }
     }
 }
@@ -408,7 +412,7 @@ Updates a pay schedule. The `version` parameter from the GET response is require
 Updating a pay schedule will delete any unprocessed regular payrolls whose pay period end date is today or in the future. Already-processed payrolls are not affected.
 
 ### Pay schedules may be automatically adjusted
-If an onboarded company misses their first pay date, the pay schedule may be automatically adjusted.
+If an onboarded company misses their first pay date, Gusto will automatically adjust the pay schedule to the next available pay date.
 
 ### Webhooks
 - `pay_schedule.updated`: Fires when a pay schedule is successfully updated.
@@ -428,7 +432,7 @@ package hello.world;
 import com.gusto.embedded_api.GustoEmbedded;
 import com.gusto.embedded_api.models.components.PayScheduleUpdateRequest;
 import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
 import com.gusto.embedded_api.models.operations.PutV1CompaniesCompanyIdPaySchedulesPayScheduleIdHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PutV1CompaniesCompanyIdPaySchedulesPayScheduleIdResponse;
 import java.lang.Exception;
@@ -436,7 +440,7 @@ import java.time.LocalDate;
 
 public class Application {
 
-    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
@@ -453,8 +457,8 @@ public class Application {
                     .build())
                 .call();
 
-        if (res.paySchedule().isPresent()) {
-            System.out.println(res.paySchedule().get());
+        if (res.payScheduleShow().isPresent()) {
+            System.out.println(res.payScheduleShow().get());
         }
     }
 }
@@ -466,10 +470,10 @@ public class Application {
 package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.PayScheduleFrequencyCreateUpdate;
 import com.gusto.embedded_api.models.components.PayScheduleUpdateRequest;
+import com.gusto.embedded_api.models.components.PayScheduleUpdateRequestFrequency;
 import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
 import com.gusto.embedded_api.models.operations.PutV1CompaniesCompanyIdPaySchedulesPayScheduleIdHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PutV1CompaniesCompanyIdPaySchedulesPayScheduleIdResponse;
 import java.lang.Exception;
@@ -477,7 +481,7 @@ import java.time.LocalDate;
 
 public class Application {
 
-    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
@@ -489,7 +493,7 @@ public class Application {
                 .payScheduleId("<id>")
                 .payScheduleUpdateRequest(PayScheduleUpdateRequest.builder()
                     .version("68934a3e9455fa72420237eb05902327")
-                    .frequency(PayScheduleFrequencyCreateUpdate.TWICE_PER_MONTH)
+                    .frequency(PayScheduleUpdateRequestFrequency.TWICE_PER_MONTH)
                     .anchorPayDate(LocalDate.parse("2021-10-15"))
                     .anchorEndOfPayPeriod(LocalDate.parse("2021-10-15"))
                     .day1(15L)
@@ -498,8 +502,8 @@ public class Application {
                     .build())
                 .call();
 
-        if (res.paySchedule().isPresent()) {
-            System.out.println(res.paySchedule().get());
+        if (res.payScheduleShow().isPresent()) {
+            System.out.println(res.payScheduleShow().get());
         }
     }
 }
@@ -513,7 +517,7 @@ package hello.world;
 import com.gusto.embedded_api.GustoEmbedded;
 import com.gusto.embedded_api.models.components.PayScheduleUpdateRequest;
 import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
 import com.gusto.embedded_api.models.operations.PutV1CompaniesCompanyIdPaySchedulesPayScheduleIdHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PutV1CompaniesCompanyIdPaySchedulesPayScheduleIdResponse;
 import java.lang.Exception;
@@ -521,7 +525,7 @@ import java.time.LocalDate;
 
 public class Application {
 
-    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
@@ -538,8 +542,8 @@ public class Application {
                     .build())
                 .call();
 
-        if (res.paySchedule().isPresent()) {
-            System.out.println(res.paySchedule().get());
+        if (res.payScheduleShow().isPresent()) {
+            System.out.println(res.payScheduleShow().get());
         }
     }
 }
@@ -553,7 +557,7 @@ package hello.world;
 import com.gusto.embedded_api.GustoEmbedded;
 import com.gusto.embedded_api.models.components.PayScheduleUpdateRequest;
 import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
 import com.gusto.embedded_api.models.operations.PutV1CompaniesCompanyIdPaySchedulesPayScheduleIdHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PutV1CompaniesCompanyIdPaySchedulesPayScheduleIdResponse;
 import java.lang.Exception;
@@ -561,7 +565,7 @@ import java.time.LocalDate;
 
 public class Application {
 
-    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
@@ -578,8 +582,8 @@ public class Application {
                     .build())
                 .call();
 
-        if (res.paySchedule().isPresent()) {
-            System.out.println(res.paySchedule().get());
+        if (res.payScheduleShow().isPresent()) {
+            System.out.println(res.payScheduleShow().get());
         }
     }
 }
@@ -587,12 +591,12 @@ public class Application {
 
 ### Parameters
 
-| Parameter                                                                                                                                                                                                                    | Type                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                  |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `xGustoAPIVersion`                                                                                                                                                                                                           | [Optional\<PutV1CompaniesCompanyIdPaySchedulesPayScheduleIdHeaderXGustoAPIVersion>](../../models/operations/PutV1CompaniesCompanyIdPaySchedulesPayScheduleIdHeaderXGustoAPIVersion.md)                                       | :heavy_minus_sign:                                                                                                                                                                                                           | Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used. |
-| `companyId`                                                                                                                                                                                                                  | *String*                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                           | The UUID of the company                                                                                                                                                                                                      |
-| `payScheduleId`                                                                                                                                                                                                              | *String*                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                           | The UUID of the pay schedule                                                                                                                                                                                                 |
-| `payScheduleUpdateRequest`                                                                                                                                                                                                   | [PayScheduleUpdateRequest](../../models/components/PayScheduleUpdateRequest.md)                                                                                                                                              | :heavy_check_mark:                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                          |
+| Parameter                                                                                                                                                                                                                                        | Type                                                                                                                                                                                                                                             | Required                                                                                                                                                                                                                                         | Description                                                                                                                                                                                                                                      | Example                                                                                                                                                                                                                                          |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `xGustoAPIVersion`                                                                                                                                                                                                                               | [Optional\<PutV1CompaniesCompanyIdPaySchedulesPayScheduleIdHeaderXGustoAPIVersion>](../../models/operations/PutV1CompaniesCompanyIdPaySchedulesPayScheduleIdHeaderXGustoAPIVersion.md)                                                           | :heavy_minus_sign:                                                                                                                                                                                                                               | Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.                     |                                                                                                                                                                                                                                                  |
+| `companyId`                                                                                                                                                                                                                                      | *String*                                                                                                                                                                                                                                         | :heavy_check_mark:                                                                                                                                                                                                                               | The UUID of the company                                                                                                                                                                                                                          |                                                                                                                                                                                                                                                  |
+| `payScheduleId`                                                                                                                                                                                                                                  | *String*                                                                                                                                                                                                                                         | :heavy_check_mark:                                                                                                                                                                                                                               | The UUID of the pay schedule                                                                                                                                                                                                                     |                                                                                                                                                                                                                                                  |
+| `payScheduleUpdateRequest`                                                                                                                                                                                                                       | [PayScheduleUpdateRequest](../../models/components/PayScheduleUpdateRequest.md)                                                                                                                                                                  | :heavy_check_mark:                                                                                                                                                                                                                               | N/A                                                                                                                                                                                                                                              | {<br/>"version": "68934a3e9455fa72420237eb05902327",<br/>"auto_payroll": true,<br/>"frequency": "Twice per month",<br/>"anchor_pay_date": "2021-10-15",<br/>"anchor_end_of_pay_period": "2021-10-15",<br/>"day_1": 15,<br/>"day_2": 31,<br/>"custom_name": "demo pay schedule"<br/>} |
 
 ### Response
 
@@ -600,11 +604,11 @@ public class Application {
 
 ### Errors
 
-| Error Type                                   | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| models/errors/NotFoundErrorObject            | 404                                          | application/json                             |
-| models/errors/UnprocessableEntityErrorObject | 409, 422                                     | application/json                             |
-| models/errors/APIException                   | 4XX, 5XX                                     | \*/\*                                        |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/NotFoundErrorObject      | 404                                    | application/json                       |
+| models/errors/UnprocessableEntityError | 409, 422                               | application/json                       |
+| models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
 
 ## getPayPeriods
 
@@ -626,7 +630,7 @@ package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
 import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
 import com.gusto.embedded_api.models.operations.GetV1CompaniesCompanyIdPayPeriodsRequest;
 import com.gusto.embedded_api.models.operations.GetV1CompaniesCompanyIdPayPeriodsResponse;
 import java.lang.Exception;
@@ -634,7 +638,7 @@ import java.time.LocalDate;
 
 public class Application {
 
-    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
@@ -669,11 +673,11 @@ public class Application {
 
 ### Errors
 
-| Error Type                                   | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| models/errors/NotFoundErrorObject            | 404                                          | application/json                             |
-| models/errors/UnprocessableEntityErrorObject | 422                                          | application/json                             |
-| models/errors/APIException                   | 4XX, 5XX                                     | \*/\*                                        |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/NotFoundErrorObject      | 404                                    | application/json                       |
+| models/errors/UnprocessableEntityError | 422                                    | application/json                       |
+| models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
 
 ## getUnprocessedTerminationPeriods
 
@@ -690,25 +694,26 @@ scope: `payrolls:read`
 package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.operations.GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
             .build();
 
         GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsResponse res = sdk.paySchedules().getUnprocessedTerminationPeriods()
+                .xGustoAPIVersion(GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
                 .companyId("<id>")
-                .xGustoAPIVersion(VersionHeader.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
                 .call();
 
-        if (res.unprocessedTerminationPayPeriodList().isPresent()) {
-            System.out.println(res.unprocessedTerminationPayPeriodList().get());
+        if (res.unprocessedTerminationPayPeriods().isPresent()) {
+            System.out.println(res.unprocessedTerminationPayPeriods().get());
         }
     }
 }
@@ -718,8 +723,8 @@ public class Application {
 
 | Parameter                                                                                                                                                                                                                    | Type                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                  |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `xGustoAPIVersion`                                                                                                                                                                                                           | [Optional\<GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsHeaderXGustoAPIVersion>](../../models/operations/GetV1CompaniesCompanyIdUnprocessedTerminationPayPeriodsHeaderXGustoAPIVersion.md)                         | :heavy_minus_sign:                                                                                                                                                                                                           | Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used. |
 | `companyId`                                                                                                                                                                                                                  | *String*                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                           | The UUID of the company                                                                                                                                                                                                      |
-| `xGustoAPIVersion`                                                                                                                                                                                                           | [Optional\<VersionHeader>](../../models/components/VersionHeader.md)                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                           | Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used. |
 
 ### Response
 
@@ -727,9 +732,10 @@ public class Application {
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| models/errors/APIException | 4XX, 5XX                   | \*/\*                      |
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/NotFoundErrorObject | 404                               | application/json                  |
+| models/errors/APIException        | 4XX, 5XX                          | \*/\*                             |
 
 ## getAssignments
 
@@ -744,21 +750,22 @@ scope: `pay_schedules:read`
 package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.operations.GetV1CompaniesCompanyIdPaySchedulesAssignmentsHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1CompaniesCompanyIdPaySchedulesAssignmentsResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
             .build();
 
         GetV1CompaniesCompanyIdPaySchedulesAssignmentsResponse res = sdk.paySchedules().getAssignments()
+                .xGustoAPIVersion(GetV1CompaniesCompanyIdPaySchedulesAssignmentsHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
                 .companyId("<id>")
-                .xGustoAPIVersion(VersionHeader.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
                 .call();
 
         if (res.payScheduleAssignment().isPresent()) {
@@ -772,8 +779,8 @@ public class Application {
 
 | Parameter                                                                                                                                                                                                                    | Type                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                  |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `xGustoAPIVersion`                                                                                                                                                                                                           | [Optional\<GetV1CompaniesCompanyIdPaySchedulesAssignmentsHeaderXGustoAPIVersion>](../../models/operations/GetV1CompaniesCompanyIdPaySchedulesAssignmentsHeaderXGustoAPIVersion.md)                                           | :heavy_minus_sign:                                                                                                                                                                                                           | Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used. |
 | `companyId`                                                                                                                                                                                                                  | *String*                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                           | The UUID of the company                                                                                                                                                                                                      |
-| `xGustoAPIVersion`                                                                                                                                                                                                           | [Optional\<VersionHeader>](../../models/components/VersionHeader.md)                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                           | Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used. |
 
 ### Response
 
@@ -781,9 +788,10 @@ public class Application {
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| models/errors/APIException | 4XX, 5XX                   | \*/\*                      |
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/NotFoundErrorObject | 404                               | application/json                  |
+| models/errors/APIException        | 4XX, 5XX                          | \*/\*                             |
 
 ## previewAssignment
 
@@ -798,22 +806,25 @@ scope: `pay_schedules:write`
 package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.*;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
+import com.gusto.embedded_api.models.components.PayScheduleAssignmentBody;
+import com.gusto.embedded_api.models.components.PayScheduleAssignmentBodyType;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
+import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdPaySchedulesAssignmentPreviewHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdPaySchedulesAssignmentPreviewResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
             .build();
 
         PostV1CompaniesCompanyIdPaySchedulesAssignmentPreviewResponse res = sdk.paySchedules().previewAssignment()
+                .xGustoAPIVersion(PostV1CompaniesCompanyIdPaySchedulesAssignmentPreviewHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
                 .companyId("<id>")
-                .xGustoAPIVersion(VersionHeader.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
                 .payScheduleAssignmentBody(PayScheduleAssignmentBody.builder()
                     .type(PayScheduleAssignmentBodyType.BY_EMPLOYEE)
                     .build())
@@ -833,22 +844,24 @@ package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
 import com.gusto.embedded_api.models.components.*;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
+import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdPaySchedulesAssignmentPreviewHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdPaySchedulesAssignmentPreviewResponse;
 import java.lang.Exception;
 import java.util.List;
 
 public class Application {
 
-    public static void main(String[] args) throws UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
             .build();
 
         PostV1CompaniesCompanyIdPaySchedulesAssignmentPreviewResponse res = sdk.paySchedules().previewAssignment()
+                .xGustoAPIVersion(PostV1CompaniesCompanyIdPaySchedulesAssignmentPreviewHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
                 .companyId("<id>")
-                .xGustoAPIVersion(VersionHeader.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
                 .payScheduleAssignmentBody(PayScheduleAssignmentBody.builder()
                     .type(PayScheduleAssignmentBodyType.BY_EMPLOYEE)
                     .employees(List.of(
@@ -872,22 +885,25 @@ public class Application {
 package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.*;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
+import com.gusto.embedded_api.models.components.PayScheduleAssignmentBody;
+import com.gusto.embedded_api.models.components.PayScheduleAssignmentBodyType;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
+import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdPaySchedulesAssignmentPreviewHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdPaySchedulesAssignmentPreviewResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
             .build();
 
         PostV1CompaniesCompanyIdPaySchedulesAssignmentPreviewResponse res = sdk.paySchedules().previewAssignment()
+                .xGustoAPIVersion(PostV1CompaniesCompanyIdPaySchedulesAssignmentPreviewHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
                 .companyId("<id>")
-                .xGustoAPIVersion(VersionHeader.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
                 .payScheduleAssignmentBody(PayScheduleAssignmentBody.builder()
                     .type(PayScheduleAssignmentBodyType.BY_EMPLOYEE)
                     .build())
@@ -906,22 +922,25 @@ public class Application {
 package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.*;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
+import com.gusto.embedded_api.models.components.PayScheduleAssignmentBody;
+import com.gusto.embedded_api.models.components.PayScheduleAssignmentBodyType;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
+import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdPaySchedulesAssignmentPreviewHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdPaySchedulesAssignmentPreviewResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
             .build();
 
         PostV1CompaniesCompanyIdPaySchedulesAssignmentPreviewResponse res = sdk.paySchedules().previewAssignment()
+                .xGustoAPIVersion(PostV1CompaniesCompanyIdPaySchedulesAssignmentPreviewHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
                 .companyId("<id>")
-                .xGustoAPIVersion(VersionHeader.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
                 .payScheduleAssignmentBody(PayScheduleAssignmentBody.builder()
                     .type(PayScheduleAssignmentBodyType.BY_EMPLOYEE)
                     .build())
@@ -938,8 +957,8 @@ public class Application {
 
 | Parameter                                                                                                                                                                                                                    | Type                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                  |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `xGustoAPIVersion`                                                                                                                                                                                                           | [Optional\<PostV1CompaniesCompanyIdPaySchedulesAssignmentPreviewHeaderXGustoAPIVersion>](../../models/operations/PostV1CompaniesCompanyIdPaySchedulesAssignmentPreviewHeaderXGustoAPIVersion.md)                             | :heavy_minus_sign:                                                                                                                                                                                                           | Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used. |
 | `companyId`                                                                                                                                                                                                                  | *String*                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                           | The UUID of the company                                                                                                                                                                                                      |
-| `xGustoAPIVersion`                                                                                                                                                                                                           | [Optional\<VersionHeader>](../../models/components/VersionHeader.md)                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                           | Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used. |
 | `payScheduleAssignmentBody`                                                                                                                                                                                                  | [PayScheduleAssignmentBody](../../models/components/PayScheduleAssignmentBody.md)                                                                                                                                            | :heavy_check_mark:                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                          |
 
 ### Response
@@ -948,10 +967,11 @@ public class Application {
 
 ### Errors
 
-| Error Type                                   | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| models/errors/UnprocessableEntityErrorObject | 422                                          | application/json                             |
-| models/errors/APIException                   | 4XX, 5XX                                     | \*/\*                                        |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/NotFoundErrorObject      | 404                                    | application/json                       |
+| models/errors/UnprocessableEntityError | 422                                    | application/json                       |
+| models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
 
 ## assign
 
@@ -967,22 +987,25 @@ scope: `pay_schedules:write`
 package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.*;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
+import com.gusto.embedded_api.models.components.PayScheduleAssignmentBody;
+import com.gusto.embedded_api.models.components.PayScheduleAssignmentBodyType;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
+import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdPaySchedulesAssignHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdPaySchedulesAssignResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
             .build();
 
         PostV1CompaniesCompanyIdPaySchedulesAssignResponse res = sdk.paySchedules().assign()
+                .xGustoAPIVersion(PostV1CompaniesCompanyIdPaySchedulesAssignHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
                 .companyId("<id>")
-                .xGustoAPIVersion(VersionHeader.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
                 .payScheduleAssignmentBody(PayScheduleAssignmentBody.builder()
                     .type(PayScheduleAssignmentBodyType.HOURLY_SALARIED)
                     .build())
@@ -1000,22 +1023,24 @@ package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
 import com.gusto.embedded_api.models.components.*;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
+import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdPaySchedulesAssignHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdPaySchedulesAssignResponse;
 import java.lang.Exception;
 import java.util.List;
 
 public class Application {
 
-    public static void main(String[] args) throws UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
             .build();
 
         PostV1CompaniesCompanyIdPaySchedulesAssignResponse res = sdk.paySchedules().assign()
+                .xGustoAPIVersion(PostV1CompaniesCompanyIdPaySchedulesAssignHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
                 .companyId("<id>")
-                .xGustoAPIVersion(VersionHeader.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
                 .payScheduleAssignmentBody(PayScheduleAssignmentBody.builder()
                     .type(PayScheduleAssignmentBodyType.BY_EMPLOYEE)
                     .employees(List.of(
@@ -1037,22 +1062,25 @@ public class Application {
 package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.*;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
+import com.gusto.embedded_api.models.components.PayScheduleAssignmentBody;
+import com.gusto.embedded_api.models.components.PayScheduleAssignmentBodyType;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
+import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdPaySchedulesAssignHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdPaySchedulesAssignResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
             .build();
 
         PostV1CompaniesCompanyIdPaySchedulesAssignResponse res = sdk.paySchedules().assign()
+                .xGustoAPIVersion(PostV1CompaniesCompanyIdPaySchedulesAssignHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
                 .companyId("<id>")
-                .xGustoAPIVersion(VersionHeader.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
                 .payScheduleAssignmentBody(PayScheduleAssignmentBody.builder()
                     .type(PayScheduleAssignmentBodyType.HOURLY_SALARIED)
                     .build())
@@ -1069,22 +1097,25 @@ public class Application {
 package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
-import com.gusto.embedded_api.models.components.*;
-import com.gusto.embedded_api.models.errors.UnprocessableEntityErrorObject;
+import com.gusto.embedded_api.models.components.PayScheduleAssignmentBody;
+import com.gusto.embedded_api.models.components.PayScheduleAssignmentBodyType;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
+import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdPaySchedulesAssignHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdPaySchedulesAssignResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws UnprocessableEntityErrorObject, Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
             .build();
 
         PostV1CompaniesCompanyIdPaySchedulesAssignResponse res = sdk.paySchedules().assign()
+                .xGustoAPIVersion(PostV1CompaniesCompanyIdPaySchedulesAssignHeaderXGustoAPIVersion.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
                 .companyId("<id>")
-                .xGustoAPIVersion(VersionHeader.TWO_THOUSAND_AND_TWENTY_FIVE_MINUS06_MINUS15)
                 .payScheduleAssignmentBody(PayScheduleAssignmentBody.builder()
                     .type(PayScheduleAssignmentBodyType.HOURLY_SALARIED)
                     .build())
@@ -1099,8 +1130,8 @@ public class Application {
 
 | Parameter                                                                                                                                                                                                                    | Type                                                                                                                                                                                                                         | Required                                                                                                                                                                                                                     | Description                                                                                                                                                                                                                  |
 | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `xGustoAPIVersion`                                                                                                                                                                                                           | [Optional\<PostV1CompaniesCompanyIdPaySchedulesAssignHeaderXGustoAPIVersion>](../../models/operations/PostV1CompaniesCompanyIdPaySchedulesAssignHeaderXGustoAPIVersion.md)                                                   | :heavy_minus_sign:                                                                                                                                                                                                           | Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used. |
 | `companyId`                                                                                                                                                                                                                  | *String*                                                                                                                                                                                                                     | :heavy_check_mark:                                                                                                                                                                                                           | The UUID of the company                                                                                                                                                                                                      |
-| `xGustoAPIVersion`                                                                                                                                                                                                           | [Optional\<VersionHeader>](../../models/components/VersionHeader.md)                                                                                                                                                         | :heavy_minus_sign:                                                                                                                                                                                                           | Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used. |
 | `payScheduleAssignmentBody`                                                                                                                                                                                                  | [PayScheduleAssignmentBody](../../models/components/PayScheduleAssignmentBody.md)                                                                                                                                            | :heavy_check_mark:                                                                                                                                                                                                           | N/A                                                                                                                                                                                                                          |
 
 ### Response
@@ -1109,7 +1140,8 @@ public class Application {
 
 ### Errors
 
-| Error Type                                   | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| models/errors/UnprocessableEntityErrorObject | 422                                          | application/json                             |
-| models/errors/APIException                   | 4XX, 5XX                                     | \*/\*                                        |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/NotFoundErrorObject      | 404                                    | application/json                       |
+| models/errors/UnprocessableEntityError | 422                                    | application/json                       |
+| models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |

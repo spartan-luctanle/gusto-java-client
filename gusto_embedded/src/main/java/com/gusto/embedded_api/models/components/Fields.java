@@ -19,11 +19,12 @@ import org.openapitools.jackson.nullable.JsonNullable;
 
 public class Fields {
     /**
-     * Unique identifier of the field
+     * Unique identifier of the field. May be null for custom fields that do not correspond to a known
+     * Gusto-managed key mapping.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("key")
-    private Optional<String> key;
+    private JsonNullable<String> key;
 
     /**
      * Auto-filled value of the field
@@ -33,39 +34,41 @@ public class Fields {
     private JsonNullable<String> value;
 
     /**
-     * X-coordinate location of the field on the page
+     * X-coordinate location of the field on the page. May be null when the field has no positioning
+     * information.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("x")
-    private Optional<Long> x;
+    private JsonNullable<Long> x;
 
     /**
-     * Y-coordinate location of the field on the page
+     * Y-coordinate location of the field on the page. May be null when the field has no positioning
+     * information.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("y")
-    private Optional<Long> y;
+    private JsonNullable<Long> y;
 
     /**
-     * Width of the field
+     * Width of the field. May be null when the field has no positioning information.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("width")
-    private Optional<Long> width;
+    private JsonNullable<Long> width;
 
     /**
-     * Height of the field
+     * Height of the field. May be null when the field has no positioning information.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("height")
-    private Optional<Long> height;
+    private JsonNullable<Long> height;
 
     /**
-     * Page number of the field
+     * Page number of the field. May be null when the field has no positioning information.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("page_number")
-    private Optional<Long> pageNumber;
+    private JsonNullable<Long> pageNumber;
 
     /**
      * The field's data type
@@ -83,13 +86,13 @@ public class Fields {
 
     @JsonCreator
     public Fields(
-            @JsonProperty("key") Optional<String> key,
+            @JsonProperty("key") JsonNullable<String> key,
             @JsonProperty("value") JsonNullable<String> value,
-            @JsonProperty("x") Optional<Long> x,
-            @JsonProperty("y") Optional<Long> y,
-            @JsonProperty("width") Optional<Long> width,
-            @JsonProperty("height") Optional<Long> height,
-            @JsonProperty("page_number") Optional<Long> pageNumber,
+            @JsonProperty("x") JsonNullable<Long> x,
+            @JsonProperty("y") JsonNullable<Long> y,
+            @JsonProperty("width") JsonNullable<Long> width,
+            @JsonProperty("height") JsonNullable<Long> height,
+            @JsonProperty("page_number") JsonNullable<Long> pageNumber,
             @JsonProperty("data_type") Optional<String> dataType,
             @JsonProperty("required") Optional<Boolean> required) {
         Utils.checkNotNull(key, "key");
@@ -113,16 +116,17 @@ public class Fields {
     }
     
     public Fields() {
-        this(Optional.empty(), JsonNullable.undefined(), Optional.empty(),
-            Optional.empty(), Optional.empty(), Optional.empty(),
-            Optional.empty(), Optional.empty(), Optional.empty());
+        this(JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), JsonNullable.undefined(), JsonNullable.undefined(),
+            JsonNullable.undefined(), Optional.empty(), Optional.empty());
     }
 
     /**
-     * Unique identifier of the field
+     * Unique identifier of the field. May be null for custom fields that do not correspond to a known
+     * Gusto-managed key mapping.
      */
     @JsonIgnore
-    public Optional<String> key() {
+    public JsonNullable<String> key() {
         return key;
     }
 
@@ -135,42 +139,44 @@ public class Fields {
     }
 
     /**
-     * X-coordinate location of the field on the page
+     * X-coordinate location of the field on the page. May be null when the field has no positioning
+     * information.
      */
     @JsonIgnore
-    public Optional<Long> x() {
+    public JsonNullable<Long> x() {
         return x;
     }
 
     /**
-     * Y-coordinate location of the field on the page
+     * Y-coordinate location of the field on the page. May be null when the field has no positioning
+     * information.
      */
     @JsonIgnore
-    public Optional<Long> y() {
+    public JsonNullable<Long> y() {
         return y;
     }
 
     /**
-     * Width of the field
+     * Width of the field. May be null when the field has no positioning information.
      */
     @JsonIgnore
-    public Optional<Long> width() {
+    public JsonNullable<Long> width() {
         return width;
     }
 
     /**
-     * Height of the field
+     * Height of the field. May be null when the field has no positioning information.
      */
     @JsonIgnore
-    public Optional<Long> height() {
+    public JsonNullable<Long> height() {
         return height;
     }
 
     /**
-     * Page number of the field
+     * Page number of the field. May be null when the field has no positioning information.
      */
     @JsonIgnore
-    public Optional<Long> pageNumber() {
+    public JsonNullable<Long> pageNumber() {
         return pageNumber;
     }
 
@@ -196,19 +202,20 @@ public class Fields {
 
 
     /**
-     * Unique identifier of the field
+     * Unique identifier of the field. May be null for custom fields that do not correspond to a known
+     * Gusto-managed key mapping.
      */
     public Fields withKey(String key) {
         Utils.checkNotNull(key, "key");
-        this.key = Optional.ofNullable(key);
+        this.key = JsonNullable.of(key);
         return this;
     }
 
-
     /**
-     * Unique identifier of the field
+     * Unique identifier of the field. May be null for custom fields that do not correspond to a known
+     * Gusto-managed key mapping.
      */
-    public Fields withKey(Optional<String> key) {
+    public Fields withKey(JsonNullable<String> key) {
         Utils.checkNotNull(key, "key");
         this.key = key;
         return this;
@@ -233,95 +240,94 @@ public class Fields {
     }
 
     /**
-     * X-coordinate location of the field on the page
+     * X-coordinate location of the field on the page. May be null when the field has no positioning
+     * information.
      */
     public Fields withX(long x) {
         Utils.checkNotNull(x, "x");
-        this.x = Optional.ofNullable(x);
+        this.x = JsonNullable.of(x);
         return this;
     }
 
-
     /**
-     * X-coordinate location of the field on the page
+     * X-coordinate location of the field on the page. May be null when the field has no positioning
+     * information.
      */
-    public Fields withX(Optional<Long> x) {
+    public Fields withX(JsonNullable<Long> x) {
         Utils.checkNotNull(x, "x");
         this.x = x;
         return this;
     }
 
     /**
-     * Y-coordinate location of the field on the page
+     * Y-coordinate location of the field on the page. May be null when the field has no positioning
+     * information.
      */
     public Fields withY(long y) {
         Utils.checkNotNull(y, "y");
-        this.y = Optional.ofNullable(y);
+        this.y = JsonNullable.of(y);
         return this;
     }
 
-
     /**
-     * Y-coordinate location of the field on the page
+     * Y-coordinate location of the field on the page. May be null when the field has no positioning
+     * information.
      */
-    public Fields withY(Optional<Long> y) {
+    public Fields withY(JsonNullable<Long> y) {
         Utils.checkNotNull(y, "y");
         this.y = y;
         return this;
     }
 
     /**
-     * Width of the field
+     * Width of the field. May be null when the field has no positioning information.
      */
     public Fields withWidth(long width) {
         Utils.checkNotNull(width, "width");
-        this.width = Optional.ofNullable(width);
+        this.width = JsonNullable.of(width);
         return this;
     }
 
-
     /**
-     * Width of the field
+     * Width of the field. May be null when the field has no positioning information.
      */
-    public Fields withWidth(Optional<Long> width) {
+    public Fields withWidth(JsonNullable<Long> width) {
         Utils.checkNotNull(width, "width");
         this.width = width;
         return this;
     }
 
     /**
-     * Height of the field
+     * Height of the field. May be null when the field has no positioning information.
      */
     public Fields withHeight(long height) {
         Utils.checkNotNull(height, "height");
-        this.height = Optional.ofNullable(height);
+        this.height = JsonNullable.of(height);
         return this;
     }
 
-
     /**
-     * Height of the field
+     * Height of the field. May be null when the field has no positioning information.
      */
-    public Fields withHeight(Optional<Long> height) {
+    public Fields withHeight(JsonNullable<Long> height) {
         Utils.checkNotNull(height, "height");
         this.height = height;
         return this;
     }
 
     /**
-     * Page number of the field
+     * Page number of the field. May be null when the field has no positioning information.
      */
     public Fields withPageNumber(long pageNumber) {
         Utils.checkNotNull(pageNumber, "pageNumber");
-        this.pageNumber = Optional.ofNullable(pageNumber);
+        this.pageNumber = JsonNullable.of(pageNumber);
         return this;
     }
 
-
     /**
-     * Page number of the field
+     * Page number of the field. May be null when the field has no positioning information.
      */
-    public Fields withPageNumber(Optional<Long> pageNumber) {
+    public Fields withPageNumber(JsonNullable<Long> pageNumber) {
         Utils.checkNotNull(pageNumber, "pageNumber");
         this.pageNumber = pageNumber;
         return this;
@@ -411,19 +417,19 @@ public class Fields {
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private Optional<String> key = Optional.empty();
+        private JsonNullable<String> key = JsonNullable.undefined();
 
         private JsonNullable<String> value = JsonNullable.undefined();
 
-        private Optional<Long> x = Optional.empty();
+        private JsonNullable<Long> x = JsonNullable.undefined();
 
-        private Optional<Long> y = Optional.empty();
+        private JsonNullable<Long> y = JsonNullable.undefined();
 
-        private Optional<Long> width = Optional.empty();
+        private JsonNullable<Long> width = JsonNullable.undefined();
 
-        private Optional<Long> height = Optional.empty();
+        private JsonNullable<Long> height = JsonNullable.undefined();
 
-        private Optional<Long> pageNumber = Optional.empty();
+        private JsonNullable<Long> pageNumber = JsonNullable.undefined();
 
         private Optional<String> dataType = Optional.empty();
 
@@ -435,18 +441,20 @@ public class Fields {
 
 
         /**
-         * Unique identifier of the field
+         * Unique identifier of the field. May be null for custom fields that do not correspond to a known
+         * Gusto-managed key mapping.
          */
         public Builder key(String key) {
             Utils.checkNotNull(key, "key");
-            this.key = Optional.ofNullable(key);
+            this.key = JsonNullable.of(key);
             return this;
         }
 
         /**
-         * Unique identifier of the field
+         * Unique identifier of the field. May be null for custom fields that do not correspond to a known
+         * Gusto-managed key mapping.
          */
-        public Builder key(Optional<String> key) {
+        public Builder key(JsonNullable<String> key) {
             Utils.checkNotNull(key, "key");
             this.key = key;
             return this;
@@ -473,18 +481,20 @@ public class Fields {
 
 
         /**
-         * X-coordinate location of the field on the page
+         * X-coordinate location of the field on the page. May be null when the field has no positioning
+         * information.
          */
         public Builder x(long x) {
             Utils.checkNotNull(x, "x");
-            this.x = Optional.ofNullable(x);
+            this.x = JsonNullable.of(x);
             return this;
         }
 
         /**
-         * X-coordinate location of the field on the page
+         * X-coordinate location of the field on the page. May be null when the field has no positioning
+         * information.
          */
-        public Builder x(Optional<Long> x) {
+        public Builder x(JsonNullable<Long> x) {
             Utils.checkNotNull(x, "x");
             this.x = x;
             return this;
@@ -492,18 +502,20 @@ public class Fields {
 
 
         /**
-         * Y-coordinate location of the field on the page
+         * Y-coordinate location of the field on the page. May be null when the field has no positioning
+         * information.
          */
         public Builder y(long y) {
             Utils.checkNotNull(y, "y");
-            this.y = Optional.ofNullable(y);
+            this.y = JsonNullable.of(y);
             return this;
         }
 
         /**
-         * Y-coordinate location of the field on the page
+         * Y-coordinate location of the field on the page. May be null when the field has no positioning
+         * information.
          */
-        public Builder y(Optional<Long> y) {
+        public Builder y(JsonNullable<Long> y) {
             Utils.checkNotNull(y, "y");
             this.y = y;
             return this;
@@ -511,18 +523,18 @@ public class Fields {
 
 
         /**
-         * Width of the field
+         * Width of the field. May be null when the field has no positioning information.
          */
         public Builder width(long width) {
             Utils.checkNotNull(width, "width");
-            this.width = Optional.ofNullable(width);
+            this.width = JsonNullable.of(width);
             return this;
         }
 
         /**
-         * Width of the field
+         * Width of the field. May be null when the field has no positioning information.
          */
-        public Builder width(Optional<Long> width) {
+        public Builder width(JsonNullable<Long> width) {
             Utils.checkNotNull(width, "width");
             this.width = width;
             return this;
@@ -530,18 +542,18 @@ public class Fields {
 
 
         /**
-         * Height of the field
+         * Height of the field. May be null when the field has no positioning information.
          */
         public Builder height(long height) {
             Utils.checkNotNull(height, "height");
-            this.height = Optional.ofNullable(height);
+            this.height = JsonNullable.of(height);
             return this;
         }
 
         /**
-         * Height of the field
+         * Height of the field. May be null when the field has no positioning information.
          */
-        public Builder height(Optional<Long> height) {
+        public Builder height(JsonNullable<Long> height) {
             Utils.checkNotNull(height, "height");
             this.height = height;
             return this;
@@ -549,18 +561,18 @@ public class Fields {
 
 
         /**
-         * Page number of the field
+         * Page number of the field. May be null when the field has no positioning information.
          */
         public Builder pageNumber(long pageNumber) {
             Utils.checkNotNull(pageNumber, "pageNumber");
-            this.pageNumber = Optional.ofNullable(pageNumber);
+            this.pageNumber = JsonNullable.of(pageNumber);
             return this;
         }
 
         /**
-         * Page number of the field
+         * Page number of the field. May be null when the field has no positioning information.
          */
-        public Builder pageNumber(Optional<Long> pageNumber) {
+        public Builder pageNumber(JsonNullable<Long> pageNumber) {
             Utils.checkNotNull(pageNumber, "pageNumber");
             this.pageNumber = pageNumber;
             return this;

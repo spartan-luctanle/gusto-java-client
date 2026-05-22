@@ -82,19 +82,19 @@ public class Compensation {
     private Optional<? extends FlsaStatusType> flsaStatus;
 
     /**
+     * The job title for this compensation.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("title")
+    private Optional<String> title;
+
+    /**
      * The effective date for this compensation. For the first compensation, this defaults to the job's
      * hire date.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("effective_date")
     private Optional<String> effectiveDate;
-
-    /**
-     * The job title for this compensation.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("title")
-    private Optional<String> title;
 
     /**
      * Indicates if the compensation could be adjusted to minimum wage during payroll calculation.
@@ -119,8 +119,8 @@ public class Compensation {
             @JsonProperty("rate") Optional<String> rate,
             @JsonProperty("payment_unit") Optional<? extends PaymentUnit> paymentUnit,
             @JsonProperty("flsa_status") Optional<? extends FlsaStatusType> flsaStatus,
-            @JsonProperty("effective_date") Optional<String> effectiveDate,
             @JsonProperty("title") Optional<String> title,
+            @JsonProperty("effective_date") Optional<String> effectiveDate,
             @JsonProperty("adjust_for_minimum_wage") Optional<Boolean> adjustForMinimumWage,
             @JsonProperty("minimum_wages") Optional<? extends List<MinimumWages>> minimumWages) {
         Utils.checkNotNull(uuid, "uuid");
@@ -130,8 +130,8 @@ public class Compensation {
         Utils.checkNotNull(rate, "rate");
         Utils.checkNotNull(paymentUnit, "paymentUnit");
         Utils.checkNotNull(flsaStatus, "flsaStatus");
-        Utils.checkNotNull(effectiveDate, "effectiveDate");
         Utils.checkNotNull(title, "title");
+        Utils.checkNotNull(effectiveDate, "effectiveDate");
         Utils.checkNotNull(adjustForMinimumWage, "adjustForMinimumWage");
         Utils.checkNotNull(minimumWages, "minimumWages");
         this.uuid = uuid;
@@ -141,8 +141,8 @@ public class Compensation {
         this.rate = rate;
         this.paymentUnit = paymentUnit;
         this.flsaStatus = flsaStatus;
-        this.effectiveDate = effectiveDate;
         this.title = title;
+        this.effectiveDate = effectiveDate;
         this.adjustForMinimumWage = adjustForMinimumWage;
         this.minimumWages = minimumWages;
     }
@@ -225,20 +225,20 @@ public class Compensation {
     }
 
     /**
+     * The job title for this compensation.
+     */
+    @JsonIgnore
+    public Optional<String> title() {
+        return title;
+    }
+
+    /**
      * The effective date for this compensation. For the first compensation, this defaults to the job's
      * hire date.
      */
     @JsonIgnore
     public Optional<String> effectiveDate() {
         return effectiveDate;
-    }
-
-    /**
-     * The job title for this compensation.
-     */
-    @JsonIgnore
-    public Optional<String> title() {
-        return title;
     }
 
     /**
@@ -409,6 +409,25 @@ public class Compensation {
     }
 
     /**
+     * The job title for this compensation.
+     */
+    public Compensation withTitle(String title) {
+        Utils.checkNotNull(title, "title");
+        this.title = Optional.ofNullable(title);
+        return this;
+    }
+
+
+    /**
+     * The job title for this compensation.
+     */
+    public Compensation withTitle(Optional<String> title) {
+        Utils.checkNotNull(title, "title");
+        this.title = title;
+        return this;
+    }
+
+    /**
      * The effective date for this compensation. For the first compensation, this defaults to the job's
      * hire date.
      */
@@ -426,25 +445,6 @@ public class Compensation {
     public Compensation withEffectiveDate(Optional<String> effectiveDate) {
         Utils.checkNotNull(effectiveDate, "effectiveDate");
         this.effectiveDate = effectiveDate;
-        return this;
-    }
-
-    /**
-     * The job title for this compensation.
-     */
-    public Compensation withTitle(String title) {
-        Utils.checkNotNull(title, "title");
-        this.title = Optional.ofNullable(title);
-        return this;
-    }
-
-
-    /**
-     * The job title for this compensation.
-     */
-    public Compensation withTitle(Optional<String> title) {
-        Utils.checkNotNull(title, "title");
-        this.title = title;
         return this;
     }
 
@@ -503,8 +503,8 @@ public class Compensation {
             Utils.enhancedDeepEquals(this.rate, other.rate) &&
             Utils.enhancedDeepEquals(this.paymentUnit, other.paymentUnit) &&
             Utils.enhancedDeepEquals(this.flsaStatus, other.flsaStatus) &&
-            Utils.enhancedDeepEquals(this.effectiveDate, other.effectiveDate) &&
             Utils.enhancedDeepEquals(this.title, other.title) &&
+            Utils.enhancedDeepEquals(this.effectiveDate, other.effectiveDate) &&
             Utils.enhancedDeepEquals(this.adjustForMinimumWage, other.adjustForMinimumWage) &&
             Utils.enhancedDeepEquals(this.minimumWages, other.minimumWages);
     }
@@ -514,7 +514,7 @@ public class Compensation {
         return Utils.enhancedHash(
             uuid, version, jobUuid,
             employeeUuid, rate, paymentUnit,
-            flsaStatus, effectiveDate, title,
+            flsaStatus, title, effectiveDate,
             adjustForMinimumWage, minimumWages);
     }
     
@@ -528,8 +528,8 @@ public class Compensation {
                 "rate", rate,
                 "paymentUnit", paymentUnit,
                 "flsaStatus", flsaStatus,
-                "effectiveDate", effectiveDate,
                 "title", title,
+                "effectiveDate", effectiveDate,
                 "adjustForMinimumWage", adjustForMinimumWage,
                 "minimumWages", minimumWages);
     }
@@ -551,9 +551,9 @@ public class Compensation {
 
         private Optional<? extends FlsaStatusType> flsaStatus = Optional.empty();
 
-        private Optional<String> effectiveDate = Optional.empty();
-
         private Optional<String> title = Optional.empty();
+
+        private Optional<String> effectiveDate = Optional.empty();
 
         private Optional<Boolean> adjustForMinimumWage = Optional.empty();
 
@@ -711,6 +711,25 @@ public class Compensation {
 
 
         /**
+         * The job title for this compensation.
+         */
+        public Builder title(String title) {
+            Utils.checkNotNull(title, "title");
+            this.title = Optional.ofNullable(title);
+            return this;
+        }
+
+        /**
+         * The job title for this compensation.
+         */
+        public Builder title(Optional<String> title) {
+            Utils.checkNotNull(title, "title");
+            this.title = title;
+            return this;
+        }
+
+
+        /**
          * The effective date for this compensation. For the first compensation, this defaults to the job's
          * hire date.
          */
@@ -727,25 +746,6 @@ public class Compensation {
         public Builder effectiveDate(Optional<String> effectiveDate) {
             Utils.checkNotNull(effectiveDate, "effectiveDate");
             this.effectiveDate = effectiveDate;
-            return this;
-        }
-
-
-        /**
-         * The job title for this compensation.
-         */
-        public Builder title(String title) {
-            Utils.checkNotNull(title, "title");
-            this.title = Optional.ofNullable(title);
-            return this;
-        }
-
-        /**
-         * The job title for this compensation.
-         */
-        public Builder title(Optional<String> title) {
-            Utils.checkNotNull(title, "title");
-            this.title = title;
             return this;
         }
 
@@ -792,7 +792,7 @@ public class Compensation {
             return new Compensation(
                 uuid, version, jobUuid,
                 employeeUuid, rate, paymentUnit,
-                flsaStatus, effectiveDate, title,
+                flsaStatus, title, effectiveDate,
                 adjustForMinimumWage, minimumWages);
         }
 

@@ -70,7 +70,7 @@ public class AchTransaction {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("error_code")
-    private Optional<String> errorCode;
+    private JsonNullable<String> errorCode;
 
     /**
      * The type of transaction associated with the ACH transaction
@@ -130,7 +130,7 @@ public class AchTransaction {
             @JsonProperty("payment_event_uuid") Optional<String> paymentEventUuid,
             @JsonProperty("recipient_type") JsonNullable<? extends AchTransactionRecipientType> recipientType,
             @JsonProperty("recipient_uuid") Optional<String> recipientUuid,
-            @JsonProperty("error_code") Optional<String> errorCode,
+            @JsonProperty("error_code") JsonNullable<String> errorCode,
             @JsonProperty("transaction_type") Optional<String> transactionType,
             @JsonProperty("payment_status") Optional<? extends PaymentStatus> paymentStatus,
             @JsonProperty("payment_direction") Optional<? extends PaymentDirection> paymentDirection,
@@ -172,7 +172,7 @@ public class AchTransaction {
             String uuid) {
         this(uuid, Optional.empty(), Optional.empty(),
             Optional.empty(), JsonNullable.undefined(), Optional.empty(),
-            Optional.empty(), Optional.empty(), Optional.empty(),
+            JsonNullable.undefined(), Optional.empty(), Optional.empty(),
             Optional.empty(), Optional.empty(), Optional.empty(),
             Optional.empty(), Optional.empty());
     }
@@ -234,7 +234,7 @@ public class AchTransaction {
      * list of ACH return codes.
      */
     @JsonIgnore
-    public Optional<String> errorCode() {
+    public JsonNullable<String> errorCode() {
         return errorCode;
     }
 
@@ -413,10 +413,9 @@ public class AchTransaction {
      */
     public AchTransaction withErrorCode(String errorCode) {
         Utils.checkNotNull(errorCode, "errorCode");
-        this.errorCode = Optional.ofNullable(errorCode);
+        this.errorCode = JsonNullable.of(errorCode);
         return this;
     }
-
 
     /**
      * The error code associated with the ACH transaction, if any. If there is no error on the ACH
@@ -424,7 +423,7 @@ public class AchTransaction {
      * article](https://engineering.gusto.com/how-ach-works-a-developer-perspective-part-2/) for a complete
      * list of ACH return codes.
      */
-    public AchTransaction withErrorCode(Optional<String> errorCode) {
+    public AchTransaction withErrorCode(JsonNullable<String> errorCode) {
         Utils.checkNotNull(errorCode, "errorCode");
         this.errorCode = errorCode;
         return this;
@@ -635,7 +634,7 @@ public class AchTransaction {
 
         private Optional<String> recipientUuid = Optional.empty();
 
-        private Optional<String> errorCode = Optional.empty();
+        private JsonNullable<String> errorCode = JsonNullable.undefined();
 
         private Optional<String> transactionType = Optional.empty();
 
@@ -769,7 +768,7 @@ public class AchTransaction {
          */
         public Builder errorCode(String errorCode) {
             Utils.checkNotNull(errorCode, "errorCode");
-            this.errorCode = Optional.ofNullable(errorCode);
+            this.errorCode = JsonNullable.of(errorCode);
             return this;
         }
 
@@ -779,7 +778,7 @@ public class AchTransaction {
          * article](https://engineering.gusto.com/how-ach-works-a-developer-perspective-part-2/) for a complete
          * list of ACH return codes.
          */
-        public Builder errorCode(Optional<String> errorCode) {
+        public Builder errorCode(JsonNullable<String> errorCode) {
             Utils.checkNotNull(errorCode, "errorCode");
             this.errorCode = errorCode;
             return this;

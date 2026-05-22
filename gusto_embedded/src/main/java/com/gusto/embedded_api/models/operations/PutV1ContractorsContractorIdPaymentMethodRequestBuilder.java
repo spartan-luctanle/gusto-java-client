@@ -7,7 +7,6 @@ import static com.gusto.embedded_api.operations.Operations.RequestOperation;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.VersionHeader;
 import com.gusto.embedded_api.operations.PutV1ContractorsContractorIdPaymentMethod;
 import com.gusto.embedded_api.utils.Headers;
 import com.gusto.embedded_api.utils.LazySingletonValue;
@@ -17,11 +16,11 @@ import java.util.Optional;
 
 public class PutV1ContractorsContractorIdPaymentMethodRequestBuilder {
 
-    private String contractorUuid;
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
+    private Optional<? extends PutV1ContractorsContractorIdPaymentMethodHeaderXGustoAPIVersion> xGustoAPIVersion = Utils.readDefaultOrConstValue(
                             "xGustoAPIVersion",
                             "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
+                            new TypeReference<Optional<? extends PutV1ContractorsContractorIdPaymentMethodHeaderXGustoAPIVersion>>() {});
+    private String contractorUuid;
     private PutV1ContractorsContractorIdPaymentMethodRequestBody requestBody;
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
@@ -29,22 +28,22 @@ public class PutV1ContractorsContractorIdPaymentMethodRequestBuilder {
     public PutV1ContractorsContractorIdPaymentMethodRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
-
-    public PutV1ContractorsContractorIdPaymentMethodRequestBuilder contractorUuid(String contractorUuid) {
-        Utils.checkNotNull(contractorUuid, "contractorUuid");
-        this.contractorUuid = contractorUuid;
-        return this;
-    }
                 
-    public PutV1ContractorsContractorIdPaymentMethodRequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+    public PutV1ContractorsContractorIdPaymentMethodRequestBuilder xGustoAPIVersion(PutV1ContractorsContractorIdPaymentMethodHeaderXGustoAPIVersion xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
         return this;
     }
 
-    public PutV1ContractorsContractorIdPaymentMethodRequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public PutV1ContractorsContractorIdPaymentMethodRequestBuilder xGustoAPIVersion(Optional<? extends PutV1ContractorsContractorIdPaymentMethodHeaderXGustoAPIVersion> xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = xGustoAPIVersion;
+        return this;
+    }
+
+    public PutV1ContractorsContractorIdPaymentMethodRequestBuilder contractorUuid(String contractorUuid) {
+        Utils.checkNotNull(contractorUuid, "contractorUuid");
+        this.contractorUuid = contractorUuid;
         return this;
     }
 
@@ -60,8 +59,8 @@ public class PutV1ContractorsContractorIdPaymentMethodRequestBuilder {
             xGustoAPIVersion = _SINGLETON_VALUE_XGustoAPIVersion.value();
         }
 
-        PutV1ContractorsContractorIdPaymentMethodRequest request = new PutV1ContractorsContractorIdPaymentMethodRequest(contractorUuid,
-            xGustoAPIVersion,
+        PutV1ContractorsContractorIdPaymentMethodRequest request = new PutV1ContractorsContractorIdPaymentMethodRequest(xGustoAPIVersion,
+            contractorUuid,
             requestBody);
 
         return request;
@@ -76,9 +75,9 @@ public class PutV1ContractorsContractorIdPaymentMethodRequestBuilder {
         return operation.handleResponse(operation.doRequest(request));
     }
 
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+    private static final LazySingletonValue<Optional<? extends PutV1ContractorsContractorIdPaymentMethodHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
             new LazySingletonValue<>(
                     "xGustoAPIVersion",
                     "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
+                    new TypeReference<Optional<? extends PutV1ContractorsContractorIdPaymentMethodHeaderXGustoAPIVersion>>() {});
 }

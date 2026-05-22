@@ -16,11 +16,7 @@ import java.util.List;
 import java.util.Optional;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-/**
- * PayrollReversal
- * 
- * <p>Example response
- */
+
 public class PayrollReversal {
     /**
      * The UUID for the payroll run being reversed.
@@ -34,7 +30,7 @@ public class PayrollReversal {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("reversal_payroll_uuid")
-    private Optional<String> reversalPayrollUuid;
+    private JsonNullable<String> reversalPayrollUuid;
 
     /**
      * A reason provided by the admin who created the reversal.
@@ -55,7 +51,7 @@ public class PayrollReversal {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("category")
-    private Optional<String> category;
+    private JsonNullable<String> category;
 
     /**
      * Array of affected employee UUIDs.
@@ -67,10 +63,10 @@ public class PayrollReversal {
     @JsonCreator
     public PayrollReversal(
             @JsonProperty("reversed_payroll_uuid") Optional<String> reversedPayrollUuid,
-            @JsonProperty("reversal_payroll_uuid") Optional<String> reversalPayrollUuid,
+            @JsonProperty("reversal_payroll_uuid") JsonNullable<String> reversalPayrollUuid,
             @JsonProperty("reason") Optional<String> reason,
             @JsonProperty("approved_at") JsonNullable<String> approvedAt,
-            @JsonProperty("category") Optional<String> category,
+            @JsonProperty("category") JsonNullable<String> category,
             @JsonProperty("reversed_employee_uuids") Optional<? extends List<String>> reversedEmployeeUuids) {
         Utils.checkNotNull(reversedPayrollUuid, "reversedPayrollUuid");
         Utils.checkNotNull(reversalPayrollUuid, "reversalPayrollUuid");
@@ -87,8 +83,8 @@ public class PayrollReversal {
     }
     
     public PayrollReversal() {
-        this(Optional.empty(), Optional.empty(), Optional.empty(),
-            JsonNullable.undefined(), Optional.empty(), Optional.empty());
+        this(Optional.empty(), JsonNullable.undefined(), Optional.empty(),
+            JsonNullable.undefined(), JsonNullable.undefined(), Optional.empty());
     }
 
     /**
@@ -103,7 +99,7 @@ public class PayrollReversal {
      * The UUID of the payroll where the reversal was applied.
      */
     @JsonIgnore
-    public Optional<String> reversalPayrollUuid() {
+    public JsonNullable<String> reversalPayrollUuid() {
         return reversalPayrollUuid;
     }
 
@@ -127,7 +123,7 @@ public class PayrollReversal {
      * Category chosen by the admin who requested the reversal.
      */
     @JsonIgnore
-    public Optional<String> category() {
+    public JsonNullable<String> category() {
         return category;
     }
 
@@ -169,15 +165,14 @@ public class PayrollReversal {
      */
     public PayrollReversal withReversalPayrollUuid(String reversalPayrollUuid) {
         Utils.checkNotNull(reversalPayrollUuid, "reversalPayrollUuid");
-        this.reversalPayrollUuid = Optional.ofNullable(reversalPayrollUuid);
+        this.reversalPayrollUuid = JsonNullable.of(reversalPayrollUuid);
         return this;
     }
-
 
     /**
      * The UUID of the payroll where the reversal was applied.
      */
-    public PayrollReversal withReversalPayrollUuid(Optional<String> reversalPayrollUuid) {
+    public PayrollReversal withReversalPayrollUuid(JsonNullable<String> reversalPayrollUuid) {
         Utils.checkNotNull(reversalPayrollUuid, "reversalPayrollUuid");
         this.reversalPayrollUuid = reversalPayrollUuid;
         return this;
@@ -225,15 +220,14 @@ public class PayrollReversal {
      */
     public PayrollReversal withCategory(String category) {
         Utils.checkNotNull(category, "category");
-        this.category = Optional.ofNullable(category);
+        this.category = JsonNullable.of(category);
         return this;
     }
-
 
     /**
      * Category chosen by the admin who requested the reversal.
      */
-    public PayrollReversal withCategory(Optional<String> category) {
+    public PayrollReversal withCategory(JsonNullable<String> category) {
         Utils.checkNotNull(category, "category");
         this.category = category;
         return this;
@@ -299,13 +293,13 @@ public class PayrollReversal {
 
         private Optional<String> reversedPayrollUuid = Optional.empty();
 
-        private Optional<String> reversalPayrollUuid = Optional.empty();
+        private JsonNullable<String> reversalPayrollUuid = JsonNullable.undefined();
 
         private Optional<String> reason = Optional.empty();
 
         private JsonNullable<String> approvedAt = JsonNullable.undefined();
 
-        private Optional<String> category = Optional.empty();
+        private JsonNullable<String> category = JsonNullable.undefined();
 
         private Optional<? extends List<String>> reversedEmployeeUuids = Optional.empty();
 
@@ -338,14 +332,14 @@ public class PayrollReversal {
          */
         public Builder reversalPayrollUuid(String reversalPayrollUuid) {
             Utils.checkNotNull(reversalPayrollUuid, "reversalPayrollUuid");
-            this.reversalPayrollUuid = Optional.ofNullable(reversalPayrollUuid);
+            this.reversalPayrollUuid = JsonNullable.of(reversalPayrollUuid);
             return this;
         }
 
         /**
          * The UUID of the payroll where the reversal was applied.
          */
-        public Builder reversalPayrollUuid(Optional<String> reversalPayrollUuid) {
+        public Builder reversalPayrollUuid(JsonNullable<String> reversalPayrollUuid) {
             Utils.checkNotNull(reversalPayrollUuid, "reversalPayrollUuid");
             this.reversalPayrollUuid = reversalPayrollUuid;
             return this;
@@ -395,14 +389,14 @@ public class PayrollReversal {
          */
         public Builder category(String category) {
             Utils.checkNotNull(category, "category");
-            this.category = Optional.ofNullable(category);
+            this.category = JsonNullable.of(category);
             return this;
         }
 
         /**
          * Category chosen by the admin who requested the reversal.
          */
-        public Builder category(Optional<String> category) {
+        public Builder category(JsonNullable<String> category) {
             Utils.checkNotNull(category, "category");
             this.category = category;
             return this;

@@ -34,7 +34,7 @@ public class PostV1WebhookSubscriptionResponse implements AsyncResponse {
     private HttpResponse<Blob> rawResponse;
 
     /**
-     * Example response
+     * created
      */
     private Optional<? extends WebhookSubscription> webhookSubscription;
 
@@ -87,7 +87,7 @@ public class PostV1WebhookSubscriptionResponse implements AsyncResponse {
     }
 
     /**
-     * Example response
+     * created
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -128,7 +128,7 @@ public class PostV1WebhookSubscriptionResponse implements AsyncResponse {
     }
 
     /**
-     * Example response
+     * created
      */
     public PostV1WebhookSubscriptionResponse withWebhookSubscription(WebhookSubscription webhookSubscription) {
         Utils.checkNotNull(webhookSubscription, "webhookSubscription");
@@ -138,7 +138,7 @@ public class PostV1WebhookSubscriptionResponse implements AsyncResponse {
 
 
     /**
-     * Example response
+     * created
      */
     public PostV1WebhookSubscriptionResponse withWebhookSubscription(Optional<? extends WebhookSubscription> webhookSubscription) {
         Utils.checkNotNull(webhookSubscription, "webhookSubscription");
@@ -225,7 +225,7 @@ public class PostV1WebhookSubscriptionResponse implements AsyncResponse {
 
 
         /**
-         * Example response
+         * created
          */
         public Builder webhookSubscription(WebhookSubscription webhookSubscription) {
             Utils.checkNotNull(webhookSubscription, "webhookSubscription");
@@ -234,7 +234,7 @@ public class PostV1WebhookSubscriptionResponse implements AsyncResponse {
         }
 
         /**
-         * Example response
+         * created
          */
         public Builder webhookSubscription(Optional<? extends WebhookSubscription> webhookSubscription) {
             Utils.checkNotNull(webhookSubscription, "webhookSubscription");

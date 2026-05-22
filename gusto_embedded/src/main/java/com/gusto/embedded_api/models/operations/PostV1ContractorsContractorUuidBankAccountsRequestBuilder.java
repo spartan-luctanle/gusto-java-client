@@ -7,7 +7,7 @@ import static com.gusto.embedded_api.operations.Operations.RequestOperation;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.components.ContractorBankAccountCreateRequestBody;
 import com.gusto.embedded_api.operations.PostV1ContractorsContractorUuidBankAccounts;
 import com.gusto.embedded_api.utils.Headers;
 import com.gusto.embedded_api.utils.LazySingletonValue;
@@ -17,17 +17,29 @@ import java.util.Optional;
 
 public class PostV1ContractorsContractorUuidBankAccountsRequestBuilder {
 
-    private String contractorUuid;
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
+    private Optional<? extends PostV1ContractorsContractorUuidBankAccountsHeaderXGustoAPIVersion> xGustoAPIVersion = Utils.readDefaultOrConstValue(
                             "xGustoAPIVersion",
                             "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
-    private PostV1ContractorsContractorUuidBankAccountsRequestBody requestBody;
+                            new TypeReference<Optional<? extends PostV1ContractorsContractorUuidBankAccountsHeaderXGustoAPIVersion>>() {});
+    private String contractorUuid;
+    private ContractorBankAccountCreateRequestBody contractorBankAccountCreateRequestBody;
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
     public PostV1ContractorsContractorUuidBankAccountsRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
+    }
+                
+    public PostV1ContractorsContractorUuidBankAccountsRequestBuilder xGustoAPIVersion(PostV1ContractorsContractorUuidBankAccountsHeaderXGustoAPIVersion xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
+        return this;
+    }
+
+    public PostV1ContractorsContractorUuidBankAccountsRequestBuilder xGustoAPIVersion(Optional<? extends PostV1ContractorsContractorUuidBankAccountsHeaderXGustoAPIVersion> xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = xGustoAPIVersion;
+        return this;
     }
 
     public PostV1ContractorsContractorUuidBankAccountsRequestBuilder contractorUuid(String contractorUuid) {
@@ -35,22 +47,10 @@ public class PostV1ContractorsContractorUuidBankAccountsRequestBuilder {
         this.contractorUuid = contractorUuid;
         return this;
     }
-                
-    public PostV1ContractorsContractorUuidBankAccountsRequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
-        return this;
-    }
 
-    public PostV1ContractorsContractorUuidBankAccountsRequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = xGustoAPIVersion;
-        return this;
-    }
-
-    public PostV1ContractorsContractorUuidBankAccountsRequestBuilder requestBody(PostV1ContractorsContractorUuidBankAccountsRequestBody requestBody) {
-        Utils.checkNotNull(requestBody, "requestBody");
-        this.requestBody = requestBody;
+    public PostV1ContractorsContractorUuidBankAccountsRequestBuilder contractorBankAccountCreateRequestBody(ContractorBankAccountCreateRequestBody contractorBankAccountCreateRequestBody) {
+        Utils.checkNotNull(contractorBankAccountCreateRequestBody, "contractorBankAccountCreateRequestBody");
+        this.contractorBankAccountCreateRequestBody = contractorBankAccountCreateRequestBody;
         return this;
     }
 
@@ -60,9 +60,9 @@ public class PostV1ContractorsContractorUuidBankAccountsRequestBuilder {
             xGustoAPIVersion = _SINGLETON_VALUE_XGustoAPIVersion.value();
         }
 
-        PostV1ContractorsContractorUuidBankAccountsRequest request = new PostV1ContractorsContractorUuidBankAccountsRequest(contractorUuid,
-            xGustoAPIVersion,
-            requestBody);
+        PostV1ContractorsContractorUuidBankAccountsRequest request = new PostV1ContractorsContractorUuidBankAccountsRequest(xGustoAPIVersion,
+            contractorUuid,
+            contractorBankAccountCreateRequestBody);
 
         return request;
     }
@@ -76,9 +76,9 @@ public class PostV1ContractorsContractorUuidBankAccountsRequestBuilder {
         return operation.handleResponse(operation.doRequest(request));
     }
 
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+    private static final LazySingletonValue<Optional<? extends PostV1ContractorsContractorUuidBankAccountsHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
             new LazySingletonValue<>(
                     "xGustoAPIVersion",
                     "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
+                    new TypeReference<Optional<? extends PostV1ContractorsContractorUuidBankAccountsHeaderXGustoAPIVersion>>() {});
 }

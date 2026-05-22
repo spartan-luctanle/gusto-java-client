@@ -6,7 +6,6 @@ package com.gusto.embedded_api.models.operations;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.gusto.embedded_api.models.components.VersionHeader;
 import com.gusto.embedded_api.utils.LazySingletonValue;
 import com.gusto.embedded_api.utils.SpeakeasyMetadata;
 import com.gusto.embedded_api.utils.Utils;
@@ -18,33 +17,44 @@ import java.util.Optional;
 
 public class GetReportsRequestUuidRequest {
     /**
+     * Determines the date-based API version associated with your API call. If none is provided, your
+     * application's [minimum API
+     * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     */
+    @SpeakeasyMetadata("header:style=simple,explode=false,name=X-Gusto-API-Version")
+    private Optional<? extends GetReportsRequestUuidHeaderXGustoAPIVersion> xGustoAPIVersion;
+
+    /**
      * The UUID of the request to generate a document. Generate document endpoints return request_uuids to
      * be used with the GET generated document endpoint.
      */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=request_uuid")
     private String requestUuid;
 
+    @JsonCreator
+    public GetReportsRequestUuidRequest(
+            Optional<? extends GetReportsRequestUuidHeaderXGustoAPIVersion> xGustoAPIVersion,
+            String requestUuid) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        Utils.checkNotNull(requestUuid, "requestUuid");
+        this.xGustoAPIVersion = xGustoAPIVersion;
+        this.requestUuid = requestUuid;
+    }
+    
+    public GetReportsRequestUuidRequest(
+            String requestUuid) {
+        this(Optional.empty(), requestUuid);
+    }
+
     /**
      * Determines the date-based API version associated with your API call. If none is provided, your
      * application's [minimum API
      * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      */
-    @SpeakeasyMetadata("header:style=simple,explode=false,name=X-Gusto-API-Version")
-    private Optional<? extends VersionHeader> xGustoAPIVersion;
-
-    @JsonCreator
-    public GetReportsRequestUuidRequest(
-            String requestUuid,
-            Optional<? extends VersionHeader> xGustoAPIVersion) {
-        Utils.checkNotNull(requestUuid, "requestUuid");
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.requestUuid = requestUuid;
-        this.xGustoAPIVersion = xGustoAPIVersion;
-    }
-    
-    public GetReportsRequestUuidRequest(
-            String requestUuid) {
-        this(requestUuid, Optional.empty());
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<GetReportsRequestUuidHeaderXGustoAPIVersion> xGustoAPIVersion() {
+        return (Optional<GetReportsRequestUuidHeaderXGustoAPIVersion>) xGustoAPIVersion;
     }
 
     /**
@@ -56,38 +66,17 @@ public class GetReportsRequestUuidRequest {
         return requestUuid;
     }
 
-    /**
-     * Determines the date-based API version associated with your API call. If none is provided, your
-     * application's [minimum API
-     * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
-     */
-    @SuppressWarnings("unchecked")
-    @JsonIgnore
-    public Optional<VersionHeader> xGustoAPIVersion() {
-        return (Optional<VersionHeader>) xGustoAPIVersion;
-    }
-
     public static Builder builder() {
         return new Builder();
     }
 
 
     /**
-     * The UUID of the request to generate a document. Generate document endpoints return request_uuids to
-     * be used with the GET generated document endpoint.
-     */
-    public GetReportsRequestUuidRequest withRequestUuid(String requestUuid) {
-        Utils.checkNotNull(requestUuid, "requestUuid");
-        this.requestUuid = requestUuid;
-        return this;
-    }
-
-    /**
      * Determines the date-based API version associated with your API call. If none is provided, your
      * application's [minimum API
      * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      */
-    public GetReportsRequestUuidRequest withXGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+    public GetReportsRequestUuidRequest withXGustoAPIVersion(GetReportsRequestUuidHeaderXGustoAPIVersion xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
         return this;
@@ -99,9 +88,19 @@ public class GetReportsRequestUuidRequest {
      * application's [minimum API
      * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      */
-    public GetReportsRequestUuidRequest withXGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public GetReportsRequestUuidRequest withXGustoAPIVersion(Optional<? extends GetReportsRequestUuidHeaderXGustoAPIVersion> xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = xGustoAPIVersion;
+        return this;
+    }
+
+    /**
+     * The UUID of the request to generate a document. Generate document endpoints return request_uuids to
+     * be used with the GET generated document endpoint.
+     */
+    public GetReportsRequestUuidRequest withRequestUuid(String requestUuid) {
+        Utils.checkNotNull(requestUuid, "requestUuid");
+        this.requestUuid = requestUuid;
         return this;
     }
 
@@ -115,32 +114,55 @@ public class GetReportsRequestUuidRequest {
         }
         GetReportsRequestUuidRequest other = (GetReportsRequestUuidRequest) o;
         return 
-            Utils.enhancedDeepEquals(this.requestUuid, other.requestUuid) &&
-            Utils.enhancedDeepEquals(this.xGustoAPIVersion, other.xGustoAPIVersion);
+            Utils.enhancedDeepEquals(this.xGustoAPIVersion, other.xGustoAPIVersion) &&
+            Utils.enhancedDeepEquals(this.requestUuid, other.requestUuid);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            requestUuid, xGustoAPIVersion);
+            xGustoAPIVersion, requestUuid);
     }
     
     @Override
     public String toString() {
         return Utils.toString(GetReportsRequestUuidRequest.class,
-                "requestUuid", requestUuid,
-                "xGustoAPIVersion", xGustoAPIVersion);
+                "xGustoAPIVersion", xGustoAPIVersion,
+                "requestUuid", requestUuid);
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private String requestUuid;
+        private Optional<? extends GetReportsRequestUuidHeaderXGustoAPIVersion> xGustoAPIVersion;
 
-        private Optional<? extends VersionHeader> xGustoAPIVersion;
+        private String requestUuid;
 
         private Builder() {
           // force use of static builder() method
+        }
+
+
+        /**
+         * Determines the date-based API version associated with your API call. If none is provided, your
+         * application's [minimum API
+         * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+         */
+        public Builder xGustoAPIVersion(GetReportsRequestUuidHeaderXGustoAPIVersion xGustoAPIVersion) {
+            Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+            this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
+            return this;
+        }
+
+        /**
+         * Determines the date-based API version associated with your API call. If none is provided, your
+         * application's [minimum API
+         * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+         */
+        public Builder xGustoAPIVersion(Optional<? extends GetReportsRequestUuidHeaderXGustoAPIVersion> xGustoAPIVersion) {
+            Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+            this.xGustoAPIVersion = xGustoAPIVersion;
+            return this;
         }
 
 
@@ -154,43 +176,20 @@ public class GetReportsRequestUuidRequest {
             return this;
         }
 
-
-        /**
-         * Determines the date-based API version associated with your API call. If none is provided, your
-         * application's [minimum API
-         * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
-         */
-        public Builder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
-            Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-            this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
-            return this;
-        }
-
-        /**
-         * Determines the date-based API version associated with your API call. If none is provided, your
-         * application's [minimum API
-         * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
-         */
-        public Builder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
-            Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-            this.xGustoAPIVersion = xGustoAPIVersion;
-            return this;
-        }
-
         public GetReportsRequestUuidRequest build() {
             if (xGustoAPIVersion == null) {
                 xGustoAPIVersion = _SINGLETON_VALUE_XGustoAPIVersion.value();
             }
 
             return new GetReportsRequestUuidRequest(
-                requestUuid, xGustoAPIVersion);
+                xGustoAPIVersion, requestUuid);
         }
 
 
-        private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+        private static final LazySingletonValue<Optional<? extends GetReportsRequestUuidHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
                 new LazySingletonValue<>(
                         "X-Gusto-API-Version",
                         "\"2025-06-15\"",
-                        new TypeReference<Optional<? extends VersionHeader>>() {});
+                        new TypeReference<Optional<? extends GetReportsRequestUuidHeaderXGustoAPIVersion>>() {});
     }
 }

@@ -34,7 +34,7 @@ public class PutAddPeopleToDepartmentResponse implements Response {
     private HttpResponse<InputStream> rawResponse;
 
     /**
-     * Department Object Example
+     * Success
      */
     private Optional<? extends Department> department;
 
@@ -87,7 +87,7 @@ public class PutAddPeopleToDepartmentResponse implements Response {
     }
 
     /**
-     * Department Object Example
+     * Success
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -128,7 +128,7 @@ public class PutAddPeopleToDepartmentResponse implements Response {
     }
 
     /**
-     * Department Object Example
+     * Success
      */
     public PutAddPeopleToDepartmentResponse withDepartment(Department department) {
         Utils.checkNotNull(department, "department");
@@ -138,7 +138,7 @@ public class PutAddPeopleToDepartmentResponse implements Response {
 
 
     /**
-     * Department Object Example
+     * Success
      */
     public PutAddPeopleToDepartmentResponse withDepartment(Optional<? extends Department> department) {
         Utils.checkNotNull(department, "department");
@@ -225,7 +225,7 @@ public class PutAddPeopleToDepartmentResponse implements Response {
 
 
         /**
-         * Department Object Example
+         * Success
          */
         public Builder department(Department department) {
             Utils.checkNotNull(department, "department");
@@ -234,7 +234,7 @@ public class PutAddPeopleToDepartmentResponse implements Response {
         }
 
         /**
-         * Department Object Example
+         * Success
          */
         public Builder department(Optional<? extends Department> department) {
             Utils.checkNotNull(department, "department");

@@ -34,7 +34,7 @@ public class GetCompaniesCompanyUuidReportTemplatesReportTypeResponse implements
     private HttpResponse<InputStream> rawResponse;
 
     /**
-     * Example response
+     * OK
      */
     private Optional<? extends ReportTemplate> reportTemplate;
 
@@ -87,7 +87,7 @@ public class GetCompaniesCompanyUuidReportTemplatesReportTypeResponse implements
     }
 
     /**
-     * Example response
+     * OK
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -128,7 +128,7 @@ public class GetCompaniesCompanyUuidReportTemplatesReportTypeResponse implements
     }
 
     /**
-     * Example response
+     * OK
      */
     public GetCompaniesCompanyUuidReportTemplatesReportTypeResponse withReportTemplate(ReportTemplate reportTemplate) {
         Utils.checkNotNull(reportTemplate, "reportTemplate");
@@ -138,7 +138,7 @@ public class GetCompaniesCompanyUuidReportTemplatesReportTypeResponse implements
 
 
     /**
-     * Example response
+     * OK
      */
     public GetCompaniesCompanyUuidReportTemplatesReportTypeResponse withReportTemplate(Optional<? extends ReportTemplate> reportTemplate) {
         Utils.checkNotNull(reportTemplate, "reportTemplate");
@@ -225,7 +225,7 @@ public class GetCompaniesCompanyUuidReportTemplatesReportTypeResponse implements
 
 
         /**
-         * Example response
+         * OK
          */
         public Builder reportTemplate(ReportTemplate reportTemplate) {
             Utils.checkNotNull(reportTemplate, "reportTemplate");
@@ -234,7 +234,7 @@ public class GetCompaniesCompanyUuidReportTemplatesReportTypeResponse implements
         }
 
         /**
-         * Example response
+         * OK
          */
         public Builder reportTemplate(Optional<? extends ReportTemplate> reportTemplate) {
             Utils.checkNotNull(reportTemplate, "reportTemplate");

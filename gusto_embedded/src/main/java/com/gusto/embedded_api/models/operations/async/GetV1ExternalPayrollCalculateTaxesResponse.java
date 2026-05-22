@@ -35,24 +35,24 @@ public class GetV1ExternalPayrollCalculateTaxesResponse implements AsyncResponse
     private HttpResponse<Blob> rawResponse;
 
     /**
-     * Example response
+     * Success
      */
-    private Optional<? extends List<ExternalPayrollTaxSuggestions>> externalPayrollTaxSuggestionsList;
+    private Optional<? extends List<ExternalPayrollTaxSuggestions>> externalPayrollTaxSuggestions;
 
     @JsonCreator
     public GetV1ExternalPayrollCalculateTaxesResponse(
             String contentType,
             int statusCode,
             HttpResponse<Blob> rawResponse,
-            Optional<? extends List<ExternalPayrollTaxSuggestions>> externalPayrollTaxSuggestionsList) {
+            Optional<? extends List<ExternalPayrollTaxSuggestions>> externalPayrollTaxSuggestions) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
-        Utils.checkNotNull(externalPayrollTaxSuggestionsList, "externalPayrollTaxSuggestionsList");
+        Utils.checkNotNull(externalPayrollTaxSuggestions, "externalPayrollTaxSuggestions");
         this.contentType = contentType;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
-        this.externalPayrollTaxSuggestionsList = externalPayrollTaxSuggestionsList;
+        this.externalPayrollTaxSuggestions = externalPayrollTaxSuggestions;
     }
     
     public GetV1ExternalPayrollCalculateTaxesResponse(
@@ -88,12 +88,12 @@ public class GetV1ExternalPayrollCalculateTaxesResponse implements AsyncResponse
     }
 
     /**
-     * Example response
+     * Success
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<List<ExternalPayrollTaxSuggestions>> externalPayrollTaxSuggestionsList() {
-        return (Optional<List<ExternalPayrollTaxSuggestions>>) externalPayrollTaxSuggestionsList;
+    public Optional<List<ExternalPayrollTaxSuggestions>> externalPayrollTaxSuggestions() {
+        return (Optional<List<ExternalPayrollTaxSuggestions>>) externalPayrollTaxSuggestions;
     }
 
     public static Builder builder() {
@@ -129,21 +129,21 @@ public class GetV1ExternalPayrollCalculateTaxesResponse implements AsyncResponse
     }
 
     /**
-     * Example response
+     * Success
      */
-    public GetV1ExternalPayrollCalculateTaxesResponse withExternalPayrollTaxSuggestionsList(List<ExternalPayrollTaxSuggestions> externalPayrollTaxSuggestionsList) {
-        Utils.checkNotNull(externalPayrollTaxSuggestionsList, "externalPayrollTaxSuggestionsList");
-        this.externalPayrollTaxSuggestionsList = Optional.ofNullable(externalPayrollTaxSuggestionsList);
+    public GetV1ExternalPayrollCalculateTaxesResponse withExternalPayrollTaxSuggestions(List<ExternalPayrollTaxSuggestions> externalPayrollTaxSuggestions) {
+        Utils.checkNotNull(externalPayrollTaxSuggestions, "externalPayrollTaxSuggestions");
+        this.externalPayrollTaxSuggestions = Optional.ofNullable(externalPayrollTaxSuggestions);
         return this;
     }
 
 
     /**
-     * Example response
+     * Success
      */
-    public GetV1ExternalPayrollCalculateTaxesResponse withExternalPayrollTaxSuggestionsList(Optional<? extends List<ExternalPayrollTaxSuggestions>> externalPayrollTaxSuggestionsList) {
-        Utils.checkNotNull(externalPayrollTaxSuggestionsList, "externalPayrollTaxSuggestionsList");
-        this.externalPayrollTaxSuggestionsList = externalPayrollTaxSuggestionsList;
+    public GetV1ExternalPayrollCalculateTaxesResponse withExternalPayrollTaxSuggestions(Optional<? extends List<ExternalPayrollTaxSuggestions>> externalPayrollTaxSuggestions) {
+        Utils.checkNotNull(externalPayrollTaxSuggestions, "externalPayrollTaxSuggestions");
+        this.externalPayrollTaxSuggestions = externalPayrollTaxSuggestions;
         return this;
     }
 
@@ -160,14 +160,14 @@ public class GetV1ExternalPayrollCalculateTaxesResponse implements AsyncResponse
             Utils.enhancedDeepEquals(this.contentType, other.contentType) &&
             Utils.enhancedDeepEquals(this.statusCode, other.statusCode) &&
             Utils.enhancedDeepEquals(this.rawResponse, other.rawResponse) &&
-            Utils.enhancedDeepEquals(this.externalPayrollTaxSuggestionsList, other.externalPayrollTaxSuggestionsList);
+            Utils.enhancedDeepEquals(this.externalPayrollTaxSuggestions, other.externalPayrollTaxSuggestions);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             contentType, statusCode, rawResponse,
-            externalPayrollTaxSuggestionsList);
+            externalPayrollTaxSuggestions);
     }
     
     @Override
@@ -176,7 +176,7 @@ public class GetV1ExternalPayrollCalculateTaxesResponse implements AsyncResponse
                 "contentType", contentType,
                 "statusCode", statusCode,
                 "rawResponse", rawResponse,
-                "externalPayrollTaxSuggestionsList", externalPayrollTaxSuggestionsList);
+                "externalPayrollTaxSuggestions", externalPayrollTaxSuggestions);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -188,7 +188,7 @@ public class GetV1ExternalPayrollCalculateTaxesResponse implements AsyncResponse
 
         private HttpResponse<Blob> rawResponse;
 
-        private Optional<? extends List<ExternalPayrollTaxSuggestions>> externalPayrollTaxSuggestionsList = Optional.empty();
+        private Optional<? extends List<ExternalPayrollTaxSuggestions>> externalPayrollTaxSuggestions = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -226,20 +226,20 @@ public class GetV1ExternalPayrollCalculateTaxesResponse implements AsyncResponse
 
 
         /**
-         * Example response
+         * Success
          */
-        public Builder externalPayrollTaxSuggestionsList(List<ExternalPayrollTaxSuggestions> externalPayrollTaxSuggestionsList) {
-            Utils.checkNotNull(externalPayrollTaxSuggestionsList, "externalPayrollTaxSuggestionsList");
-            this.externalPayrollTaxSuggestionsList = Optional.ofNullable(externalPayrollTaxSuggestionsList);
+        public Builder externalPayrollTaxSuggestions(List<ExternalPayrollTaxSuggestions> externalPayrollTaxSuggestions) {
+            Utils.checkNotNull(externalPayrollTaxSuggestions, "externalPayrollTaxSuggestions");
+            this.externalPayrollTaxSuggestions = Optional.ofNullable(externalPayrollTaxSuggestions);
             return this;
         }
 
         /**
-         * Example response
+         * Success
          */
-        public Builder externalPayrollTaxSuggestionsList(Optional<? extends List<ExternalPayrollTaxSuggestions>> externalPayrollTaxSuggestionsList) {
-            Utils.checkNotNull(externalPayrollTaxSuggestionsList, "externalPayrollTaxSuggestionsList");
-            this.externalPayrollTaxSuggestionsList = externalPayrollTaxSuggestionsList;
+        public Builder externalPayrollTaxSuggestions(Optional<? extends List<ExternalPayrollTaxSuggestions>> externalPayrollTaxSuggestions) {
+            Utils.checkNotNull(externalPayrollTaxSuggestions, "externalPayrollTaxSuggestions");
+            this.externalPayrollTaxSuggestions = externalPayrollTaxSuggestions;
             return this;
         }
 
@@ -247,7 +247,7 @@ public class GetV1ExternalPayrollCalculateTaxesResponse implements AsyncResponse
 
             return new GetV1ExternalPayrollCalculateTaxesResponse(
                 contentType, statusCode, rawResponse,
-                externalPayrollTaxSuggestionsList);
+                externalPayrollTaxSuggestions);
         }
 
     }

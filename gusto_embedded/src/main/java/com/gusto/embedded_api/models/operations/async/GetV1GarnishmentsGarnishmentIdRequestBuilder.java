@@ -7,7 +7,7 @@ import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.operations.GetV1GarnishmentsGarnishmentIdHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1GarnishmentsGarnishmentIdRequest;
 import com.gusto.embedded_api.operations.GetV1GarnishmentsGarnishmentId;
 import com.gusto.embedded_api.utils.Headers;
@@ -19,33 +19,33 @@ import java.util.concurrent.CompletableFuture;
 
 public class GetV1GarnishmentsGarnishmentIdRequestBuilder {
 
-    private String garnishmentId;
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
+    private Optional<? extends GetV1GarnishmentsGarnishmentIdHeaderXGustoAPIVersion> xGustoAPIVersion = Utils.readDefaultOrConstValue(
                             "xGustoAPIVersion",
                             "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
+                            new TypeReference<Optional<? extends GetV1GarnishmentsGarnishmentIdHeaderXGustoAPIVersion>>() {});
+    private String garnishmentId;
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
     public GetV1GarnishmentsGarnishmentIdRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
-
-    public GetV1GarnishmentsGarnishmentIdRequestBuilder garnishmentId(String garnishmentId) {
-        Utils.checkNotNull(garnishmentId, "garnishmentId");
-        this.garnishmentId = garnishmentId;
-        return this;
-    }
                 
-    public GetV1GarnishmentsGarnishmentIdRequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+    public GetV1GarnishmentsGarnishmentIdRequestBuilder xGustoAPIVersion(GetV1GarnishmentsGarnishmentIdHeaderXGustoAPIVersion xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
         return this;
     }
 
-    public GetV1GarnishmentsGarnishmentIdRequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public GetV1GarnishmentsGarnishmentIdRequestBuilder xGustoAPIVersion(Optional<? extends GetV1GarnishmentsGarnishmentIdHeaderXGustoAPIVersion> xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = xGustoAPIVersion;
+        return this;
+    }
+
+    public GetV1GarnishmentsGarnishmentIdRequestBuilder garnishmentId(String garnishmentId) {
+        Utils.checkNotNull(garnishmentId, "garnishmentId");
+        this.garnishmentId = garnishmentId;
         return this;
     }
 
@@ -55,8 +55,8 @@ public class GetV1GarnishmentsGarnishmentIdRequestBuilder {
             xGustoAPIVersion = _SINGLETON_VALUE_XGustoAPIVersion.value();
         }
 
-        GetV1GarnishmentsGarnishmentIdRequest request = new GetV1GarnishmentsGarnishmentIdRequest(garnishmentId,
-            xGustoAPIVersion);
+        GetV1GarnishmentsGarnishmentIdRequest request = new GetV1GarnishmentsGarnishmentIdRequest(xGustoAPIVersion,
+            garnishmentId);
 
         return request;
     }
@@ -71,9 +71,9 @@ public class GetV1GarnishmentsGarnishmentIdRequestBuilder {
             .thenCompose(operation::handleResponse);
     }
 
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+    private static final LazySingletonValue<Optional<? extends GetV1GarnishmentsGarnishmentIdHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
             new LazySingletonValue<>(
                     "xGustoAPIVersion",
                     "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
+                    new TypeReference<Optional<? extends GetV1GarnishmentsGarnishmentIdHeaderXGustoAPIVersion>>() {});
 }

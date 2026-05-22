@@ -26,6 +26,13 @@ public class Industry {
     private Optional<String> companyUuid;
 
     /**
+     * Industry title
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("title")
+    private JsonNullable<String> title;
+
+    /**
      * North American Industry Classification System (NAICS) is used to classify businesses with a six
      * digit number based on the primary type of work the business performs.
      */
@@ -42,32 +49,25 @@ public class Industry {
     @JsonProperty("sic_codes")
     private Optional<? extends List<String>> sicCodes;
 
-    /**
-     * Industry title
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("title")
-    private JsonNullable<String> title;
-
     @JsonCreator
     public Industry(
             @JsonProperty("company_uuid") Optional<String> companyUuid,
+            @JsonProperty("title") JsonNullable<String> title,
             @JsonProperty("naics_code") JsonNullable<String> naicsCode,
-            @JsonProperty("sic_codes") Optional<? extends List<String>> sicCodes,
-            @JsonProperty("title") JsonNullable<String> title) {
+            @JsonProperty("sic_codes") Optional<? extends List<String>> sicCodes) {
         Utils.checkNotNull(companyUuid, "companyUuid");
+        Utils.checkNotNull(title, "title");
         Utils.checkNotNull(naicsCode, "naicsCode");
         Utils.checkNotNull(sicCodes, "sicCodes");
-        Utils.checkNotNull(title, "title");
         this.companyUuid = companyUuid;
+        this.title = title;
         this.naicsCode = naicsCode;
         this.sicCodes = sicCodes;
-        this.title = title;
     }
     
     public Industry() {
-        this(Optional.empty(), JsonNullable.undefined(), Optional.empty(),
-            JsonNullable.undefined());
+        this(Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(),
+            Optional.empty());
     }
 
     /**
@@ -76,6 +76,14 @@ public class Industry {
     @JsonIgnore
     public Optional<String> companyUuid() {
         return companyUuid;
+    }
+
+    /**
+     * Industry title
+     */
+    @JsonIgnore
+    public JsonNullable<String> title() {
+        return title;
     }
 
     /**
@@ -96,14 +104,6 @@ public class Industry {
     @JsonIgnore
     public Optional<List<String>> sicCodes() {
         return (Optional<List<String>>) sicCodes;
-    }
-
-    /**
-     * Industry title
-     */
-    @JsonIgnore
-    public JsonNullable<String> title() {
-        return title;
     }
 
     public static Builder builder() {
@@ -127,6 +127,24 @@ public class Industry {
     public Industry withCompanyUuid(Optional<String> companyUuid) {
         Utils.checkNotNull(companyUuid, "companyUuid");
         this.companyUuid = companyUuid;
+        return this;
+    }
+
+    /**
+     * Industry title
+     */
+    public Industry withTitle(String title) {
+        Utils.checkNotNull(title, "title");
+        this.title = JsonNullable.of(title);
+        return this;
+    }
+
+    /**
+     * Industry title
+     */
+    public Industry withTitle(JsonNullable<String> title) {
+        Utils.checkNotNull(title, "title");
+        this.title = title;
         return this;
     }
 
@@ -173,24 +191,6 @@ public class Industry {
         return this;
     }
 
-    /**
-     * Industry title
-     */
-    public Industry withTitle(String title) {
-        Utils.checkNotNull(title, "title");
-        this.title = JsonNullable.of(title);
-        return this;
-    }
-
-    /**
-     * Industry title
-     */
-    public Industry withTitle(JsonNullable<String> title) {
-        Utils.checkNotNull(title, "title");
-        this.title = title;
-        return this;
-    }
-
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -202,25 +202,25 @@ public class Industry {
         Industry other = (Industry) o;
         return 
             Utils.enhancedDeepEquals(this.companyUuid, other.companyUuid) &&
+            Utils.enhancedDeepEquals(this.title, other.title) &&
             Utils.enhancedDeepEquals(this.naicsCode, other.naicsCode) &&
-            Utils.enhancedDeepEquals(this.sicCodes, other.sicCodes) &&
-            Utils.enhancedDeepEquals(this.title, other.title);
+            Utils.enhancedDeepEquals(this.sicCodes, other.sicCodes);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            companyUuid, naicsCode, sicCodes,
-            title);
+            companyUuid, title, naicsCode,
+            sicCodes);
     }
     
     @Override
     public String toString() {
         return Utils.toString(Industry.class,
                 "companyUuid", companyUuid,
+                "title", title,
                 "naicsCode", naicsCode,
-                "sicCodes", sicCodes,
-                "title", title);
+                "sicCodes", sicCodes);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -228,11 +228,11 @@ public class Industry {
 
         private Optional<String> companyUuid = Optional.empty();
 
+        private JsonNullable<String> title = JsonNullable.undefined();
+
         private JsonNullable<String> naicsCode = JsonNullable.undefined();
 
         private Optional<? extends List<String>> sicCodes = Optional.empty();
-
-        private JsonNullable<String> title = JsonNullable.undefined();
 
         private Builder() {
           // force use of static builder() method
@@ -254,6 +254,25 @@ public class Industry {
         public Builder companyUuid(Optional<String> companyUuid) {
             Utils.checkNotNull(companyUuid, "companyUuid");
             this.companyUuid = companyUuid;
+            return this;
+        }
+
+
+        /**
+         * Industry title
+         */
+        public Builder title(String title) {
+            Utils.checkNotNull(title, "title");
+            this.title = JsonNullable.of(title);
+            return this;
+        }
+
+        /**
+         * Industry title
+         */
+        public Builder title(JsonNullable<String> title) {
+            Utils.checkNotNull(title, "title");
+            this.title = title;
             return this;
         }
 
@@ -301,30 +320,11 @@ public class Industry {
             return this;
         }
 
-
-        /**
-         * Industry title
-         */
-        public Builder title(String title) {
-            Utils.checkNotNull(title, "title");
-            this.title = JsonNullable.of(title);
-            return this;
-        }
-
-        /**
-         * Industry title
-         */
-        public Builder title(JsonNullable<String> title) {
-            Utils.checkNotNull(title, "title");
-            this.title = title;
-            return this;
-        }
-
         public Industry build() {
 
             return new Industry(
-                companyUuid, naicsCode, sicCodes,
-                title);
+                companyUuid, title, naicsCode,
+                sicCodes);
         }
 
     }

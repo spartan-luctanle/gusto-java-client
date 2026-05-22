@@ -14,6 +14,7 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -36,22 +37,22 @@ public class GetV1CompaniesCompanyIdPayrollReversalsResponse implements Response
     /**
      * Example response
      */
-    private Optional<? extends PayrollReversal> payrollReversal;
+    private Optional<? extends List<PayrollReversal>> payrollReversalList;
 
     @JsonCreator
     public GetV1CompaniesCompanyIdPayrollReversalsResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends PayrollReversal> payrollReversal) {
+            Optional<? extends List<PayrollReversal>> payrollReversalList) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
-        Utils.checkNotNull(payrollReversal, "payrollReversal");
+        Utils.checkNotNull(payrollReversalList, "payrollReversalList");
         this.contentType = contentType;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
-        this.payrollReversal = payrollReversal;
+        this.payrollReversalList = payrollReversalList;
     }
     
     public GetV1CompaniesCompanyIdPayrollReversalsResponse(
@@ -91,8 +92,8 @@ public class GetV1CompaniesCompanyIdPayrollReversalsResponse implements Response
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<PayrollReversal> payrollReversal() {
-        return (Optional<PayrollReversal>) payrollReversal;
+    public Optional<List<PayrollReversal>> payrollReversalList() {
+        return (Optional<List<PayrollReversal>>) payrollReversalList;
     }
 
     public static Builder builder() {
@@ -130,9 +131,9 @@ public class GetV1CompaniesCompanyIdPayrollReversalsResponse implements Response
     /**
      * Example response
      */
-    public GetV1CompaniesCompanyIdPayrollReversalsResponse withPayrollReversal(PayrollReversal payrollReversal) {
-        Utils.checkNotNull(payrollReversal, "payrollReversal");
-        this.payrollReversal = Optional.ofNullable(payrollReversal);
+    public GetV1CompaniesCompanyIdPayrollReversalsResponse withPayrollReversalList(List<PayrollReversal> payrollReversalList) {
+        Utils.checkNotNull(payrollReversalList, "payrollReversalList");
+        this.payrollReversalList = Optional.ofNullable(payrollReversalList);
         return this;
     }
 
@@ -140,9 +141,9 @@ public class GetV1CompaniesCompanyIdPayrollReversalsResponse implements Response
     /**
      * Example response
      */
-    public GetV1CompaniesCompanyIdPayrollReversalsResponse withPayrollReversal(Optional<? extends PayrollReversal> payrollReversal) {
-        Utils.checkNotNull(payrollReversal, "payrollReversal");
-        this.payrollReversal = payrollReversal;
+    public GetV1CompaniesCompanyIdPayrollReversalsResponse withPayrollReversalList(Optional<? extends List<PayrollReversal>> payrollReversalList) {
+        Utils.checkNotNull(payrollReversalList, "payrollReversalList");
+        this.payrollReversalList = payrollReversalList;
         return this;
     }
 
@@ -159,14 +160,14 @@ public class GetV1CompaniesCompanyIdPayrollReversalsResponse implements Response
             Utils.enhancedDeepEquals(this.contentType, other.contentType) &&
             Utils.enhancedDeepEquals(this.statusCode, other.statusCode) &&
             Utils.enhancedDeepEquals(this.rawResponse, other.rawResponse) &&
-            Utils.enhancedDeepEquals(this.payrollReversal, other.payrollReversal);
+            Utils.enhancedDeepEquals(this.payrollReversalList, other.payrollReversalList);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             contentType, statusCode, rawResponse,
-            payrollReversal);
+            payrollReversalList);
     }
     
     @Override
@@ -175,7 +176,7 @@ public class GetV1CompaniesCompanyIdPayrollReversalsResponse implements Response
                 "contentType", contentType,
                 "statusCode", statusCode,
                 "rawResponse", rawResponse,
-                "payrollReversal", payrollReversal);
+                "payrollReversalList", payrollReversalList);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -187,7 +188,7 @@ public class GetV1CompaniesCompanyIdPayrollReversalsResponse implements Response
 
         private HttpResponse<InputStream> rawResponse;
 
-        private Optional<? extends PayrollReversal> payrollReversal = Optional.empty();
+        private Optional<? extends List<PayrollReversal>> payrollReversalList = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -227,18 +228,18 @@ public class GetV1CompaniesCompanyIdPayrollReversalsResponse implements Response
         /**
          * Example response
          */
-        public Builder payrollReversal(PayrollReversal payrollReversal) {
-            Utils.checkNotNull(payrollReversal, "payrollReversal");
-            this.payrollReversal = Optional.ofNullable(payrollReversal);
+        public Builder payrollReversalList(List<PayrollReversal> payrollReversalList) {
+            Utils.checkNotNull(payrollReversalList, "payrollReversalList");
+            this.payrollReversalList = Optional.ofNullable(payrollReversalList);
             return this;
         }
 
         /**
          * Example response
          */
-        public Builder payrollReversal(Optional<? extends PayrollReversal> payrollReversal) {
-            Utils.checkNotNull(payrollReversal, "payrollReversal");
-            this.payrollReversal = payrollReversal;
+        public Builder payrollReversalList(Optional<? extends List<PayrollReversal>> payrollReversalList) {
+            Utils.checkNotNull(payrollReversalList, "payrollReversalList");
+            this.payrollReversalList = payrollReversalList;
             return this;
         }
 
@@ -246,7 +247,7 @@ public class GetV1CompaniesCompanyIdPayrollReversalsResponse implements Response
 
             return new GetV1CompaniesCompanyIdPayrollReversalsResponse(
                 contentType, statusCode, rawResponse,
-                payrollReversal);
+                payrollReversalList);
         }
 
     }

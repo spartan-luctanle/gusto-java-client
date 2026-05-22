@@ -5,10 +5,10 @@ package com.gusto.embedded_api;
 
 import static com.gusto.embedded_api.operations.Operations.RequestOperation;
 
-import com.gusto.embedded_api.models.components.VersionHeader;
 import com.gusto.embedded_api.models.operations.GetCompanyNotificationsRequest;
 import com.gusto.embedded_api.models.operations.GetCompanyNotificationsRequestBuilder;
 import com.gusto.embedded_api.models.operations.GetCompanyNotificationsResponse;
+import com.gusto.embedded_api.models.operations.GetNotificationsNotificationUuidHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetNotificationsNotificationUuidRequest;
 import com.gusto.embedded_api.models.operations.GetNotificationsNotificationUuidRequestBuilder;
 import com.gusto.embedded_api.models.operations.GetNotificationsNotificationUuidResponse;
@@ -54,6 +54,8 @@ public class Notifications {
      * 
      * <p>scope: `notifications:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @return The call builder
      */
     public GetNotificationsNotificationUuidRequestBuilder getDetails() {
@@ -75,6 +77,8 @@ public class Notifications {
      * supporting data is no longer valid, the response will be 422 Unprocessable Entity.
      * 
      * <p>scope: `notifications:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @param notificationUuid The notification entity_uuid
      * @return The response from the API call
@@ -100,12 +104,14 @@ public class Notifications {
      * 
      * <p>scope: `notifications:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param notificationUuid The notification entity_uuid
-     * @param xGustoAPIVersion 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
-    public GetNotificationsNotificationUuidResponse getDetails(String notificationUuid, Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public GetNotificationsNotificationUuidResponse getDetails(String notificationUuid, Optional<? extends GetNotificationsNotificationUuidHeaderXGustoAPIVersion> xGustoAPIVersion) {
         GetNotificationsNotificationUuidRequest request =
             GetNotificationsNotificationUuidRequest
                 .builder()

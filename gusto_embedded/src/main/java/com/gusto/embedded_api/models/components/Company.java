@@ -72,20 +72,6 @@ public class Company {
     private Optional<? extends CompanyStatus> companyStatus;
 
     /**
-     * Whether or not Gusto has identified the company as representing a high fraud risk.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("is_high_risk_business")
-    private Optional<Boolean> isHighRiskBusiness;
-
-    /**
-     * Whether or not the company is a marijuana-related business.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("is_marijuana_business")
-    private Optional<Boolean> isMarijuanaBusiness;
-
-    /**
      * A unique identifier of the company in Gusto.
      */
     @JsonProperty("uuid")
@@ -118,6 +104,20 @@ public class Company {
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("is_partner_managed")
     private Optional<Boolean> isPartnerManaged;
+
+    /**
+     * Whether or not Gusto has identified the company as representing a high fraud risk.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("is_high_risk_business")
+    private Optional<Boolean> isHighRiskBusiness;
+
+    /**
+     * Whether or not the company is a marijuana-related business.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("is_marijuana_business")
+    private Optional<Boolean> isMarijuanaBusiness;
 
     /**
      * The pay schedule assignment type.
@@ -176,13 +176,13 @@ public class Company {
             @JsonProperty("tier") JsonNullable<? extends Tier> tier,
             @JsonProperty("is_suspended") Optional<Boolean> isSuspended,
             @JsonProperty("company_status") Optional<? extends CompanyStatus> companyStatus,
-            @JsonProperty("is_high_risk_business") Optional<Boolean> isHighRiskBusiness,
-            @JsonProperty("is_marijuana_business") Optional<Boolean> isMarijuanaBusiness,
             @JsonProperty("uuid") String uuid,
             @JsonProperty("name") Optional<String> name,
             @JsonProperty("slug") Optional<String> slug,
             @JsonProperty("trade_name") JsonNullable<String> tradeName,
             @JsonProperty("is_partner_managed") Optional<Boolean> isPartnerManaged,
+            @JsonProperty("is_high_risk_business") Optional<Boolean> isHighRiskBusiness,
+            @JsonProperty("is_marijuana_business") Optional<Boolean> isMarijuanaBusiness,
             @JsonProperty("pay_schedule_type") JsonNullable<? extends PayScheduleType> payScheduleType,
             @JsonProperty("join_date") JsonNullable<String> joinDate,
             @JsonProperty("funding_type") JsonNullable<? extends FundingType> fundingType,
@@ -196,13 +196,13 @@ public class Company {
         Utils.checkNotNull(tier, "tier");
         Utils.checkNotNull(isSuspended, "isSuspended");
         Utils.checkNotNull(companyStatus, "companyStatus");
-        Utils.checkNotNull(isHighRiskBusiness, "isHighRiskBusiness");
-        Utils.checkNotNull(isMarijuanaBusiness, "isMarijuanaBusiness");
         Utils.checkNotNull(uuid, "uuid");
         Utils.checkNotNull(name, "name");
         Utils.checkNotNull(slug, "slug");
         Utils.checkNotNull(tradeName, "tradeName");
         Utils.checkNotNull(isPartnerManaged, "isPartnerManaged");
+        Utils.checkNotNull(isHighRiskBusiness, "isHighRiskBusiness");
+        Utils.checkNotNull(isMarijuanaBusiness, "isMarijuanaBusiness");
         Utils.checkNotNull(payScheduleType, "payScheduleType");
         Utils.checkNotNull(joinDate, "joinDate");
         Utils.checkNotNull(fundingType, "fundingType");
@@ -216,13 +216,13 @@ public class Company {
         this.tier = tier;
         this.isSuspended = isSuspended;
         this.companyStatus = companyStatus;
-        this.isHighRiskBusiness = isHighRiskBusiness;
-        this.isMarijuanaBusiness = isMarijuanaBusiness;
         this.uuid = uuid;
         this.name = name;
         this.slug = slug;
         this.tradeName = tradeName;
         this.isPartnerManaged = isPartnerManaged;
+        this.isHighRiskBusiness = isHighRiskBusiness;
+        this.isMarijuanaBusiness = isMarijuanaBusiness;
         this.payScheduleType = payScheduleType;
         this.joinDate = joinDate;
         this.fundingType = fundingType;
@@ -236,8 +236,8 @@ public class Company {
             String uuid) {
         this(Optional.empty(), JsonNullable.undefined(), Optional.empty(),
             JsonNullable.undefined(), Optional.empty(), Optional.empty(),
-            Optional.empty(), Optional.empty(), uuid,
-            Optional.empty(), Optional.empty(), JsonNullable.undefined(),
+            uuid, Optional.empty(), Optional.empty(),
+            JsonNullable.undefined(), Optional.empty(), Optional.empty(),
             Optional.empty(), JsonNullable.undefined(), JsonNullable.undefined(),
             JsonNullable.undefined(), Optional.empty(), Optional.empty(),
             JsonNullable.undefined(), Optional.empty());
@@ -301,22 +301,6 @@ public class Company {
     }
 
     /**
-     * Whether or not Gusto has identified the company as representing a high fraud risk.
-     */
-    @JsonIgnore
-    public Optional<Boolean> isHighRiskBusiness() {
-        return isHighRiskBusiness;
-    }
-
-    /**
-     * Whether or not the company is a marijuana-related business.
-     */
-    @JsonIgnore
-    public Optional<Boolean> isMarijuanaBusiness() {
-        return isMarijuanaBusiness;
-    }
-
-    /**
      * A unique identifier of the company in Gusto.
      */
     @JsonIgnore
@@ -354,6 +338,22 @@ public class Company {
     @JsonIgnore
     public Optional<Boolean> isPartnerManaged() {
         return isPartnerManaged;
+    }
+
+    /**
+     * Whether or not Gusto has identified the company as representing a high fraud risk.
+     */
+    @JsonIgnore
+    public Optional<Boolean> isHighRiskBusiness() {
+        return isHighRiskBusiness;
+    }
+
+    /**
+     * Whether or not the company is a marijuana-related business.
+     */
+    @JsonIgnore
+    public Optional<Boolean> isMarijuanaBusiness() {
+        return isMarijuanaBusiness;
     }
 
     /**
@@ -548,44 +548,6 @@ public class Company {
     }
 
     /**
-     * Whether or not Gusto has identified the company as representing a high fraud risk.
-     */
-    public Company withIsHighRiskBusiness(boolean isHighRiskBusiness) {
-        Utils.checkNotNull(isHighRiskBusiness, "isHighRiskBusiness");
-        this.isHighRiskBusiness = Optional.ofNullable(isHighRiskBusiness);
-        return this;
-    }
-
-
-    /**
-     * Whether or not Gusto has identified the company as representing a high fraud risk.
-     */
-    public Company withIsHighRiskBusiness(Optional<Boolean> isHighRiskBusiness) {
-        Utils.checkNotNull(isHighRiskBusiness, "isHighRiskBusiness");
-        this.isHighRiskBusiness = isHighRiskBusiness;
-        return this;
-    }
-
-    /**
-     * Whether or not the company is a marijuana-related business.
-     */
-    public Company withIsMarijuanaBusiness(boolean isMarijuanaBusiness) {
-        Utils.checkNotNull(isMarijuanaBusiness, "isMarijuanaBusiness");
-        this.isMarijuanaBusiness = Optional.ofNullable(isMarijuanaBusiness);
-        return this;
-    }
-
-
-    /**
-     * Whether or not the company is a marijuana-related business.
-     */
-    public Company withIsMarijuanaBusiness(Optional<Boolean> isMarijuanaBusiness) {
-        Utils.checkNotNull(isMarijuanaBusiness, "isMarijuanaBusiness");
-        this.isMarijuanaBusiness = isMarijuanaBusiness;
-        return this;
-    }
-
-    /**
      * A unique identifier of the company in Gusto.
      */
     public Company withUuid(String uuid) {
@@ -666,6 +628,44 @@ public class Company {
     public Company withIsPartnerManaged(Optional<Boolean> isPartnerManaged) {
         Utils.checkNotNull(isPartnerManaged, "isPartnerManaged");
         this.isPartnerManaged = isPartnerManaged;
+        return this;
+    }
+
+    /**
+     * Whether or not Gusto has identified the company as representing a high fraud risk.
+     */
+    public Company withIsHighRiskBusiness(boolean isHighRiskBusiness) {
+        Utils.checkNotNull(isHighRiskBusiness, "isHighRiskBusiness");
+        this.isHighRiskBusiness = Optional.ofNullable(isHighRiskBusiness);
+        return this;
+    }
+
+
+    /**
+     * Whether or not Gusto has identified the company as representing a high fraud risk.
+     */
+    public Company withIsHighRiskBusiness(Optional<Boolean> isHighRiskBusiness) {
+        Utils.checkNotNull(isHighRiskBusiness, "isHighRiskBusiness");
+        this.isHighRiskBusiness = isHighRiskBusiness;
+        return this;
+    }
+
+    /**
+     * Whether or not the company is a marijuana-related business.
+     */
+    public Company withIsMarijuanaBusiness(boolean isMarijuanaBusiness) {
+        Utils.checkNotNull(isMarijuanaBusiness, "isMarijuanaBusiness");
+        this.isMarijuanaBusiness = Optional.ofNullable(isMarijuanaBusiness);
+        return this;
+    }
+
+
+    /**
+     * Whether or not the company is a marijuana-related business.
+     */
+    public Company withIsMarijuanaBusiness(Optional<Boolean> isMarijuanaBusiness) {
+        Utils.checkNotNull(isMarijuanaBusiness, "isMarijuanaBusiness");
+        this.isMarijuanaBusiness = isMarijuanaBusiness;
         return this;
     }
 
@@ -814,13 +814,13 @@ public class Company {
             Utils.enhancedDeepEquals(this.tier, other.tier) &&
             Utils.enhancedDeepEquals(this.isSuspended, other.isSuspended) &&
             Utils.enhancedDeepEquals(this.companyStatus, other.companyStatus) &&
-            Utils.enhancedDeepEquals(this.isHighRiskBusiness, other.isHighRiskBusiness) &&
-            Utils.enhancedDeepEquals(this.isMarijuanaBusiness, other.isMarijuanaBusiness) &&
             Utils.enhancedDeepEquals(this.uuid, other.uuid) &&
             Utils.enhancedDeepEquals(this.name, other.name) &&
             Utils.enhancedDeepEquals(this.slug, other.slug) &&
             Utils.enhancedDeepEquals(this.tradeName, other.tradeName) &&
             Utils.enhancedDeepEquals(this.isPartnerManaged, other.isPartnerManaged) &&
+            Utils.enhancedDeepEquals(this.isHighRiskBusiness, other.isHighRiskBusiness) &&
+            Utils.enhancedDeepEquals(this.isMarijuanaBusiness, other.isMarijuanaBusiness) &&
             Utils.enhancedDeepEquals(this.payScheduleType, other.payScheduleType) &&
             Utils.enhancedDeepEquals(this.joinDate, other.joinDate) &&
             Utils.enhancedDeepEquals(this.fundingType, other.fundingType) &&
@@ -835,9 +835,9 @@ public class Company {
         return Utils.enhancedHash(
             ein, entityType, contractorOnly,
             tier, isSuspended, companyStatus,
-            isHighRiskBusiness, isMarijuanaBusiness, uuid,
-            name, slug, tradeName,
-            isPartnerManaged, payScheduleType, joinDate,
+            uuid, name, slug,
+            tradeName, isPartnerManaged, isHighRiskBusiness,
+            isMarijuanaBusiness, payScheduleType, joinDate,
             fundingType, locations, compensations,
             primarySignatory, primaryPayrollAdmin);
     }
@@ -851,13 +851,13 @@ public class Company {
                 "tier", tier,
                 "isSuspended", isSuspended,
                 "companyStatus", companyStatus,
-                "isHighRiskBusiness", isHighRiskBusiness,
-                "isMarijuanaBusiness", isMarijuanaBusiness,
                 "uuid", uuid,
                 "name", name,
                 "slug", slug,
                 "tradeName", tradeName,
                 "isPartnerManaged", isPartnerManaged,
+                "isHighRiskBusiness", isHighRiskBusiness,
+                "isMarijuanaBusiness", isMarijuanaBusiness,
                 "payScheduleType", payScheduleType,
                 "joinDate", joinDate,
                 "fundingType", fundingType,
@@ -882,10 +882,6 @@ public class Company {
 
         private Optional<? extends CompanyStatus> companyStatus = Optional.empty();
 
-        private Optional<Boolean> isHighRiskBusiness = Optional.empty();
-
-        private Optional<Boolean> isMarijuanaBusiness = Optional.empty();
-
         private String uuid;
 
         private Optional<String> name = Optional.empty();
@@ -895,6 +891,10 @@ public class Company {
         private JsonNullable<String> tradeName = JsonNullable.undefined();
 
         private Optional<Boolean> isPartnerManaged = Optional.empty();
+
+        private Optional<Boolean> isHighRiskBusiness = Optional.empty();
+
+        private Optional<Boolean> isMarijuanaBusiness = Optional.empty();
 
         private JsonNullable<? extends PayScheduleType> payScheduleType = JsonNullable.undefined();
 
@@ -1042,44 +1042,6 @@ public class Company {
 
 
         /**
-         * Whether or not Gusto has identified the company as representing a high fraud risk.
-         */
-        public Builder isHighRiskBusiness(boolean isHighRiskBusiness) {
-            Utils.checkNotNull(isHighRiskBusiness, "isHighRiskBusiness");
-            this.isHighRiskBusiness = Optional.ofNullable(isHighRiskBusiness);
-            return this;
-        }
-
-        /**
-         * Whether or not Gusto has identified the company as representing a high fraud risk.
-         */
-        public Builder isHighRiskBusiness(Optional<Boolean> isHighRiskBusiness) {
-            Utils.checkNotNull(isHighRiskBusiness, "isHighRiskBusiness");
-            this.isHighRiskBusiness = isHighRiskBusiness;
-            return this;
-        }
-
-
-        /**
-         * Whether or not the company is a marijuana-related business.
-         */
-        public Builder isMarijuanaBusiness(boolean isMarijuanaBusiness) {
-            Utils.checkNotNull(isMarijuanaBusiness, "isMarijuanaBusiness");
-            this.isMarijuanaBusiness = Optional.ofNullable(isMarijuanaBusiness);
-            return this;
-        }
-
-        /**
-         * Whether or not the company is a marijuana-related business.
-         */
-        public Builder isMarijuanaBusiness(Optional<Boolean> isMarijuanaBusiness) {
-            Utils.checkNotNull(isMarijuanaBusiness, "isMarijuanaBusiness");
-            this.isMarijuanaBusiness = isMarijuanaBusiness;
-            return this;
-        }
-
-
-        /**
          * A unique identifier of the company in Gusto.
          */
         public Builder uuid(String uuid) {
@@ -1161,6 +1123,44 @@ public class Company {
         public Builder isPartnerManaged(Optional<Boolean> isPartnerManaged) {
             Utils.checkNotNull(isPartnerManaged, "isPartnerManaged");
             this.isPartnerManaged = isPartnerManaged;
+            return this;
+        }
+
+
+        /**
+         * Whether or not Gusto has identified the company as representing a high fraud risk.
+         */
+        public Builder isHighRiskBusiness(boolean isHighRiskBusiness) {
+            Utils.checkNotNull(isHighRiskBusiness, "isHighRiskBusiness");
+            this.isHighRiskBusiness = Optional.ofNullable(isHighRiskBusiness);
+            return this;
+        }
+
+        /**
+         * Whether or not Gusto has identified the company as representing a high fraud risk.
+         */
+        public Builder isHighRiskBusiness(Optional<Boolean> isHighRiskBusiness) {
+            Utils.checkNotNull(isHighRiskBusiness, "isHighRiskBusiness");
+            this.isHighRiskBusiness = isHighRiskBusiness;
+            return this;
+        }
+
+
+        /**
+         * Whether or not the company is a marijuana-related business.
+         */
+        public Builder isMarijuanaBusiness(boolean isMarijuanaBusiness) {
+            Utils.checkNotNull(isMarijuanaBusiness, "isMarijuanaBusiness");
+            this.isMarijuanaBusiness = Optional.ofNullable(isMarijuanaBusiness);
+            return this;
+        }
+
+        /**
+         * Whether or not the company is a marijuana-related business.
+         */
+        public Builder isMarijuanaBusiness(Optional<Boolean> isMarijuanaBusiness) {
+            Utils.checkNotNull(isMarijuanaBusiness, "isMarijuanaBusiness");
+            this.isMarijuanaBusiness = isMarijuanaBusiness;
             return this;
         }
 
@@ -1302,9 +1302,9 @@ public class Company {
             return new Company(
                 ein, entityType, contractorOnly,
                 tier, isSuspended, companyStatus,
-                isHighRiskBusiness, isMarijuanaBusiness, uuid,
-                name, slug, tradeName,
-                isPartnerManaged, payScheduleType, joinDate,
+                uuid, name, slug,
+                tradeName, isPartnerManaged, isHighRiskBusiness,
+                isMarijuanaBusiness, payScheduleType, joinDate,
                 fundingType, locations, compensations,
                 primarySignatory, primaryPayrollAdmin);
         }

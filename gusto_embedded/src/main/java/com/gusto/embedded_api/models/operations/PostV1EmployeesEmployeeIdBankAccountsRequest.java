@@ -6,7 +6,7 @@ package com.gusto.embedded_api.models.operations;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.components.EmployeeBankAccountRequest;
 import com.gusto.embedded_api.utils.LazySingletonValue;
 import com.gusto.embedded_api.utils.SpeakeasyMetadata;
 import com.gusto.embedded_api.utils.Utils;
@@ -18,40 +18,51 @@ import java.util.Optional;
 
 public class PostV1EmployeesEmployeeIdBankAccountsRequest {
     /**
+     * Determines the date-based API version associated with your API call. If none is provided, your
+     * application's [minimum API
+     * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     */
+    @SpeakeasyMetadata("header:style=simple,explode=false,name=X-Gusto-API-Version")
+    private Optional<? extends PostV1EmployeesEmployeeIdBankAccountsHeaderXGustoAPIVersion> xGustoAPIVersion;
+
+    /**
      * The UUID of the employee
      */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=employee_id")
     private String employeeId;
+
+
+    @SpeakeasyMetadata("request:mediaType=application/json")
+    private EmployeeBankAccountRequest employeeBankAccountRequest;
+
+    @JsonCreator
+    public PostV1EmployeesEmployeeIdBankAccountsRequest(
+            Optional<? extends PostV1EmployeesEmployeeIdBankAccountsHeaderXGustoAPIVersion> xGustoAPIVersion,
+            String employeeId,
+            EmployeeBankAccountRequest employeeBankAccountRequest) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        Utils.checkNotNull(employeeId, "employeeId");
+        Utils.checkNotNull(employeeBankAccountRequest, "employeeBankAccountRequest");
+        this.xGustoAPIVersion = xGustoAPIVersion;
+        this.employeeId = employeeId;
+        this.employeeBankAccountRequest = employeeBankAccountRequest;
+    }
+    
+    public PostV1EmployeesEmployeeIdBankAccountsRequest(
+            String employeeId,
+            EmployeeBankAccountRequest employeeBankAccountRequest) {
+        this(Optional.empty(), employeeId, employeeBankAccountRequest);
+    }
 
     /**
      * Determines the date-based API version associated with your API call. If none is provided, your
      * application's [minimum API
      * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      */
-    @SpeakeasyMetadata("header:style=simple,explode=false,name=X-Gusto-API-Version")
-    private Optional<? extends VersionHeader> xGustoAPIVersion;
-
-
-    @SpeakeasyMetadata("request:mediaType=application/json")
-    private PostV1EmployeesEmployeeIdBankAccountsRequestBody requestBody;
-
-    @JsonCreator
-    public PostV1EmployeesEmployeeIdBankAccountsRequest(
-            String employeeId,
-            Optional<? extends VersionHeader> xGustoAPIVersion,
-            PostV1EmployeesEmployeeIdBankAccountsRequestBody requestBody) {
-        Utils.checkNotNull(employeeId, "employeeId");
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        Utils.checkNotNull(requestBody, "requestBody");
-        this.employeeId = employeeId;
-        this.xGustoAPIVersion = xGustoAPIVersion;
-        this.requestBody = requestBody;
-    }
-    
-    public PostV1EmployeesEmployeeIdBankAccountsRequest(
-            String employeeId,
-            PostV1EmployeesEmployeeIdBankAccountsRequestBody requestBody) {
-        this(employeeId, Optional.empty(), requestBody);
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<PostV1EmployeesEmployeeIdBankAccountsHeaderXGustoAPIVersion> xGustoAPIVersion() {
+        return (Optional<PostV1EmployeesEmployeeIdBankAccountsHeaderXGustoAPIVersion>) xGustoAPIVersion;
     }
 
     /**
@@ -62,20 +73,9 @@ public class PostV1EmployeesEmployeeIdBankAccountsRequest {
         return employeeId;
     }
 
-    /**
-     * Determines the date-based API version associated with your API call. If none is provided, your
-     * application's [minimum API
-     * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
-     */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<VersionHeader> xGustoAPIVersion() {
-        return (Optional<VersionHeader>) xGustoAPIVersion;
-    }
-
-    @JsonIgnore
-    public PostV1EmployeesEmployeeIdBankAccountsRequestBody requestBody() {
-        return requestBody;
+    public EmployeeBankAccountRequest employeeBankAccountRequest() {
+        return employeeBankAccountRequest;
     }
 
     public static Builder builder() {
@@ -84,20 +84,11 @@ public class PostV1EmployeesEmployeeIdBankAccountsRequest {
 
 
     /**
-     * The UUID of the employee
-     */
-    public PostV1EmployeesEmployeeIdBankAccountsRequest withEmployeeId(String employeeId) {
-        Utils.checkNotNull(employeeId, "employeeId");
-        this.employeeId = employeeId;
-        return this;
-    }
-
-    /**
      * Determines the date-based API version associated with your API call. If none is provided, your
      * application's [minimum API
      * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      */
-    public PostV1EmployeesEmployeeIdBankAccountsRequest withXGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+    public PostV1EmployeesEmployeeIdBankAccountsRequest withXGustoAPIVersion(PostV1EmployeesEmployeeIdBankAccountsHeaderXGustoAPIVersion xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
         return this;
@@ -109,15 +100,24 @@ public class PostV1EmployeesEmployeeIdBankAccountsRequest {
      * application's [minimum API
      * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      */
-    public PostV1EmployeesEmployeeIdBankAccountsRequest withXGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public PostV1EmployeesEmployeeIdBankAccountsRequest withXGustoAPIVersion(Optional<? extends PostV1EmployeesEmployeeIdBankAccountsHeaderXGustoAPIVersion> xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = xGustoAPIVersion;
         return this;
     }
 
-    public PostV1EmployeesEmployeeIdBankAccountsRequest withRequestBody(PostV1EmployeesEmployeeIdBankAccountsRequestBody requestBody) {
-        Utils.checkNotNull(requestBody, "requestBody");
-        this.requestBody = requestBody;
+    /**
+     * The UUID of the employee
+     */
+    public PostV1EmployeesEmployeeIdBankAccountsRequest withEmployeeId(String employeeId) {
+        Utils.checkNotNull(employeeId, "employeeId");
+        this.employeeId = employeeId;
+        return this;
+    }
+
+    public PostV1EmployeesEmployeeIdBankAccountsRequest withEmployeeBankAccountRequest(EmployeeBankAccountRequest employeeBankAccountRequest) {
+        Utils.checkNotNull(employeeBankAccountRequest, "employeeBankAccountRequest");
+        this.employeeBankAccountRequest = employeeBankAccountRequest;
         return this;
     }
 
@@ -131,36 +131,59 @@ public class PostV1EmployeesEmployeeIdBankAccountsRequest {
         }
         PostV1EmployeesEmployeeIdBankAccountsRequest other = (PostV1EmployeesEmployeeIdBankAccountsRequest) o;
         return 
-            Utils.enhancedDeepEquals(this.employeeId, other.employeeId) &&
             Utils.enhancedDeepEquals(this.xGustoAPIVersion, other.xGustoAPIVersion) &&
-            Utils.enhancedDeepEquals(this.requestBody, other.requestBody);
+            Utils.enhancedDeepEquals(this.employeeId, other.employeeId) &&
+            Utils.enhancedDeepEquals(this.employeeBankAccountRequest, other.employeeBankAccountRequest);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            employeeId, xGustoAPIVersion, requestBody);
+            xGustoAPIVersion, employeeId, employeeBankAccountRequest);
     }
     
     @Override
     public String toString() {
         return Utils.toString(PostV1EmployeesEmployeeIdBankAccountsRequest.class,
-                "employeeId", employeeId,
                 "xGustoAPIVersion", xGustoAPIVersion,
-                "requestBody", requestBody);
+                "employeeId", employeeId,
+                "employeeBankAccountRequest", employeeBankAccountRequest);
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
+        private Optional<? extends PostV1EmployeesEmployeeIdBankAccountsHeaderXGustoAPIVersion> xGustoAPIVersion;
+
         private String employeeId;
 
-        private Optional<? extends VersionHeader> xGustoAPIVersion;
-
-        private PostV1EmployeesEmployeeIdBankAccountsRequestBody requestBody;
+        private EmployeeBankAccountRequest employeeBankAccountRequest;
 
         private Builder() {
           // force use of static builder() method
+        }
+
+
+        /**
+         * Determines the date-based API version associated with your API call. If none is provided, your
+         * application's [minimum API
+         * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+         */
+        public Builder xGustoAPIVersion(PostV1EmployeesEmployeeIdBankAccountsHeaderXGustoAPIVersion xGustoAPIVersion) {
+            Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+            this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
+            return this;
+        }
+
+        /**
+         * Determines the date-based API version associated with your API call. If none is provided, your
+         * application's [minimum API
+         * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+         */
+        public Builder xGustoAPIVersion(Optional<? extends PostV1EmployeesEmployeeIdBankAccountsHeaderXGustoAPIVersion> xGustoAPIVersion) {
+            Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+            this.xGustoAPIVersion = xGustoAPIVersion;
+            return this;
         }
 
 
@@ -174,32 +197,9 @@ public class PostV1EmployeesEmployeeIdBankAccountsRequest {
         }
 
 
-        /**
-         * Determines the date-based API version associated with your API call. If none is provided, your
-         * application's [minimum API
-         * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
-         */
-        public Builder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
-            Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-            this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
-            return this;
-        }
-
-        /**
-         * Determines the date-based API version associated with your API call. If none is provided, your
-         * application's [minimum API
-         * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
-         */
-        public Builder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
-            Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-            this.xGustoAPIVersion = xGustoAPIVersion;
-            return this;
-        }
-
-
-        public Builder requestBody(PostV1EmployeesEmployeeIdBankAccountsRequestBody requestBody) {
-            Utils.checkNotNull(requestBody, "requestBody");
-            this.requestBody = requestBody;
+        public Builder employeeBankAccountRequest(EmployeeBankAccountRequest employeeBankAccountRequest) {
+            Utils.checkNotNull(employeeBankAccountRequest, "employeeBankAccountRequest");
+            this.employeeBankAccountRequest = employeeBankAccountRequest;
             return this;
         }
 
@@ -209,14 +209,14 @@ public class PostV1EmployeesEmployeeIdBankAccountsRequest {
             }
 
             return new PostV1EmployeesEmployeeIdBankAccountsRequest(
-                employeeId, xGustoAPIVersion, requestBody);
+                xGustoAPIVersion, employeeId, employeeBankAccountRequest);
         }
 
 
-        private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+        private static final LazySingletonValue<Optional<? extends PostV1EmployeesEmployeeIdBankAccountsHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
                 new LazySingletonValue<>(
                         "X-Gusto-API-Version",
                         "\"2025-06-15\"",
-                        new TypeReference<Optional<? extends VersionHeader>>() {});
+                        new TypeReference<Optional<? extends PostV1EmployeesEmployeeIdBankAccountsHeaderXGustoAPIVersion>>() {});
     }
 }

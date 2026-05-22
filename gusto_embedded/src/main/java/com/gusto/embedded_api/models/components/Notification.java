@@ -17,11 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-/**
- * Notification
- * 
- * <p>Example response
- */
+
 public class Notification {
     /**
      * Unique identifier of a notification.

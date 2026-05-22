@@ -35,24 +35,24 @@ public class GetEmployeeYtdBenefitAmountsFromDifferentCompanyResponse implements
     private HttpResponse<Blob> rawResponse;
 
     /**
-     * List of Ytd Benefit Amounts From Different Company List
+     * OK
      */
-    private Optional<? extends List<YtdBenefitAmountsFromDifferentCompany>> ytdBenefitAmountsFromDifferentCompanyList;
+    private Optional<? extends List<YtdBenefitAmountsFromDifferentCompany>> ytdBenefitAmountsFromDifferentCompanies;
 
     @JsonCreator
     public GetEmployeeYtdBenefitAmountsFromDifferentCompanyResponse(
             String contentType,
             int statusCode,
             HttpResponse<Blob> rawResponse,
-            Optional<? extends List<YtdBenefitAmountsFromDifferentCompany>> ytdBenefitAmountsFromDifferentCompanyList) {
+            Optional<? extends List<YtdBenefitAmountsFromDifferentCompany>> ytdBenefitAmountsFromDifferentCompanies) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
-        Utils.checkNotNull(ytdBenefitAmountsFromDifferentCompanyList, "ytdBenefitAmountsFromDifferentCompanyList");
+        Utils.checkNotNull(ytdBenefitAmountsFromDifferentCompanies, "ytdBenefitAmountsFromDifferentCompanies");
         this.contentType = contentType;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
-        this.ytdBenefitAmountsFromDifferentCompanyList = ytdBenefitAmountsFromDifferentCompanyList;
+        this.ytdBenefitAmountsFromDifferentCompanies = ytdBenefitAmountsFromDifferentCompanies;
     }
     
     public GetEmployeeYtdBenefitAmountsFromDifferentCompanyResponse(
@@ -88,12 +88,12 @@ public class GetEmployeeYtdBenefitAmountsFromDifferentCompanyResponse implements
     }
 
     /**
-     * List of Ytd Benefit Amounts From Different Company List
+     * OK
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<List<YtdBenefitAmountsFromDifferentCompany>> ytdBenefitAmountsFromDifferentCompanyList() {
-        return (Optional<List<YtdBenefitAmountsFromDifferentCompany>>) ytdBenefitAmountsFromDifferentCompanyList;
+    public Optional<List<YtdBenefitAmountsFromDifferentCompany>> ytdBenefitAmountsFromDifferentCompanies() {
+        return (Optional<List<YtdBenefitAmountsFromDifferentCompany>>) ytdBenefitAmountsFromDifferentCompanies;
     }
 
     public static Builder builder() {
@@ -129,21 +129,21 @@ public class GetEmployeeYtdBenefitAmountsFromDifferentCompanyResponse implements
     }
 
     /**
-     * List of Ytd Benefit Amounts From Different Company List
+     * OK
      */
-    public GetEmployeeYtdBenefitAmountsFromDifferentCompanyResponse withYtdBenefitAmountsFromDifferentCompanyList(List<YtdBenefitAmountsFromDifferentCompany> ytdBenefitAmountsFromDifferentCompanyList) {
-        Utils.checkNotNull(ytdBenefitAmountsFromDifferentCompanyList, "ytdBenefitAmountsFromDifferentCompanyList");
-        this.ytdBenefitAmountsFromDifferentCompanyList = Optional.ofNullable(ytdBenefitAmountsFromDifferentCompanyList);
+    public GetEmployeeYtdBenefitAmountsFromDifferentCompanyResponse withYtdBenefitAmountsFromDifferentCompanies(List<YtdBenefitAmountsFromDifferentCompany> ytdBenefitAmountsFromDifferentCompanies) {
+        Utils.checkNotNull(ytdBenefitAmountsFromDifferentCompanies, "ytdBenefitAmountsFromDifferentCompanies");
+        this.ytdBenefitAmountsFromDifferentCompanies = Optional.ofNullable(ytdBenefitAmountsFromDifferentCompanies);
         return this;
     }
 
 
     /**
-     * List of Ytd Benefit Amounts From Different Company List
+     * OK
      */
-    public GetEmployeeYtdBenefitAmountsFromDifferentCompanyResponse withYtdBenefitAmountsFromDifferentCompanyList(Optional<? extends List<YtdBenefitAmountsFromDifferentCompany>> ytdBenefitAmountsFromDifferentCompanyList) {
-        Utils.checkNotNull(ytdBenefitAmountsFromDifferentCompanyList, "ytdBenefitAmountsFromDifferentCompanyList");
-        this.ytdBenefitAmountsFromDifferentCompanyList = ytdBenefitAmountsFromDifferentCompanyList;
+    public GetEmployeeYtdBenefitAmountsFromDifferentCompanyResponse withYtdBenefitAmountsFromDifferentCompanies(Optional<? extends List<YtdBenefitAmountsFromDifferentCompany>> ytdBenefitAmountsFromDifferentCompanies) {
+        Utils.checkNotNull(ytdBenefitAmountsFromDifferentCompanies, "ytdBenefitAmountsFromDifferentCompanies");
+        this.ytdBenefitAmountsFromDifferentCompanies = ytdBenefitAmountsFromDifferentCompanies;
         return this;
     }
 
@@ -160,14 +160,14 @@ public class GetEmployeeYtdBenefitAmountsFromDifferentCompanyResponse implements
             Utils.enhancedDeepEquals(this.contentType, other.contentType) &&
             Utils.enhancedDeepEquals(this.statusCode, other.statusCode) &&
             Utils.enhancedDeepEquals(this.rawResponse, other.rawResponse) &&
-            Utils.enhancedDeepEquals(this.ytdBenefitAmountsFromDifferentCompanyList, other.ytdBenefitAmountsFromDifferentCompanyList);
+            Utils.enhancedDeepEquals(this.ytdBenefitAmountsFromDifferentCompanies, other.ytdBenefitAmountsFromDifferentCompanies);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             contentType, statusCode, rawResponse,
-            ytdBenefitAmountsFromDifferentCompanyList);
+            ytdBenefitAmountsFromDifferentCompanies);
     }
     
     @Override
@@ -176,7 +176,7 @@ public class GetEmployeeYtdBenefitAmountsFromDifferentCompanyResponse implements
                 "contentType", contentType,
                 "statusCode", statusCode,
                 "rawResponse", rawResponse,
-                "ytdBenefitAmountsFromDifferentCompanyList", ytdBenefitAmountsFromDifferentCompanyList);
+                "ytdBenefitAmountsFromDifferentCompanies", ytdBenefitAmountsFromDifferentCompanies);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -188,7 +188,7 @@ public class GetEmployeeYtdBenefitAmountsFromDifferentCompanyResponse implements
 
         private HttpResponse<Blob> rawResponse;
 
-        private Optional<? extends List<YtdBenefitAmountsFromDifferentCompany>> ytdBenefitAmountsFromDifferentCompanyList = Optional.empty();
+        private Optional<? extends List<YtdBenefitAmountsFromDifferentCompany>> ytdBenefitAmountsFromDifferentCompanies = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -226,20 +226,20 @@ public class GetEmployeeYtdBenefitAmountsFromDifferentCompanyResponse implements
 
 
         /**
-         * List of Ytd Benefit Amounts From Different Company List
+         * OK
          */
-        public Builder ytdBenefitAmountsFromDifferentCompanyList(List<YtdBenefitAmountsFromDifferentCompany> ytdBenefitAmountsFromDifferentCompanyList) {
-            Utils.checkNotNull(ytdBenefitAmountsFromDifferentCompanyList, "ytdBenefitAmountsFromDifferentCompanyList");
-            this.ytdBenefitAmountsFromDifferentCompanyList = Optional.ofNullable(ytdBenefitAmountsFromDifferentCompanyList);
+        public Builder ytdBenefitAmountsFromDifferentCompanies(List<YtdBenefitAmountsFromDifferentCompany> ytdBenefitAmountsFromDifferentCompanies) {
+            Utils.checkNotNull(ytdBenefitAmountsFromDifferentCompanies, "ytdBenefitAmountsFromDifferentCompanies");
+            this.ytdBenefitAmountsFromDifferentCompanies = Optional.ofNullable(ytdBenefitAmountsFromDifferentCompanies);
             return this;
         }
 
         /**
-         * List of Ytd Benefit Amounts From Different Company List
+         * OK
          */
-        public Builder ytdBenefitAmountsFromDifferentCompanyList(Optional<? extends List<YtdBenefitAmountsFromDifferentCompany>> ytdBenefitAmountsFromDifferentCompanyList) {
-            Utils.checkNotNull(ytdBenefitAmountsFromDifferentCompanyList, "ytdBenefitAmountsFromDifferentCompanyList");
-            this.ytdBenefitAmountsFromDifferentCompanyList = ytdBenefitAmountsFromDifferentCompanyList;
+        public Builder ytdBenefitAmountsFromDifferentCompanies(Optional<? extends List<YtdBenefitAmountsFromDifferentCompany>> ytdBenefitAmountsFromDifferentCompanies) {
+            Utils.checkNotNull(ytdBenefitAmountsFromDifferentCompanies, "ytdBenefitAmountsFromDifferentCompanies");
+            this.ytdBenefitAmountsFromDifferentCompanies = ytdBenefitAmountsFromDifferentCompanies;
             return this;
         }
 
@@ -247,7 +247,7 @@ public class GetEmployeeYtdBenefitAmountsFromDifferentCompanyResponse implements
 
             return new GetEmployeeYtdBenefitAmountsFromDifferentCompanyResponse(
                 contentType, statusCode, rawResponse,
-                ytdBenefitAmountsFromDifferentCompanyList);
+                ytdBenefitAmountsFromDifferentCompanies);
         }
 
     }

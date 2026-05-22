@@ -18,33 +18,34 @@ import org.openapitools.jackson.nullable.JsonNullable;
 /**
  * GeneralLedgerReport
  * 
- * <p>Successful response for general ledger report generation
+ * <p>A request for a general ledger report. The report is generated asynchronously and the URL is
+ * available via the report GET endpoint using the returned `request_uuid`.
  */
 public class GeneralLedgerReport {
     /**
-     * The UUID of the payroll record for which the report was generated
+     * The UUID of the payroll record for which the report was generated.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("payroll_uuid")
     private Optional<String> payrollUuid;
 
     /**
-     * The breakdown level used for the report
+     * The breakdown level used for the report.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("aggregation")
-    private Optional<? extends Aggregation> aggregation;
+    private Optional<? extends GeneralLedgerReportAggregation> aggregation;
 
     /**
-     * The `integration_type` used for the report, if `aggregation` was 'integration.' Otherwise, this will
-     * be null.
+     * The `integration_type` used for the report when `aggregation` is 'integration' (e.g., `xero`,
+     * `qbo`). Otherwise, this will be null or an empty string.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("integration_type")
-    private JsonNullable<? extends IntegrationType> integrationType;
+    private JsonNullable<String> integrationType;
 
     /**
-     * UUID to use for polling the report status
+     * UUID to use for polling the report status.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("request_uuid")
@@ -53,8 +54,8 @@ public class GeneralLedgerReport {
     @JsonCreator
     public GeneralLedgerReport(
             @JsonProperty("payroll_uuid") Optional<String> payrollUuid,
-            @JsonProperty("aggregation") Optional<? extends Aggregation> aggregation,
-            @JsonProperty("integration_type") JsonNullable<? extends IntegrationType> integrationType,
+            @JsonProperty("aggregation") Optional<? extends GeneralLedgerReportAggregation> aggregation,
+            @JsonProperty("integration_type") JsonNullable<String> integrationType,
             @JsonProperty("request_uuid") Optional<String> requestUuid) {
         Utils.checkNotNull(payrollUuid, "payrollUuid");
         Utils.checkNotNull(aggregation, "aggregation");
@@ -72,7 +73,7 @@ public class GeneralLedgerReport {
     }
 
     /**
-     * The UUID of the payroll record for which the report was generated
+     * The UUID of the payroll record for which the report was generated.
      */
     @JsonIgnore
     public Optional<String> payrollUuid() {
@@ -80,26 +81,25 @@ public class GeneralLedgerReport {
     }
 
     /**
-     * The breakdown level used for the report
+     * The breakdown level used for the report.
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<Aggregation> aggregation() {
-        return (Optional<Aggregation>) aggregation;
+    public Optional<GeneralLedgerReportAggregation> aggregation() {
+        return (Optional<GeneralLedgerReportAggregation>) aggregation;
     }
 
     /**
-     * The `integration_type` used for the report, if `aggregation` was 'integration.' Otherwise, this will
-     * be null.
+     * The `integration_type` used for the report when `aggregation` is 'integration' (e.g., `xero`,
+     * `qbo`). Otherwise, this will be null or an empty string.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public JsonNullable<IntegrationType> integrationType() {
-        return (JsonNullable<IntegrationType>) integrationType;
+    public JsonNullable<String> integrationType() {
+        return integrationType;
     }
 
     /**
-     * UUID to use for polling the report status
+     * UUID to use for polling the report status.
      */
     @JsonIgnore
     public Optional<String> requestUuid() {
@@ -112,7 +112,7 @@ public class GeneralLedgerReport {
 
 
     /**
-     * The UUID of the payroll record for which the report was generated
+     * The UUID of the payroll record for which the report was generated.
      */
     public GeneralLedgerReport withPayrollUuid(String payrollUuid) {
         Utils.checkNotNull(payrollUuid, "payrollUuid");
@@ -122,7 +122,7 @@ public class GeneralLedgerReport {
 
 
     /**
-     * The UUID of the payroll record for which the report was generated
+     * The UUID of the payroll record for which the report was generated.
      */
     public GeneralLedgerReport withPayrollUuid(Optional<String> payrollUuid) {
         Utils.checkNotNull(payrollUuid, "payrollUuid");
@@ -131,9 +131,9 @@ public class GeneralLedgerReport {
     }
 
     /**
-     * The breakdown level used for the report
+     * The breakdown level used for the report.
      */
-    public GeneralLedgerReport withAggregation(Aggregation aggregation) {
+    public GeneralLedgerReport withAggregation(GeneralLedgerReportAggregation aggregation) {
         Utils.checkNotNull(aggregation, "aggregation");
         this.aggregation = Optional.ofNullable(aggregation);
         return this;
@@ -141,36 +141,36 @@ public class GeneralLedgerReport {
 
 
     /**
-     * The breakdown level used for the report
+     * The breakdown level used for the report.
      */
-    public GeneralLedgerReport withAggregation(Optional<? extends Aggregation> aggregation) {
+    public GeneralLedgerReport withAggregation(Optional<? extends GeneralLedgerReportAggregation> aggregation) {
         Utils.checkNotNull(aggregation, "aggregation");
         this.aggregation = aggregation;
         return this;
     }
 
     /**
-     * The `integration_type` used for the report, if `aggregation` was 'integration.' Otherwise, this will
-     * be null.
+     * The `integration_type` used for the report when `aggregation` is 'integration' (e.g., `xero`,
+     * `qbo`). Otherwise, this will be null or an empty string.
      */
-    public GeneralLedgerReport withIntegrationType(IntegrationType integrationType) {
+    public GeneralLedgerReport withIntegrationType(String integrationType) {
         Utils.checkNotNull(integrationType, "integrationType");
         this.integrationType = JsonNullable.of(integrationType);
         return this;
     }
 
     /**
-     * The `integration_type` used for the report, if `aggregation` was 'integration.' Otherwise, this will
-     * be null.
+     * The `integration_type` used for the report when `aggregation` is 'integration' (e.g., `xero`,
+     * `qbo`). Otherwise, this will be null or an empty string.
      */
-    public GeneralLedgerReport withIntegrationType(JsonNullable<? extends IntegrationType> integrationType) {
+    public GeneralLedgerReport withIntegrationType(JsonNullable<String> integrationType) {
         Utils.checkNotNull(integrationType, "integrationType");
         this.integrationType = integrationType;
         return this;
     }
 
     /**
-     * UUID to use for polling the report status
+     * UUID to use for polling the report status.
      */
     public GeneralLedgerReport withRequestUuid(String requestUuid) {
         Utils.checkNotNull(requestUuid, "requestUuid");
@@ -180,7 +180,7 @@ public class GeneralLedgerReport {
 
 
     /**
-     * UUID to use for polling the report status
+     * UUID to use for polling the report status.
      */
     public GeneralLedgerReport withRequestUuid(Optional<String> requestUuid) {
         Utils.checkNotNull(requestUuid, "requestUuid");
@@ -225,9 +225,9 @@ public class GeneralLedgerReport {
 
         private Optional<String> payrollUuid = Optional.empty();
 
-        private Optional<? extends Aggregation> aggregation = Optional.empty();
+        private Optional<? extends GeneralLedgerReportAggregation> aggregation = Optional.empty();
 
-        private JsonNullable<? extends IntegrationType> integrationType = JsonNullable.undefined();
+        private JsonNullable<String> integrationType = JsonNullable.undefined();
 
         private Optional<String> requestUuid = Optional.empty();
 
@@ -237,7 +237,7 @@ public class GeneralLedgerReport {
 
 
         /**
-         * The UUID of the payroll record for which the report was generated
+         * The UUID of the payroll record for which the report was generated.
          */
         public Builder payrollUuid(String payrollUuid) {
             Utils.checkNotNull(payrollUuid, "payrollUuid");
@@ -246,7 +246,7 @@ public class GeneralLedgerReport {
         }
 
         /**
-         * The UUID of the payroll record for which the report was generated
+         * The UUID of the payroll record for which the report was generated.
          */
         public Builder payrollUuid(Optional<String> payrollUuid) {
             Utils.checkNotNull(payrollUuid, "payrollUuid");
@@ -256,18 +256,18 @@ public class GeneralLedgerReport {
 
 
         /**
-         * The breakdown level used for the report
+         * The breakdown level used for the report.
          */
-        public Builder aggregation(Aggregation aggregation) {
+        public Builder aggregation(GeneralLedgerReportAggregation aggregation) {
             Utils.checkNotNull(aggregation, "aggregation");
             this.aggregation = Optional.ofNullable(aggregation);
             return this;
         }
 
         /**
-         * The breakdown level used for the report
+         * The breakdown level used for the report.
          */
-        public Builder aggregation(Optional<? extends Aggregation> aggregation) {
+        public Builder aggregation(Optional<? extends GeneralLedgerReportAggregation> aggregation) {
             Utils.checkNotNull(aggregation, "aggregation");
             this.aggregation = aggregation;
             return this;
@@ -275,20 +275,20 @@ public class GeneralLedgerReport {
 
 
         /**
-         * The `integration_type` used for the report, if `aggregation` was 'integration.' Otherwise, this will
-         * be null.
+         * The `integration_type` used for the report when `aggregation` is 'integration' (e.g., `xero`,
+         * `qbo`). Otherwise, this will be null or an empty string.
          */
-        public Builder integrationType(IntegrationType integrationType) {
+        public Builder integrationType(String integrationType) {
             Utils.checkNotNull(integrationType, "integrationType");
             this.integrationType = JsonNullable.of(integrationType);
             return this;
         }
 
         /**
-         * The `integration_type` used for the report, if `aggregation` was 'integration.' Otherwise, this will
-         * be null.
+         * The `integration_type` used for the report when `aggregation` is 'integration' (e.g., `xero`,
+         * `qbo`). Otherwise, this will be null or an empty string.
          */
-        public Builder integrationType(JsonNullable<? extends IntegrationType> integrationType) {
+        public Builder integrationType(JsonNullable<String> integrationType) {
             Utils.checkNotNull(integrationType, "integrationType");
             this.integrationType = integrationType;
             return this;
@@ -296,7 +296,7 @@ public class GeneralLedgerReport {
 
 
         /**
-         * UUID to use for polling the report status
+         * UUID to use for polling the report status.
          */
         public Builder requestUuid(String requestUuid) {
             Utils.checkNotNull(requestUuid, "requestUuid");
@@ -305,7 +305,7 @@ public class GeneralLedgerReport {
         }
 
         /**
-         * UUID to use for polling the report status
+         * UUID to use for polling the report status.
          */
         public Builder requestUuid(Optional<String> requestUuid) {
             Utils.checkNotNull(requestUuid, "requestUuid");

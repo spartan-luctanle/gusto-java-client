@@ -7,7 +7,7 @@ import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.operations.DeleteV1CompaniesCompanyIdEarningTypesEarningTypeUuidHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.DeleteV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequest;
 import com.gusto.embedded_api.operations.DeleteV1CompaniesCompanyIdEarningTypesEarningTypeUuid;
 import com.gusto.embedded_api.utils.Headers;
@@ -19,17 +19,29 @@ import java.util.concurrent.CompletableFuture;
 
 public class DeleteV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequestBuilder {
 
-    private String companyId;
-    private String earningTypeUuid;
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
+    private Optional<? extends DeleteV1CompaniesCompanyIdEarningTypesEarningTypeUuidHeaderXGustoAPIVersion> xGustoAPIVersion = Utils.readDefaultOrConstValue(
                             "xGustoAPIVersion",
                             "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
+                            new TypeReference<Optional<? extends DeleteV1CompaniesCompanyIdEarningTypesEarningTypeUuidHeaderXGustoAPIVersion>>() {});
+    private String companyId;
+    private String earningTypeUuid;
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
     public DeleteV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
+    }
+                
+    public DeleteV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequestBuilder xGustoAPIVersion(DeleteV1CompaniesCompanyIdEarningTypesEarningTypeUuidHeaderXGustoAPIVersion xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
+        return this;
+    }
+
+    public DeleteV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequestBuilder xGustoAPIVersion(Optional<? extends DeleteV1CompaniesCompanyIdEarningTypesEarningTypeUuidHeaderXGustoAPIVersion> xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = xGustoAPIVersion;
+        return this;
     }
 
     public DeleteV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequestBuilder companyId(String companyId) {
@@ -43,18 +55,6 @@ public class DeleteV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequestBuilder
         this.earningTypeUuid = earningTypeUuid;
         return this;
     }
-                
-    public DeleteV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
-        return this;
-    }
-
-    public DeleteV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = xGustoAPIVersion;
-        return this;
-    }
 
 
     private DeleteV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequest buildRequest() {
@@ -62,9 +62,9 @@ public class DeleteV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequestBuilder
             xGustoAPIVersion = _SINGLETON_VALUE_XGustoAPIVersion.value();
         }
 
-        DeleteV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequest request = new DeleteV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequest(companyId,
-            earningTypeUuid,
-            xGustoAPIVersion);
+        DeleteV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequest request = new DeleteV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequest(xGustoAPIVersion,
+            companyId,
+            earningTypeUuid);
 
         return request;
     }
@@ -79,9 +79,9 @@ public class DeleteV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequestBuilder
             .thenCompose(operation::handleResponse);
     }
 
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+    private static final LazySingletonValue<Optional<? extends DeleteV1CompaniesCompanyIdEarningTypesEarningTypeUuidHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
             new LazySingletonValue<>(
                     "xGustoAPIVersion",
                     "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
+                    new TypeReference<Optional<? extends DeleteV1CompaniesCompanyIdEarningTypesEarningTypeUuidHeaderXGustoAPIVersion>>() {});
 }

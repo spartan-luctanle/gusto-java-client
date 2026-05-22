@@ -14,7 +14,12 @@ import java.lang.Override;
 import java.lang.String;
 import java.util.Optional;
 
-
+/**
+ * EmployeeStateTaxes
+ * 
+ * <p>Workers' compensation fields for Washington (WA) or Wyoming (WY) when the work address is in those
+ * states; omit when not applicable.
+ */
 public class EmployeeStateTaxes {
     /**
      * Whether this job is eligible for workers' compensation coverage in the states of Washington (WA) or

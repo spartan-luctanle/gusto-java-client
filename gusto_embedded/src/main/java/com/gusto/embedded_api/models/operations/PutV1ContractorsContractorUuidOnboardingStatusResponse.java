@@ -34,7 +34,7 @@ public class PutV1ContractorsContractorUuidOnboardingStatusResponse implements R
     private HttpResponse<InputStream> rawResponse;
 
     /**
-     * Example response.
+     * Successful
      */
     private Optional<? extends ContractorOnboardingStatus> contractorOnboardingStatus;
 
@@ -87,7 +87,7 @@ public class PutV1ContractorsContractorUuidOnboardingStatusResponse implements R
     }
 
     /**
-     * Example response.
+     * Successful
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -128,7 +128,7 @@ public class PutV1ContractorsContractorUuidOnboardingStatusResponse implements R
     }
 
     /**
-     * Example response.
+     * Successful
      */
     public PutV1ContractorsContractorUuidOnboardingStatusResponse withContractorOnboardingStatus(ContractorOnboardingStatus contractorOnboardingStatus) {
         Utils.checkNotNull(contractorOnboardingStatus, "contractorOnboardingStatus");
@@ -138,7 +138,7 @@ public class PutV1ContractorsContractorUuidOnboardingStatusResponse implements R
 
 
     /**
-     * Example response.
+     * Successful
      */
     public PutV1ContractorsContractorUuidOnboardingStatusResponse withContractorOnboardingStatus(Optional<? extends ContractorOnboardingStatus> contractorOnboardingStatus) {
         Utils.checkNotNull(contractorOnboardingStatus, "contractorOnboardingStatus");
@@ -225,7 +225,7 @@ public class PutV1ContractorsContractorUuidOnboardingStatusResponse implements R
 
 
         /**
-         * Example response.
+         * Successful
          */
         public Builder contractorOnboardingStatus(ContractorOnboardingStatus contractorOnboardingStatus) {
             Utils.checkNotNull(contractorOnboardingStatus, "contractorOnboardingStatus");
@@ -234,7 +234,7 @@ public class PutV1ContractorsContractorUuidOnboardingStatusResponse implements R
         }
 
         /**
-         * Example response.
+         * Successful
          */
         public Builder contractorOnboardingStatus(Optional<? extends ContractorOnboardingStatus> contractorOnboardingStatus) {
             Utils.checkNotNull(contractorOnboardingStatus, "contractorOnboardingStatus");

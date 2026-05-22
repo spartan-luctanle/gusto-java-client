@@ -5,6 +5,7 @@ package com.gusto.embedded_api.models.operations;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.gusto.embedded_api.models.components.PartnerManagedCompany;
 import com.gusto.embedded_api.utils.Response;
 import com.gusto.embedded_api.utils.Utils;
 import java.io.InputStream;
@@ -35,22 +36,22 @@ public class PostV1PartnerManagedCompaniesResponse implements Response {
     /**
      * OK
      */
-    private Optional<? extends PostV1PartnerManagedCompaniesResponseBody> object;
+    private Optional<? extends PartnerManagedCompany> partnerManagedCompany;
 
     @JsonCreator
     public PostV1PartnerManagedCompaniesResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends PostV1PartnerManagedCompaniesResponseBody> object) {
+            Optional<? extends PartnerManagedCompany> partnerManagedCompany) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
-        Utils.checkNotNull(object, "object");
+        Utils.checkNotNull(partnerManagedCompany, "partnerManagedCompany");
         this.contentType = contentType;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
-        this.object = object;
+        this.partnerManagedCompany = partnerManagedCompany;
     }
     
     public PostV1PartnerManagedCompaniesResponse(
@@ -90,8 +91,8 @@ public class PostV1PartnerManagedCompaniesResponse implements Response {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<PostV1PartnerManagedCompaniesResponseBody> object() {
-        return (Optional<PostV1PartnerManagedCompaniesResponseBody>) object;
+    public Optional<PartnerManagedCompany> partnerManagedCompany() {
+        return (Optional<PartnerManagedCompany>) partnerManagedCompany;
     }
 
     public static Builder builder() {
@@ -129,9 +130,9 @@ public class PostV1PartnerManagedCompaniesResponse implements Response {
     /**
      * OK
      */
-    public PostV1PartnerManagedCompaniesResponse withObject(PostV1PartnerManagedCompaniesResponseBody object) {
-        Utils.checkNotNull(object, "object");
-        this.object = Optional.ofNullable(object);
+    public PostV1PartnerManagedCompaniesResponse withPartnerManagedCompany(PartnerManagedCompany partnerManagedCompany) {
+        Utils.checkNotNull(partnerManagedCompany, "partnerManagedCompany");
+        this.partnerManagedCompany = Optional.ofNullable(partnerManagedCompany);
         return this;
     }
 
@@ -139,9 +140,9 @@ public class PostV1PartnerManagedCompaniesResponse implements Response {
     /**
      * OK
      */
-    public PostV1PartnerManagedCompaniesResponse withObject(Optional<? extends PostV1PartnerManagedCompaniesResponseBody> object) {
-        Utils.checkNotNull(object, "object");
-        this.object = object;
+    public PostV1PartnerManagedCompaniesResponse withPartnerManagedCompany(Optional<? extends PartnerManagedCompany> partnerManagedCompany) {
+        Utils.checkNotNull(partnerManagedCompany, "partnerManagedCompany");
+        this.partnerManagedCompany = partnerManagedCompany;
         return this;
     }
 
@@ -158,14 +159,14 @@ public class PostV1PartnerManagedCompaniesResponse implements Response {
             Utils.enhancedDeepEquals(this.contentType, other.contentType) &&
             Utils.enhancedDeepEquals(this.statusCode, other.statusCode) &&
             Utils.enhancedDeepEquals(this.rawResponse, other.rawResponse) &&
-            Utils.enhancedDeepEquals(this.object, other.object);
+            Utils.enhancedDeepEquals(this.partnerManagedCompany, other.partnerManagedCompany);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             contentType, statusCode, rawResponse,
-            object);
+            partnerManagedCompany);
     }
     
     @Override
@@ -174,7 +175,7 @@ public class PostV1PartnerManagedCompaniesResponse implements Response {
                 "contentType", contentType,
                 "statusCode", statusCode,
                 "rawResponse", rawResponse,
-                "object", object);
+                "partnerManagedCompany", partnerManagedCompany);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -186,7 +187,7 @@ public class PostV1PartnerManagedCompaniesResponse implements Response {
 
         private HttpResponse<InputStream> rawResponse;
 
-        private Optional<? extends PostV1PartnerManagedCompaniesResponseBody> object = Optional.empty();
+        private Optional<? extends PartnerManagedCompany> partnerManagedCompany = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -226,18 +227,18 @@ public class PostV1PartnerManagedCompaniesResponse implements Response {
         /**
          * OK
          */
-        public Builder object(PostV1PartnerManagedCompaniesResponseBody object) {
-            Utils.checkNotNull(object, "object");
-            this.object = Optional.ofNullable(object);
+        public Builder partnerManagedCompany(PartnerManagedCompany partnerManagedCompany) {
+            Utils.checkNotNull(partnerManagedCompany, "partnerManagedCompany");
+            this.partnerManagedCompany = Optional.ofNullable(partnerManagedCompany);
             return this;
         }
 
         /**
          * OK
          */
-        public Builder object(Optional<? extends PostV1PartnerManagedCompaniesResponseBody> object) {
-            Utils.checkNotNull(object, "object");
-            this.object = object;
+        public Builder partnerManagedCompany(Optional<? extends PartnerManagedCompany> partnerManagedCompany) {
+            Utils.checkNotNull(partnerManagedCompany, "partnerManagedCompany");
+            this.partnerManagedCompany = partnerManagedCompany;
             return this;
         }
 
@@ -245,7 +246,7 @@ public class PostV1PartnerManagedCompaniesResponse implements Response {
 
             return new PostV1PartnerManagedCompaniesResponse(
                 contentType, statusCode, rawResponse,
-                object);
+                partnerManagedCompany);
         }
 
     }

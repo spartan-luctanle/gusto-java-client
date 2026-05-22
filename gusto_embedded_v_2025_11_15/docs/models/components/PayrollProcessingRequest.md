@@ -1,0 +1,9 @@
+# PayrollProcessingRequest
+
+
+## Fields
+
+| Field                                                                                                  | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `status`                                                                                               | [Optional\<PayrollProcessingRequestStatus>](../../models/components/PayrollProcessingRequestStatus.md) | :heavy_minus_sign:                                                                                     | The status of the payroll processing request                                                           |
+| `errors`                                                                                               | List\<[EntityErrorObject](../../models/components/EntityErrorObject.md)>                               | :heavy_minus_sign:                                                                                     | Errors that occurred during async payroll processing                                                   |

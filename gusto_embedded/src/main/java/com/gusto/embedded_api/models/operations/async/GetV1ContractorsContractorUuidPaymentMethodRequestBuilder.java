@@ -7,7 +7,7 @@ import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.operations.GetV1ContractorsContractorUuidPaymentMethodHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1ContractorsContractorUuidPaymentMethodRequest;
 import com.gusto.embedded_api.operations.GetV1ContractorsContractorUuidPaymentMethod;
 import com.gusto.embedded_api.utils.Headers;
@@ -19,33 +19,33 @@ import java.util.concurrent.CompletableFuture;
 
 public class GetV1ContractorsContractorUuidPaymentMethodRequestBuilder {
 
-    private String contractorUuid;
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
+    private Optional<? extends GetV1ContractorsContractorUuidPaymentMethodHeaderXGustoAPIVersion> xGustoAPIVersion = Utils.readDefaultOrConstValue(
                             "xGustoAPIVersion",
                             "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
+                            new TypeReference<Optional<? extends GetV1ContractorsContractorUuidPaymentMethodHeaderXGustoAPIVersion>>() {});
+    private String contractorUuid;
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
     public GetV1ContractorsContractorUuidPaymentMethodRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
-
-    public GetV1ContractorsContractorUuidPaymentMethodRequestBuilder contractorUuid(String contractorUuid) {
-        Utils.checkNotNull(contractorUuid, "contractorUuid");
-        this.contractorUuid = contractorUuid;
-        return this;
-    }
                 
-    public GetV1ContractorsContractorUuidPaymentMethodRequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+    public GetV1ContractorsContractorUuidPaymentMethodRequestBuilder xGustoAPIVersion(GetV1ContractorsContractorUuidPaymentMethodHeaderXGustoAPIVersion xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
         return this;
     }
 
-    public GetV1ContractorsContractorUuidPaymentMethodRequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public GetV1ContractorsContractorUuidPaymentMethodRequestBuilder xGustoAPIVersion(Optional<? extends GetV1ContractorsContractorUuidPaymentMethodHeaderXGustoAPIVersion> xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = xGustoAPIVersion;
+        return this;
+    }
+
+    public GetV1ContractorsContractorUuidPaymentMethodRequestBuilder contractorUuid(String contractorUuid) {
+        Utils.checkNotNull(contractorUuid, "contractorUuid");
+        this.contractorUuid = contractorUuid;
         return this;
     }
 
@@ -55,8 +55,8 @@ public class GetV1ContractorsContractorUuidPaymentMethodRequestBuilder {
             xGustoAPIVersion = _SINGLETON_VALUE_XGustoAPIVersion.value();
         }
 
-        GetV1ContractorsContractorUuidPaymentMethodRequest request = new GetV1ContractorsContractorUuidPaymentMethodRequest(contractorUuid,
-            xGustoAPIVersion);
+        GetV1ContractorsContractorUuidPaymentMethodRequest request = new GetV1ContractorsContractorUuidPaymentMethodRequest(xGustoAPIVersion,
+            contractorUuid);
 
         return request;
     }
@@ -71,9 +71,9 @@ public class GetV1ContractorsContractorUuidPaymentMethodRequestBuilder {
             .thenCompose(operation::handleResponse);
     }
 
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+    private static final LazySingletonValue<Optional<? extends GetV1ContractorsContractorUuidPaymentMethodHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
             new LazySingletonValue<>(
                     "xGustoAPIVersion",
                     "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
+                    new TypeReference<Optional<? extends GetV1ContractorsContractorUuidPaymentMethodHeaderXGustoAPIVersion>>() {});
 }

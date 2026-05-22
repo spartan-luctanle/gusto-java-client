@@ -35,7 +35,7 @@ public class ContractorCreateRequestBody {
      * The contractor’s wage type.
      */
     @JsonProperty("wage_type")
-    private WageType wageType;
+    private ContractorCreateRequestBodyWageType wageType;
 
     /**
      * The day when the contractor will start working for the company.
@@ -140,7 +140,11 @@ public class ContractorCreateRequestBody {
 
     /**
      * The status of the contractor. If the contractor's start date is in the future, updating this field
-     * to true means we are setting the start date to today.
+     * to true means we are setting the start date to today. Attempting to deactivate a contractor while a
+     * dismissal is already scheduled, or reactivate while a rehire is already scheduled, will return a 422
+     * error.
+     * 
+     * <p>Cancel the pending transition first using the appropriate cancel endpoint.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("is_active")
@@ -149,7 +153,7 @@ public class ContractorCreateRequestBody {
     @JsonCreator
     public ContractorCreateRequestBody(
             @JsonProperty("type") Optional<? extends ContractorCreateRequestBodyType> type,
-            @JsonProperty("wage_type") WageType wageType,
+            @JsonProperty("wage_type") ContractorCreateRequestBodyWageType wageType,
             @JsonProperty("start_date") String startDate,
             @JsonProperty("hourly_rate") Optional<String> hourlyRate,
             @JsonProperty("self_onboarding") Optional<Boolean> selfOnboarding,
@@ -196,7 +200,7 @@ public class ContractorCreateRequestBody {
     }
     
     public ContractorCreateRequestBody(
-            WageType wageType,
+            ContractorCreateRequestBodyWageType wageType,
             String startDate) {
         this(Optional.empty(), wageType, startDate,
             Optional.empty(), Optional.empty(), Optional.empty(),
@@ -218,7 +222,7 @@ public class ContractorCreateRequestBody {
      * The contractor’s wage type.
      */
     @JsonIgnore
-    public WageType wageType() {
+    public ContractorCreateRequestBodyWageType wageType() {
         return wageType;
     }
 
@@ -338,7 +342,11 @@ public class ContractorCreateRequestBody {
 
     /**
      * The status of the contractor. If the contractor's start date is in the future, updating this field
-     * to true means we are setting the start date to today.
+     * to true means we are setting the start date to today. Attempting to deactivate a contractor while a
+     * dismissal is already scheduled, or reactivate while a rehire is already scheduled, will return a 422
+     * error.
+     * 
+     * <p>Cancel the pending transition first using the appropriate cancel endpoint.
      */
     @JsonIgnore
     public Optional<Boolean> isActive() {
@@ -372,7 +380,7 @@ public class ContractorCreateRequestBody {
     /**
      * The contractor’s wage type.
      */
-    public ContractorCreateRequestBody withWageType(WageType wageType) {
+    public ContractorCreateRequestBody withWageType(ContractorCreateRequestBodyWageType wageType) {
         Utils.checkNotNull(wageType, "wageType");
         this.wageType = wageType;
         return this;
@@ -633,7 +641,11 @@ public class ContractorCreateRequestBody {
 
     /**
      * The status of the contractor. If the contractor's start date is in the future, updating this field
-     * to true means we are setting the start date to today.
+     * to true means we are setting the start date to today. Attempting to deactivate a contractor while a
+     * dismissal is already scheduled, or reactivate while a rehire is already scheduled, will return a 422
+     * error.
+     * 
+     * <p>Cancel the pending transition first using the appropriate cancel endpoint.
      */
     public ContractorCreateRequestBody withIsActive(boolean isActive) {
         Utils.checkNotNull(isActive, "isActive");
@@ -644,7 +656,11 @@ public class ContractorCreateRequestBody {
 
     /**
      * The status of the contractor. If the contractor's start date is in the future, updating this field
-     * to true means we are setting the start date to today.
+     * to true means we are setting the start date to today. Attempting to deactivate a contractor while a
+     * dismissal is already scheduled, or reactivate while a rehire is already scheduled, will return a 422
+     * error.
+     * 
+     * <p>Cancel the pending transition first using the appropriate cancel endpoint.
      */
     public ContractorCreateRequestBody withIsActive(Optional<Boolean> isActive) {
         Utils.checkNotNull(isActive, "isActive");
@@ -714,7 +730,7 @@ public class ContractorCreateRequestBody {
 
         private Optional<? extends ContractorCreateRequestBodyType> type;
 
-        private WageType wageType;
+        private ContractorCreateRequestBodyWageType wageType;
 
         private String startDate;
 
@@ -769,7 +785,7 @@ public class ContractorCreateRequestBody {
         /**
          * The contractor’s wage type.
          */
-        public Builder wageType(WageType wageType) {
+        public Builder wageType(ContractorCreateRequestBodyWageType wageType) {
             Utils.checkNotNull(wageType, "wageType");
             this.wageType = wageType;
             return this;
@@ -1033,7 +1049,11 @@ public class ContractorCreateRequestBody {
 
         /**
          * The status of the contractor. If the contractor's start date is in the future, updating this field
-         * to true means we are setting the start date to today.
+         * to true means we are setting the start date to today. Attempting to deactivate a contractor while a
+         * dismissal is already scheduled, or reactivate while a rehire is already scheduled, will return a 422
+         * error.
+         * 
+         * <p>Cancel the pending transition first using the appropriate cancel endpoint.
          */
         public Builder isActive(boolean isActive) {
             Utils.checkNotNull(isActive, "isActive");
@@ -1043,7 +1063,11 @@ public class ContractorCreateRequestBody {
 
         /**
          * The status of the contractor. If the contractor's start date is in the future, updating this field
-         * to true means we are setting the start date to today.
+         * to true means we are setting the start date to today. Attempting to deactivate a contractor while a
+         * dismissal is already scheduled, or reactivate while a rehire is already scheduled, will return a 422
+         * error.
+         * 
+         * <p>Cancel the pending transition first using the appropriate cancel endpoint.
          */
         public Builder isActive(Optional<Boolean> isActive) {
             Utils.checkNotNull(isActive, "isActive");

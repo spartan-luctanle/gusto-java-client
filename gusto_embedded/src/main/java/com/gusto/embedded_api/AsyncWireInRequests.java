@@ -5,11 +5,13 @@ package com.gusto.embedded_api;
 
 import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation;
 
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.components.WireInRequestUpdateRequestBody;
+import com.gusto.embedded_api.models.operations.GetCompaniesCompanyUuidWireInRequestUuidHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetCompaniesCompanyUuidWireInRequestUuidRequest;
+import com.gusto.embedded_api.models.operations.GetWireInRequestsWireInRequestUuidHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetWireInRequestsWireInRequestUuidRequest;
+import com.gusto.embedded_api.models.operations.PutWireInRequestsWireInRequestUuidHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PutWireInRequestsWireInRequestUuidRequest;
-import com.gusto.embedded_api.models.operations.PutWireInRequestsWireInRequestUuidRequestBody;
 import com.gusto.embedded_api.models.operations.async.GetCompaniesCompanyUuidWireInRequestUuidRequestBuilder;
 import com.gusto.embedded_api.models.operations.async.GetCompaniesCompanyUuidWireInRequestUuidResponse;
 import com.gusto.embedded_api.models.operations.async.GetWireInRequestsWireInRequestUuidRequestBuilder;
@@ -20,6 +22,7 @@ import com.gusto.embedded_api.operations.GetCompaniesCompanyUuidWireInRequestUui
 import com.gusto.embedded_api.operations.GetWireInRequestsWireInRequestUuid;
 import com.gusto.embedded_api.operations.PutWireInRequestsWireInRequestUuid;
 import com.gusto.embedded_api.utils.Headers;
+import java.lang.Long;
 import java.lang.String;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -52,6 +55,8 @@ public class AsyncWireInRequests {
      * 
      * <p>scope: `payrolls:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @return The async call builder
      */
     public GetWireInRequestsWireInRequestUuidRequestBuilder get() {
@@ -64,6 +69,8 @@ public class AsyncWireInRequests {
      * <p>Fetch a Wire In Request.
      * 
      * <p>scope: `payrolls:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @param wireInRequestUuid The UUID of the Wire In Request
      * @return {@code CompletableFuture<GetWireInRequestsWireInRequestUuidResponse>} - The async response
@@ -79,11 +86,13 @@ public class AsyncWireInRequests {
      * 
      * <p>scope: `payrolls:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param wireInRequestUuid The UUID of the Wire In Request
-     * @param xGustoAPIVersion 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @return {@code CompletableFuture<GetWireInRequestsWireInRequestUuidResponse>} - The async response
      */
-    public CompletableFuture<GetWireInRequestsWireInRequestUuidResponse> get(String wireInRequestUuid, Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public CompletableFuture<GetWireInRequestsWireInRequestUuidResponse> get(String wireInRequestUuid, Optional<? extends GetWireInRequestsWireInRequestUuidHeaderXGustoAPIVersion> xGustoAPIVersion) {
         GetWireInRequestsWireInRequestUuidRequest request =
             GetWireInRequestsWireInRequestUuidRequest
                 .builder()
@@ -104,6 +113,8 @@ public class AsyncWireInRequests {
      * 
      * <p>scope: `payrolls:run`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @return The async call builder
      */
     public PutWireInRequestsWireInRequestUuidRequestBuilder submit() {
@@ -117,12 +128,14 @@ public class AsyncWireInRequests {
      * 
      * <p>scope: `payrolls:run`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param wireInRequestUuid The UUID of the Wire In Request
-     * @param requestBody 
+     * @param wireInRequestUpdateRequestBody 
      * @return {@code CompletableFuture<PutWireInRequestsWireInRequestUuidResponse>} - The async response
      */
-    public CompletableFuture<PutWireInRequestsWireInRequestUuidResponse> submit(String wireInRequestUuid, PutWireInRequestsWireInRequestUuidRequestBody requestBody) {
-        return submit(wireInRequestUuid, Optional.empty(), requestBody);
+    public CompletableFuture<PutWireInRequestsWireInRequestUuidResponse> submit(String wireInRequestUuid, WireInRequestUpdateRequestBody wireInRequestUpdateRequestBody) {
+        return submit(wireInRequestUuid, Optional.empty(), wireInRequestUpdateRequestBody);
     }
 
     /**
@@ -132,20 +145,22 @@ public class AsyncWireInRequests {
      * 
      * <p>scope: `payrolls:run`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param wireInRequestUuid The UUID of the Wire In Request
-     * @param xGustoAPIVersion 
-     * @param requestBody 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     * @param wireInRequestUpdateRequestBody 
      * @return {@code CompletableFuture<PutWireInRequestsWireInRequestUuidResponse>} - The async response
      */
     public CompletableFuture<PutWireInRequestsWireInRequestUuidResponse> submit(
-            String wireInRequestUuid, Optional<? extends VersionHeader> xGustoAPIVersion,
-            PutWireInRequestsWireInRequestUuidRequestBody requestBody) {
+            String wireInRequestUuid, Optional<? extends PutWireInRequestsWireInRequestUuidHeaderXGustoAPIVersion> xGustoAPIVersion,
+            WireInRequestUpdateRequestBody wireInRequestUpdateRequestBody) {
         PutWireInRequestsWireInRequestUuidRequest request =
             PutWireInRequestsWireInRequestUuidRequest
                 .builder()
                 .wireInRequestUuid(wireInRequestUuid)
                 .xGustoAPIVersion(xGustoAPIVersion)
-                .requestBody(requestBody)
+                .wireInRequestUpdateRequestBody(wireInRequestUpdateRequestBody)
                 .build();
         AsyncRequestOperation<PutWireInRequestsWireInRequestUuidRequest, PutWireInRequestsWireInRequestUuidResponse> operation
               = new PutWireInRequestsWireInRequestUuid.Async(sdkConfiguration, _headers);
@@ -161,6 +176,8 @@ public class AsyncWireInRequests {
      * 
      * <p>scope: `payrolls:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @return The async call builder
      */
     public GetCompaniesCompanyUuidWireInRequestUuidRequestBuilder list() {
@@ -174,11 +191,15 @@ public class AsyncWireInRequests {
      * 
      * <p>scope: `payrolls:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param companyUuid The UUID of the company
      * @return {@code CompletableFuture<GetCompaniesCompanyUuidWireInRequestUuidResponse>} - The async response
      */
     public CompletableFuture<GetCompaniesCompanyUuidWireInRequestUuidResponse> list(String companyUuid) {
-        return list(companyUuid, Optional.empty());
+        return list(
+                companyUuid, Optional.empty(), Optional.empty(),
+                Optional.empty());
     }
 
     /**
@@ -188,16 +209,24 @@ public class AsyncWireInRequests {
      * 
      * <p>scope: `payrolls:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param companyUuid The UUID of the company
-     * @param xGustoAPIVersion 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     * @param page The page that is requested. When unspecified, will load all objects unless endpoint forces pagination.
+     * @param per Number of objects per page. For majority of endpoints will default to 25
      * @return {@code CompletableFuture<GetCompaniesCompanyUuidWireInRequestUuidResponse>} - The async response
      */
-    public CompletableFuture<GetCompaniesCompanyUuidWireInRequestUuidResponse> list(String companyUuid, Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public CompletableFuture<GetCompaniesCompanyUuidWireInRequestUuidResponse> list(
+            String companyUuid, Optional<? extends GetCompaniesCompanyUuidWireInRequestUuidHeaderXGustoAPIVersion> xGustoAPIVersion,
+            Optional<Long> page, Optional<Long> per) {
         GetCompaniesCompanyUuidWireInRequestUuidRequest request =
             GetCompaniesCompanyUuidWireInRequestUuidRequest
                 .builder()
                 .companyUuid(companyUuid)
                 .xGustoAPIVersion(xGustoAPIVersion)
+                .page(page)
+                .per(per)
                 .build();
         AsyncRequestOperation<GetCompaniesCompanyUuidWireInRequestUuidRequest, GetCompaniesCompanyUuidWireInRequestUuidResponse> operation
               = new GetCompaniesCompanyUuidWireInRequestUuid.Async(sdkConfiguration, _headers);

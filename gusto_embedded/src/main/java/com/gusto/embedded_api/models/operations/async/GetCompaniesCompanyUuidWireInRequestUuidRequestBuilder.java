@@ -7,12 +7,13 @@ import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.operations.GetCompaniesCompanyUuidWireInRequestUuidHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetCompaniesCompanyUuidWireInRequestUuidRequest;
 import com.gusto.embedded_api.operations.GetCompaniesCompanyUuidWireInRequestUuid;
 import com.gusto.embedded_api.utils.Headers;
 import com.gusto.embedded_api.utils.LazySingletonValue;
 import com.gusto.embedded_api.utils.Utils;
+import java.lang.Long;
 import java.lang.String;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -20,10 +21,12 @@ import java.util.concurrent.CompletableFuture;
 public class GetCompaniesCompanyUuidWireInRequestUuidRequestBuilder {
 
     private String companyUuid;
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
+    private Optional<? extends GetCompaniesCompanyUuidWireInRequestUuidHeaderXGustoAPIVersion> xGustoAPIVersion = Utils.readDefaultOrConstValue(
                             "xGustoAPIVersion",
                             "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
+                            new TypeReference<Optional<? extends GetCompaniesCompanyUuidWireInRequestUuidHeaderXGustoAPIVersion>>() {});
+    private Optional<Long> page = Optional.empty();
+    private Optional<Long> per = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
@@ -37,15 +40,39 @@ public class GetCompaniesCompanyUuidWireInRequestUuidRequestBuilder {
         return this;
     }
                 
-    public GetCompaniesCompanyUuidWireInRequestUuidRequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+    public GetCompaniesCompanyUuidWireInRequestUuidRequestBuilder xGustoAPIVersion(GetCompaniesCompanyUuidWireInRequestUuidHeaderXGustoAPIVersion xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
         return this;
     }
 
-    public GetCompaniesCompanyUuidWireInRequestUuidRequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public GetCompaniesCompanyUuidWireInRequestUuidRequestBuilder xGustoAPIVersion(Optional<? extends GetCompaniesCompanyUuidWireInRequestUuidHeaderXGustoAPIVersion> xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = xGustoAPIVersion;
+        return this;
+    }
+                
+    public GetCompaniesCompanyUuidWireInRequestUuidRequestBuilder page(long page) {
+        Utils.checkNotNull(page, "page");
+        this.page = Optional.of(page);
+        return this;
+    }
+
+    public GetCompaniesCompanyUuidWireInRequestUuidRequestBuilder page(Optional<Long> page) {
+        Utils.checkNotNull(page, "page");
+        this.page = page;
+        return this;
+    }
+                
+    public GetCompaniesCompanyUuidWireInRequestUuidRequestBuilder per(long per) {
+        Utils.checkNotNull(per, "per");
+        this.per = Optional.of(per);
+        return this;
+    }
+
+    public GetCompaniesCompanyUuidWireInRequestUuidRequestBuilder per(Optional<Long> per) {
+        Utils.checkNotNull(per, "per");
+        this.per = per;
         return this;
     }
 
@@ -56,7 +83,9 @@ public class GetCompaniesCompanyUuidWireInRequestUuidRequestBuilder {
         }
 
         GetCompaniesCompanyUuidWireInRequestUuidRequest request = new GetCompaniesCompanyUuidWireInRequestUuidRequest(companyUuid,
-            xGustoAPIVersion);
+            xGustoAPIVersion,
+            page,
+            per);
 
         return request;
     }
@@ -71,9 +100,9 @@ public class GetCompaniesCompanyUuidWireInRequestUuidRequestBuilder {
             .thenCompose(operation::handleResponse);
     }
 
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+    private static final LazySingletonValue<Optional<? extends GetCompaniesCompanyUuidWireInRequestUuidHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
             new LazySingletonValue<>(
                     "xGustoAPIVersion",
                     "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
+                    new TypeReference<Optional<? extends GetCompaniesCompanyUuidWireInRequestUuidHeaderXGustoAPIVersion>>() {});
 }

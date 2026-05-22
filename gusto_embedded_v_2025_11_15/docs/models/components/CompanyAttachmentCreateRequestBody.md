@@ -1,0 +1,11 @@
+# CompanyAttachmentCreateRequestBody
+
+The binary payload of the file and the company attachment category.
+
+
+## Fields
+
+| Field                                                                                                                                    | Type                                                                                                                                     | Required                                                                                                                                 | Description                                                                                                                              |
+| ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| `document`                                                                                                                               | [CompanyAttachmentCreateRequestBodyDocument](../../models/components/CompanyAttachmentCreateRequestBodyDocument.md)                      | :heavy_check_mark:                                                                                                                       | The binary payload of the file to be uploaded. Supported file types are .qbb, .qbm, .gif, .jpg, .png, .pdf, .xls, .xlsx, .doc and .docx. |
+| `category`                                                                                                                               | [CompanyAttachmentCreateRequestBodyCategory](../../models/components/CompanyAttachmentCreateRequestBodyCategory.md)                      | :heavy_check_mark:                                                                                                                       | The category of a company attachment.<br/>- `gep_notice`: A tax notice attachment<br/>- `compliance`: A compliance attachment<br/>       |

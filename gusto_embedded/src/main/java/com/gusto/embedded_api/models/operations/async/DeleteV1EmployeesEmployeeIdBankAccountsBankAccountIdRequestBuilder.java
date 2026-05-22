@@ -7,7 +7,7 @@ import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.operations.DeleteV1EmployeesEmployeeIdBankAccountsBankAccountIdHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.DeleteV1EmployeesEmployeeIdBankAccountsBankAccountIdRequest;
 import com.gusto.embedded_api.operations.DeleteV1EmployeesEmployeeIdBankAccountsBankAccountId;
 import com.gusto.embedded_api.utils.Headers;
@@ -19,17 +19,29 @@ import java.util.concurrent.CompletableFuture;
 
 public class DeleteV1EmployeesEmployeeIdBankAccountsBankAccountIdRequestBuilder {
 
-    private String employeeId;
-    private String bankAccountUuid;
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
+    private Optional<? extends DeleteV1EmployeesEmployeeIdBankAccountsBankAccountIdHeaderXGustoAPIVersion> xGustoAPIVersion = Utils.readDefaultOrConstValue(
                             "xGustoAPIVersion",
                             "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
+                            new TypeReference<Optional<? extends DeleteV1EmployeesEmployeeIdBankAccountsBankAccountIdHeaderXGustoAPIVersion>>() {});
+    private String employeeId;
+    private String bankAccountUuid;
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
     public DeleteV1EmployeesEmployeeIdBankAccountsBankAccountIdRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
+    }
+                
+    public DeleteV1EmployeesEmployeeIdBankAccountsBankAccountIdRequestBuilder xGustoAPIVersion(DeleteV1EmployeesEmployeeIdBankAccountsBankAccountIdHeaderXGustoAPIVersion xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
+        return this;
+    }
+
+    public DeleteV1EmployeesEmployeeIdBankAccountsBankAccountIdRequestBuilder xGustoAPIVersion(Optional<? extends DeleteV1EmployeesEmployeeIdBankAccountsBankAccountIdHeaderXGustoAPIVersion> xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = xGustoAPIVersion;
+        return this;
     }
 
     public DeleteV1EmployeesEmployeeIdBankAccountsBankAccountIdRequestBuilder employeeId(String employeeId) {
@@ -43,18 +55,6 @@ public class DeleteV1EmployeesEmployeeIdBankAccountsBankAccountIdRequestBuilder 
         this.bankAccountUuid = bankAccountUuid;
         return this;
     }
-                
-    public DeleteV1EmployeesEmployeeIdBankAccountsBankAccountIdRequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
-        return this;
-    }
-
-    public DeleteV1EmployeesEmployeeIdBankAccountsBankAccountIdRequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = xGustoAPIVersion;
-        return this;
-    }
 
 
     private DeleteV1EmployeesEmployeeIdBankAccountsBankAccountIdRequest buildRequest() {
@@ -62,9 +62,9 @@ public class DeleteV1EmployeesEmployeeIdBankAccountsBankAccountIdRequestBuilder 
             xGustoAPIVersion = _SINGLETON_VALUE_XGustoAPIVersion.value();
         }
 
-        DeleteV1EmployeesEmployeeIdBankAccountsBankAccountIdRequest request = new DeleteV1EmployeesEmployeeIdBankAccountsBankAccountIdRequest(employeeId,
-            bankAccountUuid,
-            xGustoAPIVersion);
+        DeleteV1EmployeesEmployeeIdBankAccountsBankAccountIdRequest request = new DeleteV1EmployeesEmployeeIdBankAccountsBankAccountIdRequest(xGustoAPIVersion,
+            employeeId,
+            bankAccountUuid);
 
         return request;
     }
@@ -79,9 +79,9 @@ public class DeleteV1EmployeesEmployeeIdBankAccountsBankAccountIdRequestBuilder 
             .thenCompose(operation::handleResponse);
     }
 
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+    private static final LazySingletonValue<Optional<? extends DeleteV1EmployeesEmployeeIdBankAccountsBankAccountIdHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
             new LazySingletonValue<>(
                     "xGustoAPIVersion",
                     "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
+                    new TypeReference<Optional<? extends DeleteV1EmployeesEmployeeIdBankAccountsBankAccountIdHeaderXGustoAPIVersion>>() {});
 }

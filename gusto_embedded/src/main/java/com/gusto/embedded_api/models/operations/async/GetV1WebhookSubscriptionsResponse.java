@@ -35,24 +35,24 @@ public class GetV1WebhookSubscriptionsResponse implements AsyncResponse {
     private HttpResponse<Blob> rawResponse;
 
     /**
-     * Example response
+     * successful
      */
-    private Optional<? extends List<WebhookSubscription>> webhookSubscriptionsList;
+    private Optional<? extends List<WebhookSubscription>> webhookSubscriptions;
 
     @JsonCreator
     public GetV1WebhookSubscriptionsResponse(
             String contentType,
             int statusCode,
             HttpResponse<Blob> rawResponse,
-            Optional<? extends List<WebhookSubscription>> webhookSubscriptionsList) {
+            Optional<? extends List<WebhookSubscription>> webhookSubscriptions) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
-        Utils.checkNotNull(webhookSubscriptionsList, "webhookSubscriptionsList");
+        Utils.checkNotNull(webhookSubscriptions, "webhookSubscriptions");
         this.contentType = contentType;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
-        this.webhookSubscriptionsList = webhookSubscriptionsList;
+        this.webhookSubscriptions = webhookSubscriptions;
     }
     
     public GetV1WebhookSubscriptionsResponse(
@@ -88,12 +88,12 @@ public class GetV1WebhookSubscriptionsResponse implements AsyncResponse {
     }
 
     /**
-     * Example response
+     * successful
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<List<WebhookSubscription>> webhookSubscriptionsList() {
-        return (Optional<List<WebhookSubscription>>) webhookSubscriptionsList;
+    public Optional<List<WebhookSubscription>> webhookSubscriptions() {
+        return (Optional<List<WebhookSubscription>>) webhookSubscriptions;
     }
 
     public static Builder builder() {
@@ -129,21 +129,21 @@ public class GetV1WebhookSubscriptionsResponse implements AsyncResponse {
     }
 
     /**
-     * Example response
+     * successful
      */
-    public GetV1WebhookSubscriptionsResponse withWebhookSubscriptionsList(List<WebhookSubscription> webhookSubscriptionsList) {
-        Utils.checkNotNull(webhookSubscriptionsList, "webhookSubscriptionsList");
-        this.webhookSubscriptionsList = Optional.ofNullable(webhookSubscriptionsList);
+    public GetV1WebhookSubscriptionsResponse withWebhookSubscriptions(List<WebhookSubscription> webhookSubscriptions) {
+        Utils.checkNotNull(webhookSubscriptions, "webhookSubscriptions");
+        this.webhookSubscriptions = Optional.ofNullable(webhookSubscriptions);
         return this;
     }
 
 
     /**
-     * Example response
+     * successful
      */
-    public GetV1WebhookSubscriptionsResponse withWebhookSubscriptionsList(Optional<? extends List<WebhookSubscription>> webhookSubscriptionsList) {
-        Utils.checkNotNull(webhookSubscriptionsList, "webhookSubscriptionsList");
-        this.webhookSubscriptionsList = webhookSubscriptionsList;
+    public GetV1WebhookSubscriptionsResponse withWebhookSubscriptions(Optional<? extends List<WebhookSubscription>> webhookSubscriptions) {
+        Utils.checkNotNull(webhookSubscriptions, "webhookSubscriptions");
+        this.webhookSubscriptions = webhookSubscriptions;
         return this;
     }
 
@@ -160,14 +160,14 @@ public class GetV1WebhookSubscriptionsResponse implements AsyncResponse {
             Utils.enhancedDeepEquals(this.contentType, other.contentType) &&
             Utils.enhancedDeepEquals(this.statusCode, other.statusCode) &&
             Utils.enhancedDeepEquals(this.rawResponse, other.rawResponse) &&
-            Utils.enhancedDeepEquals(this.webhookSubscriptionsList, other.webhookSubscriptionsList);
+            Utils.enhancedDeepEquals(this.webhookSubscriptions, other.webhookSubscriptions);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             contentType, statusCode, rawResponse,
-            webhookSubscriptionsList);
+            webhookSubscriptions);
     }
     
     @Override
@@ -176,7 +176,7 @@ public class GetV1WebhookSubscriptionsResponse implements AsyncResponse {
                 "contentType", contentType,
                 "statusCode", statusCode,
                 "rawResponse", rawResponse,
-                "webhookSubscriptionsList", webhookSubscriptionsList);
+                "webhookSubscriptions", webhookSubscriptions);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -188,7 +188,7 @@ public class GetV1WebhookSubscriptionsResponse implements AsyncResponse {
 
         private HttpResponse<Blob> rawResponse;
 
-        private Optional<? extends List<WebhookSubscription>> webhookSubscriptionsList = Optional.empty();
+        private Optional<? extends List<WebhookSubscription>> webhookSubscriptions = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -226,20 +226,20 @@ public class GetV1WebhookSubscriptionsResponse implements AsyncResponse {
 
 
         /**
-         * Example response
+         * successful
          */
-        public Builder webhookSubscriptionsList(List<WebhookSubscription> webhookSubscriptionsList) {
-            Utils.checkNotNull(webhookSubscriptionsList, "webhookSubscriptionsList");
-            this.webhookSubscriptionsList = Optional.ofNullable(webhookSubscriptionsList);
+        public Builder webhookSubscriptions(List<WebhookSubscription> webhookSubscriptions) {
+            Utils.checkNotNull(webhookSubscriptions, "webhookSubscriptions");
+            this.webhookSubscriptions = Optional.ofNullable(webhookSubscriptions);
             return this;
         }
 
         /**
-         * Example response
+         * successful
          */
-        public Builder webhookSubscriptionsList(Optional<? extends List<WebhookSubscription>> webhookSubscriptionsList) {
-            Utils.checkNotNull(webhookSubscriptionsList, "webhookSubscriptionsList");
-            this.webhookSubscriptionsList = webhookSubscriptionsList;
+        public Builder webhookSubscriptions(Optional<? extends List<WebhookSubscription>> webhookSubscriptions) {
+            Utils.checkNotNull(webhookSubscriptions, "webhookSubscriptions");
+            this.webhookSubscriptions = webhookSubscriptions;
             return this;
         }
 
@@ -247,7 +247,7 @@ public class GetV1WebhookSubscriptionsResponse implements AsyncResponse {
 
             return new GetV1WebhookSubscriptionsResponse(
                 contentType, statusCode, rawResponse,
-                webhookSubscriptionsList);
+                webhookSubscriptions);
         }
 
     }

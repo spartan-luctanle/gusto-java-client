@@ -7,7 +7,7 @@ import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.operations.GetCompaniesCompanyUuidReportTemplatesReportTypeHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetCompaniesCompanyUuidReportTemplatesReportTypeRequest;
 import com.gusto.embedded_api.operations.GetCompaniesCompanyUuidReportTemplatesReportType;
 import com.gusto.embedded_api.utils.Headers;
@@ -19,17 +19,29 @@ import java.util.concurrent.CompletableFuture;
 
 public class GetCompaniesCompanyUuidReportTemplatesReportTypeRequestBuilder {
 
-    private String companyUuid;
-    private String reportType;
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
+    private Optional<? extends GetCompaniesCompanyUuidReportTemplatesReportTypeHeaderXGustoAPIVersion> xGustoAPIVersion = Utils.readDefaultOrConstValue(
                             "xGustoAPIVersion",
                             "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
+                            new TypeReference<Optional<? extends GetCompaniesCompanyUuidReportTemplatesReportTypeHeaderXGustoAPIVersion>>() {});
+    private String companyUuid;
+    private String reportType;
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
     public GetCompaniesCompanyUuidReportTemplatesReportTypeRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
+    }
+                
+    public GetCompaniesCompanyUuidReportTemplatesReportTypeRequestBuilder xGustoAPIVersion(GetCompaniesCompanyUuidReportTemplatesReportTypeHeaderXGustoAPIVersion xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
+        return this;
+    }
+
+    public GetCompaniesCompanyUuidReportTemplatesReportTypeRequestBuilder xGustoAPIVersion(Optional<? extends GetCompaniesCompanyUuidReportTemplatesReportTypeHeaderXGustoAPIVersion> xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = xGustoAPIVersion;
+        return this;
     }
 
     public GetCompaniesCompanyUuidReportTemplatesReportTypeRequestBuilder companyUuid(String companyUuid) {
@@ -43,18 +55,6 @@ public class GetCompaniesCompanyUuidReportTemplatesReportTypeRequestBuilder {
         this.reportType = reportType;
         return this;
     }
-                
-    public GetCompaniesCompanyUuidReportTemplatesReportTypeRequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
-        return this;
-    }
-
-    public GetCompaniesCompanyUuidReportTemplatesReportTypeRequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = xGustoAPIVersion;
-        return this;
-    }
 
 
     private GetCompaniesCompanyUuidReportTemplatesReportTypeRequest buildRequest() {
@@ -62,9 +62,9 @@ public class GetCompaniesCompanyUuidReportTemplatesReportTypeRequestBuilder {
             xGustoAPIVersion = _SINGLETON_VALUE_XGustoAPIVersion.value();
         }
 
-        GetCompaniesCompanyUuidReportTemplatesReportTypeRequest request = new GetCompaniesCompanyUuidReportTemplatesReportTypeRequest(companyUuid,
-            reportType,
-            xGustoAPIVersion);
+        GetCompaniesCompanyUuidReportTemplatesReportTypeRequest request = new GetCompaniesCompanyUuidReportTemplatesReportTypeRequest(xGustoAPIVersion,
+            companyUuid,
+            reportType);
 
         return request;
     }
@@ -79,9 +79,9 @@ public class GetCompaniesCompanyUuidReportTemplatesReportTypeRequestBuilder {
             .thenCompose(operation::handleResponse);
     }
 
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+    private static final LazySingletonValue<Optional<? extends GetCompaniesCompanyUuidReportTemplatesReportTypeHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
             new LazySingletonValue<>(
                     "xGustoAPIVersion",
                     "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
+                    new TypeReference<Optional<? extends GetCompaniesCompanyUuidReportTemplatesReportTypeHeaderXGustoAPIVersion>>() {});
 }

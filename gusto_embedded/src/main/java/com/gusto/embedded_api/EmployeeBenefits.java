@@ -5,16 +5,20 @@ package com.gusto.embedded_api;
 
 import static com.gusto.embedded_api.operations.Operations.RequestOperation;
 
+import com.gusto.embedded_api.models.components.EmployeeBenefitCreateRequest;
+import com.gusto.embedded_api.models.components.EmployeeBenefitUpdateRequest;
 import com.gusto.embedded_api.models.components.EmployeeSection603HighEarnerStatusCreateRequest;
 import com.gusto.embedded_api.models.components.EmployeeSection603HighEarnerStatusUpdateRequest;
-import com.gusto.embedded_api.models.components.PostEmployeeYtdBenefitAmountsFromDifferentCompany;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.components.YtdBenefitAmountsFromDifferentCompanyBody;
+import com.gusto.embedded_api.models.operations.DeleteV1EmployeeBenefitsEmployeeBenefitIdHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.DeleteV1EmployeeBenefitsEmployeeBenefitIdRequest;
 import com.gusto.embedded_api.models.operations.DeleteV1EmployeeBenefitsEmployeeBenefitIdRequestBuilder;
 import com.gusto.embedded_api.models.operations.DeleteV1EmployeeBenefitsEmployeeBenefitIdResponse;
+import com.gusto.embedded_api.models.operations.GetEmployeeYtdBenefitAmountsFromDifferentCompanyHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetEmployeeYtdBenefitAmountsFromDifferentCompanyRequest;
 import com.gusto.embedded_api.models.operations.GetEmployeeYtdBenefitAmountsFromDifferentCompanyRequestBuilder;
 import com.gusto.embedded_api.models.operations.GetEmployeeYtdBenefitAmountsFromDifferentCompanyResponse;
+import com.gusto.embedded_api.models.operations.GetV1EmployeeBenefitsEmployeeBenefitIdHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1EmployeeBenefitsEmployeeBenefitIdRequest;
 import com.gusto.embedded_api.models.operations.GetV1EmployeeBenefitsEmployeeBenefitIdRequestBuilder;
 import com.gusto.embedded_api.models.operations.GetV1EmployeeBenefitsEmployeeBenefitIdResponse;
@@ -33,19 +37,20 @@ import com.gusto.embedded_api.models.operations.PatchV1EmployeesEmployeeUuidSect
 import com.gusto.embedded_api.models.operations.PatchV1EmployeesEmployeeUuidSection603HighEarnerStatusesEffectiveYearRequest;
 import com.gusto.embedded_api.models.operations.PatchV1EmployeesEmployeeUuidSection603HighEarnerStatusesEffectiveYearRequestBuilder;
 import com.gusto.embedded_api.models.operations.PatchV1EmployeesEmployeeUuidSection603HighEarnerStatusesEffectiveYearResponse;
+import com.gusto.embedded_api.models.operations.PostEmployeeYtdBenefitAmountsFromDifferentCompanyHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostEmployeeYtdBenefitAmountsFromDifferentCompanyRequest;
 import com.gusto.embedded_api.models.operations.PostEmployeeYtdBenefitAmountsFromDifferentCompanyRequestBuilder;
 import com.gusto.embedded_api.models.operations.PostEmployeeYtdBenefitAmountsFromDifferentCompanyResponse;
+import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeIdEmployeeBenefitsHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeIdEmployeeBenefitsRequest;
-import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeIdEmployeeBenefitsRequestBody;
 import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeIdEmployeeBenefitsRequestBuilder;
 import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeIdEmployeeBenefitsResponse;
 import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeUuidSection603HighEarnerStatusesHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeUuidSection603HighEarnerStatusesRequest;
 import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeUuidSection603HighEarnerStatusesRequestBuilder;
 import com.gusto.embedded_api.models.operations.PostV1EmployeesEmployeeUuidSection603HighEarnerStatusesResponse;
+import com.gusto.embedded_api.models.operations.PutV1EmployeeBenefitsEmployeeBenefitIdHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PutV1EmployeeBenefitsEmployeeBenefitIdRequest;
-import com.gusto.embedded_api.models.operations.PutV1EmployeeBenefitsEmployeeBenefitIdRequestBody;
 import com.gusto.embedded_api.models.operations.PutV1EmployeeBenefitsEmployeeBenefitIdRequestBuilder;
 import com.gusto.embedded_api.models.operations.PutV1EmployeeBenefitsEmployeeBenefitIdResponse;
 import com.gusto.embedded_api.operations.DeleteV1EmployeeBenefitsEmployeeBenefitId;
@@ -55,6 +60,7 @@ import com.gusto.embedded_api.operations.GetV1EmployeesEmployeeIdEmployeeBenefit
 import com.gusto.embedded_api.operations.GetV1EmployeesEmployeeUuidSection603HighEarnerStatuses;
 import com.gusto.embedded_api.operations.GetV1EmployeesEmployeeUuidSection603HighEarnerStatusesEffectiveYear;
 import com.gusto.embedded_api.operations.PatchV1EmployeesEmployeeUuidSection603HighEarnerStatusesEffectiveYear;
+import com.gusto.embedded_api.operations.PostEmployeeYtdBenefitAmountsFromDifferentCompany;
 import com.gusto.embedded_api.operations.PostV1EmployeesEmployeeIdEmployeeBenefits;
 import com.gusto.embedded_api.operations.PostV1EmployeesEmployeeUuidSection603HighEarnerStatuses;
 import com.gusto.embedded_api.operations.PutV1EmployeeBenefitsEmployeeBenefitId;
@@ -84,78 +90,6 @@ public class EmployeeBenefits {
     }
 
     /**
-     * Create an employee benefit
-     * 
-     * <p>Employee benefits represent an employee enrolled in a particular company benefit. It includes
-     * information specific to that employee's enrollment.
-     * 
-     * <p>When the application has the `employee_benefits:write:benefit_type_limited` data scope, the
-     * application can only create employee benefits for benefit types that are permitted for the
-     * application.
-     * 
-     * <p>scope: `employee_benefits:write`
-     * 
-     * @return The call builder
-     */
-    public PostV1EmployeesEmployeeIdEmployeeBenefitsRequestBuilder create() {
-        return new PostV1EmployeesEmployeeIdEmployeeBenefitsRequestBuilder(sdkConfiguration);
-    }
-
-    /**
-     * Create an employee benefit
-     * 
-     * <p>Employee benefits represent an employee enrolled in a particular company benefit. It includes
-     * information specific to that employee's enrollment.
-     * 
-     * <p>When the application has the `employee_benefits:write:benefit_type_limited` data scope, the
-     * application can only create employee benefits for benefit types that are permitted for the
-     * application.
-     * 
-     * <p>scope: `employee_benefits:write`
-     * 
-     * @param employeeId The UUID of the employee
-     * @param requestBody 
-     * @return The response from the API call
-     * @throws RuntimeException subclass if the API call fails
-     */
-    public PostV1EmployeesEmployeeIdEmployeeBenefitsResponse create(String employeeId, PostV1EmployeesEmployeeIdEmployeeBenefitsRequestBody requestBody) {
-        return create(employeeId, Optional.empty(), requestBody);
-    }
-
-    /**
-     * Create an employee benefit
-     * 
-     * <p>Employee benefits represent an employee enrolled in a particular company benefit. It includes
-     * information specific to that employee's enrollment.
-     * 
-     * <p>When the application has the `employee_benefits:write:benefit_type_limited` data scope, the
-     * application can only create employee benefits for benefit types that are permitted for the
-     * application.
-     * 
-     * <p>scope: `employee_benefits:write`
-     * 
-     * @param employeeId The UUID of the employee
-     * @param xGustoAPIVersion 
-     * @param requestBody 
-     * @return The response from the API call
-     * @throws RuntimeException subclass if the API call fails
-     */
-    public PostV1EmployeesEmployeeIdEmployeeBenefitsResponse create(
-            String employeeId, Optional<? extends VersionHeader> xGustoAPIVersion,
-            PostV1EmployeesEmployeeIdEmployeeBenefitsRequestBody requestBody) {
-        PostV1EmployeesEmployeeIdEmployeeBenefitsRequest request =
-            PostV1EmployeesEmployeeIdEmployeeBenefitsRequest
-                .builder()
-                .employeeId(employeeId)
-                .xGustoAPIVersion(xGustoAPIVersion)
-                .requestBody(requestBody)
-                .build();
-        RequestOperation<PostV1EmployeesEmployeeIdEmployeeBenefitsRequest, PostV1EmployeesEmployeeIdEmployeeBenefitsResponse> operation
-              = new PostV1EmployeesEmployeeIdEmployeeBenefits.Sync(sdkConfiguration, _headers);
-        return operation.handleResponse(operation.doRequest(request));
-    }
-
-    /**
      * Get all benefits for an employee
      * 
      * <p>Employee benefits represent an employee enrolled in a particular company benefit. It includes
@@ -167,6 +101,8 @@ public class EmployeeBenefits {
      * scope.
      * 
      * <p>scope: `employee_benefits:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @return The call builder
      */
@@ -187,6 +123,8 @@ public class EmployeeBenefits {
      * 
      * <p>scope: `employee_benefits:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param request The request object containing all the parameters for the API call.
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
@@ -194,6 +132,84 @@ public class EmployeeBenefits {
     public GetV1EmployeesEmployeeIdEmployeeBenefitsResponse get(GetV1EmployeesEmployeeIdEmployeeBenefitsRequest request) {
         RequestOperation<GetV1EmployeesEmployeeIdEmployeeBenefitsRequest, GetV1EmployeesEmployeeIdEmployeeBenefitsResponse> operation
               = new GetV1EmployeesEmployeeIdEmployeeBenefits.Sync(sdkConfiguration, _headers);
+        return operation.handleResponse(operation.doRequest(request));
+    }
+
+    /**
+     * Create an employee benefit
+     * 
+     * <p>Employee benefits represent an employee enrolled in a particular company benefit. It includes
+     * information specific to that employee's enrollment.
+     * 
+     * <p>When the application has the `employee_benefits:write:benefit_type_limited` data scope, the
+     * application can only create employee benefits for benefit types that are permitted for the
+     * application.
+     * 
+     * <p>scope: `employee_benefits:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @return The call builder
+     */
+    public PostV1EmployeesEmployeeIdEmployeeBenefitsRequestBuilder create() {
+        return new PostV1EmployeesEmployeeIdEmployeeBenefitsRequestBuilder(sdkConfiguration);
+    }
+
+    /**
+     * Create an employee benefit
+     * 
+     * <p>Employee benefits represent an employee enrolled in a particular company benefit. It includes
+     * information specific to that employee's enrollment.
+     * 
+     * <p>When the application has the `employee_benefits:write:benefit_type_limited` data scope, the
+     * application can only create employee benefits for benefit types that are permitted for the
+     * application.
+     * 
+     * <p>scope: `employee_benefits:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param employeeId The UUID of the employee
+     * @param employeeBenefitCreateRequest 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public PostV1EmployeesEmployeeIdEmployeeBenefitsResponse create(String employeeId, EmployeeBenefitCreateRequest employeeBenefitCreateRequest) {
+        return create(Optional.empty(), employeeId, employeeBenefitCreateRequest);
+    }
+
+    /**
+     * Create an employee benefit
+     * 
+     * <p>Employee benefits represent an employee enrolled in a particular company benefit. It includes
+     * information specific to that employee's enrollment.
+     * 
+     * <p>When the application has the `employee_benefits:write:benefit_type_limited` data scope, the
+     * application can only create employee benefits for benefit types that are permitted for the
+     * application.
+     * 
+     * <p>scope: `employee_benefits:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     * @param employeeId The UUID of the employee
+     * @param employeeBenefitCreateRequest 
+     * @return The response from the API call
+     * @throws RuntimeException subclass if the API call fails
+     */
+    public PostV1EmployeesEmployeeIdEmployeeBenefitsResponse create(
+            Optional<? extends PostV1EmployeesEmployeeIdEmployeeBenefitsHeaderXGustoAPIVersion> xGustoAPIVersion, String employeeId,
+            EmployeeBenefitCreateRequest employeeBenefitCreateRequest) {
+        PostV1EmployeesEmployeeIdEmployeeBenefitsRequest request =
+            PostV1EmployeesEmployeeIdEmployeeBenefitsRequest
+                .builder()
+                .xGustoAPIVersion(xGustoAPIVersion)
+                .employeeId(employeeId)
+                .employeeBenefitCreateRequest(employeeBenefitCreateRequest)
+                .build();
+        RequestOperation<PostV1EmployeesEmployeeIdEmployeeBenefitsRequest, PostV1EmployeesEmployeeIdEmployeeBenefitsResponse> operation
+              = new PostV1EmployeesEmployeeIdEmployeeBenefits.Sync(sdkConfiguration, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 
@@ -207,6 +223,8 @@ public class EmployeeBenefits {
      * scope.
      * 
      * <p>scope: `employee_benefits:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @return The call builder
      */
@@ -225,12 +243,14 @@ public class EmployeeBenefits {
      * 
      * <p>scope: `employee_benefits:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param employeeBenefitId The UUID of the employee benefit.
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
     public GetV1EmployeeBenefitsEmployeeBenefitIdResponse retrieve(String employeeBenefitId) {
-        return retrieve(employeeBenefitId, Optional.empty());
+        return retrieve(Optional.empty(), employeeBenefitId);
     }
 
     /**
@@ -244,17 +264,19 @@ public class EmployeeBenefits {
      * 
      * <p>scope: `employee_benefits:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param employeeBenefitId The UUID of the employee benefit.
-     * @param xGustoAPIVersion 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
-    public GetV1EmployeeBenefitsEmployeeBenefitIdResponse retrieve(String employeeBenefitId, Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public GetV1EmployeeBenefitsEmployeeBenefitIdResponse retrieve(Optional<? extends GetV1EmployeeBenefitsEmployeeBenefitIdHeaderXGustoAPIVersion> xGustoAPIVersion, String employeeBenefitId) {
         GetV1EmployeeBenefitsEmployeeBenefitIdRequest request =
             GetV1EmployeeBenefitsEmployeeBenefitIdRequest
                 .builder()
-                .employeeBenefitId(employeeBenefitId)
                 .xGustoAPIVersion(xGustoAPIVersion)
+                .employeeBenefitId(employeeBenefitId)
                 .build();
         RequestOperation<GetV1EmployeeBenefitsEmployeeBenefitIdRequest, GetV1EmployeeBenefitsEmployeeBenefitIdResponse> operation
               = new GetV1EmployeeBenefitsEmployeeBenefitId.Sync(sdkConfiguration, _headers);
@@ -272,6 +294,8 @@ public class EmployeeBenefits {
      * application.
      * 
      * <p>scope: `employee_benefits:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @return The call builder
      */
@@ -291,13 +315,15 @@ public class EmployeeBenefits {
      * 
      * <p>scope: `employee_benefits:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param employeeBenefitId The UUID of the employee benefit.
-     * @param requestBody 
+     * @param employeeBenefitUpdateRequest 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
-    public PutV1EmployeeBenefitsEmployeeBenefitIdResponse update(String employeeBenefitId, PutV1EmployeeBenefitsEmployeeBenefitIdRequestBody requestBody) {
-        return update(employeeBenefitId, Optional.empty(), requestBody);
+    public PutV1EmployeeBenefitsEmployeeBenefitIdResponse update(String employeeBenefitId, EmployeeBenefitUpdateRequest employeeBenefitUpdateRequest) {
+        return update(Optional.empty(), employeeBenefitId, employeeBenefitUpdateRequest);
     }
 
     /**
@@ -312,21 +338,23 @@ public class EmployeeBenefits {
      * 
      * <p>scope: `employee_benefits:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param employeeBenefitId The UUID of the employee benefit.
-     * @param xGustoAPIVersion 
-     * @param requestBody 
+     * @param employeeBenefitUpdateRequest 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
     public PutV1EmployeeBenefitsEmployeeBenefitIdResponse update(
-            String employeeBenefitId, Optional<? extends VersionHeader> xGustoAPIVersion,
-            PutV1EmployeeBenefitsEmployeeBenefitIdRequestBody requestBody) {
+            Optional<? extends PutV1EmployeeBenefitsEmployeeBenefitIdHeaderXGustoAPIVersion> xGustoAPIVersion, String employeeBenefitId,
+            EmployeeBenefitUpdateRequest employeeBenefitUpdateRequest) {
         PutV1EmployeeBenefitsEmployeeBenefitIdRequest request =
             PutV1EmployeeBenefitsEmployeeBenefitIdRequest
                 .builder()
-                .employeeBenefitId(employeeBenefitId)
                 .xGustoAPIVersion(xGustoAPIVersion)
-                .requestBody(requestBody)
+                .employeeBenefitId(employeeBenefitId)
+                .employeeBenefitUpdateRequest(employeeBenefitUpdateRequest)
                 .build();
         RequestOperation<PutV1EmployeeBenefitsEmployeeBenefitIdRequest, PutV1EmployeeBenefitsEmployeeBenefitIdResponse> operation
               = new PutV1EmployeeBenefitsEmployeeBenefitId.Sync(sdkConfiguration, _headers);
@@ -344,6 +372,8 @@ public class EmployeeBenefits {
      * application.
      * 
      * <p>scope: `employee_benefits:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @return The call builder
      */
@@ -363,12 +393,14 @@ public class EmployeeBenefits {
      * 
      * <p>scope: `employee_benefits:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param employeeBenefitId The UUID of the employee benefit.
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
     public DeleteV1EmployeeBenefitsEmployeeBenefitIdResponse delete(String employeeBenefitId) {
-        return delete(employeeBenefitId, Optional.empty());
+        return delete(Optional.empty(), employeeBenefitId);
     }
 
     /**
@@ -383,17 +415,19 @@ public class EmployeeBenefits {
      * 
      * <p>scope: `employee_benefits:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param employeeBenefitId The UUID of the employee benefit.
-     * @param xGustoAPIVersion 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
-    public DeleteV1EmployeeBenefitsEmployeeBenefitIdResponse delete(String employeeBenefitId, Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public DeleteV1EmployeeBenefitsEmployeeBenefitIdResponse delete(Optional<? extends DeleteV1EmployeeBenefitsEmployeeBenefitIdHeaderXGustoAPIVersion> xGustoAPIVersion, String employeeBenefitId) {
         DeleteV1EmployeeBenefitsEmployeeBenefitIdRequest request =
             DeleteV1EmployeeBenefitsEmployeeBenefitIdRequest
                 .builder()
-                .employeeBenefitId(employeeBenefitId)
                 .xGustoAPIVersion(xGustoAPIVersion)
+                .employeeBenefitId(employeeBenefitId)
                 .build();
         RequestOperation<DeleteV1EmployeeBenefitsEmployeeBenefitIdRequest, DeleteV1EmployeeBenefitsEmployeeBenefitIdResponse> operation
               = new DeleteV1EmployeeBenefitsEmployeeBenefitId.Sync(sdkConfiguration, _headers);
@@ -410,6 +444,8 @@ public class EmployeeBenefits {
      * <p>This endpoint only supports retrieving outside contributions for 401(k) benefits.
      * 
      * <p>scope: `employee_benefits:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @return The call builder
      */
@@ -428,12 +464,14 @@ public class EmployeeBenefits {
      * 
      * <p>scope: `employee_benefits:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param employeeId The UUID of the employee
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
     public GetEmployeeYtdBenefitAmountsFromDifferentCompanyResponse getYtdBenefitAmountsFromDifferentCompany(String employeeId) {
-        return getYtdBenefitAmountsFromDifferentCompany(employeeId, Optional.empty(), Optional.empty());
+        return getYtdBenefitAmountsFromDifferentCompany(Optional.empty(), employeeId, Optional.empty());
     }
 
     /**
@@ -447,21 +485,23 @@ public class EmployeeBenefits {
      * 
      * <p>scope: `employee_benefits:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param employeeId The UUID of the employee
      * @param taxYear The tax year for which to retrieve YTD benefit amounts. Defaults to current year if not specified.
-     * @param xGustoAPIVersion 
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
     public GetEmployeeYtdBenefitAmountsFromDifferentCompanyResponse getYtdBenefitAmountsFromDifferentCompany(
-            String employeeId, Optional<Long> taxYear,
-            Optional<? extends VersionHeader> xGustoAPIVersion) {
+            Optional<? extends GetEmployeeYtdBenefitAmountsFromDifferentCompanyHeaderXGustoAPIVersion> xGustoAPIVersion, String employeeId,
+            Optional<Long> taxYear) {
         GetEmployeeYtdBenefitAmountsFromDifferentCompanyRequest request =
             GetEmployeeYtdBenefitAmountsFromDifferentCompanyRequest
                 .builder()
+                .xGustoAPIVersion(xGustoAPIVersion)
                 .employeeId(employeeId)
                 .taxYear(taxYear)
-                .xGustoAPIVersion(xGustoAPIVersion)
                 .build();
         RequestOperation<GetEmployeeYtdBenefitAmountsFromDifferentCompanyRequest, GetEmployeeYtdBenefitAmountsFromDifferentCompanyResponse> operation
               = new GetEmployeeYtdBenefitAmountsFromDifferentCompany.Sync(sdkConfiguration, _headers);
@@ -478,6 +518,8 @@ public class EmployeeBenefits {
      * <p>This endpoint only supports passing outside contributions for 401(k) benefits.
      * 
      * <p>scope: `employee_benefits:write`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @return The call builder
      */
@@ -496,13 +538,15 @@ public class EmployeeBenefits {
      * 
      * <p>scope: `employee_benefits:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param employeeId The UUID of the employee
-     * @param postEmployeeYtdBenefitAmountsFromDifferentCompany 
+     * @param ytdBenefitAmountsFromDifferentCompanyBody Year-to-date benefit amounts contributed at a different company for the specified employee.
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
-    public PostEmployeeYtdBenefitAmountsFromDifferentCompanyResponse createYtdBenefitAmountsFromDifferentCompany(String employeeId, PostEmployeeYtdBenefitAmountsFromDifferentCompany postEmployeeYtdBenefitAmountsFromDifferentCompany) {
-        return createYtdBenefitAmountsFromDifferentCompany(employeeId, Optional.empty(), postEmployeeYtdBenefitAmountsFromDifferentCompany);
+    public PostEmployeeYtdBenefitAmountsFromDifferentCompanyResponse createYtdBenefitAmountsFromDifferentCompany(String employeeId, YtdBenefitAmountsFromDifferentCompanyBody ytdBenefitAmountsFromDifferentCompanyBody) {
+        return createYtdBenefitAmountsFromDifferentCompany(Optional.empty(), employeeId, ytdBenefitAmountsFromDifferentCompanyBody);
     }
 
     /**
@@ -516,24 +560,26 @@ public class EmployeeBenefits {
      * 
      * <p>scope: `employee_benefits:write`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param employeeId The UUID of the employee
-     * @param xGustoAPIVersion 
-     * @param postEmployeeYtdBenefitAmountsFromDifferentCompany 
+     * @param ytdBenefitAmountsFromDifferentCompanyBody Year-to-date benefit amounts contributed at a different company for the specified employee.
      * @return The response from the API call
      * @throws RuntimeException subclass if the API call fails
      */
     public PostEmployeeYtdBenefitAmountsFromDifferentCompanyResponse createYtdBenefitAmountsFromDifferentCompany(
-            String employeeId, Optional<? extends VersionHeader> xGustoAPIVersion,
-            PostEmployeeYtdBenefitAmountsFromDifferentCompany postEmployeeYtdBenefitAmountsFromDifferentCompany) {
+            Optional<? extends PostEmployeeYtdBenefitAmountsFromDifferentCompanyHeaderXGustoAPIVersion> xGustoAPIVersion, String employeeId,
+            YtdBenefitAmountsFromDifferentCompanyBody ytdBenefitAmountsFromDifferentCompanyBody) {
         PostEmployeeYtdBenefitAmountsFromDifferentCompanyRequest request =
             PostEmployeeYtdBenefitAmountsFromDifferentCompanyRequest
                 .builder()
-                .employeeId(employeeId)
                 .xGustoAPIVersion(xGustoAPIVersion)
-                .postEmployeeYtdBenefitAmountsFromDifferentCompany(postEmployeeYtdBenefitAmountsFromDifferentCompany)
+                .employeeId(employeeId)
+                .ytdBenefitAmountsFromDifferentCompanyBody(ytdBenefitAmountsFromDifferentCompanyBody)
                 .build();
         RequestOperation<PostEmployeeYtdBenefitAmountsFromDifferentCompanyRequest, PostEmployeeYtdBenefitAmountsFromDifferentCompanyResponse> operation
-              = new com.gusto.embedded_api.operations.PostEmployeeYtdBenefitAmountsFromDifferentCompany.Sync(sdkConfiguration, _headers);
+              = new PostEmployeeYtdBenefitAmountsFromDifferentCompany.Sync(sdkConfiguration, _headers);
         return operation.handleResponse(operation.doRequest(request));
     }
 

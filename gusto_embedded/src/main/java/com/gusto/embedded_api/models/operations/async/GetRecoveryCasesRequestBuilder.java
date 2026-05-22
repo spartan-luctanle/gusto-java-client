@@ -7,28 +7,43 @@ import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.operations.GetRecoveryCasesHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetRecoveryCasesRequest;
 import com.gusto.embedded_api.operations.GetRecoveryCases;
 import com.gusto.embedded_api.utils.Headers;
 import com.gusto.embedded_api.utils.LazySingletonValue;
 import com.gusto.embedded_api.utils.Utils;
+import java.lang.Long;
 import java.lang.String;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
 public class GetRecoveryCasesRequestBuilder {
 
-    private String companyUuid;
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
+    private Optional<? extends GetRecoveryCasesHeaderXGustoAPIVersion> xGustoAPIVersion = Utils.readDefaultOrConstValue(
                             "xGustoAPIVersion",
                             "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
+                            new TypeReference<Optional<? extends GetRecoveryCasesHeaderXGustoAPIVersion>>() {});
+    private String companyUuid;
+    private Optional<Long> page = Optional.empty();
+    private Optional<Long> per = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
     public GetRecoveryCasesRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
+    }
+                
+    public GetRecoveryCasesRequestBuilder xGustoAPIVersion(GetRecoveryCasesHeaderXGustoAPIVersion xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
+        return this;
+    }
+
+    public GetRecoveryCasesRequestBuilder xGustoAPIVersion(Optional<? extends GetRecoveryCasesHeaderXGustoAPIVersion> xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = xGustoAPIVersion;
+        return this;
     }
 
     public GetRecoveryCasesRequestBuilder companyUuid(String companyUuid) {
@@ -37,15 +52,27 @@ public class GetRecoveryCasesRequestBuilder {
         return this;
     }
                 
-    public GetRecoveryCasesRequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
+    public GetRecoveryCasesRequestBuilder page(long page) {
+        Utils.checkNotNull(page, "page");
+        this.page = Optional.of(page);
         return this;
     }
 
-    public GetRecoveryCasesRequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = xGustoAPIVersion;
+    public GetRecoveryCasesRequestBuilder page(Optional<Long> page) {
+        Utils.checkNotNull(page, "page");
+        this.page = page;
+        return this;
+    }
+                
+    public GetRecoveryCasesRequestBuilder per(long per) {
+        Utils.checkNotNull(per, "per");
+        this.per = Optional.of(per);
+        return this;
+    }
+
+    public GetRecoveryCasesRequestBuilder per(Optional<Long> per) {
+        Utils.checkNotNull(per, "per");
+        this.per = per;
         return this;
     }
 
@@ -55,8 +82,10 @@ public class GetRecoveryCasesRequestBuilder {
             xGustoAPIVersion = _SINGLETON_VALUE_XGustoAPIVersion.value();
         }
 
-        GetRecoveryCasesRequest request = new GetRecoveryCasesRequest(companyUuid,
-            xGustoAPIVersion);
+        GetRecoveryCasesRequest request = new GetRecoveryCasesRequest(xGustoAPIVersion,
+            companyUuid,
+            page,
+            per);
 
         return request;
     }
@@ -71,9 +100,9 @@ public class GetRecoveryCasesRequestBuilder {
             .thenCompose(operation::handleResponse);
     }
 
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+    private static final LazySingletonValue<Optional<? extends GetRecoveryCasesHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
             new LazySingletonValue<>(
                     "xGustoAPIVersion",
                     "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
+                    new TypeReference<Optional<? extends GetRecoveryCasesHeaderXGustoAPIVersion>>() {});
 }

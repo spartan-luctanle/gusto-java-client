@@ -5,31 +5,41 @@ package com.gusto.embedded_api.models.operations;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.gusto.embedded_api.utils.LazySingletonValue;
 import com.gusto.embedded_api.utils.Utils;
 import java.lang.Override;
 import java.lang.String;
+import java.util.Optional;
 
 
 public class PostV1CompaniesCompanyIdEarningTypesRequestBody {
     /**
      * The name of the custom earning type.
      */
+    @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("name")
-    private String name;
+    private Optional<String> name;
 
     @JsonCreator
     public PostV1CompaniesCompanyIdEarningTypesRequestBody(
-            @JsonProperty("name") String name) {
+            @JsonProperty("name") Optional<String> name) {
         Utils.checkNotNull(name, "name");
         this.name = name;
+    }
+    
+    public PostV1CompaniesCompanyIdEarningTypesRequestBody() {
+        this(Optional.empty());
     }
 
     /**
      * The name of the custom earning type.
      */
     @JsonIgnore
-    public String name() {
+    public Optional<String> name() {
         return name;
     }
 
@@ -42,6 +52,16 @@ public class PostV1CompaniesCompanyIdEarningTypesRequestBody {
      * The name of the custom earning type.
      */
     public PostV1CompaniesCompanyIdEarningTypesRequestBody withName(String name) {
+        Utils.checkNotNull(name, "name");
+        this.name = Optional.ofNullable(name);
+        return this;
+    }
+
+
+    /**
+     * The name of the custom earning type.
+     */
+    public PostV1CompaniesCompanyIdEarningTypesRequestBody withName(Optional<String> name) {
         Utils.checkNotNull(name, "name");
         this.name = name;
         return this;
@@ -75,7 +95,7 @@ public class PostV1CompaniesCompanyIdEarningTypesRequestBody {
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private String name;
+        private Optional<String> name;
 
         private Builder() {
           // force use of static builder() method
@@ -87,15 +107,33 @@ public class PostV1CompaniesCompanyIdEarningTypesRequestBody {
          */
         public Builder name(String name) {
             Utils.checkNotNull(name, "name");
+            this.name = Optional.ofNullable(name);
+            return this;
+        }
+
+        /**
+         * The name of the custom earning type.
+         */
+        public Builder name(Optional<String> name) {
+            Utils.checkNotNull(name, "name");
             this.name = name;
             return this;
         }
 
         public PostV1CompaniesCompanyIdEarningTypesRequestBody build() {
+            if (name == null) {
+                name = _SINGLETON_VALUE_Name.value();
+            }
 
             return new PostV1CompaniesCompanyIdEarningTypesRequestBody(
                 name);
         }
 
+
+        private static final LazySingletonValue<Optional<String>> _SINGLETON_VALUE_Name =
+                new LazySingletonValue<>(
+                        "name",
+                        "\"Gym Membership\"",
+                        new TypeReference<Optional<String>>() {});
     }
 }

@@ -7,7 +7,7 @@ import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.operations.GetV1ContractorDocumentPdfHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetV1ContractorDocumentPdfRequest;
 import com.gusto.embedded_api.operations.GetV1ContractorDocumentPdf;
 import com.gusto.embedded_api.utils.Headers;
@@ -19,33 +19,33 @@ import java.util.concurrent.CompletableFuture;
 
 public class GetV1ContractorDocumentPdfRequestBuilder {
 
-    private String documentUuid;
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
+    private Optional<? extends GetV1ContractorDocumentPdfHeaderXGustoAPIVersion> xGustoAPIVersion = Utils.readDefaultOrConstValue(
                             "xGustoAPIVersion",
                             "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
+                            new TypeReference<Optional<? extends GetV1ContractorDocumentPdfHeaderXGustoAPIVersion>>() {});
+    private String documentUuid;
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
     public GetV1ContractorDocumentPdfRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
     }
-
-    public GetV1ContractorDocumentPdfRequestBuilder documentUuid(String documentUuid) {
-        Utils.checkNotNull(documentUuid, "documentUuid");
-        this.documentUuid = documentUuid;
-        return this;
-    }
                 
-    public GetV1ContractorDocumentPdfRequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+    public GetV1ContractorDocumentPdfRequestBuilder xGustoAPIVersion(GetV1ContractorDocumentPdfHeaderXGustoAPIVersion xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
         return this;
     }
 
-    public GetV1ContractorDocumentPdfRequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public GetV1ContractorDocumentPdfRequestBuilder xGustoAPIVersion(Optional<? extends GetV1ContractorDocumentPdfHeaderXGustoAPIVersion> xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = xGustoAPIVersion;
+        return this;
+    }
+
+    public GetV1ContractorDocumentPdfRequestBuilder documentUuid(String documentUuid) {
+        Utils.checkNotNull(documentUuid, "documentUuid");
+        this.documentUuid = documentUuid;
         return this;
     }
 
@@ -55,8 +55,8 @@ public class GetV1ContractorDocumentPdfRequestBuilder {
             xGustoAPIVersion = _SINGLETON_VALUE_XGustoAPIVersion.value();
         }
 
-        GetV1ContractorDocumentPdfRequest request = new GetV1ContractorDocumentPdfRequest(documentUuid,
-            xGustoAPIVersion);
+        GetV1ContractorDocumentPdfRequest request = new GetV1ContractorDocumentPdfRequest(xGustoAPIVersion,
+            documentUuid);
 
         return request;
     }
@@ -71,9 +71,9 @@ public class GetV1ContractorDocumentPdfRequestBuilder {
             .thenCompose(operation::handleResponse);
     }
 
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+    private static final LazySingletonValue<Optional<? extends GetV1ContractorDocumentPdfHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
             new LazySingletonValue<>(
                     "xGustoAPIVersion",
                     "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
+                    new TypeReference<Optional<? extends GetV1ContractorDocumentPdfHeaderXGustoAPIVersion>>() {});
 }

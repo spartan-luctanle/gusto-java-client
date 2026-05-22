@@ -34,7 +34,7 @@ public class PutV1CompaniesCompanyIdEarningTypesEarningTypeUuidResponse implemen
     private HttpResponse<InputStream> rawResponse;
 
     /**
-     * Example response
+     * Success
      */
     private Optional<? extends EarningType> earningType;
 
@@ -87,7 +87,7 @@ public class PutV1CompaniesCompanyIdEarningTypesEarningTypeUuidResponse implemen
     }
 
     /**
-     * Example response
+     * Success
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -128,7 +128,7 @@ public class PutV1CompaniesCompanyIdEarningTypesEarningTypeUuidResponse implemen
     }
 
     /**
-     * Example response
+     * Success
      */
     public PutV1CompaniesCompanyIdEarningTypesEarningTypeUuidResponse withEarningType(EarningType earningType) {
         Utils.checkNotNull(earningType, "earningType");
@@ -138,7 +138,7 @@ public class PutV1CompaniesCompanyIdEarningTypesEarningTypeUuidResponse implemen
 
 
     /**
-     * Example response
+     * Success
      */
     public PutV1CompaniesCompanyIdEarningTypesEarningTypeUuidResponse withEarningType(Optional<? extends EarningType> earningType) {
         Utils.checkNotNull(earningType, "earningType");
@@ -225,7 +225,7 @@ public class PutV1CompaniesCompanyIdEarningTypesEarningTypeUuidResponse implemen
 
 
         /**
-         * Example response
+         * Success
          */
         public Builder earningType(EarningType earningType) {
             Utils.checkNotNull(earningType, "earningType");
@@ -234,7 +234,7 @@ public class PutV1CompaniesCompanyIdEarningTypesEarningTypeUuidResponse implemen
         }
 
         /**
-         * Example response
+         * Success
          */
         public Builder earningType(Optional<? extends EarningType> earningType) {
             Utils.checkNotNull(earningType, "earningType");

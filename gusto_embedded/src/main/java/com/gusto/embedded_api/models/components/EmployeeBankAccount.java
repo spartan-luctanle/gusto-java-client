@@ -14,11 +14,7 @@ import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.util.Optional;
 
-/**
- * EmployeeBankAccount
- * 
- * <p>Example response
- */
+
 public class EmployeeBankAccount {
     /**
      * UUID of the bank account

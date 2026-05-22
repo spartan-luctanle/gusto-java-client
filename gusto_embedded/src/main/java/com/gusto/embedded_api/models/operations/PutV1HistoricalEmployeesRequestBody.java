@@ -12,12 +12,17 @@ import com.gusto.embedded_api.utils.Utils;
 import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
+import java.time.LocalDate;
 import java.util.Optional;
 
 /**
  * PutV1HistoricalEmployeesRequestBody
  * 
- * <p>Update a historical employee.
+ * <p>Request body for creating or updating a **historical employee**—someone who already separated from
+ * the company and must appear on year-to-date or tax filings without receiving ongoing payroll.
+ * 
+ * <p>Send this object under the JSON root key `employee`. All dates are ISO 8601 (`YYYY-MM-DD`). Use a
+ * `work_address.location_uuid` returned from your company locations API for an active work site.
  */
 public class PutV1HistoricalEmployeesRequestBody {
     /**
@@ -28,56 +33,80 @@ public class PutV1HistoricalEmployeesRequestBody {
     @JsonProperty("version")
     private String version;
 
-
+    /**
+     * Legal first name as it appears on government-issued identification.
+     */
     @JsonProperty("first_name")
     private String firstName;
 
-
+    /**
+     * Single middle initial, if any.
+     */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("middle_initial")
     private Optional<String> middleInitial;
 
-
+    /**
+     * Legal last name as it appears on government-issued identification.
+     */
     @JsonProperty("last_name")
     private String lastName;
 
-
+    /**
+     * Preferred given name for display; omit when the same as legal first name.
+     */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("preferred_first_name")
     private Optional<String> preferredFirstName;
 
-
+    /**
+     * Date of birth (YYYY-MM-DD).
+     */
     @JsonProperty("date_of_birth")
-    private String dateOfBirth;
+    private LocalDate dateOfBirth;
 
-
+    /**
+     * Nine-digit U.S. Social Security number **without** dashes or spaces. Must pass Gusto/SSA validation
+     * in production; use a valid test SSN in sandbox environments.
+     */
     @JsonProperty("ssn")
     private String ssn;
 
-
+    /**
+     * Primary work location for this historical employment row.
+     */
     @JsonProperty("work_address")
     private WorkAddress workAddress;
 
-
+    /**
+     * Residential address on file for tax withholding and compliance mail.
+     */
     @JsonProperty("home_address")
     private HomeAddress homeAddress;
 
-
+    /**
+     * End of the historical employment period.
+     */
     @JsonProperty("termination")
     private Termination termination;
 
     /**
-     * Optional. If provided, the email address will be saved to the employee.
+     * Optional. When provided, stored on the employee record for notifications and profile.
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("email")
     private Optional<String> email;
 
-
+    /**
+     * Hire date for the historical job used to build employments and filings.
+     */
     @JsonProperty("job")
     private Job job;
 
-
+    /**
+     * Workers' compensation fields for Washington (WA) or Wyoming (WY) when the work address is in those
+     * states; omit when not applicable.
+     */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("employee_state_taxes")
     private Optional<? extends EmployeeStateTaxes> employeeStateTaxes;
@@ -89,7 +118,7 @@ public class PutV1HistoricalEmployeesRequestBody {
             @JsonProperty("middle_initial") Optional<String> middleInitial,
             @JsonProperty("last_name") String lastName,
             @JsonProperty("preferred_first_name") Optional<String> preferredFirstName,
-            @JsonProperty("date_of_birth") String dateOfBirth,
+            @JsonProperty("date_of_birth") LocalDate dateOfBirth,
             @JsonProperty("ssn") String ssn,
             @JsonProperty("work_address") WorkAddress workAddress,
             @JsonProperty("home_address") HomeAddress homeAddress,
@@ -129,7 +158,7 @@ public class PutV1HistoricalEmployeesRequestBody {
             String version,
             String firstName,
             String lastName,
-            String dateOfBirth,
+            LocalDate dateOfBirth,
             String ssn,
             WorkAddress workAddress,
             HomeAddress homeAddress,
@@ -152,64 +181,99 @@ public class PutV1HistoricalEmployeesRequestBody {
         return version;
     }
 
+    /**
+     * Legal first name as it appears on government-issued identification.
+     */
     @JsonIgnore
     public String firstName() {
         return firstName;
     }
 
+    /**
+     * Single middle initial, if any.
+     */
     @JsonIgnore
     public Optional<String> middleInitial() {
         return middleInitial;
     }
 
+    /**
+     * Legal last name as it appears on government-issued identification.
+     */
     @JsonIgnore
     public String lastName() {
         return lastName;
     }
 
+    /**
+     * Preferred given name for display; omit when the same as legal first name.
+     */
     @JsonIgnore
     public Optional<String> preferredFirstName() {
         return preferredFirstName;
     }
 
+    /**
+     * Date of birth (YYYY-MM-DD).
+     */
     @JsonIgnore
-    public String dateOfBirth() {
+    public LocalDate dateOfBirth() {
         return dateOfBirth;
     }
 
+    /**
+     * Nine-digit U.S. Social Security number **without** dashes or spaces. Must pass Gusto/SSA validation
+     * in production; use a valid test SSN in sandbox environments.
+     */
     @JsonIgnore
     public String ssn() {
         return ssn;
     }
 
+    /**
+     * Primary work location for this historical employment row.
+     */
     @JsonIgnore
     public WorkAddress workAddress() {
         return workAddress;
     }
 
+    /**
+     * Residential address on file for tax withholding and compliance mail.
+     */
     @JsonIgnore
     public HomeAddress homeAddress() {
         return homeAddress;
     }
 
+    /**
+     * End of the historical employment period.
+     */
     @JsonIgnore
     public Termination termination() {
         return termination;
     }
 
     /**
-     * Optional. If provided, the email address will be saved to the employee.
+     * Optional. When provided, stored on the employee record for notifications and profile.
      */
     @JsonIgnore
     public Optional<String> email() {
         return email;
     }
 
+    /**
+     * Hire date for the historical job used to build employments and filings.
+     */
     @JsonIgnore
     public Job job() {
         return job;
     }
 
+    /**
+     * Workers' compensation fields for Washington (WA) or Wyoming (WY) when the work address is in those
+     * states; omit when not applicable.
+     */
     @SuppressWarnings("unchecked")
     @JsonIgnore
     public Optional<EmployeeStateTaxes> employeeStateTaxes() {
@@ -232,12 +296,18 @@ public class PutV1HistoricalEmployeesRequestBody {
         return this;
     }
 
+    /**
+     * Legal first name as it appears on government-issued identification.
+     */
     public PutV1HistoricalEmployeesRequestBody withFirstName(String firstName) {
         Utils.checkNotNull(firstName, "firstName");
         this.firstName = firstName;
         return this;
     }
 
+    /**
+     * Single middle initial, if any.
+     */
     public PutV1HistoricalEmployeesRequestBody withMiddleInitial(String middleInitial) {
         Utils.checkNotNull(middleInitial, "middleInitial");
         this.middleInitial = Optional.ofNullable(middleInitial);
@@ -245,18 +315,27 @@ public class PutV1HistoricalEmployeesRequestBody {
     }
 
 
+    /**
+     * Single middle initial, if any.
+     */
     public PutV1HistoricalEmployeesRequestBody withMiddleInitial(Optional<String> middleInitial) {
         Utils.checkNotNull(middleInitial, "middleInitial");
         this.middleInitial = middleInitial;
         return this;
     }
 
+    /**
+     * Legal last name as it appears on government-issued identification.
+     */
     public PutV1HistoricalEmployeesRequestBody withLastName(String lastName) {
         Utils.checkNotNull(lastName, "lastName");
         this.lastName = lastName;
         return this;
     }
 
+    /**
+     * Preferred given name for display; omit when the same as legal first name.
+     */
     public PutV1HistoricalEmployeesRequestBody withPreferredFirstName(String preferredFirstName) {
         Utils.checkNotNull(preferredFirstName, "preferredFirstName");
         this.preferredFirstName = Optional.ofNullable(preferredFirstName);
@@ -264,36 +343,55 @@ public class PutV1HistoricalEmployeesRequestBody {
     }
 
 
+    /**
+     * Preferred given name for display; omit when the same as legal first name.
+     */
     public PutV1HistoricalEmployeesRequestBody withPreferredFirstName(Optional<String> preferredFirstName) {
         Utils.checkNotNull(preferredFirstName, "preferredFirstName");
         this.preferredFirstName = preferredFirstName;
         return this;
     }
 
-    public PutV1HistoricalEmployeesRequestBody withDateOfBirth(String dateOfBirth) {
+    /**
+     * Date of birth (YYYY-MM-DD).
+     */
+    public PutV1HistoricalEmployeesRequestBody withDateOfBirth(LocalDate dateOfBirth) {
         Utils.checkNotNull(dateOfBirth, "dateOfBirth");
         this.dateOfBirth = dateOfBirth;
         return this;
     }
 
+    /**
+     * Nine-digit U.S. Social Security number **without** dashes or spaces. Must pass Gusto/SSA validation
+     * in production; use a valid test SSN in sandbox environments.
+     */
     public PutV1HistoricalEmployeesRequestBody withSsn(String ssn) {
         Utils.checkNotNull(ssn, "ssn");
         this.ssn = ssn;
         return this;
     }
 
+    /**
+     * Primary work location for this historical employment row.
+     */
     public PutV1HistoricalEmployeesRequestBody withWorkAddress(WorkAddress workAddress) {
         Utils.checkNotNull(workAddress, "workAddress");
         this.workAddress = workAddress;
         return this;
     }
 
+    /**
+     * Residential address on file for tax withholding and compliance mail.
+     */
     public PutV1HistoricalEmployeesRequestBody withHomeAddress(HomeAddress homeAddress) {
         Utils.checkNotNull(homeAddress, "homeAddress");
         this.homeAddress = homeAddress;
         return this;
     }
 
+    /**
+     * End of the historical employment period.
+     */
     public PutV1HistoricalEmployeesRequestBody withTermination(Termination termination) {
         Utils.checkNotNull(termination, "termination");
         this.termination = termination;
@@ -301,7 +399,7 @@ public class PutV1HistoricalEmployeesRequestBody {
     }
 
     /**
-     * Optional. If provided, the email address will be saved to the employee.
+     * Optional. When provided, stored on the employee record for notifications and profile.
      */
     public PutV1HistoricalEmployeesRequestBody withEmail(String email) {
         Utils.checkNotNull(email, "email");
@@ -311,7 +409,7 @@ public class PutV1HistoricalEmployeesRequestBody {
 
 
     /**
-     * Optional. If provided, the email address will be saved to the employee.
+     * Optional. When provided, stored on the employee record for notifications and profile.
      */
     public PutV1HistoricalEmployeesRequestBody withEmail(Optional<String> email) {
         Utils.checkNotNull(email, "email");
@@ -319,12 +417,19 @@ public class PutV1HistoricalEmployeesRequestBody {
         return this;
     }
 
+    /**
+     * Hire date for the historical job used to build employments and filings.
+     */
     public PutV1HistoricalEmployeesRequestBody withJob(Job job) {
         Utils.checkNotNull(job, "job");
         this.job = job;
         return this;
     }
 
+    /**
+     * Workers' compensation fields for Washington (WA) or Wyoming (WY) when the work address is in those
+     * states; omit when not applicable.
+     */
     public PutV1HistoricalEmployeesRequestBody withEmployeeStateTaxes(EmployeeStateTaxes employeeStateTaxes) {
         Utils.checkNotNull(employeeStateTaxes, "employeeStateTaxes");
         this.employeeStateTaxes = Optional.ofNullable(employeeStateTaxes);
@@ -332,6 +437,10 @@ public class PutV1HistoricalEmployeesRequestBody {
     }
 
 
+    /**
+     * Workers' compensation fields for Washington (WA) or Wyoming (WY) when the work address is in those
+     * states; omit when not applicable.
+     */
     public PutV1HistoricalEmployeesRequestBody withEmployeeStateTaxes(Optional<? extends EmployeeStateTaxes> employeeStateTaxes) {
         Utils.checkNotNull(employeeStateTaxes, "employeeStateTaxes");
         this.employeeStateTaxes = employeeStateTaxes;
@@ -404,7 +513,7 @@ public class PutV1HistoricalEmployeesRequestBody {
 
         private Optional<String> preferredFirstName = Optional.empty();
 
-        private String dateOfBirth;
+        private LocalDate dateOfBirth;
 
         private String ssn;
 
@@ -437,6 +546,9 @@ public class PutV1HistoricalEmployeesRequestBody {
         }
 
 
+        /**
+         * Legal first name as it appears on government-issued identification.
+         */
         public Builder firstName(String firstName) {
             Utils.checkNotNull(firstName, "firstName");
             this.firstName = firstName;
@@ -444,12 +556,18 @@ public class PutV1HistoricalEmployeesRequestBody {
         }
 
 
+        /**
+         * Single middle initial, if any.
+         */
         public Builder middleInitial(String middleInitial) {
             Utils.checkNotNull(middleInitial, "middleInitial");
             this.middleInitial = Optional.ofNullable(middleInitial);
             return this;
         }
 
+        /**
+         * Single middle initial, if any.
+         */
         public Builder middleInitial(Optional<String> middleInitial) {
             Utils.checkNotNull(middleInitial, "middleInitial");
             this.middleInitial = middleInitial;
@@ -457,6 +575,9 @@ public class PutV1HistoricalEmployeesRequestBody {
         }
 
 
+        /**
+         * Legal last name as it appears on government-issued identification.
+         */
         public Builder lastName(String lastName) {
             Utils.checkNotNull(lastName, "lastName");
             this.lastName = lastName;
@@ -464,12 +585,18 @@ public class PutV1HistoricalEmployeesRequestBody {
         }
 
 
+        /**
+         * Preferred given name for display; omit when the same as legal first name.
+         */
         public Builder preferredFirstName(String preferredFirstName) {
             Utils.checkNotNull(preferredFirstName, "preferredFirstName");
             this.preferredFirstName = Optional.ofNullable(preferredFirstName);
             return this;
         }
 
+        /**
+         * Preferred given name for display; omit when the same as legal first name.
+         */
         public Builder preferredFirstName(Optional<String> preferredFirstName) {
             Utils.checkNotNull(preferredFirstName, "preferredFirstName");
             this.preferredFirstName = preferredFirstName;
@@ -477,13 +604,20 @@ public class PutV1HistoricalEmployeesRequestBody {
         }
 
 
-        public Builder dateOfBirth(String dateOfBirth) {
+        /**
+         * Date of birth (YYYY-MM-DD).
+         */
+        public Builder dateOfBirth(LocalDate dateOfBirth) {
             Utils.checkNotNull(dateOfBirth, "dateOfBirth");
             this.dateOfBirth = dateOfBirth;
             return this;
         }
 
 
+        /**
+         * Nine-digit U.S. Social Security number **without** dashes or spaces. Must pass Gusto/SSA validation
+         * in production; use a valid test SSN in sandbox environments.
+         */
         public Builder ssn(String ssn) {
             Utils.checkNotNull(ssn, "ssn");
             this.ssn = ssn;
@@ -491,6 +625,9 @@ public class PutV1HistoricalEmployeesRequestBody {
         }
 
 
+        /**
+         * Primary work location for this historical employment row.
+         */
         public Builder workAddress(WorkAddress workAddress) {
             Utils.checkNotNull(workAddress, "workAddress");
             this.workAddress = workAddress;
@@ -498,6 +635,9 @@ public class PutV1HistoricalEmployeesRequestBody {
         }
 
 
+        /**
+         * Residential address on file for tax withholding and compliance mail.
+         */
         public Builder homeAddress(HomeAddress homeAddress) {
             Utils.checkNotNull(homeAddress, "homeAddress");
             this.homeAddress = homeAddress;
@@ -505,6 +645,9 @@ public class PutV1HistoricalEmployeesRequestBody {
         }
 
 
+        /**
+         * End of the historical employment period.
+         */
         public Builder termination(Termination termination) {
             Utils.checkNotNull(termination, "termination");
             this.termination = termination;
@@ -513,7 +656,7 @@ public class PutV1HistoricalEmployeesRequestBody {
 
 
         /**
-         * Optional. If provided, the email address will be saved to the employee.
+         * Optional. When provided, stored on the employee record for notifications and profile.
          */
         public Builder email(String email) {
             Utils.checkNotNull(email, "email");
@@ -522,7 +665,7 @@ public class PutV1HistoricalEmployeesRequestBody {
         }
 
         /**
-         * Optional. If provided, the email address will be saved to the employee.
+         * Optional. When provided, stored on the employee record for notifications and profile.
          */
         public Builder email(Optional<String> email) {
             Utils.checkNotNull(email, "email");
@@ -531,6 +674,9 @@ public class PutV1HistoricalEmployeesRequestBody {
         }
 
 
+        /**
+         * Hire date for the historical job used to build employments and filings.
+         */
         public Builder job(Job job) {
             Utils.checkNotNull(job, "job");
             this.job = job;
@@ -538,12 +684,20 @@ public class PutV1HistoricalEmployeesRequestBody {
         }
 
 
+        /**
+         * Workers' compensation fields for Washington (WA) or Wyoming (WY) when the work address is in those
+         * states; omit when not applicable.
+         */
         public Builder employeeStateTaxes(EmployeeStateTaxes employeeStateTaxes) {
             Utils.checkNotNull(employeeStateTaxes, "employeeStateTaxes");
             this.employeeStateTaxes = Optional.ofNullable(employeeStateTaxes);
             return this;
         }
 
+        /**
+         * Workers' compensation fields for Washington (WA) or Wyoming (WY) when the work address is in those
+         * states; omit when not applicable.
+         */
         public Builder employeeStateTaxes(Optional<? extends EmployeeStateTaxes> employeeStateTaxes) {
             Utils.checkNotNull(employeeStateTaxes, "employeeStateTaxes");
             this.employeeStateTaxes = employeeStateTaxes;

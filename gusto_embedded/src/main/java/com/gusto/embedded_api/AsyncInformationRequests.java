@@ -5,7 +5,7 @@ package com.gusto.embedded_api;
 
 import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation;
 
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.operations.GetInformationRequestsHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.GetInformationRequestsRequest;
 import com.gusto.embedded_api.models.operations.SubmitInformationRequestRequest;
 import com.gusto.embedded_api.models.operations.SubmitInformationRequestRequestBody;
@@ -48,6 +48,8 @@ public class AsyncInformationRequests {
      * 
      * <p>scope: `information_requests:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @return The async call builder
      */
     public GetInformationRequestsRequestBuilder getInformationRequests() {
@@ -61,11 +63,13 @@ public class AsyncInformationRequests {
      * 
      * <p>scope: `information_requests:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @param companyUuid The UUID of the company
      * @return {@code CompletableFuture<GetInformationRequestsResponse>} - The async response
      */
     public CompletableFuture<GetInformationRequestsResponse> getInformationRequests(String companyUuid) {
-        return getInformationRequests(companyUuid, Optional.empty());
+        return getInformationRequests(Optional.empty(), companyUuid);
     }
 
     /**
@@ -75,16 +79,18 @@ public class AsyncInformationRequests {
      * 
      * <p>scope: `information_requests:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
+     * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param companyUuid The UUID of the company
-     * @param xGustoAPIVersion 
      * @return {@code CompletableFuture<GetInformationRequestsResponse>} - The async response
      */
-    public CompletableFuture<GetInformationRequestsResponse> getInformationRequests(String companyUuid, Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public CompletableFuture<GetInformationRequestsResponse> getInformationRequests(Optional<? extends GetInformationRequestsHeaderXGustoAPIVersion> xGustoAPIVersion, String companyUuid) {
         GetInformationRequestsRequest request =
             GetInformationRequestsRequest
                 .builder()
-                .companyUuid(companyUuid)
                 .xGustoAPIVersion(xGustoAPIVersion)
+                .companyUuid(companyUuid)
                 .build();
         AsyncRequestOperation<GetInformationRequestsRequest, GetInformationRequestsResponse> operation
               = new GetInformationRequests.Async(sdkConfiguration, _headers);

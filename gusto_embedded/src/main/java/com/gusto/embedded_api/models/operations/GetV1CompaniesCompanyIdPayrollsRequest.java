@@ -60,12 +60,8 @@ public class GetV1CompaniesCompanyIdPayrollsRequest {
     private Optional<Boolean> includeOffCycle;
 
     /**
-     * Include the requested attribute in the response. The risk_blockers option will include
-     * submission_blockers and credit_blockers if applicable. The reversals option will include reversal
-     * payroll UUIDs if applicable.
-     * 
-     * <p>In v2023-04-01 totals are no longer included by default. For multiple attributes comma separate the
-     * values, i.e. `?include=totals,payroll_status_meta`.
+     * Include the requested attribute in the response, for multiple attributes comma separate the values,
+     * i.e. `?include=benefits,deductions,taxes`
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=false,name=include")
     private Optional<? extends List<GetV1CompaniesCompanyIdPayrollsQueryParamInclude>> include;
@@ -217,12 +213,8 @@ public class GetV1CompaniesCompanyIdPayrollsRequest {
     }
 
     /**
-     * Include the requested attribute in the response. The risk_blockers option will include
-     * submission_blockers and credit_blockers if applicable. The reversals option will include reversal
-     * payroll UUIDs if applicable.
-     * 
-     * <p>In v2023-04-01 totals are no longer included by default. For multiple attributes comma separate the
-     * values, i.e. `?include=totals,payroll_status_meta`.
+     * Include the requested attribute in the response, for multiple attributes comma separate the values,
+     * i.e. `?include=benefits,deductions,taxes`
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -401,12 +393,8 @@ public class GetV1CompaniesCompanyIdPayrollsRequest {
     }
 
     /**
-     * Include the requested attribute in the response. The risk_blockers option will include
-     * submission_blockers and credit_blockers if applicable. The reversals option will include reversal
-     * payroll UUIDs if applicable.
-     * 
-     * <p>In v2023-04-01 totals are no longer included by default. For multiple attributes comma separate the
-     * values, i.e. `?include=totals,payroll_status_meta`.
+     * Include the requested attribute in the response, for multiple attributes comma separate the values,
+     * i.e. `?include=benefits,deductions,taxes`
      */
     public GetV1CompaniesCompanyIdPayrollsRequest withInclude(List<GetV1CompaniesCompanyIdPayrollsQueryParamInclude> include) {
         Utils.checkNotNull(include, "include");
@@ -416,12 +404,8 @@ public class GetV1CompaniesCompanyIdPayrollsRequest {
 
 
     /**
-     * Include the requested attribute in the response. The risk_blockers option will include
-     * submission_blockers and credit_blockers if applicable. The reversals option will include reversal
-     * payroll UUIDs if applicable.
-     * 
-     * <p>In v2023-04-01 totals are no longer included by default. For multiple attributes comma separate the
-     * values, i.e. `?include=totals,payroll_status_meta`.
+     * Include the requested attribute in the response, for multiple attributes comma separate the values,
+     * i.e. `?include=benefits,deductions,taxes`
      */
     public GetV1CompaniesCompanyIdPayrollsRequest withInclude(Optional<? extends List<GetV1CompaniesCompanyIdPayrollsQueryParamInclude>> include) {
         Utils.checkNotNull(include, "include");
@@ -750,12 +734,8 @@ public class GetV1CompaniesCompanyIdPayrollsRequest {
 
 
         /**
-         * Include the requested attribute in the response. The risk_blockers option will include
-         * submission_blockers and credit_blockers if applicable. The reversals option will include reversal
-         * payroll UUIDs if applicable.
-         * 
-         * <p>In v2023-04-01 totals are no longer included by default. For multiple attributes comma separate the
-         * values, i.e. `?include=totals,payroll_status_meta`.
+         * Include the requested attribute in the response, for multiple attributes comma separate the values,
+         * i.e. `?include=benefits,deductions,taxes`
          */
         public Builder include(List<GetV1CompaniesCompanyIdPayrollsQueryParamInclude> include) {
             Utils.checkNotNull(include, "include");
@@ -764,12 +744,8 @@ public class GetV1CompaniesCompanyIdPayrollsRequest {
         }
 
         /**
-         * Include the requested attribute in the response. The risk_blockers option will include
-         * submission_blockers and credit_blockers if applicable. The reversals option will include reversal
-         * payroll UUIDs if applicable.
-         * 
-         * <p>In v2023-04-01 totals are no longer included by default. For multiple attributes comma separate the
-         * values, i.e. `?include=totals,payroll_status_meta`.
+         * Include the requested attribute in the response, for multiple attributes comma separate the values,
+         * i.e. `?include=benefits,deductions,taxes`
          */
         public Builder include(Optional<? extends List<GetV1CompaniesCompanyIdPayrollsQueryParamInclude>> include) {
             Utils.checkNotNull(include, "include");

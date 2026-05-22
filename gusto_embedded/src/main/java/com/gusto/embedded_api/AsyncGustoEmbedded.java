@@ -51,9 +51,9 @@ public class AsyncGustoEmbedded {
 
     private final AsyncEmployeeTaxSetup employeeTaxSetup;
 
-    private final AsyncEmployeePaymentMethod employeePaymentMethod;
-
     private final AsyncEmployeePaymentMethods employeePaymentMethods;
+
+    private final AsyncEmployeePaymentMethod employeePaymentMethod;
 
     private final AsyncJobsAndCompensations jobsAndCompensations;
 
@@ -61,9 +61,9 @@ public class AsyncGustoEmbedded {
 
     private final AsyncContractors contractors;
 
-    private final AsyncContractorPaymentMethods contractorPaymentMethods;
-
     private final AsyncContractorPaymentMethod contractorPaymentMethod;
+
+    private final AsyncContractorPaymentMethods contractorPaymentMethods;
 
     private final AsyncWebhooks webhooks;
 
@@ -116,6 +116,8 @@ public class AsyncGustoEmbedded {
     private final AsyncReimbursements reimbursements;
 
     private final AsyncPeopleBatches peopleBatches;
+
+    private final AsyncTimeOffRequests timeOffRequests;
 
     public AsyncIntrospection introspection() {
         return introspection;
@@ -197,12 +199,12 @@ public class AsyncGustoEmbedded {
         return employeeTaxSetup;
     }
 
-    public AsyncEmployeePaymentMethod employeePaymentMethod() {
-        return employeePaymentMethod;
-    }
-
     public AsyncEmployeePaymentMethods employeePaymentMethods() {
         return employeePaymentMethods;
+    }
+
+    public AsyncEmployeePaymentMethod employeePaymentMethod() {
+        return employeePaymentMethod;
     }
 
     public AsyncJobsAndCompensations jobsAndCompensations() {
@@ -217,12 +219,12 @@ public class AsyncGustoEmbedded {
         return contractors;
     }
 
-    public AsyncContractorPaymentMethods contractorPaymentMethods() {
-        return contractorPaymentMethods;
-    }
-
     public AsyncContractorPaymentMethod contractorPaymentMethod() {
         return contractorPaymentMethod;
+    }
+
+    public AsyncContractorPaymentMethods contractorPaymentMethods() {
+        return contractorPaymentMethods;
     }
 
     public AsyncWebhooks webhooks() {
@@ -329,6 +331,10 @@ public class AsyncGustoEmbedded {
         return peopleBatches;
     }
 
+    public AsyncTimeOffRequests timeOffRequests() {
+        return timeOffRequests;
+    }
+
     private final SDKConfiguration sdkConfiguration;
     private final GustoEmbedded syncSDK;
 
@@ -355,13 +361,13 @@ public class AsyncGustoEmbedded {
         this.employeeEmployments = new AsyncEmployeeEmployments(syncSDK.employeeEmployments(), sdkConfiguration);
         this.employeeAddresses = new AsyncEmployeeAddresses(syncSDK.employeeAddresses(), sdkConfiguration);
         this.employeeTaxSetup = new AsyncEmployeeTaxSetup(syncSDK.employeeTaxSetup(), sdkConfiguration);
-        this.employeePaymentMethod = new AsyncEmployeePaymentMethod(syncSDK.employeePaymentMethod(), sdkConfiguration);
         this.employeePaymentMethods = new AsyncEmployeePaymentMethods(syncSDK.employeePaymentMethods(), sdkConfiguration);
+        this.employeePaymentMethod = new AsyncEmployeePaymentMethod(syncSDK.employeePaymentMethod(), sdkConfiguration);
         this.jobsAndCompensations = new AsyncJobsAndCompensations(syncSDK.jobsAndCompensations(), sdkConfiguration);
         this.earningTypes = new AsyncEarningTypes(syncSDK.earningTypes(), sdkConfiguration);
         this.contractors = new AsyncContractors(syncSDK.contractors(), sdkConfiguration);
-        this.contractorPaymentMethods = new AsyncContractorPaymentMethods(syncSDK.contractorPaymentMethods(), sdkConfiguration);
         this.contractorPaymentMethod = new AsyncContractorPaymentMethod(syncSDK.contractorPaymentMethod(), sdkConfiguration);
+        this.contractorPaymentMethods = new AsyncContractorPaymentMethods(syncSDK.contractorPaymentMethods(), sdkConfiguration);
         this.webhooks = new AsyncWebhooks(syncSDK.webhooks(), sdkConfiguration);
         this.contractorForms = new AsyncContractorForms(syncSDK.contractorForms(), sdkConfiguration);
         this.contractorDocuments = new AsyncContractorDocuments(syncSDK.contractorDocuments(), sdkConfiguration);
@@ -388,6 +394,7 @@ public class AsyncGustoEmbedded {
         this.salaryEstimates = new AsyncSalaryEstimates(syncSDK.salaryEstimates(), sdkConfiguration);
         this.reimbursements = new AsyncReimbursements(syncSDK.reimbursements(), sdkConfiguration);
         this.peopleBatches = new AsyncPeopleBatches(syncSDK.peopleBatches(), sdkConfiguration);
+        this.timeOffRequests = new AsyncTimeOffRequests(syncSDK.timeOffRequests(), sdkConfiguration);
     }
 
     /**

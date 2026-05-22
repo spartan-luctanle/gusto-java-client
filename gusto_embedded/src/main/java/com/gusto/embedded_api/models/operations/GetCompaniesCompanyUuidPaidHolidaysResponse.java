@@ -5,7 +5,7 @@ package com.gusto.embedded_api.models.operations;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.gusto.embedded_api.models.components.PaidHolidays;
+import com.gusto.embedded_api.models.components.PaidHoliday;
 import com.gusto.embedded_api.utils.Response;
 import com.gusto.embedded_api.utils.Utils;
 import java.io.InputStream;
@@ -14,6 +14,7 @@ import java.lang.Override;
 import java.lang.String;
 import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -34,16 +35,16 @@ public class GetCompaniesCompanyUuidPaidHolidaysResponse implements Response {
     private HttpResponse<InputStream> rawResponse;
 
     /**
-     * Paid Holidays Object Example
+     * successful
      */
-    private Optional<? extends PaidHolidays> paidHolidays;
+    private Optional<? extends List<PaidHoliday>> paidHolidays;
 
     @JsonCreator
     public GetCompaniesCompanyUuidPaidHolidaysResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends PaidHolidays> paidHolidays) {
+            Optional<? extends List<PaidHoliday>> paidHolidays) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
@@ -87,12 +88,12 @@ public class GetCompaniesCompanyUuidPaidHolidaysResponse implements Response {
     }
 
     /**
-     * Paid Holidays Object Example
+     * successful
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<PaidHolidays> paidHolidays() {
-        return (Optional<PaidHolidays>) paidHolidays;
+    public Optional<List<PaidHoliday>> paidHolidays() {
+        return (Optional<List<PaidHoliday>>) paidHolidays;
     }
 
     public static Builder builder() {
@@ -128,9 +129,9 @@ public class GetCompaniesCompanyUuidPaidHolidaysResponse implements Response {
     }
 
     /**
-     * Paid Holidays Object Example
+     * successful
      */
-    public GetCompaniesCompanyUuidPaidHolidaysResponse withPaidHolidays(PaidHolidays paidHolidays) {
+    public GetCompaniesCompanyUuidPaidHolidaysResponse withPaidHolidays(List<PaidHoliday> paidHolidays) {
         Utils.checkNotNull(paidHolidays, "paidHolidays");
         this.paidHolidays = Optional.ofNullable(paidHolidays);
         return this;
@@ -138,9 +139,9 @@ public class GetCompaniesCompanyUuidPaidHolidaysResponse implements Response {
 
 
     /**
-     * Paid Holidays Object Example
+     * successful
      */
-    public GetCompaniesCompanyUuidPaidHolidaysResponse withPaidHolidays(Optional<? extends PaidHolidays> paidHolidays) {
+    public GetCompaniesCompanyUuidPaidHolidaysResponse withPaidHolidays(Optional<? extends List<PaidHoliday>> paidHolidays) {
         Utils.checkNotNull(paidHolidays, "paidHolidays");
         this.paidHolidays = paidHolidays;
         return this;
@@ -187,7 +188,7 @@ public class GetCompaniesCompanyUuidPaidHolidaysResponse implements Response {
 
         private HttpResponse<InputStream> rawResponse;
 
-        private Optional<? extends PaidHolidays> paidHolidays = Optional.empty();
+        private Optional<? extends List<PaidHoliday>> paidHolidays = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -225,18 +226,18 @@ public class GetCompaniesCompanyUuidPaidHolidaysResponse implements Response {
 
 
         /**
-         * Paid Holidays Object Example
+         * successful
          */
-        public Builder paidHolidays(PaidHolidays paidHolidays) {
+        public Builder paidHolidays(List<PaidHoliday> paidHolidays) {
             Utils.checkNotNull(paidHolidays, "paidHolidays");
             this.paidHolidays = Optional.ofNullable(paidHolidays);
             return this;
         }
 
         /**
-         * Paid Holidays Object Example
+         * successful
          */
-        public Builder paidHolidays(Optional<? extends PaidHolidays> paidHolidays) {
+        public Builder paidHolidays(Optional<? extends List<PaidHoliday>> paidHolidays) {
             Utils.checkNotNull(paidHolidays, "paidHolidays");
             this.paidHolidays = paidHolidays;
             return this;

@@ -136,7 +136,7 @@ public class CompanyBenefit {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("catch_up_type")
-    private JsonNullable<? extends CompanyBenefitCatchUpType> catchUpType;
+    private JsonNullable<? extends CatchUpType> catchUpType;
 
     @JsonCreator
     public CompanyBenefit(
@@ -153,7 +153,7 @@ public class CompanyBenefit {
             @JsonProperty("supports_percentage_amounts") Optional<Boolean> supportsPercentageAmounts,
             @JsonProperty("responsible_for_employer_taxes") Optional<Boolean> responsibleForEmployerTaxes,
             @JsonProperty("responsible_for_employee_w2") Optional<Boolean> responsibleForEmployeeW2,
-            @JsonProperty("catch_up_type") JsonNullable<? extends CompanyBenefitCatchUpType> catchUpType) {
+            @JsonProperty("catch_up_type") JsonNullable<? extends CatchUpType> catchUpType) {
         Utils.checkNotNull(version, "version");
         Utils.checkNotNull(enrollmentCount, "enrollmentCount");
         Utils.checkNotNull(companyUuid, "companyUuid");
@@ -319,8 +319,8 @@ public class CompanyBenefit {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public JsonNullable<CompanyBenefitCatchUpType> catchUpType() {
-        return (JsonNullable<CompanyBenefitCatchUpType>) catchUpType;
+    public JsonNullable<CatchUpType> catchUpType() {
+        return (JsonNullable<CatchUpType>) catchUpType;
     }
 
     public static Builder builder() {
@@ -598,7 +598,7 @@ public class CompanyBenefit {
      * The type of catch-up contribution for this benefit, as required by Section 603 of the SECURE 2.0
      * Act. Only applicable to pre-tax 401(k) and 403(b) benefits.
      */
-    public CompanyBenefit withCatchUpType(CompanyBenefitCatchUpType catchUpType) {
+    public CompanyBenefit withCatchUpType(CatchUpType catchUpType) {
         Utils.checkNotNull(catchUpType, "catchUpType");
         this.catchUpType = JsonNullable.of(catchUpType);
         return this;
@@ -608,7 +608,7 @@ public class CompanyBenefit {
      * The type of catch-up contribution for this benefit, as required by Section 603 of the SECURE 2.0
      * Act. Only applicable to pre-tax 401(k) and 403(b) benefits.
      */
-    public CompanyBenefit withCatchUpType(JsonNullable<? extends CompanyBenefitCatchUpType> catchUpType) {
+    public CompanyBenefit withCatchUpType(JsonNullable<? extends CatchUpType> catchUpType) {
         Utils.checkNotNull(catchUpType, "catchUpType");
         this.catchUpType = catchUpType;
         return this;
@@ -698,7 +698,7 @@ public class CompanyBenefit {
 
         private Optional<Boolean> responsibleForEmployeeW2 = Optional.empty();
 
-        private JsonNullable<? extends CompanyBenefitCatchUpType> catchUpType = JsonNullable.undefined();
+        private JsonNullable<? extends CatchUpType> catchUpType = JsonNullable.undefined();
 
         private Builder() {
           // force use of static builder() method
@@ -977,7 +977,7 @@ public class CompanyBenefit {
          * The type of catch-up contribution for this benefit, as required by Section 603 of the SECURE 2.0
          * Act. Only applicable to pre-tax 401(k) and 403(b) benefits.
          */
-        public Builder catchUpType(CompanyBenefitCatchUpType catchUpType) {
+        public Builder catchUpType(CatchUpType catchUpType) {
             Utils.checkNotNull(catchUpType, "catchUpType");
             this.catchUpType = JsonNullable.of(catchUpType);
             return this;
@@ -987,7 +987,7 @@ public class CompanyBenefit {
          * The type of catch-up contribution for this benefit, as required by Section 603 of the SECURE 2.0
          * Act. Only applicable to pre-tax 401(k) and 403(b) benefits.
          */
-        public Builder catchUpType(JsonNullable<? extends CompanyBenefitCatchUpType> catchUpType) {
+        public Builder catchUpType(JsonNullable<? extends CatchUpType> catchUpType) {
             Utils.checkNotNull(catchUpType, "catchUpType");
             this.catchUpType = catchUpType;
             return this;

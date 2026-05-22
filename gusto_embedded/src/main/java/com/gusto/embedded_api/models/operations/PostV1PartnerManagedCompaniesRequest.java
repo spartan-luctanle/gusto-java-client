@@ -6,7 +6,7 @@ package com.gusto.embedded_api.models.operations;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.components.PartnerManagedCompanyCreateRequest;
 import com.gusto.embedded_api.utils.LazySingletonValue;
 import com.gusto.embedded_api.utils.SpeakeasyMetadata;
 import com.gusto.embedded_api.utils.Utils;
@@ -23,25 +23,25 @@ public class PostV1PartnerManagedCompaniesRequest {
      * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      */
     @SpeakeasyMetadata("header:style=simple,explode=false,name=X-Gusto-API-Version")
-    private Optional<? extends VersionHeader> xGustoAPIVersion;
+    private Optional<? extends PostV1PartnerManagedCompaniesHeaderXGustoAPIVersion> xGustoAPIVersion;
 
 
     @SpeakeasyMetadata("request:mediaType=application/json")
-    private PostV1PartnerManagedCompaniesRequestBody requestBody;
+    private PartnerManagedCompanyCreateRequest partnerManagedCompanyCreateRequest;
 
     @JsonCreator
     public PostV1PartnerManagedCompaniesRequest(
-            Optional<? extends VersionHeader> xGustoAPIVersion,
-            PostV1PartnerManagedCompaniesRequestBody requestBody) {
+            Optional<? extends PostV1PartnerManagedCompaniesHeaderXGustoAPIVersion> xGustoAPIVersion,
+            PartnerManagedCompanyCreateRequest partnerManagedCompanyCreateRequest) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        Utils.checkNotNull(requestBody, "requestBody");
+        Utils.checkNotNull(partnerManagedCompanyCreateRequest, "partnerManagedCompanyCreateRequest");
         this.xGustoAPIVersion = xGustoAPIVersion;
-        this.requestBody = requestBody;
+        this.partnerManagedCompanyCreateRequest = partnerManagedCompanyCreateRequest;
     }
     
     public PostV1PartnerManagedCompaniesRequest(
-            PostV1PartnerManagedCompaniesRequestBody requestBody) {
-        this(Optional.empty(), requestBody);
+            PartnerManagedCompanyCreateRequest partnerManagedCompanyCreateRequest) {
+        this(Optional.empty(), partnerManagedCompanyCreateRequest);
     }
 
     /**
@@ -51,13 +51,13 @@ public class PostV1PartnerManagedCompaniesRequest {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<VersionHeader> xGustoAPIVersion() {
-        return (Optional<VersionHeader>) xGustoAPIVersion;
+    public Optional<PostV1PartnerManagedCompaniesHeaderXGustoAPIVersion> xGustoAPIVersion() {
+        return (Optional<PostV1PartnerManagedCompaniesHeaderXGustoAPIVersion>) xGustoAPIVersion;
     }
 
     @JsonIgnore
-    public PostV1PartnerManagedCompaniesRequestBody requestBody() {
-        return requestBody;
+    public PartnerManagedCompanyCreateRequest partnerManagedCompanyCreateRequest() {
+        return partnerManagedCompanyCreateRequest;
     }
 
     public static Builder builder() {
@@ -70,7 +70,7 @@ public class PostV1PartnerManagedCompaniesRequest {
      * application's [minimum API
      * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      */
-    public PostV1PartnerManagedCompaniesRequest withXGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+    public PostV1PartnerManagedCompaniesRequest withXGustoAPIVersion(PostV1PartnerManagedCompaniesHeaderXGustoAPIVersion xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
         return this;
@@ -82,15 +82,15 @@ public class PostV1PartnerManagedCompaniesRequest {
      * application's [minimum API
      * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      */
-    public PostV1PartnerManagedCompaniesRequest withXGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public PostV1PartnerManagedCompaniesRequest withXGustoAPIVersion(Optional<? extends PostV1PartnerManagedCompaniesHeaderXGustoAPIVersion> xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = xGustoAPIVersion;
         return this;
     }
 
-    public PostV1PartnerManagedCompaniesRequest withRequestBody(PostV1PartnerManagedCompaniesRequestBody requestBody) {
-        Utils.checkNotNull(requestBody, "requestBody");
-        this.requestBody = requestBody;
+    public PostV1PartnerManagedCompaniesRequest withPartnerManagedCompanyCreateRequest(PartnerManagedCompanyCreateRequest partnerManagedCompanyCreateRequest) {
+        Utils.checkNotNull(partnerManagedCompanyCreateRequest, "partnerManagedCompanyCreateRequest");
+        this.partnerManagedCompanyCreateRequest = partnerManagedCompanyCreateRequest;
         return this;
     }
 
@@ -105,28 +105,28 @@ public class PostV1PartnerManagedCompaniesRequest {
         PostV1PartnerManagedCompaniesRequest other = (PostV1PartnerManagedCompaniesRequest) o;
         return 
             Utils.enhancedDeepEquals(this.xGustoAPIVersion, other.xGustoAPIVersion) &&
-            Utils.enhancedDeepEquals(this.requestBody, other.requestBody);
+            Utils.enhancedDeepEquals(this.partnerManagedCompanyCreateRequest, other.partnerManagedCompanyCreateRequest);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            xGustoAPIVersion, requestBody);
+            xGustoAPIVersion, partnerManagedCompanyCreateRequest);
     }
     
     @Override
     public String toString() {
         return Utils.toString(PostV1PartnerManagedCompaniesRequest.class,
                 "xGustoAPIVersion", xGustoAPIVersion,
-                "requestBody", requestBody);
+                "partnerManagedCompanyCreateRequest", partnerManagedCompanyCreateRequest);
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
-        private Optional<? extends VersionHeader> xGustoAPIVersion;
+        private Optional<? extends PostV1PartnerManagedCompaniesHeaderXGustoAPIVersion> xGustoAPIVersion;
 
-        private PostV1PartnerManagedCompaniesRequestBody requestBody;
+        private PartnerManagedCompanyCreateRequest partnerManagedCompanyCreateRequest;
 
         private Builder() {
           // force use of static builder() method
@@ -138,7 +138,7 @@ public class PostV1PartnerManagedCompaniesRequest {
          * application's [minimum API
          * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
          */
-        public Builder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+        public Builder xGustoAPIVersion(PostV1PartnerManagedCompaniesHeaderXGustoAPIVersion xGustoAPIVersion) {
             Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
             this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
             return this;
@@ -149,16 +149,16 @@ public class PostV1PartnerManagedCompaniesRequest {
          * application's [minimum API
          * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
          */
-        public Builder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+        public Builder xGustoAPIVersion(Optional<? extends PostV1PartnerManagedCompaniesHeaderXGustoAPIVersion> xGustoAPIVersion) {
             Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
             this.xGustoAPIVersion = xGustoAPIVersion;
             return this;
         }
 
 
-        public Builder requestBody(PostV1PartnerManagedCompaniesRequestBody requestBody) {
-            Utils.checkNotNull(requestBody, "requestBody");
-            this.requestBody = requestBody;
+        public Builder partnerManagedCompanyCreateRequest(PartnerManagedCompanyCreateRequest partnerManagedCompanyCreateRequest) {
+            Utils.checkNotNull(partnerManagedCompanyCreateRequest, "partnerManagedCompanyCreateRequest");
+            this.partnerManagedCompanyCreateRequest = partnerManagedCompanyCreateRequest;
             return this;
         }
 
@@ -168,14 +168,14 @@ public class PostV1PartnerManagedCompaniesRequest {
             }
 
             return new PostV1PartnerManagedCompaniesRequest(
-                xGustoAPIVersion, requestBody);
+                xGustoAPIVersion, partnerManagedCompanyCreateRequest);
         }
 
 
-        private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+        private static final LazySingletonValue<Optional<? extends PostV1PartnerManagedCompaniesHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
                 new LazySingletonValue<>(
                         "X-Gusto-API-Version",
                         "\"2025-06-15\"",
-                        new TypeReference<Optional<? extends VersionHeader>>() {});
+                        new TypeReference<Optional<? extends PostV1PartnerManagedCompaniesHeaderXGustoAPIVersion>>() {});
     }
 }

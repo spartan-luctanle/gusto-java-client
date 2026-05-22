@@ -7,7 +7,6 @@ import static com.gusto.embedded_api.operations.Operations.RequestOperation;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.VersionHeader;
 import com.gusto.embedded_api.operations.DeleteV1ExternalPayroll;
 import com.gusto.embedded_api.utils.Headers;
 import com.gusto.embedded_api.utils.LazySingletonValue;
@@ -17,17 +16,29 @@ import java.util.Optional;
 
 public class DeleteV1ExternalPayrollRequestBuilder {
 
-    private String companyUuid;
-    private String externalPayrollId;
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
+    private Optional<? extends DeleteV1ExternalPayrollHeaderXGustoAPIVersion> xGustoAPIVersion = Utils.readDefaultOrConstValue(
                             "xGustoAPIVersion",
                             "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
+                            new TypeReference<Optional<? extends DeleteV1ExternalPayrollHeaderXGustoAPIVersion>>() {});
+    private String companyUuid;
+    private String externalPayrollId;
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
     public DeleteV1ExternalPayrollRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
+    }
+                
+    public DeleteV1ExternalPayrollRequestBuilder xGustoAPIVersion(DeleteV1ExternalPayrollHeaderXGustoAPIVersion xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
+        return this;
+    }
+
+    public DeleteV1ExternalPayrollRequestBuilder xGustoAPIVersion(Optional<? extends DeleteV1ExternalPayrollHeaderXGustoAPIVersion> xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = xGustoAPIVersion;
+        return this;
     }
 
     public DeleteV1ExternalPayrollRequestBuilder companyUuid(String companyUuid) {
@@ -41,18 +52,6 @@ public class DeleteV1ExternalPayrollRequestBuilder {
         this.externalPayrollId = externalPayrollId;
         return this;
     }
-                
-    public DeleteV1ExternalPayrollRequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
-        return this;
-    }
-
-    public DeleteV1ExternalPayrollRequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = xGustoAPIVersion;
-        return this;
-    }
 
 
     private DeleteV1ExternalPayrollRequest buildRequest() {
@@ -60,9 +59,9 @@ public class DeleteV1ExternalPayrollRequestBuilder {
             xGustoAPIVersion = _SINGLETON_VALUE_XGustoAPIVersion.value();
         }
 
-        DeleteV1ExternalPayrollRequest request = new DeleteV1ExternalPayrollRequest(companyUuid,
-            externalPayrollId,
-            xGustoAPIVersion);
+        DeleteV1ExternalPayrollRequest request = new DeleteV1ExternalPayrollRequest(xGustoAPIVersion,
+            companyUuid,
+            externalPayrollId);
 
         return request;
     }
@@ -76,9 +75,9 @@ public class DeleteV1ExternalPayrollRequestBuilder {
         return operation.handleResponse(operation.doRequest(request));
     }
 
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+    private static final LazySingletonValue<Optional<? extends DeleteV1ExternalPayrollHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
             new LazySingletonValue<>(
                     "xGustoAPIVersion",
                     "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
+                    new TypeReference<Optional<? extends DeleteV1ExternalPayrollHeaderXGustoAPIVersion>>() {});
 }

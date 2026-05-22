@@ -6,7 +6,7 @@ package com.gusto.embedded_api.models.operations;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.components.ContractorPaymentsPreviewBody;
 import com.gusto.embedded_api.utils.LazySingletonValue;
 import com.gusto.embedded_api.utils.SpeakeasyMetadata;
 import com.gusto.embedded_api.utils.Utils;
@@ -18,42 +18,51 @@ import java.util.Optional;
 
 public class GetCompaniesCompanyUuidContractorPaymentsPreviewRequest {
     /**
+     * Determines the date-based API version associated with your API call. If none is provided, your
+     * application's [minimum API
+     * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     */
+    @SpeakeasyMetadata("header:style=simple,explode=false,name=X-Gusto-API-Version")
+    private Optional<? extends GetCompaniesCompanyUuidContractorPaymentsPreviewHeaderXGustoAPIVersion> xGustoAPIVersion;
+
+    /**
      * The UUID of the company
      */
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=company_uuid")
     private String companyUuid;
+
+
+    @SpeakeasyMetadata("request:mediaType=application/json")
+    private ContractorPaymentsPreviewBody contractorPaymentsPreviewBody;
+
+    @JsonCreator
+    public GetCompaniesCompanyUuidContractorPaymentsPreviewRequest(
+            Optional<? extends GetCompaniesCompanyUuidContractorPaymentsPreviewHeaderXGustoAPIVersion> xGustoAPIVersion,
+            String companyUuid,
+            ContractorPaymentsPreviewBody contractorPaymentsPreviewBody) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        Utils.checkNotNull(companyUuid, "companyUuid");
+        Utils.checkNotNull(contractorPaymentsPreviewBody, "contractorPaymentsPreviewBody");
+        this.xGustoAPIVersion = xGustoAPIVersion;
+        this.companyUuid = companyUuid;
+        this.contractorPaymentsPreviewBody = contractorPaymentsPreviewBody;
+    }
+    
+    public GetCompaniesCompanyUuidContractorPaymentsPreviewRequest(
+            String companyUuid,
+            ContractorPaymentsPreviewBody contractorPaymentsPreviewBody) {
+        this(Optional.empty(), companyUuid, contractorPaymentsPreviewBody);
+    }
 
     /**
      * Determines the date-based API version associated with your API call. If none is provided, your
      * application's [minimum API
      * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      */
-    @SpeakeasyMetadata("header:style=simple,explode=false,name=X-Gusto-API-Version")
-    private Optional<? extends VersionHeader> xGustoAPIVersion;
-
-    /**
-     * a list of contractor payments.
-     */
-    @SpeakeasyMetadata("request:mediaType=application/json")
-    private GetCompaniesCompanyUuidContractorPaymentsPreviewRequestBody requestBody;
-
-    @JsonCreator
-    public GetCompaniesCompanyUuidContractorPaymentsPreviewRequest(
-            String companyUuid,
-            Optional<? extends VersionHeader> xGustoAPIVersion,
-            GetCompaniesCompanyUuidContractorPaymentsPreviewRequestBody requestBody) {
-        Utils.checkNotNull(companyUuid, "companyUuid");
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        Utils.checkNotNull(requestBody, "requestBody");
-        this.companyUuid = companyUuid;
-        this.xGustoAPIVersion = xGustoAPIVersion;
-        this.requestBody = requestBody;
-    }
-    
-    public GetCompaniesCompanyUuidContractorPaymentsPreviewRequest(
-            String companyUuid,
-            GetCompaniesCompanyUuidContractorPaymentsPreviewRequestBody requestBody) {
-        this(companyUuid, Optional.empty(), requestBody);
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<GetCompaniesCompanyUuidContractorPaymentsPreviewHeaderXGustoAPIVersion> xGustoAPIVersion() {
+        return (Optional<GetCompaniesCompanyUuidContractorPaymentsPreviewHeaderXGustoAPIVersion>) xGustoAPIVersion;
     }
 
     /**
@@ -64,23 +73,9 @@ public class GetCompaniesCompanyUuidContractorPaymentsPreviewRequest {
         return companyUuid;
     }
 
-    /**
-     * Determines the date-based API version associated with your API call. If none is provided, your
-     * application's [minimum API
-     * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
-     */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<VersionHeader> xGustoAPIVersion() {
-        return (Optional<VersionHeader>) xGustoAPIVersion;
-    }
-
-    /**
-     * a list of contractor payments.
-     */
-    @JsonIgnore
-    public GetCompaniesCompanyUuidContractorPaymentsPreviewRequestBody requestBody() {
-        return requestBody;
+    public ContractorPaymentsPreviewBody contractorPaymentsPreviewBody() {
+        return contractorPaymentsPreviewBody;
     }
 
     public static Builder builder() {
@@ -89,20 +84,11 @@ public class GetCompaniesCompanyUuidContractorPaymentsPreviewRequest {
 
 
     /**
-     * The UUID of the company
-     */
-    public GetCompaniesCompanyUuidContractorPaymentsPreviewRequest withCompanyUuid(String companyUuid) {
-        Utils.checkNotNull(companyUuid, "companyUuid");
-        this.companyUuid = companyUuid;
-        return this;
-    }
-
-    /**
      * Determines the date-based API version associated with your API call. If none is provided, your
      * application's [minimum API
      * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      */
-    public GetCompaniesCompanyUuidContractorPaymentsPreviewRequest withXGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+    public GetCompaniesCompanyUuidContractorPaymentsPreviewRequest withXGustoAPIVersion(GetCompaniesCompanyUuidContractorPaymentsPreviewHeaderXGustoAPIVersion xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
         return this;
@@ -114,18 +100,24 @@ public class GetCompaniesCompanyUuidContractorPaymentsPreviewRequest {
      * application's [minimum API
      * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      */
-    public GetCompaniesCompanyUuidContractorPaymentsPreviewRequest withXGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public GetCompaniesCompanyUuidContractorPaymentsPreviewRequest withXGustoAPIVersion(Optional<? extends GetCompaniesCompanyUuidContractorPaymentsPreviewHeaderXGustoAPIVersion> xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = xGustoAPIVersion;
         return this;
     }
 
     /**
-     * a list of contractor payments.
+     * The UUID of the company
      */
-    public GetCompaniesCompanyUuidContractorPaymentsPreviewRequest withRequestBody(GetCompaniesCompanyUuidContractorPaymentsPreviewRequestBody requestBody) {
-        Utils.checkNotNull(requestBody, "requestBody");
-        this.requestBody = requestBody;
+    public GetCompaniesCompanyUuidContractorPaymentsPreviewRequest withCompanyUuid(String companyUuid) {
+        Utils.checkNotNull(companyUuid, "companyUuid");
+        this.companyUuid = companyUuid;
+        return this;
+    }
+
+    public GetCompaniesCompanyUuidContractorPaymentsPreviewRequest withContractorPaymentsPreviewBody(ContractorPaymentsPreviewBody contractorPaymentsPreviewBody) {
+        Utils.checkNotNull(contractorPaymentsPreviewBody, "contractorPaymentsPreviewBody");
+        this.contractorPaymentsPreviewBody = contractorPaymentsPreviewBody;
         return this;
     }
 
@@ -139,36 +131,59 @@ public class GetCompaniesCompanyUuidContractorPaymentsPreviewRequest {
         }
         GetCompaniesCompanyUuidContractorPaymentsPreviewRequest other = (GetCompaniesCompanyUuidContractorPaymentsPreviewRequest) o;
         return 
-            Utils.enhancedDeepEquals(this.companyUuid, other.companyUuid) &&
             Utils.enhancedDeepEquals(this.xGustoAPIVersion, other.xGustoAPIVersion) &&
-            Utils.enhancedDeepEquals(this.requestBody, other.requestBody);
+            Utils.enhancedDeepEquals(this.companyUuid, other.companyUuid) &&
+            Utils.enhancedDeepEquals(this.contractorPaymentsPreviewBody, other.contractorPaymentsPreviewBody);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            companyUuid, xGustoAPIVersion, requestBody);
+            xGustoAPIVersion, companyUuid, contractorPaymentsPreviewBody);
     }
     
     @Override
     public String toString() {
         return Utils.toString(GetCompaniesCompanyUuidContractorPaymentsPreviewRequest.class,
-                "companyUuid", companyUuid,
                 "xGustoAPIVersion", xGustoAPIVersion,
-                "requestBody", requestBody);
+                "companyUuid", companyUuid,
+                "contractorPaymentsPreviewBody", contractorPaymentsPreviewBody);
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
+        private Optional<? extends GetCompaniesCompanyUuidContractorPaymentsPreviewHeaderXGustoAPIVersion> xGustoAPIVersion;
+
         private String companyUuid;
 
-        private Optional<? extends VersionHeader> xGustoAPIVersion;
-
-        private GetCompaniesCompanyUuidContractorPaymentsPreviewRequestBody requestBody;
+        private ContractorPaymentsPreviewBody contractorPaymentsPreviewBody;
 
         private Builder() {
           // force use of static builder() method
+        }
+
+
+        /**
+         * Determines the date-based API version associated with your API call. If none is provided, your
+         * application's [minimum API
+         * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+         */
+        public Builder xGustoAPIVersion(GetCompaniesCompanyUuidContractorPaymentsPreviewHeaderXGustoAPIVersion xGustoAPIVersion) {
+            Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+            this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
+            return this;
+        }
+
+        /**
+         * Determines the date-based API version associated with your API call. If none is provided, your
+         * application's [minimum API
+         * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+         */
+        public Builder xGustoAPIVersion(Optional<? extends GetCompaniesCompanyUuidContractorPaymentsPreviewHeaderXGustoAPIVersion> xGustoAPIVersion) {
+            Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+            this.xGustoAPIVersion = xGustoAPIVersion;
+            return this;
         }
 
 
@@ -182,35 +197,9 @@ public class GetCompaniesCompanyUuidContractorPaymentsPreviewRequest {
         }
 
 
-        /**
-         * Determines the date-based API version associated with your API call. If none is provided, your
-         * application's [minimum API
-         * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
-         */
-        public Builder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
-            Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-            this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
-            return this;
-        }
-
-        /**
-         * Determines the date-based API version associated with your API call. If none is provided, your
-         * application's [minimum API
-         * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
-         */
-        public Builder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
-            Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-            this.xGustoAPIVersion = xGustoAPIVersion;
-            return this;
-        }
-
-
-        /**
-         * a list of contractor payments.
-         */
-        public Builder requestBody(GetCompaniesCompanyUuidContractorPaymentsPreviewRequestBody requestBody) {
-            Utils.checkNotNull(requestBody, "requestBody");
-            this.requestBody = requestBody;
+        public Builder contractorPaymentsPreviewBody(ContractorPaymentsPreviewBody contractorPaymentsPreviewBody) {
+            Utils.checkNotNull(contractorPaymentsPreviewBody, "contractorPaymentsPreviewBody");
+            this.contractorPaymentsPreviewBody = contractorPaymentsPreviewBody;
             return this;
         }
 
@@ -220,14 +209,14 @@ public class GetCompaniesCompanyUuidContractorPaymentsPreviewRequest {
             }
 
             return new GetCompaniesCompanyUuidContractorPaymentsPreviewRequest(
-                companyUuid, xGustoAPIVersion, requestBody);
+                xGustoAPIVersion, companyUuid, contractorPaymentsPreviewBody);
         }
 
 
-        private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+        private static final LazySingletonValue<Optional<? extends GetCompaniesCompanyUuidContractorPaymentsPreviewHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
                 new LazySingletonValue<>(
                         "X-Gusto-API-Version",
                         "\"2025-06-15\"",
-                        new TypeReference<Optional<? extends VersionHeader>>() {});
+                        new TypeReference<Optional<? extends GetCompaniesCompanyUuidContractorPaymentsPreviewHeaderXGustoAPIVersion>>() {});
     }
 }

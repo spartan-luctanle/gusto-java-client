@@ -33,13 +33,13 @@ public class GetV1CompaniesCompanyIdPaySchedulesPreviewRequest {
     private String companyId;
 
     /**
-     * The frequency that employees on this pay schedule are paid.
+     * The frequency that employees on this pay schedule are paid with Gusto.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=frequency")
     private Frequency frequency;
 
     /**
-     * The first date that employees on this pay schedule are paid.
+     * The first date that employees on this pay schedule are paid with Gusto.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=anchor_pay_date")
     private LocalDate anchorPayDate;
@@ -51,17 +51,20 @@ public class GetV1CompaniesCompanyIdPaySchedulesPreviewRequest {
     private LocalDate anchorEndOfPayPeriod;
 
     /**
-     * First pay day of the month (1-31).
-     * - **Twice per month, Monthly:** required.
-     * - **Every week, Every other week:** omit or null.
+     * An integer between 1 and 31 indicating the first day of the month that employees are paid. This
+     * field is only relevant for pay schedules with the "Twice per month" and "Monthly" frequencies. It
+     * will be null for pay schedules with other frequencies.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=day_1")
     private Optional<Long> day1;
 
     /**
-     * Second pay day of the month (1-31); only for **Twice per month**.
-     * - Use 31 for last day of month (shorter months use the actual last day).
-     * - **Other frequencies:** omit or null.
+     * An integer between 1 and 31 indicating the second day of the month that employees are paid. This
+     * field is the second pay date for pay schedules with the "Twice per month" frequency. For
+     * semi-monthly pay schedules, set this field to 31.
+     * 
+     * <p>For months shorter than 31 days, the second pay date is set to the last day of the month. It will be
+     * null for pay schedules with other frequencies.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=day_2")
     private Optional<Long> day2;
@@ -131,7 +134,7 @@ public class GetV1CompaniesCompanyIdPaySchedulesPreviewRequest {
     }
 
     /**
-     * The frequency that employees on this pay schedule are paid.
+     * The frequency that employees on this pay schedule are paid with Gusto.
      */
     @JsonIgnore
     public Frequency frequency() {
@@ -139,7 +142,7 @@ public class GetV1CompaniesCompanyIdPaySchedulesPreviewRequest {
     }
 
     /**
-     * The first date that employees on this pay schedule are paid.
+     * The first date that employees on this pay schedule are paid with Gusto.
      */
     @JsonIgnore
     public LocalDate anchorPayDate() {
@@ -155,9 +158,9 @@ public class GetV1CompaniesCompanyIdPaySchedulesPreviewRequest {
     }
 
     /**
-     * First pay day of the month (1-31).
-     * - **Twice per month, Monthly:** required.
-     * - **Every week, Every other week:** omit or null.
+     * An integer between 1 and 31 indicating the first day of the month that employees are paid. This
+     * field is only relevant for pay schedules with the "Twice per month" and "Monthly" frequencies. It
+     * will be null for pay schedules with other frequencies.
      */
     @JsonIgnore
     public Optional<Long> day1() {
@@ -165,9 +168,12 @@ public class GetV1CompaniesCompanyIdPaySchedulesPreviewRequest {
     }
 
     /**
-     * Second pay day of the month (1-31); only for **Twice per month**.
-     * - Use 31 for last day of month (shorter months use the actual last day).
-     * - **Other frequencies:** omit or null.
+     * An integer between 1 and 31 indicating the second day of the month that employees are paid. This
+     * field is the second pay date for pay schedules with the "Twice per month" frequency. For
+     * semi-monthly pay schedules, set this field to 31.
+     * 
+     * <p>For months shorter than 31 days, the second pay date is set to the last day of the month. It will be
+     * null for pay schedules with other frequencies.
      */
     @JsonIgnore
     public Optional<Long> day2() {
@@ -221,7 +227,7 @@ public class GetV1CompaniesCompanyIdPaySchedulesPreviewRequest {
     }
 
     /**
-     * The frequency that employees on this pay schedule are paid.
+     * The frequency that employees on this pay schedule are paid with Gusto.
      */
     public GetV1CompaniesCompanyIdPaySchedulesPreviewRequest withFrequency(Frequency frequency) {
         Utils.checkNotNull(frequency, "frequency");
@@ -230,7 +236,7 @@ public class GetV1CompaniesCompanyIdPaySchedulesPreviewRequest {
     }
 
     /**
-     * The first date that employees on this pay schedule are paid.
+     * The first date that employees on this pay schedule are paid with Gusto.
      */
     public GetV1CompaniesCompanyIdPaySchedulesPreviewRequest withAnchorPayDate(LocalDate anchorPayDate) {
         Utils.checkNotNull(anchorPayDate, "anchorPayDate");
@@ -248,9 +254,9 @@ public class GetV1CompaniesCompanyIdPaySchedulesPreviewRequest {
     }
 
     /**
-     * First pay day of the month (1-31).
-     * - **Twice per month, Monthly:** required.
-     * - **Every week, Every other week:** omit or null.
+     * An integer between 1 and 31 indicating the first day of the month that employees are paid. This
+     * field is only relevant for pay schedules with the "Twice per month" and "Monthly" frequencies. It
+     * will be null for pay schedules with other frequencies.
      */
     public GetV1CompaniesCompanyIdPaySchedulesPreviewRequest withDay1(long day1) {
         Utils.checkNotNull(day1, "day1");
@@ -260,9 +266,9 @@ public class GetV1CompaniesCompanyIdPaySchedulesPreviewRequest {
 
 
     /**
-     * First pay day of the month (1-31).
-     * - **Twice per month, Monthly:** required.
-     * - **Every week, Every other week:** omit or null.
+     * An integer between 1 and 31 indicating the first day of the month that employees are paid. This
+     * field is only relevant for pay schedules with the "Twice per month" and "Monthly" frequencies. It
+     * will be null for pay schedules with other frequencies.
      */
     public GetV1CompaniesCompanyIdPaySchedulesPreviewRequest withDay1(Optional<Long> day1) {
         Utils.checkNotNull(day1, "day1");
@@ -271,9 +277,12 @@ public class GetV1CompaniesCompanyIdPaySchedulesPreviewRequest {
     }
 
     /**
-     * Second pay day of the month (1-31); only for **Twice per month**.
-     * - Use 31 for last day of month (shorter months use the actual last day).
-     * - **Other frequencies:** omit or null.
+     * An integer between 1 and 31 indicating the second day of the month that employees are paid. This
+     * field is the second pay date for pay schedules with the "Twice per month" frequency. For
+     * semi-monthly pay schedules, set this field to 31.
+     * 
+     * <p>For months shorter than 31 days, the second pay date is set to the last day of the month. It will be
+     * null for pay schedules with other frequencies.
      */
     public GetV1CompaniesCompanyIdPaySchedulesPreviewRequest withDay2(long day2) {
         Utils.checkNotNull(day2, "day2");
@@ -283,9 +292,12 @@ public class GetV1CompaniesCompanyIdPaySchedulesPreviewRequest {
 
 
     /**
-     * Second pay day of the month (1-31); only for **Twice per month**.
-     * - Use 31 for last day of month (shorter months use the actual last day).
-     * - **Other frequencies:** omit or null.
+     * An integer between 1 and 31 indicating the second day of the month that employees are paid. This
+     * field is the second pay date for pay schedules with the "Twice per month" frequency. For
+     * semi-monthly pay schedules, set this field to 31.
+     * 
+     * <p>For months shorter than 31 days, the second pay date is set to the last day of the month. It will be
+     * null for pay schedules with other frequencies.
      */
     public GetV1CompaniesCompanyIdPaySchedulesPreviewRequest withDay2(Optional<Long> day2) {
         Utils.checkNotNull(day2, "day2");
@@ -413,7 +425,7 @@ public class GetV1CompaniesCompanyIdPaySchedulesPreviewRequest {
 
 
         /**
-         * The frequency that employees on this pay schedule are paid.
+         * The frequency that employees on this pay schedule are paid with Gusto.
          */
         public Builder frequency(Frequency frequency) {
             Utils.checkNotNull(frequency, "frequency");
@@ -423,7 +435,7 @@ public class GetV1CompaniesCompanyIdPaySchedulesPreviewRequest {
 
 
         /**
-         * The first date that employees on this pay schedule are paid.
+         * The first date that employees on this pay schedule are paid with Gusto.
          */
         public Builder anchorPayDate(LocalDate anchorPayDate) {
             Utils.checkNotNull(anchorPayDate, "anchorPayDate");
@@ -443,9 +455,9 @@ public class GetV1CompaniesCompanyIdPaySchedulesPreviewRequest {
 
 
         /**
-         * First pay day of the month (1-31).
-         * - **Twice per month, Monthly:** required.
-         * - **Every week, Every other week:** omit or null.
+         * An integer between 1 and 31 indicating the first day of the month that employees are paid. This
+         * field is only relevant for pay schedules with the "Twice per month" and "Monthly" frequencies. It
+         * will be null for pay schedules with other frequencies.
          */
         public Builder day1(long day1) {
             Utils.checkNotNull(day1, "day1");
@@ -454,9 +466,9 @@ public class GetV1CompaniesCompanyIdPaySchedulesPreviewRequest {
         }
 
         /**
-         * First pay day of the month (1-31).
-         * - **Twice per month, Monthly:** required.
-         * - **Every week, Every other week:** omit or null.
+         * An integer between 1 and 31 indicating the first day of the month that employees are paid. This
+         * field is only relevant for pay schedules with the "Twice per month" and "Monthly" frequencies. It
+         * will be null for pay schedules with other frequencies.
          */
         public Builder day1(Optional<Long> day1) {
             Utils.checkNotNull(day1, "day1");
@@ -466,9 +478,12 @@ public class GetV1CompaniesCompanyIdPaySchedulesPreviewRequest {
 
 
         /**
-         * Second pay day of the month (1-31); only for **Twice per month**.
-         * - Use 31 for last day of month (shorter months use the actual last day).
-         * - **Other frequencies:** omit or null.
+         * An integer between 1 and 31 indicating the second day of the month that employees are paid. This
+         * field is the second pay date for pay schedules with the "Twice per month" frequency. For
+         * semi-monthly pay schedules, set this field to 31.
+         * 
+         * <p>For months shorter than 31 days, the second pay date is set to the last day of the month. It will be
+         * null for pay schedules with other frequencies.
          */
         public Builder day2(long day2) {
             Utils.checkNotNull(day2, "day2");
@@ -477,9 +492,12 @@ public class GetV1CompaniesCompanyIdPaySchedulesPreviewRequest {
         }
 
         /**
-         * Second pay day of the month (1-31); only for **Twice per month**.
-         * - Use 31 for last day of month (shorter months use the actual last day).
-         * - **Other frequencies:** omit or null.
+         * An integer between 1 and 31 indicating the second day of the month that employees are paid. This
+         * field is the second pay date for pay schedules with the "Twice per month" frequency. For
+         * semi-monthly pay schedules, set this field to 31.
+         * 
+         * <p>For months shorter than 31 days, the second pay date is set to the last day of the month. It will be
+         * null for pay schedules with other frequencies.
          */
         public Builder day2(Optional<Long> day2) {
             Utils.checkNotNull(day2, "day2");

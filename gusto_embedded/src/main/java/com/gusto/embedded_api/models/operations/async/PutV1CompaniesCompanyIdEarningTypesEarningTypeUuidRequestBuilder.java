@@ -7,7 +7,7 @@ import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.operations.PutV1CompaniesCompanyIdEarningTypesEarningTypeUuidHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PutV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequest;
 import com.gusto.embedded_api.models.operations.PutV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequestBody;
 import com.gusto.embedded_api.operations.PutV1CompaniesCompanyIdEarningTypesEarningTypeUuid;
@@ -20,18 +20,30 @@ import java.util.concurrent.CompletableFuture;
 
 public class PutV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequestBuilder {
 
-    private String companyId;
-    private String earningTypeUuid;
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
+    private Optional<? extends PutV1CompaniesCompanyIdEarningTypesEarningTypeUuidHeaderXGustoAPIVersion> xGustoAPIVersion = Utils.readDefaultOrConstValue(
                             "xGustoAPIVersion",
                             "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
+                            new TypeReference<Optional<? extends PutV1CompaniesCompanyIdEarningTypesEarningTypeUuidHeaderXGustoAPIVersion>>() {});
+    private String companyId;
+    private String earningTypeUuid;
     private PutV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequestBody requestBody;
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
     public PutV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
+    }
+                
+    public PutV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequestBuilder xGustoAPIVersion(PutV1CompaniesCompanyIdEarningTypesEarningTypeUuidHeaderXGustoAPIVersion xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
+        return this;
+    }
+
+    public PutV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequestBuilder xGustoAPIVersion(Optional<? extends PutV1CompaniesCompanyIdEarningTypesEarningTypeUuidHeaderXGustoAPIVersion> xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = xGustoAPIVersion;
+        return this;
     }
 
     public PutV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequestBuilder companyId(String companyId) {
@@ -43,18 +55,6 @@ public class PutV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequestBuilder {
     public PutV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequestBuilder earningTypeUuid(String earningTypeUuid) {
         Utils.checkNotNull(earningTypeUuid, "earningTypeUuid");
         this.earningTypeUuid = earningTypeUuid;
-        return this;
-    }
-                
-    public PutV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
-        return this;
-    }
-
-    public PutV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = xGustoAPIVersion;
         return this;
     }
 
@@ -70,9 +70,9 @@ public class PutV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequestBuilder {
             xGustoAPIVersion = _SINGLETON_VALUE_XGustoAPIVersion.value();
         }
 
-        PutV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequest request = new PutV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequest(companyId,
+        PutV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequest request = new PutV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequest(xGustoAPIVersion,
+            companyId,
             earningTypeUuid,
-            xGustoAPIVersion,
             requestBody);
 
         return request;
@@ -88,9 +88,9 @@ public class PutV1CompaniesCompanyIdEarningTypesEarningTypeUuidRequestBuilder {
             .thenCompose(operation::handleResponse);
     }
 
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+    private static final LazySingletonValue<Optional<? extends PutV1CompaniesCompanyIdEarningTypesEarningTypeUuidHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
             new LazySingletonValue<>(
                     "xGustoAPIVersion",
                     "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
+                    new TypeReference<Optional<? extends PutV1CompaniesCompanyIdEarningTypesEarningTypeUuidHeaderXGustoAPIVersion>>() {});
 }

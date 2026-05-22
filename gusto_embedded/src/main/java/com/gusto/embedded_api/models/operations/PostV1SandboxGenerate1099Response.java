@@ -34,7 +34,7 @@ public class PostV1SandboxGenerate1099Response implements Response {
     private HttpResponse<InputStream> rawResponse;
 
     /**
-     * OK
+     * Created
      */
     private Optional<? extends Form1099> form1099;
 
@@ -87,7 +87,7 @@ public class PostV1SandboxGenerate1099Response implements Response {
     }
 
     /**
-     * OK
+     * Created
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -128,7 +128,7 @@ public class PostV1SandboxGenerate1099Response implements Response {
     }
 
     /**
-     * OK
+     * Created
      */
     public PostV1SandboxGenerate1099Response withForm1099(Form1099 form1099) {
         Utils.checkNotNull(form1099, "form1099");
@@ -138,7 +138,7 @@ public class PostV1SandboxGenerate1099Response implements Response {
 
 
     /**
-     * OK
+     * Created
      */
     public PostV1SandboxGenerate1099Response withForm1099(Optional<? extends Form1099> form1099) {
         Utils.checkNotNull(form1099, "form1099");
@@ -225,7 +225,7 @@ public class PostV1SandboxGenerate1099Response implements Response {
 
 
         /**
-         * OK
+         * Created
          */
         public Builder form1099(Form1099 form1099) {
             Utils.checkNotNull(form1099, "form1099");
@@ -234,7 +234,7 @@ public class PostV1SandboxGenerate1099Response implements Response {
         }
 
         /**
-         * OK
+         * Created
          */
         public Builder form1099(Optional<? extends Form1099> form1099) {
             Utils.checkNotNull(form1099, "form1099");

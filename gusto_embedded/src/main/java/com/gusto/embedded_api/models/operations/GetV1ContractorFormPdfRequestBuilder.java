@@ -7,7 +7,6 @@ import static com.gusto.embedded_api.operations.Operations.RequestOperation;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.VersionHeader;
 import com.gusto.embedded_api.operations.GetV1ContractorFormPdf;
 import com.gusto.embedded_api.utils.Headers;
 import com.gusto.embedded_api.utils.LazySingletonValue;
@@ -17,17 +16,29 @@ import java.util.Optional;
 
 public class GetV1ContractorFormPdfRequestBuilder {
 
-    private String contractorUuid;
-    private String formId;
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
+    private Optional<? extends GetV1ContractorFormPdfHeaderXGustoAPIVersion> xGustoAPIVersion = Utils.readDefaultOrConstValue(
                             "xGustoAPIVersion",
                             "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
+                            new TypeReference<Optional<? extends GetV1ContractorFormPdfHeaderXGustoAPIVersion>>() {});
+    private String contractorUuid;
+    private String formId;
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
     public GetV1ContractorFormPdfRequestBuilder(SDKConfiguration sdkConfiguration) {
         this.sdkConfiguration = sdkConfiguration;
+    }
+                
+    public GetV1ContractorFormPdfRequestBuilder xGustoAPIVersion(GetV1ContractorFormPdfHeaderXGustoAPIVersion xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
+        return this;
+    }
+
+    public GetV1ContractorFormPdfRequestBuilder xGustoAPIVersion(Optional<? extends GetV1ContractorFormPdfHeaderXGustoAPIVersion> xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = xGustoAPIVersion;
+        return this;
     }
 
     public GetV1ContractorFormPdfRequestBuilder contractorUuid(String contractorUuid) {
@@ -41,18 +52,6 @@ public class GetV1ContractorFormPdfRequestBuilder {
         this.formId = formId;
         return this;
     }
-                
-    public GetV1ContractorFormPdfRequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
-        return this;
-    }
-
-    public GetV1ContractorFormPdfRequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = xGustoAPIVersion;
-        return this;
-    }
 
 
     private GetV1ContractorFormPdfRequest buildRequest() {
@@ -60,9 +59,9 @@ public class GetV1ContractorFormPdfRequestBuilder {
             xGustoAPIVersion = _SINGLETON_VALUE_XGustoAPIVersion.value();
         }
 
-        GetV1ContractorFormPdfRequest request = new GetV1ContractorFormPdfRequest(contractorUuid,
-            formId,
-            xGustoAPIVersion);
+        GetV1ContractorFormPdfRequest request = new GetV1ContractorFormPdfRequest(xGustoAPIVersion,
+            contractorUuid,
+            formId);
 
         return request;
     }
@@ -76,9 +75,9 @@ public class GetV1ContractorFormPdfRequestBuilder {
         return operation.handleResponse(operation.doRequest(request));
     }
 
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+    private static final LazySingletonValue<Optional<? extends GetV1ContractorFormPdfHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
             new LazySingletonValue<>(
                     "xGustoAPIVersion",
                     "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
+                    new TypeReference<Optional<? extends GetV1ContractorFormPdfHeaderXGustoAPIVersion>>() {});
 }

@@ -34,7 +34,7 @@ public class PutV1TerminationsEmployeeIdResponse implements AsyncResponse {
     private HttpResponse<Blob> rawResponse;
 
     /**
-     * Example Response
+     * Successful
      */
     private Optional<? extends Termination> termination;
 
@@ -87,7 +87,7 @@ public class PutV1TerminationsEmployeeIdResponse implements AsyncResponse {
     }
 
     /**
-     * Example Response
+     * Successful
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -128,7 +128,7 @@ public class PutV1TerminationsEmployeeIdResponse implements AsyncResponse {
     }
 
     /**
-     * Example Response
+     * Successful
      */
     public PutV1TerminationsEmployeeIdResponse withTermination(Termination termination) {
         Utils.checkNotNull(termination, "termination");
@@ -138,7 +138,7 @@ public class PutV1TerminationsEmployeeIdResponse implements AsyncResponse {
 
 
     /**
-     * Example Response
+     * Successful
      */
     public PutV1TerminationsEmployeeIdResponse withTermination(Optional<? extends Termination> termination) {
         Utils.checkNotNull(termination, "termination");
@@ -225,7 +225,7 @@ public class PutV1TerminationsEmployeeIdResponse implements AsyncResponse {
 
 
         /**
-         * Example Response
+         * Successful
          */
         public Builder termination(Termination termination) {
             Utils.checkNotNull(termination, "termination");
@@ -234,7 +234,7 @@ public class PutV1TerminationsEmployeeIdResponse implements AsyncResponse {
         }
 
         /**
-         * Example Response
+         * Successful
          */
         public Builder termination(Optional<? extends Termination> termination) {
             Utils.checkNotNull(termination, "termination");

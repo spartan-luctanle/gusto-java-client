@@ -7,9 +7,9 @@ import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.components.DepartmentPeopleRequestBody;
+import com.gusto.embedded_api.models.operations.PutAddPeopleToDepartmentHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PutAddPeopleToDepartmentRequest;
-import com.gusto.embedded_api.models.operations.PutAddPeopleToDepartmentRequestBody;
 import com.gusto.embedded_api.operations.PutAddPeopleToDepartment;
 import com.gusto.embedded_api.utils.Headers;
 import com.gusto.embedded_api.utils.LazySingletonValue;
@@ -21,11 +21,11 @@ import java.util.concurrent.CompletableFuture;
 public class PutAddPeopleToDepartmentRequestBuilder {
 
     private String departmentUuid;
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
+    private Optional<? extends PutAddPeopleToDepartmentHeaderXGustoAPIVersion> xGustoAPIVersion = Utils.readDefaultOrConstValue(
                             "xGustoAPIVersion",
                             "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
-    private PutAddPeopleToDepartmentRequestBody requestBody;
+                            new TypeReference<Optional<? extends PutAddPeopleToDepartmentHeaderXGustoAPIVersion>>() {});
+    private DepartmentPeopleRequestBody departmentPeopleRequestBody;
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
@@ -39,21 +39,21 @@ public class PutAddPeopleToDepartmentRequestBuilder {
         return this;
     }
                 
-    public PutAddPeopleToDepartmentRequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+    public PutAddPeopleToDepartmentRequestBuilder xGustoAPIVersion(PutAddPeopleToDepartmentHeaderXGustoAPIVersion xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
         return this;
     }
 
-    public PutAddPeopleToDepartmentRequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public PutAddPeopleToDepartmentRequestBuilder xGustoAPIVersion(Optional<? extends PutAddPeopleToDepartmentHeaderXGustoAPIVersion> xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = xGustoAPIVersion;
         return this;
     }
 
-    public PutAddPeopleToDepartmentRequestBuilder requestBody(PutAddPeopleToDepartmentRequestBody requestBody) {
-        Utils.checkNotNull(requestBody, "requestBody");
-        this.requestBody = requestBody;
+    public PutAddPeopleToDepartmentRequestBuilder departmentPeopleRequestBody(DepartmentPeopleRequestBody departmentPeopleRequestBody) {
+        Utils.checkNotNull(departmentPeopleRequestBody, "departmentPeopleRequestBody");
+        this.departmentPeopleRequestBody = departmentPeopleRequestBody;
         return this;
     }
 
@@ -65,7 +65,7 @@ public class PutAddPeopleToDepartmentRequestBuilder {
 
         PutAddPeopleToDepartmentRequest request = new PutAddPeopleToDepartmentRequest(departmentUuid,
             xGustoAPIVersion,
-            requestBody);
+            departmentPeopleRequestBody);
 
         return request;
     }
@@ -80,9 +80,9 @@ public class PutAddPeopleToDepartmentRequestBuilder {
             .thenCompose(operation::handleResponse);
     }
 
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+    private static final LazySingletonValue<Optional<? extends PutAddPeopleToDepartmentHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
             new LazySingletonValue<>(
                     "xGustoAPIVersion",
                     "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
+                    new TypeReference<Optional<? extends PutAddPeopleToDepartmentHeaderXGustoAPIVersion>>() {});
 }

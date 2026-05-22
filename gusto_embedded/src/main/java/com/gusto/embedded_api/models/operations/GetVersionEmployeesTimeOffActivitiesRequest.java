@@ -6,7 +6,6 @@ package com.gusto.embedded_api.models.operations;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.gusto.embedded_api.models.components.VersionHeader;
 import com.gusto.embedded_api.utils.LazySingletonValue;
 import com.gusto.embedded_api.utils.SpeakeasyMetadata;
 import com.gusto.embedded_api.utils.Utils;
@@ -17,6 +16,14 @@ import java.util.Optional;
 
 
 public class GetVersionEmployeesTimeOffActivitiesRequest {
+    /**
+     * Determines the date-based API version associated with your API call. If none is provided, your
+     * application's [minimum API
+     * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     */
+    @SpeakeasyMetadata("header:style=simple,explode=false,name=X-Gusto-API-Version")
+    private Optional<? extends GetVersionEmployeesTimeOffActivitiesHeaderXGustoAPIVersion> xGustoAPIVersion;
+
     /**
      * The UUID of the employee
      */
@@ -29,31 +36,34 @@ public class GetVersionEmployeesTimeOffActivitiesRequest {
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=time_off_type")
     private String timeOffType;
 
-    /**
-     * Determines the date-based API version associated with your API call. If none is provided, your
-     * application's [minimum API
-     * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
-     */
-    @SpeakeasyMetadata("header:style=simple,explode=false,name=X-Gusto-API-Version")
-    private Optional<? extends VersionHeader> xGustoAPIVersion;
-
     @JsonCreator
     public GetVersionEmployeesTimeOffActivitiesRequest(
+            Optional<? extends GetVersionEmployeesTimeOffActivitiesHeaderXGustoAPIVersion> xGustoAPIVersion,
             String employeeUuid,
-            String timeOffType,
-            Optional<? extends VersionHeader> xGustoAPIVersion) {
+            String timeOffType) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         Utils.checkNotNull(employeeUuid, "employeeUuid");
         Utils.checkNotNull(timeOffType, "timeOffType");
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = xGustoAPIVersion;
         this.employeeUuid = employeeUuid;
         this.timeOffType = timeOffType;
-        this.xGustoAPIVersion = xGustoAPIVersion;
     }
     
     public GetVersionEmployeesTimeOffActivitiesRequest(
             String employeeUuid,
             String timeOffType) {
-        this(employeeUuid, timeOffType, Optional.empty());
+        this(Optional.empty(), employeeUuid, timeOffType);
+    }
+
+    /**
+     * Determines the date-based API version associated with your API call. If none is provided, your
+     * application's [minimum API
+     * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<GetVersionEmployeesTimeOffActivitiesHeaderXGustoAPIVersion> xGustoAPIVersion() {
+        return (Optional<GetVersionEmployeesTimeOffActivitiesHeaderXGustoAPIVersion>) xGustoAPIVersion;
     }
 
     /**
@@ -72,21 +82,33 @@ public class GetVersionEmployeesTimeOffActivitiesRequest {
         return timeOffType;
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
+
     /**
      * Determines the date-based API version associated with your API call. If none is provided, your
      * application's [minimum API
      * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      */
-    @SuppressWarnings("unchecked")
-    @JsonIgnore
-    public Optional<VersionHeader> xGustoAPIVersion() {
-        return (Optional<VersionHeader>) xGustoAPIVersion;
+    public GetVersionEmployeesTimeOffActivitiesRequest withXGustoAPIVersion(GetVersionEmployeesTimeOffActivitiesHeaderXGustoAPIVersion xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
+        return this;
     }
 
-    public static Builder builder() {
-        return new Builder();
-    }
 
+    /**
+     * Determines the date-based API version associated with your API call. If none is provided, your
+     * application's [minimum API
+     * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+     */
+    public GetVersionEmployeesTimeOffActivitiesRequest withXGustoAPIVersion(Optional<? extends GetVersionEmployeesTimeOffActivitiesHeaderXGustoAPIVersion> xGustoAPIVersion) {
+        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+        this.xGustoAPIVersion = xGustoAPIVersion;
+        return this;
+    }
 
     /**
      * The UUID of the employee
@@ -106,29 +128,6 @@ public class GetVersionEmployeesTimeOffActivitiesRequest {
         return this;
     }
 
-    /**
-     * Determines the date-based API version associated with your API call. If none is provided, your
-     * application's [minimum API
-     * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
-     */
-    public GetVersionEmployeesTimeOffActivitiesRequest withXGustoAPIVersion(VersionHeader xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
-        return this;
-    }
-
-
-    /**
-     * Determines the date-based API version associated with your API call. If none is provided, your
-     * application's [minimum API
-     * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
-     */
-    public GetVersionEmployeesTimeOffActivitiesRequest withXGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
-        Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-        this.xGustoAPIVersion = xGustoAPIVersion;
-        return this;
-    }
-
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -139,36 +138,59 @@ public class GetVersionEmployeesTimeOffActivitiesRequest {
         }
         GetVersionEmployeesTimeOffActivitiesRequest other = (GetVersionEmployeesTimeOffActivitiesRequest) o;
         return 
+            Utils.enhancedDeepEquals(this.xGustoAPIVersion, other.xGustoAPIVersion) &&
             Utils.enhancedDeepEquals(this.employeeUuid, other.employeeUuid) &&
-            Utils.enhancedDeepEquals(this.timeOffType, other.timeOffType) &&
-            Utils.enhancedDeepEquals(this.xGustoAPIVersion, other.xGustoAPIVersion);
+            Utils.enhancedDeepEquals(this.timeOffType, other.timeOffType);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            employeeUuid, timeOffType, xGustoAPIVersion);
+            xGustoAPIVersion, employeeUuid, timeOffType);
     }
     
     @Override
     public String toString() {
         return Utils.toString(GetVersionEmployeesTimeOffActivitiesRequest.class,
+                "xGustoAPIVersion", xGustoAPIVersion,
                 "employeeUuid", employeeUuid,
-                "timeOffType", timeOffType,
-                "xGustoAPIVersion", xGustoAPIVersion);
+                "timeOffType", timeOffType);
     }
 
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
 
+        private Optional<? extends GetVersionEmployeesTimeOffActivitiesHeaderXGustoAPIVersion> xGustoAPIVersion;
+
         private String employeeUuid;
 
         private String timeOffType;
 
-        private Optional<? extends VersionHeader> xGustoAPIVersion;
-
         private Builder() {
           // force use of static builder() method
+        }
+
+
+        /**
+         * Determines the date-based API version associated with your API call. If none is provided, your
+         * application's [minimum API
+         * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+         */
+        public Builder xGustoAPIVersion(GetVersionEmployeesTimeOffActivitiesHeaderXGustoAPIVersion xGustoAPIVersion) {
+            Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+            this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
+            return this;
+        }
+
+        /**
+         * Determines the date-based API version associated with your API call. If none is provided, your
+         * application's [minimum API
+         * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
+         */
+        public Builder xGustoAPIVersion(Optional<? extends GetVersionEmployeesTimeOffActivitiesHeaderXGustoAPIVersion> xGustoAPIVersion) {
+            Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
+            this.xGustoAPIVersion = xGustoAPIVersion;
+            return this;
         }
 
 
@@ -191,43 +213,20 @@ public class GetVersionEmployeesTimeOffActivitiesRequest {
             return this;
         }
 
-
-        /**
-         * Determines the date-based API version associated with your API call. If none is provided, your
-         * application's [minimum API
-         * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
-         */
-        public Builder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
-            Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-            this.xGustoAPIVersion = Optional.ofNullable(xGustoAPIVersion);
-            return this;
-        }
-
-        /**
-         * Determines the date-based API version associated with your API call. If none is provided, your
-         * application's [minimum API
-         * version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
-         */
-        public Builder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
-            Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
-            this.xGustoAPIVersion = xGustoAPIVersion;
-            return this;
-        }
-
         public GetVersionEmployeesTimeOffActivitiesRequest build() {
             if (xGustoAPIVersion == null) {
                 xGustoAPIVersion = _SINGLETON_VALUE_XGustoAPIVersion.value();
             }
 
             return new GetVersionEmployeesTimeOffActivitiesRequest(
-                employeeUuid, timeOffType, xGustoAPIVersion);
+                xGustoAPIVersion, employeeUuid, timeOffType);
         }
 
 
-        private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+        private static final LazySingletonValue<Optional<? extends GetVersionEmployeesTimeOffActivitiesHeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
                 new LazySingletonValue<>(
                         "X-Gusto-API-Version",
                         "\"2025-06-15\"",
-                        new TypeReference<Optional<? extends VersionHeader>>() {});
+                        new TypeReference<Optional<? extends GetVersionEmployeesTimeOffActivitiesHeaderXGustoAPIVersion>>() {});
     }
 }

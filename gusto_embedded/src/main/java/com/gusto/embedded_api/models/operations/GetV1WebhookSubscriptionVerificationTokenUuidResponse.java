@@ -5,13 +5,16 @@ package com.gusto.embedded_api.models.operations;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.gusto.embedded_api.models.components.WebhookVerificationTokenResponse;
 import com.gusto.embedded_api.utils.Response;
 import com.gusto.embedded_api.utils.Utils;
 import java.io.InputStream;
 import java.lang.Integer;
 import java.lang.Override;
 import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.net.http.HttpResponse;
+import java.util.Optional;
 
 
 public class GetV1WebhookSubscriptionVerificationTokenUuidResponse implements Response {
@@ -30,17 +33,33 @@ public class GetV1WebhookSubscriptionVerificationTokenUuidResponse implements Re
      */
     private HttpResponse<InputStream> rawResponse;
 
+    /**
+     * No Content. The `verification_token` is POSTed to the Subscription URL.
+     */
+    private Optional<? extends WebhookVerificationTokenResponse> webhookVerificationTokenResponse;
+
     @JsonCreator
     public GetV1WebhookSubscriptionVerificationTokenUuidResponse(
             String contentType,
             int statusCode,
-            HttpResponse<InputStream> rawResponse) {
+            HttpResponse<InputStream> rawResponse,
+            Optional<? extends WebhookVerificationTokenResponse> webhookVerificationTokenResponse) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
+        Utils.checkNotNull(webhookVerificationTokenResponse, "webhookVerificationTokenResponse");
         this.contentType = contentType;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
+        this.webhookVerificationTokenResponse = webhookVerificationTokenResponse;
+    }
+    
+    public GetV1WebhookSubscriptionVerificationTokenUuidResponse(
+            String contentType,
+            int statusCode,
+            HttpResponse<InputStream> rawResponse) {
+        this(contentType, statusCode, rawResponse,
+            Optional.empty());
     }
 
     /**
@@ -65,6 +84,15 @@ public class GetV1WebhookSubscriptionVerificationTokenUuidResponse implements Re
     @JsonIgnore
     public HttpResponse<InputStream> rawResponse() {
         return rawResponse;
+    }
+
+    /**
+     * No Content. The `verification_token` is POSTed to the Subscription URL.
+     */
+    @SuppressWarnings("unchecked")
+    @JsonIgnore
+    public Optional<WebhookVerificationTokenResponse> webhookVerificationTokenResponse() {
+        return (Optional<WebhookVerificationTokenResponse>) webhookVerificationTokenResponse;
     }
 
     public static Builder builder() {
@@ -99,6 +127,25 @@ public class GetV1WebhookSubscriptionVerificationTokenUuidResponse implements Re
         return this;
     }
 
+    /**
+     * No Content. The `verification_token` is POSTed to the Subscription URL.
+     */
+    public GetV1WebhookSubscriptionVerificationTokenUuidResponse withWebhookVerificationTokenResponse(WebhookVerificationTokenResponse webhookVerificationTokenResponse) {
+        Utils.checkNotNull(webhookVerificationTokenResponse, "webhookVerificationTokenResponse");
+        this.webhookVerificationTokenResponse = Optional.ofNullable(webhookVerificationTokenResponse);
+        return this;
+    }
+
+
+    /**
+     * No Content. The `verification_token` is POSTed to the Subscription URL.
+     */
+    public GetV1WebhookSubscriptionVerificationTokenUuidResponse withWebhookVerificationTokenResponse(Optional<? extends WebhookVerificationTokenResponse> webhookVerificationTokenResponse) {
+        Utils.checkNotNull(webhookVerificationTokenResponse, "webhookVerificationTokenResponse");
+        this.webhookVerificationTokenResponse = webhookVerificationTokenResponse;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -111,13 +158,15 @@ public class GetV1WebhookSubscriptionVerificationTokenUuidResponse implements Re
         return 
             Utils.enhancedDeepEquals(this.contentType, other.contentType) &&
             Utils.enhancedDeepEquals(this.statusCode, other.statusCode) &&
-            Utils.enhancedDeepEquals(this.rawResponse, other.rawResponse);
+            Utils.enhancedDeepEquals(this.rawResponse, other.rawResponse) &&
+            Utils.enhancedDeepEquals(this.webhookVerificationTokenResponse, other.webhookVerificationTokenResponse);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            contentType, statusCode, rawResponse);
+            contentType, statusCode, rawResponse,
+            webhookVerificationTokenResponse);
     }
     
     @Override
@@ -125,7 +174,8 @@ public class GetV1WebhookSubscriptionVerificationTokenUuidResponse implements Re
         return Utils.toString(GetV1WebhookSubscriptionVerificationTokenUuidResponse.class,
                 "contentType", contentType,
                 "statusCode", statusCode,
-                "rawResponse", rawResponse);
+                "rawResponse", rawResponse,
+                "webhookVerificationTokenResponse", webhookVerificationTokenResponse);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -136,6 +186,8 @@ public class GetV1WebhookSubscriptionVerificationTokenUuidResponse implements Re
         private Integer statusCode;
 
         private HttpResponse<InputStream> rawResponse;
+
+        private Optional<? extends WebhookVerificationTokenResponse> webhookVerificationTokenResponse = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -171,10 +223,30 @@ public class GetV1WebhookSubscriptionVerificationTokenUuidResponse implements Re
             return this;
         }
 
+
+        /**
+         * No Content. The `verification_token` is POSTed to the Subscription URL.
+         */
+        public Builder webhookVerificationTokenResponse(WebhookVerificationTokenResponse webhookVerificationTokenResponse) {
+            Utils.checkNotNull(webhookVerificationTokenResponse, "webhookVerificationTokenResponse");
+            this.webhookVerificationTokenResponse = Optional.ofNullable(webhookVerificationTokenResponse);
+            return this;
+        }
+
+        /**
+         * No Content. The `verification_token` is POSTed to the Subscription URL.
+         */
+        public Builder webhookVerificationTokenResponse(Optional<? extends WebhookVerificationTokenResponse> webhookVerificationTokenResponse) {
+            Utils.checkNotNull(webhookVerificationTokenResponse, "webhookVerificationTokenResponse");
+            this.webhookVerificationTokenResponse = webhookVerificationTokenResponse;
+            return this;
+        }
+
         public GetV1WebhookSubscriptionVerificationTokenUuidResponse build() {
 
             return new GetV1WebhookSubscriptionVerificationTokenUuidResponse(
-                contentType, statusCode, rawResponse);
+                contentType, statusCode, rawResponse,
+                webhookVerificationTokenResponse);
         }
 
     }

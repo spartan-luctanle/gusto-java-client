@@ -13,26 +13,40 @@ import java.lang.Override;
 import java.lang.String;
 import org.openapitools.jackson.nullable.JsonNullable;
 
-
+/**
+ * HomeAddress
+ * 
+ * <p>Residential address on file for tax withholding and compliance mail.
+ */
 public class HomeAddress {
-
+    /**
+     * Street address line 1.
+     */
     @JsonProperty("street_1")
     private String street1;
 
-
+    /**
+     * Apartment, suite, unit, or building (optional).
+     */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("street_2")
     private JsonNullable<String> street2;
 
-
+    /**
+     * City.
+     */
     @JsonProperty("city")
     private String city;
 
-
+    /**
+     * Two-letter U.S. state or territory postal abbreviation.
+     */
     @JsonProperty("state")
     private String state;
 
-
+    /**
+     * ZIP or ZIP+4.
+     */
     @JsonProperty("zip")
     private String zip;
 
@@ -64,26 +78,41 @@ public class HomeAddress {
             state, zip);
     }
 
+    /**
+     * Street address line 1.
+     */
     @JsonIgnore
     public String street1() {
         return street1;
     }
 
+    /**
+     * Apartment, suite, unit, or building (optional).
+     */
     @JsonIgnore
     public JsonNullable<String> street2() {
         return street2;
     }
 
+    /**
+     * City.
+     */
     @JsonIgnore
     public String city() {
         return city;
     }
 
+    /**
+     * Two-letter U.S. state or territory postal abbreviation.
+     */
     @JsonIgnore
     public String state() {
         return state;
     }
 
+    /**
+     * ZIP or ZIP+4.
+     */
     @JsonIgnore
     public String zip() {
         return zip;
@@ -94,36 +123,54 @@ public class HomeAddress {
     }
 
 
+    /**
+     * Street address line 1.
+     */
     public HomeAddress withStreet1(String street1) {
         Utils.checkNotNull(street1, "street1");
         this.street1 = street1;
         return this;
     }
 
+    /**
+     * Apartment, suite, unit, or building (optional).
+     */
     public HomeAddress withStreet2(String street2) {
         Utils.checkNotNull(street2, "street2");
         this.street2 = JsonNullable.of(street2);
         return this;
     }
 
+    /**
+     * Apartment, suite, unit, or building (optional).
+     */
     public HomeAddress withStreet2(JsonNullable<String> street2) {
         Utils.checkNotNull(street2, "street2");
         this.street2 = street2;
         return this;
     }
 
+    /**
+     * City.
+     */
     public HomeAddress withCity(String city) {
         Utils.checkNotNull(city, "city");
         this.city = city;
         return this;
     }
 
+    /**
+     * Two-letter U.S. state or territory postal abbreviation.
+     */
     public HomeAddress withState(String state) {
         Utils.checkNotNull(state, "state");
         this.state = state;
         return this;
     }
 
+    /**
+     * ZIP or ZIP+4.
+     */
     public HomeAddress withZip(String zip) {
         Utils.checkNotNull(zip, "zip");
         this.zip = zip;
@@ -182,6 +229,9 @@ public class HomeAddress {
         }
 
 
+        /**
+         * Street address line 1.
+         */
         public Builder street1(String street1) {
             Utils.checkNotNull(street1, "street1");
             this.street1 = street1;
@@ -189,12 +239,18 @@ public class HomeAddress {
         }
 
 
+        /**
+         * Apartment, suite, unit, or building (optional).
+         */
         public Builder street2(String street2) {
             Utils.checkNotNull(street2, "street2");
             this.street2 = JsonNullable.of(street2);
             return this;
         }
 
+        /**
+         * Apartment, suite, unit, or building (optional).
+         */
         public Builder street2(JsonNullable<String> street2) {
             Utils.checkNotNull(street2, "street2");
             this.street2 = street2;
@@ -202,6 +258,9 @@ public class HomeAddress {
         }
 
 
+        /**
+         * City.
+         */
         public Builder city(String city) {
             Utils.checkNotNull(city, "city");
             this.city = city;
@@ -209,6 +268,9 @@ public class HomeAddress {
         }
 
 
+        /**
+         * Two-letter U.S. state or territory postal abbreviation.
+         */
         public Builder state(String state) {
             Utils.checkNotNull(state, "state");
             this.state = state;
@@ -216,6 +278,9 @@ public class HomeAddress {
         }
 
 
+        /**
+         * ZIP or ZIP+4.
+         */
         public Builder zip(String zip) {
             Utils.checkNotNull(zip, "zip");
             this.zip = zip;

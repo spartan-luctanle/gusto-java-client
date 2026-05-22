@@ -27,18 +27,17 @@ public class PutV1EmployeesEmployeeIdFederalTaxesRequestBody {
     private String version;
 
     /**
+     * The version of the W4 form. Only rev_2020_w4 is accepted for updates.
+     */
+    @JsonProperty("w4_data_type")
+    private W4DataType w4DataType;
+
+    /**
      * Determines which tax return form an individual will use. One of: Single, Married, Head of Household,
      * Exempt from withholding.
      */
     @JsonProperty("filing_status")
     private FilingStatus filingStatus;
-
-    /**
-     * Additional amount to be withheld from each paycheck.
-     */
-    @JsonInclude(Include.NON_ABSENT)
-    @JsonProperty("extra_withholding")
-    private Optional<Double> extraWithholding;
 
     /**
      * If there are only two jobs (e.g., you and your spouse each have a job), set to true.
@@ -69,10 +68,11 @@ public class PutV1EmployeesEmployeeIdFederalTaxesRequestBody {
     private Optional<Double> deductions;
 
     /**
-     * The version of the W4 form. Only rev_2020_w4 is accepted for updates.
+     * Additional amount to be withheld from each paycheck.
      */
-    @JsonProperty("w4_data_type")
-    private W4DataType w4DataType;
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("extra_withholding")
+    private Optional<Double> extraWithholding;
 
     /**
      * Only applicable when w4_data_type is 'pre_2020_w4' (pre-2020 W4 forms are deprecated for updates).
@@ -91,44 +91,44 @@ public class PutV1EmployeesEmployeeIdFederalTaxesRequestBody {
     @JsonCreator
     public PutV1EmployeesEmployeeIdFederalTaxesRequestBody(
             @JsonProperty("version") String version,
+            @JsonProperty("w4_data_type") W4DataType w4DataType,
             @JsonProperty("filing_status") FilingStatus filingStatus,
-            @JsonProperty("extra_withholding") Optional<Double> extraWithholding,
             @JsonProperty("two_jobs") Optional<Boolean> twoJobs,
             @JsonProperty("dependents_amount") Optional<Double> dependentsAmount,
             @JsonProperty("other_income") Optional<Double> otherIncome,
             @JsonProperty("deductions") Optional<Double> deductions,
-            @JsonProperty("w4_data_type") W4DataType w4DataType,
+            @JsonProperty("extra_withholding") Optional<Double> extraWithholding,
             @JsonProperty("federal_withholding_allowance") Optional<Long> federalWithholdingAllowance,
             @JsonProperty("additional_withholding") Optional<Double> additionalWithholding) {
         Utils.checkNotNull(version, "version");
+        Utils.checkNotNull(w4DataType, "w4DataType");
         Utils.checkNotNull(filingStatus, "filingStatus");
-        Utils.checkNotNull(extraWithholding, "extraWithholding");
         Utils.checkNotNull(twoJobs, "twoJobs");
         Utils.checkNotNull(dependentsAmount, "dependentsAmount");
         Utils.checkNotNull(otherIncome, "otherIncome");
         Utils.checkNotNull(deductions, "deductions");
-        Utils.checkNotNull(w4DataType, "w4DataType");
+        Utils.checkNotNull(extraWithholding, "extraWithholding");
         Utils.checkNotNull(federalWithholdingAllowance, "federalWithholdingAllowance");
         Utils.checkNotNull(additionalWithholding, "additionalWithholding");
         this.version = version;
+        this.w4DataType = w4DataType;
         this.filingStatus = filingStatus;
-        this.extraWithholding = extraWithholding;
         this.twoJobs = twoJobs;
         this.dependentsAmount = dependentsAmount;
         this.otherIncome = otherIncome;
         this.deductions = deductions;
-        this.w4DataType = w4DataType;
+        this.extraWithholding = extraWithholding;
         this.federalWithholdingAllowance = federalWithholdingAllowance;
         this.additionalWithholding = additionalWithholding;
     }
     
     public PutV1EmployeesEmployeeIdFederalTaxesRequestBody(
             String version,
-            FilingStatus filingStatus,
-            W4DataType w4DataType) {
-        this(version, filingStatus, Optional.empty(),
+            W4DataType w4DataType,
+            FilingStatus filingStatus) {
+        this(version, w4DataType, filingStatus,
             Optional.empty(), Optional.empty(), Optional.empty(),
-            Optional.empty(), w4DataType, Optional.empty(),
+            Optional.empty(), Optional.empty(), Optional.empty(),
             Optional.empty());
     }
 
@@ -143,20 +143,20 @@ public class PutV1EmployeesEmployeeIdFederalTaxesRequestBody {
     }
 
     /**
+     * The version of the W4 form. Only rev_2020_w4 is accepted for updates.
+     */
+    @JsonIgnore
+    public W4DataType w4DataType() {
+        return w4DataType;
+    }
+
+    /**
      * Determines which tax return form an individual will use. One of: Single, Married, Head of Household,
      * Exempt from withholding.
      */
     @JsonIgnore
     public FilingStatus filingStatus() {
         return filingStatus;
-    }
-
-    /**
-     * Additional amount to be withheld from each paycheck.
-     */
-    @JsonIgnore
-    public Optional<Double> extraWithholding() {
-        return extraWithholding;
     }
 
     /**
@@ -192,11 +192,11 @@ public class PutV1EmployeesEmployeeIdFederalTaxesRequestBody {
     }
 
     /**
-     * The version of the W4 form. Only rev_2020_w4 is accepted for updates.
+     * Additional amount to be withheld from each paycheck.
      */
     @JsonIgnore
-    public W4DataType w4DataType() {
-        return w4DataType;
+    public Optional<Double> extraWithholding() {
+        return extraWithholding;
     }
 
     /**
@@ -232,31 +232,21 @@ public class PutV1EmployeesEmployeeIdFederalTaxesRequestBody {
     }
 
     /**
+     * The version of the W4 form. Only rev_2020_w4 is accepted for updates.
+     */
+    public PutV1EmployeesEmployeeIdFederalTaxesRequestBody withW4DataType(W4DataType w4DataType) {
+        Utils.checkNotNull(w4DataType, "w4DataType");
+        this.w4DataType = w4DataType;
+        return this;
+    }
+
+    /**
      * Determines which tax return form an individual will use. One of: Single, Married, Head of Household,
      * Exempt from withholding.
      */
     public PutV1EmployeesEmployeeIdFederalTaxesRequestBody withFilingStatus(FilingStatus filingStatus) {
         Utils.checkNotNull(filingStatus, "filingStatus");
         this.filingStatus = filingStatus;
-        return this;
-    }
-
-    /**
-     * Additional amount to be withheld from each paycheck.
-     */
-    public PutV1EmployeesEmployeeIdFederalTaxesRequestBody withExtraWithholding(double extraWithholding) {
-        Utils.checkNotNull(extraWithholding, "extraWithholding");
-        this.extraWithholding = Optional.ofNullable(extraWithholding);
-        return this;
-    }
-
-
-    /**
-     * Additional amount to be withheld from each paycheck.
-     */
-    public PutV1EmployeesEmployeeIdFederalTaxesRequestBody withExtraWithholding(Optional<Double> extraWithholding) {
-        Utils.checkNotNull(extraWithholding, "extraWithholding");
-        this.extraWithholding = extraWithholding;
         return this;
     }
 
@@ -337,11 +327,21 @@ public class PutV1EmployeesEmployeeIdFederalTaxesRequestBody {
     }
 
     /**
-     * The version of the W4 form. Only rev_2020_w4 is accepted for updates.
+     * Additional amount to be withheld from each paycheck.
      */
-    public PutV1EmployeesEmployeeIdFederalTaxesRequestBody withW4DataType(W4DataType w4DataType) {
-        Utils.checkNotNull(w4DataType, "w4DataType");
-        this.w4DataType = w4DataType;
+    public PutV1EmployeesEmployeeIdFederalTaxesRequestBody withExtraWithholding(double extraWithholding) {
+        Utils.checkNotNull(extraWithholding, "extraWithholding");
+        this.extraWithholding = Optional.ofNullable(extraWithholding);
+        return this;
+    }
+
+
+    /**
+     * Additional amount to be withheld from each paycheck.
+     */
+    public PutV1EmployeesEmployeeIdFederalTaxesRequestBody withExtraWithholding(Optional<Double> extraWithholding) {
+        Utils.checkNotNull(extraWithholding, "extraWithholding");
+        this.extraWithholding = extraWithholding;
         return this;
     }
 
@@ -394,13 +394,13 @@ public class PutV1EmployeesEmployeeIdFederalTaxesRequestBody {
         PutV1EmployeesEmployeeIdFederalTaxesRequestBody other = (PutV1EmployeesEmployeeIdFederalTaxesRequestBody) o;
         return 
             Utils.enhancedDeepEquals(this.version, other.version) &&
+            Utils.enhancedDeepEquals(this.w4DataType, other.w4DataType) &&
             Utils.enhancedDeepEquals(this.filingStatus, other.filingStatus) &&
-            Utils.enhancedDeepEquals(this.extraWithholding, other.extraWithholding) &&
             Utils.enhancedDeepEquals(this.twoJobs, other.twoJobs) &&
             Utils.enhancedDeepEquals(this.dependentsAmount, other.dependentsAmount) &&
             Utils.enhancedDeepEquals(this.otherIncome, other.otherIncome) &&
             Utils.enhancedDeepEquals(this.deductions, other.deductions) &&
-            Utils.enhancedDeepEquals(this.w4DataType, other.w4DataType) &&
+            Utils.enhancedDeepEquals(this.extraWithholding, other.extraWithholding) &&
             Utils.enhancedDeepEquals(this.federalWithholdingAllowance, other.federalWithholdingAllowance) &&
             Utils.enhancedDeepEquals(this.additionalWithholding, other.additionalWithholding);
     }
@@ -408,9 +408,9 @@ public class PutV1EmployeesEmployeeIdFederalTaxesRequestBody {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            version, filingStatus, extraWithholding,
+            version, w4DataType, filingStatus,
             twoJobs, dependentsAmount, otherIncome,
-            deductions, w4DataType, federalWithholdingAllowance,
+            deductions, extraWithholding, federalWithholdingAllowance,
             additionalWithholding);
     }
     
@@ -418,13 +418,13 @@ public class PutV1EmployeesEmployeeIdFederalTaxesRequestBody {
     public String toString() {
         return Utils.toString(PutV1EmployeesEmployeeIdFederalTaxesRequestBody.class,
                 "version", version,
+                "w4DataType", w4DataType,
                 "filingStatus", filingStatus,
-                "extraWithholding", extraWithholding,
                 "twoJobs", twoJobs,
                 "dependentsAmount", dependentsAmount,
                 "otherIncome", otherIncome,
                 "deductions", deductions,
-                "w4DataType", w4DataType,
+                "extraWithholding", extraWithholding,
                 "federalWithholdingAllowance", federalWithholdingAllowance,
                 "additionalWithholding", additionalWithholding);
     }
@@ -434,9 +434,9 @@ public class PutV1EmployeesEmployeeIdFederalTaxesRequestBody {
 
         private String version;
 
-        private FilingStatus filingStatus;
+        private W4DataType w4DataType;
 
-        private Optional<Double> extraWithholding = Optional.empty();
+        private FilingStatus filingStatus;
 
         private Optional<Boolean> twoJobs = Optional.empty();
 
@@ -446,7 +446,7 @@ public class PutV1EmployeesEmployeeIdFederalTaxesRequestBody {
 
         private Optional<Double> deductions = Optional.empty();
 
-        private W4DataType w4DataType;
+        private Optional<Double> extraWithholding = Optional.empty();
 
         private Optional<Long> federalWithholdingAllowance = Optional.empty();
 
@@ -470,31 +470,22 @@ public class PutV1EmployeesEmployeeIdFederalTaxesRequestBody {
 
 
         /**
+         * The version of the W4 form. Only rev_2020_w4 is accepted for updates.
+         */
+        public Builder w4DataType(W4DataType w4DataType) {
+            Utils.checkNotNull(w4DataType, "w4DataType");
+            this.w4DataType = w4DataType;
+            return this;
+        }
+
+
+        /**
          * Determines which tax return form an individual will use. One of: Single, Married, Head of Household,
          * Exempt from withholding.
          */
         public Builder filingStatus(FilingStatus filingStatus) {
             Utils.checkNotNull(filingStatus, "filingStatus");
             this.filingStatus = filingStatus;
-            return this;
-        }
-
-
-        /**
-         * Additional amount to be withheld from each paycheck.
-         */
-        public Builder extraWithholding(double extraWithholding) {
-            Utils.checkNotNull(extraWithholding, "extraWithholding");
-            this.extraWithholding = Optional.ofNullable(extraWithholding);
-            return this;
-        }
-
-        /**
-         * Additional amount to be withheld from each paycheck.
-         */
-        public Builder extraWithholding(Optional<Double> extraWithholding) {
-            Utils.checkNotNull(extraWithholding, "extraWithholding");
-            this.extraWithholding = extraWithholding;
             return this;
         }
 
@@ -576,11 +567,20 @@ public class PutV1EmployeesEmployeeIdFederalTaxesRequestBody {
 
 
         /**
-         * The version of the W4 form. Only rev_2020_w4 is accepted for updates.
+         * Additional amount to be withheld from each paycheck.
          */
-        public Builder w4DataType(W4DataType w4DataType) {
-            Utils.checkNotNull(w4DataType, "w4DataType");
-            this.w4DataType = w4DataType;
+        public Builder extraWithholding(double extraWithholding) {
+            Utils.checkNotNull(extraWithholding, "extraWithholding");
+            this.extraWithholding = Optional.ofNullable(extraWithholding);
+            return this;
+        }
+
+        /**
+         * Additional amount to be withheld from each paycheck.
+         */
+        public Builder extraWithholding(Optional<Double> extraWithholding) {
+            Utils.checkNotNull(extraWithholding, "extraWithholding");
+            this.extraWithholding = extraWithholding;
             return this;
         }
 
@@ -625,9 +625,9 @@ public class PutV1EmployeesEmployeeIdFederalTaxesRequestBody {
         public PutV1EmployeesEmployeeIdFederalTaxesRequestBody build() {
 
             return new PutV1EmployeesEmployeeIdFederalTaxesRequestBody(
-                version, filingStatus, extraWithholding,
+                version, w4DataType, filingStatus,
                 twoJobs, dependentsAmount, otherIncome,
-                deductions, w4DataType, federalWithholdingAllowance,
+                deductions, extraWithholding, federalWithholdingAllowance,
                 additionalWithholding);
         }
 

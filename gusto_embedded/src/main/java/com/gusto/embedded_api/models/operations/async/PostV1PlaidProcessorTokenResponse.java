@@ -5,7 +5,7 @@ package com.gusto.embedded_api.models.operations.async;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.gusto.embedded_api.models.operations.PostV1PlaidProcessorTokenResponseBody;
+import com.gusto.embedded_api.models.components.CompanyBankAccount;
 import com.gusto.embedded_api.utils.AsyncResponse;
 import com.gusto.embedded_api.utils.Blob;
 import com.gusto.embedded_api.utils.Utils;
@@ -36,22 +36,22 @@ public class PostV1PlaidProcessorTokenResponse implements AsyncResponse {
     /**
      * A JSON object containing bank information
      */
-    private Optional<? extends PostV1PlaidProcessorTokenResponseBody> oneOf;
+    private Optional<? extends CompanyBankAccount> companyBankAccount;
 
     @JsonCreator
     public PostV1PlaidProcessorTokenResponse(
             String contentType,
             int statusCode,
             HttpResponse<Blob> rawResponse,
-            Optional<? extends PostV1PlaidProcessorTokenResponseBody> oneOf) {
+            Optional<? extends CompanyBankAccount> companyBankAccount) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
-        Utils.checkNotNull(oneOf, "oneOf");
+        Utils.checkNotNull(companyBankAccount, "companyBankAccount");
         this.contentType = contentType;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
-        this.oneOf = oneOf;
+        this.companyBankAccount = companyBankAccount;
     }
     
     public PostV1PlaidProcessorTokenResponse(
@@ -91,8 +91,8 @@ public class PostV1PlaidProcessorTokenResponse implements AsyncResponse {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<PostV1PlaidProcessorTokenResponseBody> oneOf() {
-        return (Optional<PostV1PlaidProcessorTokenResponseBody>) oneOf;
+    public Optional<CompanyBankAccount> companyBankAccount() {
+        return (Optional<CompanyBankAccount>) companyBankAccount;
     }
 
     public static Builder builder() {
@@ -130,9 +130,9 @@ public class PostV1PlaidProcessorTokenResponse implements AsyncResponse {
     /**
      * A JSON object containing bank information
      */
-    public PostV1PlaidProcessorTokenResponse withOneOf(PostV1PlaidProcessorTokenResponseBody oneOf) {
-        Utils.checkNotNull(oneOf, "oneOf");
-        this.oneOf = Optional.ofNullable(oneOf);
+    public PostV1PlaidProcessorTokenResponse withCompanyBankAccount(CompanyBankAccount companyBankAccount) {
+        Utils.checkNotNull(companyBankAccount, "companyBankAccount");
+        this.companyBankAccount = Optional.ofNullable(companyBankAccount);
         return this;
     }
 
@@ -140,9 +140,9 @@ public class PostV1PlaidProcessorTokenResponse implements AsyncResponse {
     /**
      * A JSON object containing bank information
      */
-    public PostV1PlaidProcessorTokenResponse withOneOf(Optional<? extends PostV1PlaidProcessorTokenResponseBody> oneOf) {
-        Utils.checkNotNull(oneOf, "oneOf");
-        this.oneOf = oneOf;
+    public PostV1PlaidProcessorTokenResponse withCompanyBankAccount(Optional<? extends CompanyBankAccount> companyBankAccount) {
+        Utils.checkNotNull(companyBankAccount, "companyBankAccount");
+        this.companyBankAccount = companyBankAccount;
         return this;
     }
 
@@ -159,14 +159,14 @@ public class PostV1PlaidProcessorTokenResponse implements AsyncResponse {
             Utils.enhancedDeepEquals(this.contentType, other.contentType) &&
             Utils.enhancedDeepEquals(this.statusCode, other.statusCode) &&
             Utils.enhancedDeepEquals(this.rawResponse, other.rawResponse) &&
-            Utils.enhancedDeepEquals(this.oneOf, other.oneOf);
+            Utils.enhancedDeepEquals(this.companyBankAccount, other.companyBankAccount);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             contentType, statusCode, rawResponse,
-            oneOf);
+            companyBankAccount);
     }
     
     @Override
@@ -175,7 +175,7 @@ public class PostV1PlaidProcessorTokenResponse implements AsyncResponse {
                 "contentType", contentType,
                 "statusCode", statusCode,
                 "rawResponse", rawResponse,
-                "oneOf", oneOf);
+                "companyBankAccount", companyBankAccount);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -187,7 +187,7 @@ public class PostV1PlaidProcessorTokenResponse implements AsyncResponse {
 
         private HttpResponse<Blob> rawResponse;
 
-        private Optional<? extends PostV1PlaidProcessorTokenResponseBody> oneOf = Optional.empty();
+        private Optional<? extends CompanyBankAccount> companyBankAccount = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -227,18 +227,18 @@ public class PostV1PlaidProcessorTokenResponse implements AsyncResponse {
         /**
          * A JSON object containing bank information
          */
-        public Builder oneOf(PostV1PlaidProcessorTokenResponseBody oneOf) {
-            Utils.checkNotNull(oneOf, "oneOf");
-            this.oneOf = Optional.ofNullable(oneOf);
+        public Builder companyBankAccount(CompanyBankAccount companyBankAccount) {
+            Utils.checkNotNull(companyBankAccount, "companyBankAccount");
+            this.companyBankAccount = Optional.ofNullable(companyBankAccount);
             return this;
         }
 
         /**
          * A JSON object containing bank information
          */
-        public Builder oneOf(Optional<? extends PostV1PlaidProcessorTokenResponseBody> oneOf) {
-            Utils.checkNotNull(oneOf, "oneOf");
-            this.oneOf = oneOf;
+        public Builder companyBankAccount(Optional<? extends CompanyBankAccount> companyBankAccount) {
+            Utils.checkNotNull(companyBankAccount, "companyBankAccount");
+            this.companyBankAccount = companyBankAccount;
             return this;
         }
 
@@ -246,7 +246,7 @@ public class PostV1PlaidProcessorTokenResponse implements AsyncResponse {
 
             return new PostV1PlaidProcessorTokenResponse(
                 contentType, statusCode, rawResponse,
-                oneOf);
+                companyBankAccount);
         }
 
     }

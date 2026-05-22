@@ -22,8 +22,7 @@ public class PutV1ContractorsContractorIdPaymentMethodRequestBody {
 
     /**
      * The payment method type. If type is Direct Deposit, the contractor is required to have a bank
-     * account.
-     * see [Bank account endpoint](./post-v1-contractors-contractor_uuid-bank_accounts)
+     * account. See [Bank account endpoint](./post-v1-contractors-contractor_uuid-bank_accounts).
      */
     @JsonProperty("type")
     private PutV1ContractorsContractorIdPaymentMethodType type;
@@ -50,8 +49,7 @@ public class PutV1ContractorsContractorIdPaymentMethodRequestBody {
 
     /**
      * The payment method type. If type is Direct Deposit, the contractor is required to have a bank
-     * account.
-     * see [Bank account endpoint](./post-v1-contractors-contractor_uuid-bank_accounts)
+     * account. See [Bank account endpoint](./post-v1-contractors-contractor_uuid-bank_accounts).
      */
     @JsonIgnore
     public PutV1ContractorsContractorIdPaymentMethodType type() {
@@ -76,8 +74,7 @@ public class PutV1ContractorsContractorIdPaymentMethodRequestBody {
 
     /**
      * The payment method type. If type is Direct Deposit, the contractor is required to have a bank
-     * account.
-     * see [Bank account endpoint](./post-v1-contractors-contractor_uuid-bank_accounts)
+     * account. See [Bank account endpoint](./post-v1-contractors-contractor_uuid-bank_accounts).
      */
     public PutV1ContractorsContractorIdPaymentMethodRequestBody withType(PutV1ContractorsContractorIdPaymentMethodType type) {
         Utils.checkNotNull(type, "type");
@@ -138,8 +135,7 @@ public class PutV1ContractorsContractorIdPaymentMethodRequestBody {
 
         /**
          * The payment method type. If type is Direct Deposit, the contractor is required to have a bank
-         * account.
-         * see [Bank account endpoint](./post-v1-contractors-contractor_uuid-bank_accounts)
+         * account. See [Bank account endpoint](./post-v1-contractors-contractor_uuid-bank_accounts).
          */
         public Builder type(PutV1ContractorsContractorIdPaymentMethodType type) {
             Utils.checkNotNull(type, "type");

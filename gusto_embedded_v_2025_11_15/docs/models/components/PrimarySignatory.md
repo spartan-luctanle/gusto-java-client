@@ -1,0 +1,16 @@
+# PrimarySignatory
+
+The primary signatory of the company.
+
+
+## Fields
+
+| Field                                                                          | Type                                                                           | Required                                                                       | Description                                                                    |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| `uuid`                                                                         | *Optional\<String>*                                                            | :heavy_minus_sign:                                                             | The UUID of the company's primary signatory.                                   |
+| `firstName`                                                                    | *Optional\<String>*                                                            | :heavy_minus_sign:                                                             | The company's primary signatory's first name.                                  |
+| `middleInitial`                                                                | *JsonNullable\<String>*                                                        | :heavy_minus_sign:                                                             | The company's primary signatory's middle initial.                              |
+| `lastName`                                                                     | *Optional\<String>*                                                            | :heavy_minus_sign:                                                             | The company's primary signatory's last name.                                   |
+| `phone`                                                                        | *Optional\<String>*                                                            | :heavy_minus_sign:                                                             | The company's primary signatory's phone number.                                |
+| `email`                                                                        | *Optional\<String>*                                                            | :heavy_minus_sign:                                                             | The company's primary signatory's email address.                               |
+| `homeAddress`                                                                  | [Optional\<CompanyHomeAddress>](../../models/components/CompanyHomeAddress.md) | :heavy_minus_sign:                                                             | The company's primary signatory's home address.                                |

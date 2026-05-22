@@ -7,7 +7,7 @@ import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
-import com.gusto.embedded_api.models.components.VersionHeader;
+import com.gusto.embedded_api.models.operations.PostV1SandboxGenerate1099HeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.PostV1SandboxGenerate1099Request;
 import com.gusto.embedded_api.models.operations.PostV1SandboxGenerate1099RequestBody;
 import com.gusto.embedded_api.operations.PostV1SandboxGenerate1099;
@@ -19,10 +19,10 @@ import java.util.concurrent.CompletableFuture;
 
 public class PostV1SandboxGenerate1099RequestBuilder {
 
-    private Optional<? extends VersionHeader> xGustoAPIVersion = Utils.readDefaultOrConstValue(
+    private Optional<? extends PostV1SandboxGenerate1099HeaderXGustoAPIVersion> xGustoAPIVersion = Utils.readDefaultOrConstValue(
                             "xGustoAPIVersion",
                             "\"2025-06-15\"",
-                            new TypeReference<Optional<? extends VersionHeader>>() {});
+                            new TypeReference<Optional<? extends PostV1SandboxGenerate1099HeaderXGustoAPIVersion>>() {});
     private PostV1SandboxGenerate1099RequestBody requestBody;
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
@@ -31,13 +31,13 @@ public class PostV1SandboxGenerate1099RequestBuilder {
         this.sdkConfiguration = sdkConfiguration;
     }
                 
-    public PostV1SandboxGenerate1099RequestBuilder xGustoAPIVersion(VersionHeader xGustoAPIVersion) {
+    public PostV1SandboxGenerate1099RequestBuilder xGustoAPIVersion(PostV1SandboxGenerate1099HeaderXGustoAPIVersion xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = Optional.of(xGustoAPIVersion);
         return this;
     }
 
-    public PostV1SandboxGenerate1099RequestBuilder xGustoAPIVersion(Optional<? extends VersionHeader> xGustoAPIVersion) {
+    public PostV1SandboxGenerate1099RequestBuilder xGustoAPIVersion(Optional<? extends PostV1SandboxGenerate1099HeaderXGustoAPIVersion> xGustoAPIVersion) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         this.xGustoAPIVersion = xGustoAPIVersion;
         return this;
@@ -71,9 +71,9 @@ public class PostV1SandboxGenerate1099RequestBuilder {
             .thenCompose(operation::handleResponse);
     }
 
-    private static final LazySingletonValue<Optional<? extends VersionHeader>> _SINGLETON_VALUE_XGustoAPIVersion =
+    private static final LazySingletonValue<Optional<? extends PostV1SandboxGenerate1099HeaderXGustoAPIVersion>> _SINGLETON_VALUE_XGustoAPIVersion =
             new LazySingletonValue<>(
                     "xGustoAPIVersion",
                     "\"2025-06-15\"",
-                    new TypeReference<Optional<? extends VersionHeader>>() {});
+                    new TypeReference<Optional<? extends PostV1SandboxGenerate1099HeaderXGustoAPIVersion>>() {});
 }

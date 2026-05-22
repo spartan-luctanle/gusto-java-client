@@ -54,7 +54,7 @@ public class I9Authorization {
      */
     @JsonInclude(Include.NON_ABSENT)
     @JsonProperty("document_type")
-    private JsonNullable<? extends I9AuthorizationDocumentType> documentType;
+    private JsonNullable<? extends DocumentType> documentType;
 
     /**
      * Whether or not a `document_number` exists for this document.
@@ -109,7 +109,7 @@ public class I9Authorization {
             @JsonProperty("form_uuid") JsonNullable<String> formUuid,
             @JsonProperty("version") String version,
             @JsonProperty("authorization_status") AuthorizationStatus authorizationStatus,
-            @JsonProperty("document_type") JsonNullable<? extends I9AuthorizationDocumentType> documentType,
+            @JsonProperty("document_type") JsonNullable<? extends DocumentType> documentType,
             @JsonProperty("has_document_number") JsonNullable<Boolean> hasDocumentNumber,
             @JsonProperty("expiration_date") JsonNullable<String> expirationDate,
             @JsonProperty("country") JsonNullable<String> country,
@@ -195,8 +195,8 @@ public class I9Authorization {
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public JsonNullable<I9AuthorizationDocumentType> documentType() {
-        return (JsonNullable<I9AuthorizationDocumentType>) documentType;
+    public JsonNullable<DocumentType> documentType() {
+        return (JsonNullable<DocumentType>) documentType;
     }
 
     /**
@@ -312,7 +312,7 @@ public class I9Authorization {
     /**
      * The document's document type
      */
-    public I9Authorization withDocumentType(I9AuthorizationDocumentType documentType) {
+    public I9Authorization withDocumentType(DocumentType documentType) {
         Utils.checkNotNull(documentType, "documentType");
         this.documentType = JsonNullable.of(documentType);
         return this;
@@ -321,7 +321,7 @@ public class I9Authorization {
     /**
      * The document's document type
      */
-    public I9Authorization withDocumentType(JsonNullable<? extends I9AuthorizationDocumentType> documentType) {
+    public I9Authorization withDocumentType(JsonNullable<? extends DocumentType> documentType) {
         Utils.checkNotNull(documentType, "documentType");
         this.documentType = documentType;
         return this;
@@ -496,7 +496,7 @@ public class I9Authorization {
 
         private AuthorizationStatus authorizationStatus;
 
-        private JsonNullable<? extends I9AuthorizationDocumentType> documentType = JsonNullable.undefined();
+        private JsonNullable<? extends DocumentType> documentType = JsonNullable.undefined();
 
         private JsonNullable<Boolean> hasDocumentNumber = JsonNullable.undefined();
 
@@ -573,7 +573,7 @@ public class I9Authorization {
         /**
          * The document's document type
          */
-        public Builder documentType(I9AuthorizationDocumentType documentType) {
+        public Builder documentType(DocumentType documentType) {
             Utils.checkNotNull(documentType, "documentType");
             this.documentType = JsonNullable.of(documentType);
             return this;
@@ -582,7 +582,7 @@ public class I9Authorization {
         /**
          * The document's document type
          */
-        public Builder documentType(JsonNullable<? extends I9AuthorizationDocumentType> documentType) {
+        public Builder documentType(JsonNullable<? extends DocumentType> documentType) {
             Utils.checkNotNull(documentType, "documentType");
             this.documentType = documentType;
             return this;

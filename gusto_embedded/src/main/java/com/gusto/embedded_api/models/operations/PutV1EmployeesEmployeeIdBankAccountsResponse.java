@@ -34,7 +34,7 @@ public class PutV1EmployeesEmployeeIdBankAccountsResponse implements Response {
     private HttpResponse<InputStream> rawResponse;
 
     /**
-     * Example response
+     * Success
      */
     private Optional<? extends EmployeeBankAccount> employeeBankAccount;
 
@@ -87,7 +87,7 @@ public class PutV1EmployeesEmployeeIdBankAccountsResponse implements Response {
     }
 
     /**
-     * Example response
+     * Success
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
@@ -128,7 +128,7 @@ public class PutV1EmployeesEmployeeIdBankAccountsResponse implements Response {
     }
 
     /**
-     * Example response
+     * Success
      */
     public PutV1EmployeesEmployeeIdBankAccountsResponse withEmployeeBankAccount(EmployeeBankAccount employeeBankAccount) {
         Utils.checkNotNull(employeeBankAccount, "employeeBankAccount");
@@ -138,7 +138,7 @@ public class PutV1EmployeesEmployeeIdBankAccountsResponse implements Response {
 
 
     /**
-     * Example response
+     * Success
      */
     public PutV1EmployeesEmployeeIdBankAccountsResponse withEmployeeBankAccount(Optional<? extends EmployeeBankAccount> employeeBankAccount) {
         Utils.checkNotNull(employeeBankAccount, "employeeBankAccount");
@@ -225,7 +225,7 @@ public class PutV1EmployeesEmployeeIdBankAccountsResponse implements Response {
 
 
         /**
-         * Example response
+         * Success
          */
         public Builder employeeBankAccount(EmployeeBankAccount employeeBankAccount) {
             Utils.checkNotNull(employeeBankAccount, "employeeBankAccount");
@@ -234,7 +234,7 @@ public class PutV1EmployeesEmployeeIdBankAccountsResponse implements Response {
         }
 
         /**
-         * Example response
+         * Success
          */
         public Builder employeeBankAccount(Optional<? extends EmployeeBankAccount> employeeBankAccount) {
             Utils.checkNotNull(employeeBankAccount, "employeeBankAccount");

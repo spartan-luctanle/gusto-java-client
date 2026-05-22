@@ -40,6 +40,8 @@ public class AsyncAchTransactions {
      * 
      * <p>scope: `ach_transactions:read`
      * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
+     * 
      * @return The async call builder
      */
     public GetAchTransactionsRequestBuilder getAll() {
@@ -52,6 +54,8 @@ public class AsyncAchTransactions {
      * <p>Fetches all ACH transactions for a company.
      * 
      * <p>scope: `ach_transactions:read`
+     * 
+     * <p>If set, this operation will use Security#companyAccessAuth from the global security.
      * 
      * @param request The request object containing all the parameters for the API call.
      * @return {@code CompletableFuture<GetAchTransactionsResponse>} - The async response

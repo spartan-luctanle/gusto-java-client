@@ -5,7 +5,7 @@
 ```java
 import com.gusto.embedded_api.models.components.SplitBy;
 
-SplitBy value = SplitBy.PERCENTAGE;
+SplitBy value = SplitBy.AMOUNT;
 ```
 
 
@@ -13,5 +13,5 @@ SplitBy value = SplitBy.PERCENTAGE;
 
 | Name         | Value        |
 | ------------ | ------------ |
-| `PERCENTAGE` | Percentage   |
 | `AMOUNT`     | Amount       |
+| `PERCENTAGE` | Percentage   |
