@@ -1,0 +1,10 @@
+# EmployeeStateTaxAnswer
+
+
+## Fields
+
+| Field                                                                                      | Type                                                                                       | Required                                                                                   | Description                                                                                |
+| ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
+| `value`                                                                                    | [JsonNullable\<Value>](../../models/components/Value.md)                                   | :heavy_minus_sign:                                                                         | The answer to the corresponding question - this may be a string, number, boolean, or null. |
+| `validFrom`                                                                                | *Optional\<String>*                                                                        | :heavy_minus_sign:                                                                         | The effective date of the answer - currently always “2010-01-01”.                          |
+| `validUpTo`                                                                                | *JsonNullable\<String>*                                                                    | :heavy_minus_sign:                                                                         | The effective end date of the answer - currently always null.                              |

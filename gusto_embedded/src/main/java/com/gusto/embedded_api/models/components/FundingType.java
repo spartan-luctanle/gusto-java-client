@@ -8,16 +8,13 @@ import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
 
-/**
- * FundingType
- * 
- * <p>Company's default funding type
- */
 public enum FundingType {
     ACH("ach"),
     REVERSE_WIRE("reverse_wire"),
     WIRE_IN("wire_in"),
-    BREX("brex");
+    PARTNER_DISBURSEMENT("partner_disbursement"),
+    RTP("rtp"),
+    LINE_OF_CREDIT("line_of_credit");
 
     @JsonValue
     private final String value;

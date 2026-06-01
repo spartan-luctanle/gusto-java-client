@@ -8,12 +8,6 @@ import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
 
-/**
- * SplitBy
- * 
- * <p>How the payment will be split. If Percentage, split amounts must add up to exactly 100. If Amount,
- * values are in cents and the last split amount must be null to capture the remainder.
- */
 public enum SplitBy {
     PERCENTAGE("Percentage"),
     AMOUNT("Amount");

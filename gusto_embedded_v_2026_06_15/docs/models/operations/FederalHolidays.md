@@ -1,0 +1,20 @@
+# FederalHolidays
+
+An object containing federal holiday objects, each containing a boolean selected property.
+
+
+## Fields
+
+| Field                                                                    | Type                                                                     | Required                                                                 | Description                                                              |
+| ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
+| `newYearsDay`                                                            | [Optional\<NewYearsDay>](../../models/operations/NewYearsDay.md)         | :heavy_minus_sign:                                                       | N/A                                                                      |
+| `mlkDay`                                                                 | [Optional\<MlkDay>](../../models/operations/MlkDay.md)                   | :heavy_minus_sign:                                                       | N/A                                                                      |
+| `presidentsDay`                                                          | [Optional\<PresidentsDay>](../../models/operations/PresidentsDay.md)     | :heavy_minus_sign:                                                       | N/A                                                                      |
+| `memorialDay`                                                            | [Optional\<MemorialDay>](../../models/operations/MemorialDay.md)         | :heavy_minus_sign:                                                       | N/A                                                                      |
+| `juneteenth`                                                             | [Optional\<Juneteenth>](../../models/operations/Juneteenth.md)           | :heavy_minus_sign:                                                       | N/A                                                                      |
+| `independenceDay`                                                        | [Optional\<IndependenceDay>](../../models/operations/IndependenceDay.md) | :heavy_minus_sign:                                                       | N/A                                                                      |
+| `laborDay`                                                               | [Optional\<LaborDay>](../../models/operations/LaborDay.md)               | :heavy_minus_sign:                                                       | N/A                                                                      |
+| `columbusDay`                                                            | [Optional\<ColumbusDay>](../../models/operations/ColumbusDay.md)         | :heavy_minus_sign:                                                       | N/A                                                                      |
+| `veteransDay`                                                            | [Optional\<VeteransDay>](../../models/operations/VeteransDay.md)         | :heavy_minus_sign:                                                       | N/A                                                                      |
+| `thanksgiving`                                                           | [Optional\<Thanksgiving>](../../models/operations/Thanksgiving.md)       | :heavy_minus_sign:                                                       | N/A                                                                      |
+| `christmasDay`                                                           | [Optional\<ChristmasDay>](../../models/operations/ChristmasDay.md)       | :heavy_minus_sign:                                                       | N/A                                                                      |

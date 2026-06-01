@@ -8,17 +8,6 @@ import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
 
-/**
- * EmployeeBenefitUpdateRequestLimitOption
- * 
- * <p>Some benefits require additional information to determine
- * their limit.
- * 
- * <p>`Family` or `Individual`: Applicable to HSA benefit.
- * 
- * <p>`Joint Filing or Single` or `Married and Filing Separately`: Applicable to Dependent Care FSA
- * benefit.
- */
 public enum EmployeeBenefitUpdateRequestLimitOption {
     FAMILY("Family"),
     INDIVIDUAL("Individual"),

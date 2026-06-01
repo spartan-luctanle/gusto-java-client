@@ -833,7 +833,7 @@ public class EmployeeBenefitUpdateRequest {
 
         private JsonNullable<String> coverageAmount = JsonNullable.undefined();
 
-        private JsonNullable<? extends EmployeeBenefitUpdateRequestDeductionReducesTaxableIncome> deductionReducesTaxableIncome;
+        private JsonNullable<? extends EmployeeBenefitUpdateRequestDeductionReducesTaxableIncome> deductionReducesTaxableIncome = JsonNullable.undefined();
 
         private Optional<String> coverageSalaryMultiplier;
 
@@ -1213,9 +1213,6 @@ public class EmployeeBenefitUpdateRequest {
             if (catchUp == null) {
                 catchUp = _SINGLETON_VALUE_CatchUp.value();
             }
-            if (deductionReducesTaxableIncome == null) {
-                deductionReducesTaxableIncome = _SINGLETON_VALUE_DeductionReducesTaxableIncome.value();
-            }
             if (coverageSalaryMultiplier == null) {
                 coverageSalaryMultiplier = _SINGLETON_VALUE_CoverageSalaryMultiplier.value();
             }
@@ -1253,12 +1250,6 @@ public class EmployeeBenefitUpdateRequest {
                         "catch_up",
                         "false",
                         new TypeReference<Optional<Boolean>>() {});
-
-        private static final LazySingletonValue<JsonNullable<? extends EmployeeBenefitUpdateRequestDeductionReducesTaxableIncome>> _SINGLETON_VALUE_DeductionReducesTaxableIncome =
-                new LazySingletonValue<>(
-                        "deduction_reduces_taxable_income",
-                        "\"unset\"",
-                        new TypeReference<JsonNullable<? extends EmployeeBenefitUpdateRequestDeductionReducesTaxableIncome>>() {});
 
         private static final LazySingletonValue<Optional<String>> _SINGLETON_VALUE_CoverageSalaryMultiplier =
                 new LazySingletonValue<>(

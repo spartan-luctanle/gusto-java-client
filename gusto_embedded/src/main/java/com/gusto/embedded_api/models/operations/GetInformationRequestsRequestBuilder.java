@@ -21,6 +21,7 @@ public class GetInformationRequestsRequestBuilder {
                             "\"2025-06-15\"",
                             new TypeReference<Optional<? extends GetInformationRequestsHeaderXGustoAPIVersion>>() {});
     private String companyUuid;
+    private Optional<String> sortBy = Optional.empty();
     private final SDKConfiguration sdkConfiguration;
     private final Headers _headers = new Headers(); 
 
@@ -45,6 +46,18 @@ public class GetInformationRequestsRequestBuilder {
         this.companyUuid = companyUuid;
         return this;
     }
+                
+    public GetInformationRequestsRequestBuilder sortBy(String sortBy) {
+        Utils.checkNotNull(sortBy, "sortBy");
+        this.sortBy = Optional.of(sortBy);
+        return this;
+    }
+
+    public GetInformationRequestsRequestBuilder sortBy(Optional<String> sortBy) {
+        Utils.checkNotNull(sortBy, "sortBy");
+        this.sortBy = sortBy;
+        return this;
+    }
 
 
     private GetInformationRequestsRequest buildRequest() {
@@ -53,7 +66,8 @@ public class GetInformationRequestsRequestBuilder {
         }
 
         GetInformationRequestsRequest request = new GetInformationRequestsRequest(xGustoAPIVersion,
-            companyUuid);
+            companyUuid,
+            sortBy);
 
         return request;
     }

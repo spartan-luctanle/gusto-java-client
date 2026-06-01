@@ -119,6 +119,8 @@ public class AsyncGustoEmbedded {
 
     private final AsyncTimeOffRequests timeOffRequests;
 
+    private final AsyncPayrollDigests payrollDigests;
+
     public AsyncIntrospection introspection() {
         return introspection;
     }
@@ -335,6 +337,10 @@ public class AsyncGustoEmbedded {
         return timeOffRequests;
     }
 
+    public AsyncPayrollDigests payrollDigests() {
+        return payrollDigests;
+    }
+
     private final SDKConfiguration sdkConfiguration;
     private final GustoEmbedded syncSDK;
 
@@ -395,6 +401,7 @@ public class AsyncGustoEmbedded {
         this.reimbursements = new AsyncReimbursements(syncSDK.reimbursements(), sdkConfiguration);
         this.peopleBatches = new AsyncPeopleBatches(syncSDK.peopleBatches(), sdkConfiguration);
         this.timeOffRequests = new AsyncTimeOffRequests(syncSDK.timeOffRequests(), sdkConfiguration);
+        this.payrollDigests = new AsyncPayrollDigests(syncSDK.payrollDigests(), sdkConfiguration);
     }
 
     /**

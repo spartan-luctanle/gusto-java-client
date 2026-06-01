@@ -1,0 +1,19 @@
+# EmployeeBenefitCreateRequestLimitOption
+
+## Example Usage
+
+```java
+import com.gusto.embedded_api_v_2026_06_15.models.components.EmployeeBenefitCreateRequestLimitOption;
+
+EmployeeBenefitCreateRequestLimitOption value = EmployeeBenefitCreateRequestLimitOption.FAMILY;
+```
+
+
+## Values
+
+| Name                            | Value                           |
+| ------------------------------- | ------------------------------- |
+| `FAMILY`                        | Family                          |
+| `INDIVIDUAL`                    | Individual                      |
+| `JOINT_FILING_OR_SINGLE`        | Joint Filing or Single          |
+| `MARRIED_AND_FILING_SEPARATELY` | Married and Filing Separately   |

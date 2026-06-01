@@ -51,7 +51,7 @@ The samples below show how a published SDK artifact is used:
 
 Gradle:
 ```groovy
-implementation 'com.gusto:embedded-api:0.3.3'
+implementation 'com.gusto:embedded-api:0.3.4'
 ```
 
 Maven:
@@ -59,7 +59,7 @@ Maven:
 <dependency>
     <groupId>com.gusto</groupId>
     <artifactId>embedded-api</artifactId>
-    <version>0.3.3</version>
+    <version>0.3.4</version>
 </dependency>
 ```
 
@@ -651,6 +651,11 @@ public class Application {
 * [get](docs/sdks/paymentconfigs/README.md#get) - Get a company's payment configs
 * [update](docs/sdks/paymentconfigs/README.md#update) - Update a company's payment configs
 
+### [PayrollDigests](docs/sdks/payrolldigests/README.md)
+
+* [postV1PayrollDigests](docs/sdks/payrolldigests/README.md#postv1payrolldigests) - Create a payroll digest batch
+* [getV1PayrollDigestsPayrollDigestUuid](docs/sdks/payrolldigests/README.md#getv1payrolldigestspayrolldigestuuid) - Get a payroll digest batch
+
 ### [Payrolls](docs/sdks/payrolls/README.md)
 
 * [list](docs/sdks/payrolls/README.md#list) - Get all payrolls for a company
@@ -881,7 +886,7 @@ public class Application {
 * [`GustoEmbeddedException`](./src/main/java/models/errors/GustoEmbeddedException.java): The base class for HTTP error responses.
   * [`com.gusto.embedded_api.models.errors.NotFoundErrorObject`](./src/main/java/models/errors/com.gusto.embedded_api.models.errors.NotFoundErrorObject.java): Not Found     The requested resource does not exist. Make sure the provided ID/UUID is valid. *
 
-<details><summary>Less common errors (10)</summary>
+<details><summary>Less common errors (11)</summary>
 
 <br />
 
@@ -891,10 +896,11 @@ public class Application {
 many more subclasses in the JDK platform).
 
 **Inherit from [`GustoEmbeddedException`](./src/main/java/models/errors/GustoEmbeddedException.java)**:
-* [`com.gusto.embedded_api.models.errors.UnprocessableEntityError`](./src/main/java/models/errors/com.gusto.embedded_api.models.errors.UnprocessableEntityError.java): Unprocessable Entity    This may happen when the body of your request contains errors such as `invalid_attribute_value`, or the request fails due to an `invalid_operation`. See the [Errors Categories](https://docs.gusto.com/embedded-payroll/docs/error-categories) guide for more details. Applicable to 152 of 297 methods.*
-* [`com.gusto.embedded_api.models.errors.ConflictErrorObject`](./src/main/java/models/errors/com.gusto.embedded_api.models.errors.ConflictErrorObject.java): Conflict    This error occurs when the resource version provided does not match the current version. Retrieve the latest version and retry. Status code `409`. Applicable to 2 of 297 methods.*
-* [`com.gusto.embedded_api.models.errors.PeopleBatchConflictError`](./src/main/java/models/errors/com.gusto.embedded_api.models.errors.PeopleBatchConflictError.java): Error response when a people batch idempotency key conflict occurs. Status code `409`. Applicable to 1 of 297 methods.*
-* [`com.gusto.embedded_api.models.errors.PayrollBlockersError`](./src/main/java/models/errors/com.gusto.embedded_api.models.errors.PayrollBlockersError.java): Payroll Blockers Error  For detailed information, see the [Payroll Blockers guide](https://docs.gusto.com/embedded-payroll/docs/payroll-blockers). Status code `422`. Applicable to 1 of 297 methods.*
+* [`com.gusto.embedded_api.models.errors.UnprocessableEntityError`](./src/main/java/models/errors/com.gusto.embedded_api.models.errors.UnprocessableEntityError.java): Unprocessable Entity    This may happen when the body of your request contains errors such as `invalid_attribute_value`, or the request fails due to an `invalid_operation`. See the [Errors Categories](https://docs.gusto.com/embedded-payroll/docs/error-categories) guide for more details. Applicable to 159 of 299 methods.*
+* [`com.gusto.embedded_api.models.errors.ConflictErrorObject`](./src/main/java/models/errors/com.gusto.embedded_api.models.errors.ConflictErrorObject.java): Conflict    This error occurs when the resource version provided does not match the current version. Retrieve the latest version and retry. Status code `409`. Applicable to 2 of 299 methods.*
+* [`com.gusto.embedded_api.models.errors.PeopleBatchConflictError`](./src/main/java/models/errors/com.gusto.embedded_api.models.errors.PeopleBatchConflictError.java): Error response when a people batch idempotency key conflict occurs. Status code `409`. Applicable to 1 of 299 methods.*
+* [`com.gusto.embedded_api.models.errors.PayrollDigestConflictError`](./src/main/java/models/errors/com.gusto.embedded_api.models.errors.PayrollDigestConflictError.java): Error response when a payroll digest idempotency key has already been used by the same partner. Status code `409`. Applicable to 1 of 299 methods.*
+* [`com.gusto.embedded_api.models.errors.PayrollBlockersError`](./src/main/java/models/errors/com.gusto.embedded_api.models.errors.PayrollBlockersError.java): Payroll Blockers Error  For detailed information, see the [Payroll Blockers guide](https://docs.gusto.com/embedded-payroll/docs/payroll-blockers). Status code `422`. Applicable to 1 of 299 methods.*
 
 
 </details>

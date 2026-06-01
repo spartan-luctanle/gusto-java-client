@@ -222,6 +222,9 @@ public class GustoEmbedded {
     private final TimeOffRequests timeOffRequests;
 
 
+    private final PayrollDigests payrollDigests;
+
+
     public Introspection introspection() {
         return introspection;
     }
@@ -490,6 +493,11 @@ public class GustoEmbedded {
     public TimeOffRequests timeOffRequests() {
         return timeOffRequests;
     }
+
+
+    public PayrollDigests payrollDigests() {
+        return payrollDigests;
+    }
     private final AsyncGustoEmbedded asyncSDK;
 
     /**
@@ -697,6 +705,7 @@ public class GustoEmbedded {
         this.reimbursements = new Reimbursements(sdkConfiguration);
         this.peopleBatches = new PeopleBatches(sdkConfiguration);
         this.timeOffRequests = new TimeOffRequests(sdkConfiguration);
+        this.payrollDigests = new PayrollDigests(sdkConfiguration);
         sdkConfiguration = sdkConfiguration.hooks().sdkInit(sdkConfiguration);
         this.asyncSDK = new AsyncGustoEmbedded(this, sdkConfiguration);
     }

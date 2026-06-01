@@ -51,10 +51,13 @@ public class PutV1CompaniesCompanyIdPayrollsPayrollIdPrepareRequest {
     private Optional<Long> per;
 
     /**
-     * Sort employee compensations by name
+     * Sort employee compensations by one or more fields. Options: first_name, last_name. Append `:asc` or
+     * `:desc` to specify direction (e.g., `last_name:asc` or `last_name:asc,first_name:asc`).
+     * 
+     * <p>Defaults to ascending.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=sort_by")
-    private Optional<? extends QueryParamSortBy> sortBy;
+    private Optional<String> sortBy;
 
 
     @SpeakeasyMetadata("request:mediaType=application/json")
@@ -67,7 +70,7 @@ public class PutV1CompaniesCompanyIdPayrollsPayrollIdPrepareRequest {
             String payrollId,
             Optional<Long> page,
             Optional<Long> per,
-            Optional<? extends QueryParamSortBy> sortBy,
+            Optional<String> sortBy,
             Optional<? extends PutV1CompaniesCompanyIdPayrollsPayrollIdPrepareRequestBody> requestBody) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         Utils.checkNotNull(companyId, "companyId");
@@ -138,12 +141,14 @@ public class PutV1CompaniesCompanyIdPayrollsPayrollIdPrepareRequest {
     }
 
     /**
-     * Sort employee compensations by name
+     * Sort employee compensations by one or more fields. Options: first_name, last_name. Append `:asc` or
+     * `:desc` to specify direction (e.g., `last_name:asc` or `last_name:asc,first_name:asc`).
+     * 
+     * <p>Defaults to ascending.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<QueryParamSortBy> sortBy() {
-        return (Optional<QueryParamSortBy>) sortBy;
+    public Optional<String> sortBy() {
+        return sortBy;
     }
 
     @SuppressWarnings("unchecked")
@@ -239,9 +244,12 @@ public class PutV1CompaniesCompanyIdPayrollsPayrollIdPrepareRequest {
     }
 
     /**
-     * Sort employee compensations by name
+     * Sort employee compensations by one or more fields. Options: first_name, last_name. Append `:asc` or
+     * `:desc` to specify direction (e.g., `last_name:asc` or `last_name:asc,first_name:asc`).
+     * 
+     * <p>Defaults to ascending.
      */
-    public PutV1CompaniesCompanyIdPayrollsPayrollIdPrepareRequest withSortBy(QueryParamSortBy sortBy) {
+    public PutV1CompaniesCompanyIdPayrollsPayrollIdPrepareRequest withSortBy(String sortBy) {
         Utils.checkNotNull(sortBy, "sortBy");
         this.sortBy = Optional.ofNullable(sortBy);
         return this;
@@ -249,9 +257,12 @@ public class PutV1CompaniesCompanyIdPayrollsPayrollIdPrepareRequest {
 
 
     /**
-     * Sort employee compensations by name
+     * Sort employee compensations by one or more fields. Options: first_name, last_name. Append `:asc` or
+     * `:desc` to specify direction (e.g., `last_name:asc` or `last_name:asc,first_name:asc`).
+     * 
+     * <p>Defaults to ascending.
      */
-    public PutV1CompaniesCompanyIdPayrollsPayrollIdPrepareRequest withSortBy(Optional<? extends QueryParamSortBy> sortBy) {
+    public PutV1CompaniesCompanyIdPayrollsPayrollIdPrepareRequest withSortBy(Optional<String> sortBy) {
         Utils.checkNotNull(sortBy, "sortBy");
         this.sortBy = sortBy;
         return this;
@@ -322,7 +333,7 @@ public class PutV1CompaniesCompanyIdPayrollsPayrollIdPrepareRequest {
 
         private Optional<Long> per = Optional.empty();
 
-        private Optional<? extends QueryParamSortBy> sortBy = Optional.empty();
+        private Optional<String> sortBy = Optional.empty();
 
         private Optional<? extends PutV1CompaniesCompanyIdPayrollsPayrollIdPrepareRequestBody> requestBody = Optional.empty();
 
@@ -415,18 +426,24 @@ public class PutV1CompaniesCompanyIdPayrollsPayrollIdPrepareRequest {
 
 
         /**
-         * Sort employee compensations by name
+         * Sort employee compensations by one or more fields. Options: first_name, last_name. Append `:asc` or
+         * `:desc` to specify direction (e.g., `last_name:asc` or `last_name:asc,first_name:asc`).
+         * 
+         * <p>Defaults to ascending.
          */
-        public Builder sortBy(QueryParamSortBy sortBy) {
+        public Builder sortBy(String sortBy) {
             Utils.checkNotNull(sortBy, "sortBy");
             this.sortBy = Optional.ofNullable(sortBy);
             return this;
         }
 
         /**
-         * Sort employee compensations by name
+         * Sort employee compensations by one or more fields. Options: first_name, last_name. Append `:asc` or
+         * `:desc` to specify direction (e.g., `last_name:asc` or `last_name:asc,first_name:asc`).
+         * 
+         * <p>Defaults to ascending.
          */
-        public Builder sortBy(Optional<? extends QueryParamSortBy> sortBy) {
+        public Builder sortBy(Optional<String> sortBy) {
             Utils.checkNotNull(sortBy, "sortBy");
             this.sortBy = sortBy;
             return this;

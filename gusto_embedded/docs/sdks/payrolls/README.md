@@ -254,6 +254,7 @@ public class Application {
         GetV1CompaniesCompanyIdPayrollsPayrollIdRequest req = GetV1CompaniesCompanyIdPayrollsPayrollIdRequest.builder()
                 .companyId("<id>")
                 .payrollId("<id>")
+                .sortBy("first_name:asc")
                 .build();
 
         GetV1CompaniesCompanyIdPayrollsPayrollIdResponse res = sdk.payrolls().get()

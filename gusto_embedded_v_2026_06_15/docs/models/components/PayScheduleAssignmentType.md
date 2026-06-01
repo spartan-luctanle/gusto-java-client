@@ -1,0 +1,19 @@
+# PayScheduleAssignmentType
+
+## Example Usage
+
+```java
+import com.gusto.embedded_api_v_2026_06_15.models.components.PayScheduleAssignmentType;
+
+PayScheduleAssignmentType value = PayScheduleAssignmentType.SINGLE;
+```
+
+
+## Values
+
+| Name              | Value             |
+| ----------------- | ----------------- |
+| `SINGLE`          | single            |
+| `HOURLY_SALARIED` | hourly_salaried   |
+| `BY_EMPLOYEE`     | by_employee       |
+| `BY_DEPARTMENT`   | by_department     |

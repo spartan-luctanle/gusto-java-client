@@ -69,7 +69,7 @@ public class AsyncInformationRequests {
      * @return {@code CompletableFuture<GetInformationRequestsResponse>} - The async response
      */
     public CompletableFuture<GetInformationRequestsResponse> getInformationRequests(String companyUuid) {
-        return getInformationRequests(Optional.empty(), companyUuid);
+        return getInformationRequests(Optional.empty(), companyUuid, Optional.empty());
     }
 
     /**
@@ -83,14 +83,18 @@ public class AsyncInformationRequests {
      * 
      * @param xGustoAPIVersion Determines the date-based API version associated with your API call. If none is provided, your application's [minimum API version](https://docs.gusto.com/embedded-payroll/docs/api-versioning#minimum-api-version) is used.
      * @param companyUuid The UUID of the company
+     * @param sortBy Sort by one or more fields. Options: payroll_blocker, status, type. Append `:asc` or `:desc` to specify direction (e.g., `payroll_blocker:asc`). Defaults to ascending.
      * @return {@code CompletableFuture<GetInformationRequestsResponse>} - The async response
      */
-    public CompletableFuture<GetInformationRequestsResponse> getInformationRequests(Optional<? extends GetInformationRequestsHeaderXGustoAPIVersion> xGustoAPIVersion, String companyUuid) {
+    public CompletableFuture<GetInformationRequestsResponse> getInformationRequests(
+            Optional<? extends GetInformationRequestsHeaderXGustoAPIVersion> xGustoAPIVersion, String companyUuid,
+            Optional<String> sortBy) {
         GetInformationRequestsRequest request =
             GetInformationRequestsRequest
                 .builder()
                 .xGustoAPIVersion(xGustoAPIVersion)
                 .companyUuid(companyUuid)
+                .sortBy(sortBy)
                 .build();
         AsyncRequestOperation<GetInformationRequestsRequest, GetInformationRequestsResponse> operation
               = new GetInformationRequests.Async(sdkConfiguration, _headers);

@@ -47,6 +47,7 @@ public class Application {
 
         GetV1CompaniesCompanyUuidContractorsRequest req = GetV1CompaniesCompanyUuidContractorsRequest.builder()
                 .companyUuid("<id>")
+                .sortBy("created_at:asc")
                 .build();
 
         GetV1CompaniesCompanyUuidContractorsResponse res = sdk.contractors().list()

@@ -1022,7 +1022,7 @@ public class EmployeeBenefit {
 
         private JsonNullable<String> coverageAmount = JsonNullable.undefined();
 
-        private JsonNullable<? extends DeductionReducesTaxableIncome> deductionReducesTaxableIncome;
+        private JsonNullable<? extends DeductionReducesTaxableIncome> deductionReducesTaxableIncome = JsonNullable.undefined();
 
         private JsonNullable<String> coverageSalaryMultiplier;
 
@@ -1514,9 +1514,6 @@ public class EmployeeBenefit {
             if (catchUp == null) {
                 catchUp = _SINGLETON_VALUE_CatchUp.value();
             }
-            if (deductionReducesTaxableIncome == null) {
-                deductionReducesTaxableIncome = _SINGLETON_VALUE_DeductionReducesTaxableIncome.value();
-            }
             if (coverageSalaryMultiplier == null) {
                 coverageSalaryMultiplier = _SINGLETON_VALUE_CoverageSalaryMultiplier.value();
             }
@@ -1568,12 +1565,6 @@ public class EmployeeBenefit {
                         "catch_up",
                         "false",
                         new TypeReference<JsonNullable<Boolean>>() {});
-
-        private static final LazySingletonValue<JsonNullable<? extends DeductionReducesTaxableIncome>> _SINGLETON_VALUE_DeductionReducesTaxableIncome =
-                new LazySingletonValue<>(
-                        "deduction_reduces_taxable_income",
-                        "\"unset\"",
-                        new TypeReference<JsonNullable<? extends DeductionReducesTaxableIncome>>() {});
 
         private static final LazySingletonValue<JsonNullable<String>> _SINGLETON_VALUE_CoverageSalaryMultiplier =
                 new LazySingletonValue<>(

@@ -1,0 +1,20 @@
+# DocumentRecipientType
+
+The type of recipient associated with the document (will be `Contractor` for Contractor Documents)
+
+## Example Usage
+
+```java
+import com.gusto.embedded_api_v_2026_06_15.models.components.DocumentRecipientType;
+
+DocumentRecipientType value = DocumentRecipientType.COMPANY;
+```
+
+
+## Values
+
+| Name         | Value        |
+| ------------ | ------------ |
+| `COMPANY`    | Company      |
+| `EMPLOYEE`   | Employee     |
+| `CONTRACTOR` | Contractor   |

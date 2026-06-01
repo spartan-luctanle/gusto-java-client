@@ -8,13 +8,6 @@ import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
 
-/**
- * EmployeeBenefitUpdateRequestDeductionReducesTaxableIncome
- * 
- * <p>Whether the employee deduction reduces taxable income or not. Only valid for Group Term Life
- * benefits. Note: when the value is not "unset", coverage amount and coverage salary multiplier are
- * ignored.
- */
 public enum EmployeeBenefitUpdateRequestDeductionReducesTaxableIncome {
     UNSET("unset"),
     REDUCES_TAXABLE_INCOME("reduces_taxable_income"),

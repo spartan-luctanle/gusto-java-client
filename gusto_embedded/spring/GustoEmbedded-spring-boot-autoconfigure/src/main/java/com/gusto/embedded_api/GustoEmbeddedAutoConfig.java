@@ -816,6 +816,17 @@ public class GustoEmbeddedAutoConfig {
     public TimeOffRequests timeOffRequests(GustoEmbedded gustoEmbedded) {
         return gustoEmbedded.timeOffRequests();
     }
+    /**
+     * Creates a PayrollDigests sub-SDK bean if none exists.
+     *
+     * @param gustoEmbedded the main SDK instance
+     * @return A configured PayrollDigests instance
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public PayrollDigests payrollDigests(GustoEmbedded gustoEmbedded) {
+        return gustoEmbedded.payrollDigests();
+    }
 
     /**
      * Creates the async SDK bean if none exists.
@@ -1422,5 +1433,16 @@ public class GustoEmbeddedAutoConfig {
     @ConditionalOnMissingBean
     public AsyncTimeOffRequests asyncTimeOffRequests(AsyncGustoEmbedded asyncGustoEmbedded) {
         return asyncGustoEmbedded.timeOffRequests();
+    }
+    /**
+     * Creates an AsyncPayrollDigests sub-SDK bean if none exists.
+     *
+     * @param asyncGustoEmbedded the async SDK instance
+     * @return A configured AsyncPayrollDigests instance
+     */
+    @Bean
+    @ConditionalOnMissingBean
+    public AsyncPayrollDigests asyncPayrollDigests(AsyncGustoEmbedded asyncGustoEmbedded) {
+        return asyncGustoEmbedded.payrollDigests();
     }
 }

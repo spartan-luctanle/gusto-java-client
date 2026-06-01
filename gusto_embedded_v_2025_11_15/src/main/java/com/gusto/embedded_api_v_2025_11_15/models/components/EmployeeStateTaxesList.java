@@ -20,6 +20,13 @@ import org.openapitools.jackson.nullable.JsonNullable;
 
 public class EmployeeStateTaxesList {
     /**
+     * The uuid of the employee state field.
+     */
+    @JsonInclude(Include.NON_ABSENT)
+    @JsonProperty("uuid")
+    private Optional<String> uuid;
+
+    /**
      * The employee's uuid
      */
     @JsonInclude(Include.NON_ABSENT)
@@ -50,16 +57,19 @@ public class EmployeeStateTaxesList {
 
     @JsonCreator
     public EmployeeStateTaxesList(
+            @JsonProperty("uuid") Optional<String> uuid,
             @JsonProperty("employee_uuid") Optional<String> employeeUuid,
             @JsonProperty("state") Optional<String> state,
             @JsonProperty("file_new_hire_report") JsonNullable<Boolean> fileNewHireReport,
             @JsonProperty("is_work_state") Optional<Boolean> isWorkState,
             @JsonProperty("questions") Optional<? extends List<EmployeeStateTaxQuestion>> questions) {
+        Utils.checkNotNull(uuid, "uuid");
         Utils.checkNotNull(employeeUuid, "employeeUuid");
         Utils.checkNotNull(state, "state");
         Utils.checkNotNull(fileNewHireReport, "fileNewHireReport");
         Utils.checkNotNull(isWorkState, "isWorkState");
         Utils.checkNotNull(questions, "questions");
+        this.uuid = uuid;
         this.employeeUuid = employeeUuid;
         this.state = state;
         this.fileNewHireReport = fileNewHireReport;
@@ -68,8 +78,16 @@ public class EmployeeStateTaxesList {
     }
     
     public EmployeeStateTaxesList() {
-        this(Optional.empty(), Optional.empty(), JsonNullable.undefined(),
-            Optional.empty(), Optional.empty());
+        this(Optional.empty(), Optional.empty(), Optional.empty(),
+            JsonNullable.undefined(), Optional.empty(), Optional.empty());
+    }
+
+    /**
+     * The uuid of the employee state field.
+     */
+    @JsonIgnore
+    public Optional<String> uuid() {
+        return uuid;
     }
 
     /**
@@ -108,6 +126,25 @@ public class EmployeeStateTaxesList {
         return new Builder();
     }
 
+
+    /**
+     * The uuid of the employee state field.
+     */
+    public EmployeeStateTaxesList withUuid(String uuid) {
+        Utils.checkNotNull(uuid, "uuid");
+        this.uuid = Optional.ofNullable(uuid);
+        return this;
+    }
+
+
+    /**
+     * The uuid of the employee state field.
+     */
+    public EmployeeStateTaxesList withUuid(Optional<String> uuid) {
+        Utils.checkNotNull(uuid, "uuid");
+        this.uuid = uuid;
+        return this;
+    }
 
     /**
      * The employee's uuid
@@ -195,6 +232,7 @@ public class EmployeeStateTaxesList {
         }
         EmployeeStateTaxesList other = (EmployeeStateTaxesList) o;
         return 
+            Utils.enhancedDeepEquals(this.uuid, other.uuid) &&
             Utils.enhancedDeepEquals(this.employeeUuid, other.employeeUuid) &&
             Utils.enhancedDeepEquals(this.state, other.state) &&
             Utils.enhancedDeepEquals(this.fileNewHireReport, other.fileNewHireReport) &&
@@ -205,13 +243,14 @@ public class EmployeeStateTaxesList {
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            employeeUuid, state, fileNewHireReport,
-            isWorkState, questions);
+            uuid, employeeUuid, state,
+            fileNewHireReport, isWorkState, questions);
     }
     
     @Override
     public String toString() {
         return Utils.toString(EmployeeStateTaxesList.class,
+                "uuid", uuid,
                 "employeeUuid", employeeUuid,
                 "state", state,
                 "fileNewHireReport", fileNewHireReport,
@@ -221,6 +260,8 @@ public class EmployeeStateTaxesList {
 
     @SuppressWarnings("UnusedReturnValue")
     public final static class Builder {
+
+        private Optional<String> uuid = Optional.empty();
 
         private Optional<String> employeeUuid = Optional.empty();
 
@@ -234,6 +275,25 @@ public class EmployeeStateTaxesList {
 
         private Builder() {
           // force use of static builder() method
+        }
+
+
+        /**
+         * The uuid of the employee state field.
+         */
+        public Builder uuid(String uuid) {
+            Utils.checkNotNull(uuid, "uuid");
+            this.uuid = Optional.ofNullable(uuid);
+            return this;
+        }
+
+        /**
+         * The uuid of the employee state field.
+         */
+        public Builder uuid(Optional<String> uuid) {
+            Utils.checkNotNull(uuid, "uuid");
+            this.uuid = uuid;
+            return this;
         }
 
 
@@ -316,8 +376,8 @@ public class EmployeeStateTaxesList {
         public EmployeeStateTaxesList build() {
 
             return new EmployeeStateTaxesList(
-                employeeUuid, state, fileNewHireReport,
-                isWorkState, questions);
+                uuid, employeeUuid, state,
+                fileNewHireReport, isWorkState, questions);
         }
 
     }

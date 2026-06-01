@@ -1,0 +1,10 @@
+# PayrollCreditBlockerUnblockOptionSubmitWireMetadata
+
+
+## Fields
+
+| Field                                                                                     | Type                                                                                      | Required                                                                                  | Description                                                                               |
+| ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| `wireInAmount`                                                                            | *String*                                                                                  | :heavy_check_mark:                                                                        | The amount to be wired in (decimal string)                                                |
+| `wireInDeadline`                                                                          | [OffsetDateTime](https://docs.oracle.com/javase/8/docs/api/java/time/OffsetDateTime.html) | :heavy_check_mark:                                                                        | Deadline for the wire transfer to be received                                             |
+| `wireInRequestUuid`                                                                       | *String*                                                                                  | :heavy_check_mark:                                                                        | UUID of the wire in request                                                               |

@@ -8,11 +8,6 @@ import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
 
-/**
- * InformationRequestType
- * 
- * <p>The type of information request
- */
 public enum InformationRequestType {
     COMPANY_ONBOARDING("company_onboarding"),
     ACCOUNT_PROTECTION("account_protection"),

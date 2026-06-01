@@ -10,12 +10,12 @@ import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.gusto.embedded_api.SDKConfiguration;
 import com.gusto.embedded_api.SecuritySource;
+import com.gusto.embedded_api.models.components.EmployeesAnnualFicaWageReportAcceptance;
 import com.gusto.embedded_api.models.errors.APIException;
 import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
 import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
 import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdReportsEmployeesAnnualFicaWageRequest;
 import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdReportsEmployeesAnnualFicaWageResponse;
-import com.gusto.embedded_api.models.operations.PostV1CompaniesCompanyIdReportsEmployeesAnnualFicaWageResponseBody;
 import com.gusto.embedded_api.utils.Blob;
 import com.gusto.embedded_api.utils.HTTPClient;
 import com.gusto.embedded_api.utils.HTTPRequest;
@@ -174,7 +174,7 @@ public class PostV1CompaniesCompanyIdReportsEmployeesAnnualFicaWage {
             
             if (Utils.statusCodeMatches(response.statusCode(), "202")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
-                    return res.withObject(Utils.unmarshal(response, new TypeReference<PostV1CompaniesCompanyIdReportsEmployeesAnnualFicaWageResponseBody>() {}));
+                    return res.withEmployeesAnnualFicaWageReportAcceptance(Utils.unmarshal(response, new TypeReference<EmployeesAnnualFicaWageReportAcceptance>() {}));
                 } else {
                     throw APIException.from("Unexpected content-type received: " + contentType, response);
                 }
@@ -258,8 +258,8 @@ public class PostV1CompaniesCompanyIdReportsEmployeesAnnualFicaWage {
             
             if (Utils.statusCodeMatches(response.statusCode(), "202")) {
                 if (Utils.contentTypeMatches(contentType, "application/json")) {
-                    return Utils.unmarshalAsync(response, new TypeReference<PostV1CompaniesCompanyIdReportsEmployeesAnnualFicaWageResponseBody>() {})
-                            .thenApply(res::withObject);
+                    return Utils.unmarshalAsync(response, new TypeReference<EmployeesAnnualFicaWageReportAcceptance>() {})
+                            .thenApply(res::withEmployeesAnnualFicaWageReportAcceptance);
                 } else {
                     return Utils.createAsyncApiError(response, "Unexpected content-type received: " + contentType);
                 }

@@ -5,6 +5,7 @@ package com.gusto.embedded_api_v_2025_11_15.models.operations;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.gusto.embedded_api_v_2025_11_15.models.components.EmployeesAnnualFicaWageReportAcceptance;
 import com.gusto.embedded_api_v_2025_11_15.utils.Response;
 import com.gusto.embedded_api_v_2025_11_15.utils.Utils;
 import java.io.InputStream;
@@ -35,22 +36,22 @@ public class PostV1CompaniesCompanyIdReportsEmployeesAnnualFicaWageResponse impl
     /**
      * accepted
      */
-    private Optional<? extends PostV1CompaniesCompanyIdReportsEmployeesAnnualFicaWageResponseBody> object;
+    private Optional<? extends EmployeesAnnualFicaWageReportAcceptance> employeesAnnualFicaWageReportAcceptance;
 
     @JsonCreator
     public PostV1CompaniesCompanyIdReportsEmployeesAnnualFicaWageResponse(
             String contentType,
             int statusCode,
             HttpResponse<InputStream> rawResponse,
-            Optional<? extends PostV1CompaniesCompanyIdReportsEmployeesAnnualFicaWageResponseBody> object) {
+            Optional<? extends EmployeesAnnualFicaWageReportAcceptance> employeesAnnualFicaWageReportAcceptance) {
         Utils.checkNotNull(contentType, "contentType");
         Utils.checkNotNull(statusCode, "statusCode");
         Utils.checkNotNull(rawResponse, "rawResponse");
-        Utils.checkNotNull(object, "object");
+        Utils.checkNotNull(employeesAnnualFicaWageReportAcceptance, "employeesAnnualFicaWageReportAcceptance");
         this.contentType = contentType;
         this.statusCode = statusCode;
         this.rawResponse = rawResponse;
-        this.object = object;
+        this.employeesAnnualFicaWageReportAcceptance = employeesAnnualFicaWageReportAcceptance;
     }
     
     public PostV1CompaniesCompanyIdReportsEmployeesAnnualFicaWageResponse(
@@ -90,8 +91,8 @@ public class PostV1CompaniesCompanyIdReportsEmployeesAnnualFicaWageResponse impl
      */
     @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<PostV1CompaniesCompanyIdReportsEmployeesAnnualFicaWageResponseBody> object() {
-        return (Optional<PostV1CompaniesCompanyIdReportsEmployeesAnnualFicaWageResponseBody>) object;
+    public Optional<EmployeesAnnualFicaWageReportAcceptance> employeesAnnualFicaWageReportAcceptance() {
+        return (Optional<EmployeesAnnualFicaWageReportAcceptance>) employeesAnnualFicaWageReportAcceptance;
     }
 
     public static Builder builder() {
@@ -129,9 +130,9 @@ public class PostV1CompaniesCompanyIdReportsEmployeesAnnualFicaWageResponse impl
     /**
      * accepted
      */
-    public PostV1CompaniesCompanyIdReportsEmployeesAnnualFicaWageResponse withObject(PostV1CompaniesCompanyIdReportsEmployeesAnnualFicaWageResponseBody object) {
-        Utils.checkNotNull(object, "object");
-        this.object = Optional.ofNullable(object);
+    public PostV1CompaniesCompanyIdReportsEmployeesAnnualFicaWageResponse withEmployeesAnnualFicaWageReportAcceptance(EmployeesAnnualFicaWageReportAcceptance employeesAnnualFicaWageReportAcceptance) {
+        Utils.checkNotNull(employeesAnnualFicaWageReportAcceptance, "employeesAnnualFicaWageReportAcceptance");
+        this.employeesAnnualFicaWageReportAcceptance = Optional.ofNullable(employeesAnnualFicaWageReportAcceptance);
         return this;
     }
 
@@ -139,9 +140,9 @@ public class PostV1CompaniesCompanyIdReportsEmployeesAnnualFicaWageResponse impl
     /**
      * accepted
      */
-    public PostV1CompaniesCompanyIdReportsEmployeesAnnualFicaWageResponse withObject(Optional<? extends PostV1CompaniesCompanyIdReportsEmployeesAnnualFicaWageResponseBody> object) {
-        Utils.checkNotNull(object, "object");
-        this.object = object;
+    public PostV1CompaniesCompanyIdReportsEmployeesAnnualFicaWageResponse withEmployeesAnnualFicaWageReportAcceptance(Optional<? extends EmployeesAnnualFicaWageReportAcceptance> employeesAnnualFicaWageReportAcceptance) {
+        Utils.checkNotNull(employeesAnnualFicaWageReportAcceptance, "employeesAnnualFicaWageReportAcceptance");
+        this.employeesAnnualFicaWageReportAcceptance = employeesAnnualFicaWageReportAcceptance;
         return this;
     }
 
@@ -158,14 +159,14 @@ public class PostV1CompaniesCompanyIdReportsEmployeesAnnualFicaWageResponse impl
             Utils.enhancedDeepEquals(this.contentType, other.contentType) &&
             Utils.enhancedDeepEquals(this.statusCode, other.statusCode) &&
             Utils.enhancedDeepEquals(this.rawResponse, other.rawResponse) &&
-            Utils.enhancedDeepEquals(this.object, other.object);
+            Utils.enhancedDeepEquals(this.employeesAnnualFicaWageReportAcceptance, other.employeesAnnualFicaWageReportAcceptance);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
             contentType, statusCode, rawResponse,
-            object);
+            employeesAnnualFicaWageReportAcceptance);
     }
     
     @Override
@@ -174,7 +175,7 @@ public class PostV1CompaniesCompanyIdReportsEmployeesAnnualFicaWageResponse impl
                 "contentType", contentType,
                 "statusCode", statusCode,
                 "rawResponse", rawResponse,
-                "object", object);
+                "employeesAnnualFicaWageReportAcceptance", employeesAnnualFicaWageReportAcceptance);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -186,7 +187,7 @@ public class PostV1CompaniesCompanyIdReportsEmployeesAnnualFicaWageResponse impl
 
         private HttpResponse<InputStream> rawResponse;
 
-        private Optional<? extends PostV1CompaniesCompanyIdReportsEmployeesAnnualFicaWageResponseBody> object = Optional.empty();
+        private Optional<? extends EmployeesAnnualFicaWageReportAcceptance> employeesAnnualFicaWageReportAcceptance = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -226,18 +227,18 @@ public class PostV1CompaniesCompanyIdReportsEmployeesAnnualFicaWageResponse impl
         /**
          * accepted
          */
-        public Builder object(PostV1CompaniesCompanyIdReportsEmployeesAnnualFicaWageResponseBody object) {
-            Utils.checkNotNull(object, "object");
-            this.object = Optional.ofNullable(object);
+        public Builder employeesAnnualFicaWageReportAcceptance(EmployeesAnnualFicaWageReportAcceptance employeesAnnualFicaWageReportAcceptance) {
+            Utils.checkNotNull(employeesAnnualFicaWageReportAcceptance, "employeesAnnualFicaWageReportAcceptance");
+            this.employeesAnnualFicaWageReportAcceptance = Optional.ofNullable(employeesAnnualFicaWageReportAcceptance);
             return this;
         }
 
         /**
          * accepted
          */
-        public Builder object(Optional<? extends PostV1CompaniesCompanyIdReportsEmployeesAnnualFicaWageResponseBody> object) {
-            Utils.checkNotNull(object, "object");
-            this.object = object;
+        public Builder employeesAnnualFicaWageReportAcceptance(Optional<? extends EmployeesAnnualFicaWageReportAcceptance> employeesAnnualFicaWageReportAcceptance) {
+            Utils.checkNotNull(employeesAnnualFicaWageReportAcceptance, "employeesAnnualFicaWageReportAcceptance");
+            this.employeesAnnualFicaWageReportAcceptance = employeesAnnualFicaWageReportAcceptance;
             return this;
         }
 
@@ -245,7 +246,7 @@ public class PostV1CompaniesCompanyIdReportsEmployeesAnnualFicaWageResponse impl
 
             return new PostV1CompaniesCompanyIdReportsEmployeesAnnualFicaWageResponse(
                 contentType, statusCode, rawResponse,
-                object);
+                employeesAnnualFicaWageReportAcceptance);
         }
 
     }

@@ -1,0 +1,20 @@
+# FederalHolidays
+
+List of the eleven supported federal holidays and their details
+
+
+## Fields
+
+| Field                                                                    | Type                                                                     | Required                                                                 | Description                                                              |
+| ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
+| `newYearsDay`                                                            | [Optional\<NewYearsDay>](../../models/components/NewYearsDay.md)         | :heavy_minus_sign:                                                       | N/A                                                                      |
+| `mlkDay`                                                                 | [Optional\<MlkDay>](../../models/components/MlkDay.md)                   | :heavy_minus_sign:                                                       | N/A                                                                      |
+| `presidentsDay`                                                          | [Optional\<PresidentsDay>](../../models/components/PresidentsDay.md)     | :heavy_minus_sign:                                                       | N/A                                                                      |
+| `memorialDay`                                                            | [Optional\<MemorialDay>](../../models/components/MemorialDay.md)         | :heavy_minus_sign:                                                       | N/A                                                                      |
+| `juneteenth`                                                             | [Optional\<Juneteenth>](../../models/components/Juneteenth.md)           | :heavy_minus_sign:                                                       | N/A                                                                      |
+| `independenceDay`                                                        | [Optional\<IndependenceDay>](../../models/components/IndependenceDay.md) | :heavy_minus_sign:                                                       | N/A                                                                      |
+| `laborDay`                                                               | [Optional\<LaborDay>](../../models/components/LaborDay.md)               | :heavy_minus_sign:                                                       | N/A                                                                      |
+| `columbusDay`                                                            | [Optional\<ColumbusDay>](../../models/components/ColumbusDay.md)         | :heavy_minus_sign:                                                       | N/A                                                                      |
+| `veteransDay`                                                            | [Optional\<VeteransDay>](../../models/components/VeteransDay.md)         | :heavy_minus_sign:                                                       | N/A                                                                      |
+| `thanksgiving`                                                           | [Optional\<Thanksgiving>](../../models/components/Thanksgiving.md)       | :heavy_minus_sign:                                                       | N/A                                                                      |
+| `christmasDay`                                                           | [Optional\<ChristmasDay>](../../models/components/ChristmasDay.md)       | :heavy_minus_sign:                                                       | N/A                                                                      |

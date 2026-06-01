@@ -30,19 +30,31 @@ public class GetInformationRequestsRequest {
     @SpeakeasyMetadata("pathParam:style=simple,explode=false,name=company_uuid")
     private String companyUuid;
 
+    /**
+     * Sort by one or more fields. Options: payroll_blocker, status, type. Append `:asc` or `:desc` to
+     * specify direction (e.g., `payroll_blocker:asc`).
+     * 
+     * <p>Defaults to ascending.
+     */
+    @SpeakeasyMetadata("queryParam:style=form,explode=true,name=sort_by")
+    private Optional<String> sortBy;
+
     @JsonCreator
     public GetInformationRequestsRequest(
             Optional<? extends GetInformationRequestsHeaderXGustoAPIVersion> xGustoAPIVersion,
-            String companyUuid) {
+            String companyUuid,
+            Optional<String> sortBy) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
         Utils.checkNotNull(companyUuid, "companyUuid");
+        Utils.checkNotNull(sortBy, "sortBy");
         this.xGustoAPIVersion = xGustoAPIVersion;
         this.companyUuid = companyUuid;
+        this.sortBy = sortBy;
     }
     
     public GetInformationRequestsRequest(
             String companyUuid) {
-        this(Optional.empty(), companyUuid);
+        this(Optional.empty(), companyUuid, Optional.empty());
     }
 
     /**
@@ -62,6 +74,17 @@ public class GetInformationRequestsRequest {
     @JsonIgnore
     public String companyUuid() {
         return companyUuid;
+    }
+
+    /**
+     * Sort by one or more fields. Options: payroll_blocker, status, type. Append `:asc` or `:desc` to
+     * specify direction (e.g., `payroll_blocker:asc`).
+     * 
+     * <p>Defaults to ascending.
+     */
+    @JsonIgnore
+    public Optional<String> sortBy() {
+        return sortBy;
     }
 
     public static Builder builder() {
@@ -101,6 +124,31 @@ public class GetInformationRequestsRequest {
         return this;
     }
 
+    /**
+     * Sort by one or more fields. Options: payroll_blocker, status, type. Append `:asc` or `:desc` to
+     * specify direction (e.g., `payroll_blocker:asc`).
+     * 
+     * <p>Defaults to ascending.
+     */
+    public GetInformationRequestsRequest withSortBy(String sortBy) {
+        Utils.checkNotNull(sortBy, "sortBy");
+        this.sortBy = Optional.ofNullable(sortBy);
+        return this;
+    }
+
+
+    /**
+     * Sort by one or more fields. Options: payroll_blocker, status, type. Append `:asc` or `:desc` to
+     * specify direction (e.g., `payroll_blocker:asc`).
+     * 
+     * <p>Defaults to ascending.
+     */
+    public GetInformationRequestsRequest withSortBy(Optional<String> sortBy) {
+        Utils.checkNotNull(sortBy, "sortBy");
+        this.sortBy = sortBy;
+        return this;
+    }
+
     @Override
     public boolean equals(java.lang.Object o) {
         if (this == o) {
@@ -112,20 +160,22 @@ public class GetInformationRequestsRequest {
         GetInformationRequestsRequest other = (GetInformationRequestsRequest) o;
         return 
             Utils.enhancedDeepEquals(this.xGustoAPIVersion, other.xGustoAPIVersion) &&
-            Utils.enhancedDeepEquals(this.companyUuid, other.companyUuid);
+            Utils.enhancedDeepEquals(this.companyUuid, other.companyUuid) &&
+            Utils.enhancedDeepEquals(this.sortBy, other.sortBy);
     }
     
     @Override
     public int hashCode() {
         return Utils.enhancedHash(
-            xGustoAPIVersion, companyUuid);
+            xGustoAPIVersion, companyUuid, sortBy);
     }
     
     @Override
     public String toString() {
         return Utils.toString(GetInformationRequestsRequest.class,
                 "xGustoAPIVersion", xGustoAPIVersion,
-                "companyUuid", companyUuid);
+                "companyUuid", companyUuid,
+                "sortBy", sortBy);
     }
 
     @SuppressWarnings("UnusedReturnValue")
@@ -134,6 +184,8 @@ public class GetInformationRequestsRequest {
         private Optional<? extends GetInformationRequestsHeaderXGustoAPIVersion> xGustoAPIVersion;
 
         private String companyUuid;
+
+        private Optional<String> sortBy = Optional.empty();
 
         private Builder() {
           // force use of static builder() method
@@ -172,13 +224,38 @@ public class GetInformationRequestsRequest {
             return this;
         }
 
+
+        /**
+         * Sort by one or more fields. Options: payroll_blocker, status, type. Append `:asc` or `:desc` to
+         * specify direction (e.g., `payroll_blocker:asc`).
+         * 
+         * <p>Defaults to ascending.
+         */
+        public Builder sortBy(String sortBy) {
+            Utils.checkNotNull(sortBy, "sortBy");
+            this.sortBy = Optional.ofNullable(sortBy);
+            return this;
+        }
+
+        /**
+         * Sort by one or more fields. Options: payroll_blocker, status, type. Append `:asc` or `:desc` to
+         * specify direction (e.g., `payroll_blocker:asc`).
+         * 
+         * <p>Defaults to ascending.
+         */
+        public Builder sortBy(Optional<String> sortBy) {
+            Utils.checkNotNull(sortBy, "sortBy");
+            this.sortBy = sortBy;
+            return this;
+        }
+
         public GetInformationRequestsRequest build() {
             if (xGustoAPIVersion == null) {
                 xGustoAPIVersion = _SINGLETON_VALUE_XGustoAPIVersion.value();
             }
 
             return new GetInformationRequestsRequest(
-                xGustoAPIVersion, companyUuid);
+                xGustoAPIVersion, companyUuid, sortBy);
         }
 
 

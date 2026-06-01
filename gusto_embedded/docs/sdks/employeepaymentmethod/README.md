@@ -402,13 +402,15 @@ scope: `employee_payment_methods:write`
 package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
 import com.gusto.embedded_api.models.operations.DeleteV1EmployeesEmployeeIdBankAccountsBankAccountIdHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.DeleteV1EmployeesEmployeeIdBankAccountsBankAccountIdResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
@@ -439,9 +441,11 @@ public class Application {
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| models/errors/APIException | 4XX, 5XX                   | \*/\*                      |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/NotFoundErrorObject      | 404                                    | application/json                       |
+| models/errors/UnprocessableEntityError | 422                                    | application/json                       |
+| models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
 
 ## get
 

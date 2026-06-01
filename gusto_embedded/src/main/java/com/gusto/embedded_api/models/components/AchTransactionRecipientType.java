@@ -8,11 +8,6 @@ import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
 
-/**
- * AchTransactionRecipientType
- * 
- * <p>The type of recipient associated with the ACH transaction
- */
 public enum AchTransactionRecipientType {
     EMPLOYEE("Employee"),
     CONTRACTOR("Contractor");

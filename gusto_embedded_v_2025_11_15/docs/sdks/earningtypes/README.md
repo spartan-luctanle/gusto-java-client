@@ -208,13 +208,14 @@ scope: `payrolls:write`
 package hello.world;
 
 import com.gusto.embedded_api_v_2025_11_15.GustoEmbedded;
+import com.gusto.embedded_api_v_2025_11_15.models.errors.NotFoundErrorObject;
 import com.gusto.embedded_api_v_2025_11_15.models.operations.DeleteV1CompaniesCompanyIdEarningTypesEarningTypeUuidHeaderXGustoAPIVersion;
 import com.gusto.embedded_api_v_2025_11_15.models.operations.DeleteV1CompaniesCompanyIdEarningTypesEarningTypeUuidResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
@@ -245,6 +246,7 @@ public class Application {
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| models/errors/APIException | 4XX, 5XX                   | \*/\*                      |
+| Error Type                        | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| models/errors/NotFoundErrorObject | 404                               | application/json                  |
+| models/errors/APIException        | 4XX, 5XX                          | \*/\*                             |

@@ -8,12 +8,6 @@ import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
 
-/**
- * IntegrationType
- * 
- * <p>The kind of integration set up for the company. Required when `aggregation` is 'integration'. Must
- * be null if `aggregation` is not 'integration'.
- */
 public enum IntegrationType {
     XERO("xero"),
     QBO("qbo");

@@ -10,6 +10,7 @@ import static com.gusto.embedded_api.operations.Operations.AsyncRequestOperation
 import com.gusto.embedded_api.SDKConfiguration;
 import com.gusto.embedded_api.SecuritySource;
 import com.gusto.embedded_api.models.errors.APIException;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
 import com.gusto.embedded_api.models.operations.GetV1ContractorPaymentsContractorPaymentIdPdfRequest;
 import com.gusto.embedded_api.models.operations.GetV1ContractorPaymentsContractorPaymentIdPdfResponse;
 import com.gusto.embedded_api.utils.Blob;
@@ -85,7 +86,7 @@ public class GetV1ContractorPaymentsContractorPaymentIdPdf {
                     "/v1/contractor_payments/{contractor_payment_id}/pdf",
                     request, null);
             HTTPRequest req = new HTTPRequest(url, "GET");
-            req.addHeader("Accept", "*/*")
+            req.addHeader("Accept", "application/json")
                     .addHeader("user-agent", SDKConfiguration.USER_AGENT);
             _headers.forEach((k, list) -> list.forEach(v -> req.addHeader(k, v)));
             req.addHeaders(Utils.getHeadersFromMetadata(request, null));
@@ -155,7 +156,14 @@ public class GetV1ContractorPaymentsContractorPaymentIdPdf {
                 // no content
                 return res;
             }
-            if (Utils.statusCodeMatches(response.statusCode(), "404", "4XX")) {
+            if (Utils.statusCodeMatches(response.statusCode(), "404")) {
+                if (Utils.contentTypeMatches(contentType, "application/json")) {
+                    throw NotFoundErrorObject.from(response);
+                } else {
+                    throw APIException.from("Unexpected content-type received: " + contentType, response);
+                }
+            }
+            if (Utils.statusCodeMatches(response.statusCode(), "4XX")) {
                 // no content
                 throw APIException.from("API error occurred", response);
             }
@@ -222,7 +230,15 @@ public class GetV1ContractorPaymentsContractorPaymentIdPdf {
                 // no content
                 return CompletableFuture.completedFuture(res);
             }
-            if (Utils.statusCodeMatches(response.statusCode(), "404", "4XX")) {
+            if (Utils.statusCodeMatches(response.statusCode(), "404")) {
+                if (Utils.contentTypeMatches(contentType, "application/json")) {
+                    return NotFoundErrorObject.fromAsync(response)
+                            .thenCompose(CompletableFuture::failedFuture);
+                } else {
+                    return Utils.createAsyncApiError(response, "Unexpected content-type received: " + contentType);
+                }
+            }
+            if (Utils.statusCodeMatches(response.statusCode(), "4XX")) {
                 // no content
                 return Utils.createAsyncApiError(response, "API error occurred");
             }

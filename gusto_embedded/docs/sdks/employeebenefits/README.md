@@ -397,6 +397,7 @@ package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
 import com.gusto.embedded_api.models.components.EmployeeBenefitUpdateRequest;
+import com.gusto.embedded_api.models.components.EmployeeBenefitUpdateRequestDeductionReducesTaxableIncome;
 import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
 import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
 import com.gusto.embedded_api.models.operations.PutV1EmployeeBenefitsEmployeeBenefitIdHeaderXGustoAPIVersion;
@@ -416,6 +417,7 @@ public class Application {
                 .employeeBenefitId("<id>")
                 .employeeBenefitUpdateRequest(EmployeeBenefitUpdateRequest.builder()
                     .version("<value>")
+                    .deductionReducesTaxableIncome(EmployeeBenefitUpdateRequestDeductionReducesTaxableIncome.UNSET)
                     .build())
                 .call();
 
@@ -433,6 +435,7 @@ package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
 import com.gusto.embedded_api.models.components.EmployeeBenefitUpdateRequest;
+import com.gusto.embedded_api.models.components.EmployeeBenefitUpdateRequestDeductionReducesTaxableIncome;
 import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
 import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
 import com.gusto.embedded_api.models.operations.PutV1EmployeeBenefitsEmployeeBenefitIdHeaderXGustoAPIVersion;
@@ -453,6 +456,7 @@ public class Application {
                 .employeeBenefitUpdateRequest(EmployeeBenefitUpdateRequest.builder()
                     .version("09j3d29jqdpj92109j9j2d90dq")
                     .employeeDeduction("250.00")
+                    .deductionReducesTaxableIncome(EmployeeBenefitUpdateRequestDeductionReducesTaxableIncome.UNSET)
                     .build())
                 .call();
 
@@ -470,6 +474,7 @@ package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
 import com.gusto.embedded_api.models.components.EmployeeBenefitUpdateRequest;
+import com.gusto.embedded_api.models.components.EmployeeBenefitUpdateRequestDeductionReducesTaxableIncome;
 import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
 import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
 import com.gusto.embedded_api.models.operations.PutV1EmployeeBenefitsEmployeeBenefitIdHeaderXGustoAPIVersion;
@@ -489,6 +494,7 @@ public class Application {
                 .employeeBenefitId("<id>")
                 .employeeBenefitUpdateRequest(EmployeeBenefitUpdateRequest.builder()
                     .version("<value>")
+                    .deductionReducesTaxableIncome(EmployeeBenefitUpdateRequestDeductionReducesTaxableIncome.UNSET)
                     .build())
                 .call();
 
@@ -506,6 +512,7 @@ package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
 import com.gusto.embedded_api.models.components.EmployeeBenefitUpdateRequest;
+import com.gusto.embedded_api.models.components.EmployeeBenefitUpdateRequestDeductionReducesTaxableIncome;
 import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
 import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
 import com.gusto.embedded_api.models.operations.PutV1EmployeeBenefitsEmployeeBenefitIdHeaderXGustoAPIVersion;
@@ -525,6 +532,7 @@ public class Application {
                 .employeeBenefitId("<id>")
                 .employeeBenefitUpdateRequest(EmployeeBenefitUpdateRequest.builder()
                     .version("<value>")
+                    .deductionReducesTaxableIncome(EmployeeBenefitUpdateRequestDeductionReducesTaxableIncome.UNSET)
                     .build())
                 .call();
 
@@ -542,6 +550,7 @@ package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
 import com.gusto.embedded_api.models.components.EmployeeBenefitUpdateRequest;
+import com.gusto.embedded_api.models.components.EmployeeBenefitUpdateRequestDeductionReducesTaxableIncome;
 import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
 import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
 import com.gusto.embedded_api.models.operations.PutV1EmployeeBenefitsEmployeeBenefitIdHeaderXGustoAPIVersion;
@@ -561,6 +570,7 @@ public class Application {
                 .employeeBenefitId("<id>")
                 .employeeBenefitUpdateRequest(EmployeeBenefitUpdateRequest.builder()
                     .version("<value>")
+                    .deductionReducesTaxableIncome(EmployeeBenefitUpdateRequestDeductionReducesTaxableIncome.UNSET)
                     .build())
                 .call();
 
@@ -606,13 +616,15 @@ scope: `employee_benefits:write`
 package hello.world;
 
 import com.gusto.embedded_api.GustoEmbedded;
+import com.gusto.embedded_api.models.errors.NotFoundErrorObject;
+import com.gusto.embedded_api.models.errors.UnprocessableEntityError;
 import com.gusto.embedded_api.models.operations.DeleteV1EmployeeBenefitsEmployeeBenefitIdHeaderXGustoAPIVersion;
 import com.gusto.embedded_api.models.operations.DeleteV1EmployeeBenefitsEmployeeBenefitIdResponse;
 import java.lang.Exception;
 
 public class Application {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws NotFoundErrorObject, UnprocessableEntityError, Exception {
 
         GustoEmbedded sdk = GustoEmbedded.builder()
                 .companyAccessAuth(System.getenv().getOrDefault("COMPANY_ACCESS_AUTH", ""))
@@ -641,9 +653,11 @@ public class Application {
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| models/errors/APIException | 4XX, 5XX                   | \*/\*                      |
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| models/errors/NotFoundErrorObject      | 404                                    | application/json                       |
+| models/errors/UnprocessableEntityError | 422                                    | application/json                       |
+| models/errors/APIException             | 4XX, 5XX                               | \*/\*                                  |
 
 ## getYtdBenefitAmountsFromDifferentCompany
 

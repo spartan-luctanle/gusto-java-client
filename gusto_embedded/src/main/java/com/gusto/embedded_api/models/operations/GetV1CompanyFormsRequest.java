@@ -32,11 +32,13 @@ public class GetV1CompanyFormsRequest {
     private String companyId;
 
     /**
-     * Sort company forms by a given field. Append `:asc` or `:desc` to specify direction (e.g.,
-     * `name:asc`). Defaults to ascending.
+     * Sort by one or more fields. Options: created_at, name, year, quarter, draft, document_content_type.
+     * Append `:asc` or `:desc` to specify direction (e.g., `created_at:asc`).
+     * 
+     * <p>Defaults to ascending.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=sort_by")
-    private Optional<? extends GetV1CompanyFormsQueryParamSortBy> sortBy;
+    private Optional<String> sortBy;
 
     /**
      * The page that is requested. When unspecified, will load all objects unless endpoint forces
@@ -55,7 +57,7 @@ public class GetV1CompanyFormsRequest {
     public GetV1CompanyFormsRequest(
             Optional<? extends GetV1CompanyFormsHeaderXGustoAPIVersion> xGustoAPIVersion,
             String companyId,
-            Optional<? extends GetV1CompanyFormsQueryParamSortBy> sortBy,
+            Optional<String> sortBy,
             Optional<Long> page,
             Optional<Long> per) {
         Utils.checkNotNull(xGustoAPIVersion, "xGustoAPIVersion");
@@ -96,13 +98,14 @@ public class GetV1CompanyFormsRequest {
     }
 
     /**
-     * Sort company forms by a given field. Append `:asc` or `:desc` to specify direction (e.g.,
-     * `name:asc`). Defaults to ascending.
+     * Sort by one or more fields. Options: created_at, name, year, quarter, draft, document_content_type.
+     * Append `:asc` or `:desc` to specify direction (e.g., `created_at:asc`).
+     * 
+     * <p>Defaults to ascending.
      */
-    @SuppressWarnings("unchecked")
     @JsonIgnore
-    public Optional<GetV1CompanyFormsQueryParamSortBy> sortBy() {
-        return (Optional<GetV1CompanyFormsQueryParamSortBy>) sortBy;
+    public Optional<String> sortBy() {
+        return sortBy;
     }
 
     /**
@@ -160,10 +163,12 @@ public class GetV1CompanyFormsRequest {
     }
 
     /**
-     * Sort company forms by a given field. Append `:asc` or `:desc` to specify direction (e.g.,
-     * `name:asc`). Defaults to ascending.
+     * Sort by one or more fields. Options: created_at, name, year, quarter, draft, document_content_type.
+     * Append `:asc` or `:desc` to specify direction (e.g., `created_at:asc`).
+     * 
+     * <p>Defaults to ascending.
      */
-    public GetV1CompanyFormsRequest withSortBy(GetV1CompanyFormsQueryParamSortBy sortBy) {
+    public GetV1CompanyFormsRequest withSortBy(String sortBy) {
         Utils.checkNotNull(sortBy, "sortBy");
         this.sortBy = Optional.ofNullable(sortBy);
         return this;
@@ -171,10 +176,12 @@ public class GetV1CompanyFormsRequest {
 
 
     /**
-     * Sort company forms by a given field. Append `:asc` or `:desc` to specify direction (e.g.,
-     * `name:asc`). Defaults to ascending.
+     * Sort by one or more fields. Options: created_at, name, year, quarter, draft, document_content_type.
+     * Append `:asc` or `:desc` to specify direction (e.g., `created_at:asc`).
+     * 
+     * <p>Defaults to ascending.
      */
-    public GetV1CompanyFormsRequest withSortBy(Optional<? extends GetV1CompanyFormsQueryParamSortBy> sortBy) {
+    public GetV1CompanyFormsRequest withSortBy(Optional<String> sortBy) {
         Utils.checkNotNull(sortBy, "sortBy");
         this.sortBy = sortBy;
         return this;
@@ -261,7 +268,7 @@ public class GetV1CompanyFormsRequest {
 
         private String companyId;
 
-        private Optional<? extends GetV1CompanyFormsQueryParamSortBy> sortBy = Optional.empty();
+        private Optional<String> sortBy = Optional.empty();
 
         private Optional<Long> page = Optional.empty();
 
@@ -306,20 +313,24 @@ public class GetV1CompanyFormsRequest {
 
 
         /**
-         * Sort company forms by a given field. Append `:asc` or `:desc` to specify direction (e.g.,
-         * `name:asc`). Defaults to ascending.
+         * Sort by one or more fields. Options: created_at, name, year, quarter, draft, document_content_type.
+         * Append `:asc` or `:desc` to specify direction (e.g., `created_at:asc`).
+         * 
+         * <p>Defaults to ascending.
          */
-        public Builder sortBy(GetV1CompanyFormsQueryParamSortBy sortBy) {
+        public Builder sortBy(String sortBy) {
             Utils.checkNotNull(sortBy, "sortBy");
             this.sortBy = Optional.ofNullable(sortBy);
             return this;
         }
 
         /**
-         * Sort company forms by a given field. Append `:asc` or `:desc` to specify direction (e.g.,
-         * `name:asc`). Defaults to ascending.
+         * Sort by one or more fields. Options: created_at, name, year, quarter, draft, document_content_type.
+         * Append `:asc` or `:desc` to specify direction (e.g., `created_at:asc`).
+         * 
+         * <p>Defaults to ascending.
          */
-        public Builder sortBy(Optional<? extends GetV1CompanyFormsQueryParamSortBy> sortBy) {
+        public Builder sortBy(Optional<String> sortBy) {
             Utils.checkNotNull(sortBy, "sortBy");
             this.sortBy = sortBy;
             return this;

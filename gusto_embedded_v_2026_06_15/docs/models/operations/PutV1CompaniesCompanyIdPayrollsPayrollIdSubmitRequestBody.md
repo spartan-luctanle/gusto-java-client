@@ -1,0 +1,8 @@
+# PutV1CompaniesCompanyIdPayrollsPayrollIdSubmitRequestBody
+
+
+## Fields
+
+| Field                                                                                                        | Type                                                                                                         | Required                                                                                                     | Description                                                                                                  |
+| ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
+| `submissionBlockers`                                                                                         | List\<[PayrollSubmissionBlockerRequestType](../../models/components/PayrollSubmissionBlockerRequestType.md)> | :heavy_minus_sign:                                                                                           | An array of submission_blockers, each with a selected unblock option.                                        |

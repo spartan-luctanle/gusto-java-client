@@ -8,11 +8,6 @@ import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
 
-/**
- * GarnishmentRequestGarnishmentType
- * 
- * <p>The specific type of garnishment for court ordered garnishments.
- */
 public enum GarnishmentRequestGarnishmentType {
     CHILD_SUPPORT("child_support"),
     FEDERAL_TAX_LIEN("federal_tax_lien"),

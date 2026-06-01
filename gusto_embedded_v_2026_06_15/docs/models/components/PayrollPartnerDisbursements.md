@@ -1,0 +1,11 @@
+# PayrollPartnerDisbursements
+
+Partner disbursements for a payroll
+
+
+## Fields
+
+| Field                                                                                                                  | Type                                                                                                                   | Required                                                                                                               | Description                                                                                                            |
+| ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `payrollUuid`                                                                                                          | *Optional\<String>*                                                                                                    | :heavy_minus_sign:                                                                                                     | The UUID of the payroll                                                                                                |
+| `disbursements`                                                                                                        | List\<[PayrollPartnerDisbursementsDisbursements](../../models/components/PayrollPartnerDisbursementsDisbursements.md)> | :heavy_minus_sign:                                                                                                     | List of disbursements for the payroll                                                                                  |

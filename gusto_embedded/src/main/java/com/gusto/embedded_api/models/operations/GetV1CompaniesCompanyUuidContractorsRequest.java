@@ -40,7 +40,10 @@ public class GetV1CompaniesCompanyUuidContractorsRequest {
     private Optional<String> searchTerm;
 
     /**
-     * Sort contractors. Options: type, onboarding_status, name, created_at
+     * Sort by one or more fields. Options: created_at, type, onboarding_status, name. Append `:asc` or
+     * `:desc` to specify direction (e.g., `created_at:asc`).
+     * 
+     * <p>Defaults to ascending.
      */
     @SpeakeasyMetadata("queryParam:style=form,explode=true,name=sort_by")
     private Optional<String> sortBy;
@@ -163,7 +166,10 @@ public class GetV1CompaniesCompanyUuidContractorsRequest {
     }
 
     /**
-     * Sort contractors. Options: type, onboarding_status, name, created_at
+     * Sort by one or more fields. Options: created_at, type, onboarding_status, name. Append `:asc` or
+     * `:desc` to specify direction (e.g., `created_at:asc`).
+     * 
+     * <p>Defaults to ascending.
      */
     @JsonIgnore
     public Optional<String> sortBy() {
@@ -287,7 +293,10 @@ public class GetV1CompaniesCompanyUuidContractorsRequest {
     }
 
     /**
-     * Sort contractors. Options: type, onboarding_status, name, created_at
+     * Sort by one or more fields. Options: created_at, type, onboarding_status, name. Append `:asc` or
+     * `:desc` to specify direction (e.g., `created_at:asc`).
+     * 
+     * <p>Defaults to ascending.
      */
     public GetV1CompaniesCompanyUuidContractorsRequest withSortBy(String sortBy) {
         Utils.checkNotNull(sortBy, "sortBy");
@@ -297,7 +306,10 @@ public class GetV1CompaniesCompanyUuidContractorsRequest {
 
 
     /**
-     * Sort contractors. Options: type, onboarding_status, name, created_at
+     * Sort by one or more fields. Options: created_at, type, onboarding_status, name. Append `:asc` or
+     * `:desc` to specify direction (e.g., `created_at:asc`).
+     * 
+     * <p>Defaults to ascending.
      */
     public GetV1CompaniesCompanyUuidContractorsRequest withSortBy(Optional<String> sortBy) {
         Utils.checkNotNull(sortBy, "sortBy");
@@ -575,7 +587,10 @@ public class GetV1CompaniesCompanyUuidContractorsRequest {
 
 
         /**
-         * Sort contractors. Options: type, onboarding_status, name, created_at
+         * Sort by one or more fields. Options: created_at, type, onboarding_status, name. Append `:asc` or
+         * `:desc` to specify direction (e.g., `created_at:asc`).
+         * 
+         * <p>Defaults to ascending.
          */
         public Builder sortBy(String sortBy) {
             Utils.checkNotNull(sortBy, "sortBy");
@@ -584,7 +599,10 @@ public class GetV1CompaniesCompanyUuidContractorsRequest {
         }
 
         /**
-         * Sort contractors. Options: type, onboarding_status, name, created_at
+         * Sort by one or more fields. Options: created_at, type, onboarding_status, name. Append `:asc` or
+         * `:desc` to specify direction (e.g., `created_at:asc`).
+         * 
+         * <p>Defaults to ascending.
          */
         public Builder sortBy(Optional<String> sortBy) {
             Utils.checkNotNull(sortBy, "sortBy");

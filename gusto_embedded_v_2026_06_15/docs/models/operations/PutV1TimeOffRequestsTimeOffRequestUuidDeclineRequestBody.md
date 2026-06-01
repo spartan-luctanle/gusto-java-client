@@ -1,0 +1,9 @@
+# PutV1TimeOffRequestsTimeOffRequestUuidDeclineRequestBody
+
+
+## Fields
+
+| Field                                                                                         | Type                                                                                          | Required                                                                                      | Description                                                                                   |
+| --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `employerNote`                                                                                | *String*                                                                                      | :heavy_check_mark:                                                                            | Note explaining why the request was declined                                                  |
+| `approverUuid`                                                                                | *Optional\<String>*                                                                           | :heavy_minus_sign:                                                                            | The UUID of the admin declining the request. Defaults to the company's primary payroll admin. |

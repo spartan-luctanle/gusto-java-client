@@ -8,12 +8,6 @@ import java.lang.String;
 import java.util.Objects;
 import java.util.Optional;
 
-/**
- * PayrollUnprocessedEmployeeCompensationsTypePaymentMethod
- * 
- * <p>The employee's compensation payment method. Is *only* `Historical` when retrieving external payrolls
- * initially run outside of Gusto, then put into Gusto.
- */
 public enum PayrollUnprocessedEmployeeCompensationsTypePaymentMethod {
     DIRECT_DEPOSIT("Direct Deposit"),
     CHECK("Check"),

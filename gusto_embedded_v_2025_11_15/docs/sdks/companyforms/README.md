@@ -40,6 +40,7 @@ public class Application {
 
         GetV1CompanyFormsRequest req = GetV1CompanyFormsRequest.builder()
                 .companyId("<id>")
+                .sortBy("created_at:asc")
                 .build();
 
         GetV1CompanyFormsResponse res = sdk.companyForms().getAll()

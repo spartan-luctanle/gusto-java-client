@@ -254,6 +254,7 @@ public class Application {
         GetV1CompaniesCompanyIdPayrollsPayrollIdRequest req = GetV1CompaniesCompanyIdPayrollsPayrollIdRequest.builder()
                 .companyId("<id>")
                 .payrollId("<id>")
+                .sortBy("first_name:asc")
                 .build();
 
         GetV1CompaniesCompanyIdPayrollsPayrollIdResponse res = sdk.payrolls().get()
@@ -456,6 +457,7 @@ public class Application {
         PutV1CompaniesCompanyIdPayrollsPayrollIdPrepareRequest req = PutV1CompaniesCompanyIdPayrollsPayrollIdPrepareRequest.builder()
                 .companyId("<id>")
                 .payrollId("<id>")
+                .sortBy("first_name:asc")
                 .build();
 
         PutV1CompaniesCompanyIdPayrollsPayrollIdPrepareResponse res = sdk.payrolls().prepare()

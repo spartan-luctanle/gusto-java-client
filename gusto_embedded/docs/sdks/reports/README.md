@@ -551,8 +551,8 @@ public class Application {
                     .build())
                 .call();
 
-        if (res.object().isPresent()) {
-            System.out.println(res.object().get());
+        if (res.employeesAnnualFicaWageReportAcceptance().isPresent()) {
+            System.out.println(res.employeesAnnualFicaWageReportAcceptance().get());
         }
     }
 }

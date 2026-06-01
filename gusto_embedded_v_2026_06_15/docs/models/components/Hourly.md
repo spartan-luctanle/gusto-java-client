@@ -1,0 +1,10 @@
+# Hourly
+
+
+## Fields
+
+| Field                                                                      | Type                                                                       | Required                                                                   | Description                                                                | Example                                                                    |
+| -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| `uuid`                                                                     | *JsonNullable\<String>*                                                    | :heavy_minus_sign:                                                         | The UUID of the hourly compensation rate.                                  |                                                                            |
+| `name`                                                                     | *Optional\<String>*                                                        | :heavy_minus_sign:                                                         | The name of the hourly compensation rate.                                  | Overtime                                                                   |
+| `multiple`                                                                 | *Optional\<Double>*                                                        | :heavy_minus_sign:                                                         | The amount multiplied by the base rate of a job to calculate compensation. | 1.5                                                                        |
