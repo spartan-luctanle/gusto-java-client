@@ -1,5 +1,5 @@
 jdk:
-  - openjdk17 # Ép JitPack sử dụng Java 17 để build tránh lỗi phiên bản
+  - openjdk17
 
 install:
-  - cd gusto_embedded && ./gradlew publishToMavenLocal -x test
+  - cd gusto_embedded && ./gradlew publishToMavenLocal -x test -x signMavenPublication
