@@ -2,4 +2,4 @@ jdk:
   - openjdk17
 
 install:
-  - cd gusto_embedded && ./gradlew publishToMavenLocal -x test -x signMavenPublication
+  - cd gusto_embedded_v_2025_11_15 && ./gradlew publishToMavenLocal -Pskip.signing -x test
